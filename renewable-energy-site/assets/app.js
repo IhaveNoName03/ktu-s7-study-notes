@@ -70,7 +70,7 @@
       var tog=document.createElement("button"); tog.className="navtoggle"; tog.setAttribute("aria-label","Menu"); tog.textContent="Menu"; topbar.appendChild(tog);
     }
     if(!nav) return;
-    nav.innerHTML=items.map(function(it){
+    nav.innerHTML='<span class=\"navhead\">Browse</span>'+items.map(function(it){
       return '<a href="'+it[0]+'"'+(it[0]===activeHref?' class="active"':'')+'>'+it[1]+'</a>';
     }).join("");
   }
