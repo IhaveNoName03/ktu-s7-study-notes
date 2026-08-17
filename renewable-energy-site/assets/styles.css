@@ -408,3 +408,63 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
   *{scroll-behavior:auto !important}
   .card,.modcard,.techitem,.pagenav a,.chip,.backtop{transition:none !important}
 }
+
+/* ===================== DARK THEME (toggle via [data-theme="dark"]) ===================== */
+:root[data-theme="dark"]{
+  --ink:#EDEFF2; --ink-2:#B7BEC7; --muted:#8A929C; --line:#2a2f37;
+  --paper:#16191F; --bg:#0E0F12; --accent:#E0241B; --accent-ink:#ff8a82; --accent-soft:#2a1413;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.5);
+}
+:root[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+/* hardcoded-light surfaces -> dark */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .qpaper,
+:root[data-theme="dark"] table,
+:root[data-theme="dark"] .techitem,
+:root[data-theme="dark"] .diagram,
+:root[data-theme="dark"] .ex,
+:root[data-theme="dark"] .note,
+:root[data-theme="dark"] .ans,
+:root[data-theme="dark"] .ans-collapsible-inner,
+:root[data-theme="dark"] .qbox,
+:root[data-theme="dark"] .pagenav a,
+:root[data-theme="dark"] .idx{background:var(--paper);color:var(--ink-2);border-color:var(--line)}
+:root[data-theme="dark"] tbody tr:nth-child(even){background:#1b1f26}
+:root[data-theme="dark"] tbody tr:hover{background:#22272f}
+:root[data-theme="dark"] thead th{background:#1b1f26;color:var(--ink)}
+:root[data-theme="dark"] .ans-collapsible-inner .ansrow{border-bottom-color:var(--line)}
+:root[data-theme="dark"] .ans-toggle{background:var(--accent-soft);border-color:#5a2a27;color:var(--accent-ink)}
+:root[data-theme="dark"] .ansbtn{background:var(--accent-soft);border-color:#5a2a27;color:var(--accent-ink)}
+:root[data-theme="dark"] .ans-toggle[aria-expanded="true"],
+:root[data-theme="dark"] .ansbtn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+:root[data-theme="dark"] .eq,
+:root[data-theme="dark"] .def,
+:root[data-theme="dark"] .qbox{background:#1b1f26;border-color:var(--line)}
+:root[data-theme="dark"] .card.full,
+:root[data-theme="dark"] .card{border-color:var(--line)}
+:root[data-theme="dark"] .hero{background:linear-gradient(180deg,#121419,#0E0F12);border-bottom-color:var(--line)}
+:root[data-theme="dark"] .wrap,
+:root[data-theme="dark"] .sheet{background:transparent}
+:root[data-theme="dark"] a{color:var(--accent-ink)}
+:root[data-theme="dark"] .site a{color:#aeb6c0}
+:root[data-theme="dark"] .site a:hover{color:#fff}
+:root[data-theme="dark"]{ --topbar-bg:#121419; }
+:root[data-theme="dark"] .topbar{background:var(--topbar-bg);color:var(--ink);border-bottom-color:var(--accent)}
+:root[data-theme="dark"] .topbar-inner{color:var(--ink)}
+:root[data-theme="dark"] .brand{color:var(--ink)}
+:root[data-theme="dark"] .navtoggle{color:var(--ink);border-color:var(--line)}
+:root[data-theme="dark"] .topnav a{color:var(--ink-2)}
+:root[data-theme="dark"] .topnav a:hover{color:var(--ink)}
+:root[data-theme="dark"] .topnav a.active{background:var(--accent);color:#fff}
+
+:root[data-theme="dark"] .qsearch{background:#16191F;color:var(--ink);border-color:var(--line)}
+:root[data-theme="dark"] .qsearch::placeholder{color:var(--muted)}
+:root[data-theme="dark"] .qsearch-clear{background:#16191F;color:var(--ink-2);border-color:var(--line)}
+
+/* theme toggle button */
+.theme-toggle{margin-left:14px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;
+  border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:color .15s ease,border-color .15s ease}
+.theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
+.theme-toggle .ic{font-size:13px;line-height:1}
+

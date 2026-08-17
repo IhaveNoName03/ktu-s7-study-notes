@@ -129,4 +129,35 @@
       btn.setAttribute("aria-expanded", show ? "true" : "false");
     });
   });
+
+  /* ---------- Theme toggle (light/dark) ---------- */
+  (function () {
+    var root = document.documentElement;
+    var saved = null;
+    try { saved = localStorage.getItem("theme"); } catch (e) {}
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+    function makeBtn() {
+      var bar = document.querySelector(".topbar-inner") || document.querySelector(".topbar");
+      if (!bar) return;
+      var btn = document.createElement("button");
+      btn.className = "theme-toggle";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Toggle dark theme");
+      function paint() {
+        var dark = root.getAttribute("data-theme") === "dark";
+        btn.innerHTML = '<span class="ic">' + (dark ? "\u263E" : "\u2600") + '</span> ' + '<span class="lbl">' + (dark ? "Dark" : "Light") + "</span>";
+      }
+      btn.addEventListener("click", function () {
+        var dark = root.getAttribute("data-theme") === "dark";
+        var next = dark ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        paint();
+      });
+      paint();
+      bar.appendChild(btn);
+    }
+    makeBtn();
+  })();
+
 })();
