@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KTU S7 · Study Index</title>
+<style>
+  :root{
+    --paper:#FBFBF9; --ink:#16181D; --rule:#E4E4DE; --muted:#71716A; --red:#C8102E;
+    --eh:#2B2B2B; --res:#0E7C4F; --ise:#C8102E; --ml:#3A5FCD;
+    --mono:"JetBrains Mono",ui-monospace,Consolas,"SF Mono",monospace;
+    --disp:"Space Grotesk","Segoe UI",system-ui,Helvetica,Arial,sans-serif;
+    --body:"Segoe UI",system-ui,Helvetica,Arial,sans-serif;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+
+  /* Slim top bar */
+  .topbar{border-bottom:1px solid var(--rule); background:var(--paper)}
+  .topbar .in{max-width:var(--maxw); margin:0 auto; padding:13px 22px;
+    display:flex; align-items:center; justify-content:space-between}
+  .topbar .brand{font-family:var(--mono); font-size:12.5px; letter-spacing:.5px; color:var(--ink)}
+  .topbar .brand b{color:var(--red)}
+  .topbar .meta{font-family:var(--mono); font-size:11.5px; color:var(--muted); letter-spacing:.4px}
+
+  /* Hero = answer-sheet header (the thesis) */
+  .sheet{max-width:var(--maxw); margin:0 auto; padding:46px 22px 30px}
+  .sheet .exam{font-family:var(--mono); font-size:12px; letter-spacing:1px;
+    text-transform:uppercase; color:var(--muted); margin-bottom:18px}
+  .sheet h1{font-family:var(--disp); font-weight:700; font-size:clamp(28px,5vw,44px);
+    line-height:1.05; letter-spacing:-.5px; margin:0 0 10px}
+  .sheet h1 .code{color:var(--red); font-family:var(--mono); font-weight:700}
+  .sheet .lede{color:var(--muted); max-width:600px; font-size:16px; margin:0}
+  .sheet .fields{display:flex; flex-wrap:wrap; gap:22px 40px; margin-top:22px;
+    font-family:var(--mono); font-size:12px; color:var(--muted)}
+  .sheet .fields b{display:block; color:var(--ink); font-size:13px; margin-top:2px; letter-spacing:.3px}
+  .rule{height:2px; background:var(--red); max-width:var(--maxw); margin:0 auto}
+
+  /* Registry */
+  .reg{padding:30px 0 70px}
+  .reg .cap{font-family:var(--mono); font-size:11.5px; letter-spacing:1px;
+    text-transform:uppercase; color:var(--muted); margin:0 0 16px}
+  .entry{display:block; text-decoration:none; border:1px solid var(--rule);
+    border-top:2px solid var(--muted); border-radius:4px; padding:18px 20px; margin-bottom:14px;
+    background:#fff; transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease}
+  .entry:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,22,28,.08); border-color:var(--ink)}
+  .entry .row1{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+  .entry .code{font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:.5px;
+    padding:3px 9px; border-radius:3px; background:#f1f1ec; color:var(--ink)}
+  .entry .title{font-family:var(--disp); font-weight:700; font-size:19px; letter-spacing:-.2px}
+  .entry .cr{margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+  .entry .desc{color:var(--muted); font-size:14.5px; margin:9px 0 0; max-width:640px}
+  .entry .tags{margin-top:10px; font-family:var(--mono); font-size:11px; color:#9a9a92; letter-spacing:.3px}
+  .entry.eh{border-top-color:var(--eh)} .entry.eh .code{color:var(--eh)}
+  .entry.res{border-top-color:var(--res)} .entry.res .code{color:var(--res)}
+  .entry.ise{border-top-color:var(--ise)} .entry.ise .code{color:var(--ise)}
+  .entry.ml{border-top-color:var(--ml)} .entry.ml .code{color:var(--ml)}
+
+  footer{border-top:1px solid var(--rule); padding:20px 0 40px}
+  footer .in{max-width:var(--maxw); margin:0 auto; padding:0 22px;
+    font-family:var(--mono); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px}
+
+  @media (max-width:560px){
+    .sheet .fields{gap:16px 26px}
+    .entry .cr{margin-left:0; width:100%}
+    .topbar .meta{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="in">
+    <div class="brand">KTU <b>/</b> S7 STUDY INDEX</div>
+    <div class="meta">offline · last synced 2026-08-17</div>
+  </div>
+</header>
+
+<section class="sheet">
+  <div class="exam">Kerala Technological University · Semester 7 · End-Semester Preparation</div>
+  <h1>S7 Study Notes — <span class="code">4 subjects, 20 modules</span></h1>
+  <p class="lede">A self-contained revision index. Pick a subject to open its modules, worked examples, and question bank. No internet required.</p>
+  <div class="fields">
+    <div>Student<b>Sidharth Dileep · PTA23CC054</b></div>
+    <div>Branch<b>CSE · Cybersecurity</b></div>
+    <div>Status<b>20 / 20 modules · 100% offline</b></div>
+  </div>
+</section>
+<div class="rule"></div>
+
+<main class="reg wrap">
+  <p class="cap">Registry of subjects</p>
+
+  <a class="entry eh" href="ethical-hacking-site/index.html">
+    <div class="row1">
+      <span class="code">CCT401</span>
+      <span class="title">Ethical Hacking</span>
+      <span class="cr">4 cr · 5 modules</span>
+    </div>
+    <p class="desc">Footprinting, system &amp; web attacks, malware, cryptography, and session hijacking — with a full penetration-test walkthrough.</p>
+    <div class="tags">footprinting · reconnaissance · sniffing · system hacking · web attacks · cryptography</div>
+  </a>
+
+  <a class="entry res" href="renewable-energy-site/index.html">
+    <div class="row1">
+      <span class="code">EET435</span>
+      <span class="title">Renewable Energy</span>
+      <span class="cr">4 cr · 5 modules</span>
+    </div>
+    <p class="desc">Solar, wind, tidal/OTEC, biomass and hydrogen — how each source is classified, converted, and rated for real grids.</p>
+    <div class="tags">solar PV · OTEC · tidal · wind · biomass · fuel cell · hydrogen</div>
+  </a>
+
+  <a class="entry ise" href="industrial-safety-site/index.html">
+    <div class="row1">
+      <span class="code">MCN401</span>
+      <span class="title">Industrial Safety</span>
+      <span class="cr">4 cr · 5 modules</span>
+    </div>
+    <p class="desc">Accident theory, machine guarding, electrical and fire hazards, HAZOP, and the MSDS framework for handling materials.</p>
+    <div class="tags">accident theory · PPE · machine guarding · fire classes · HAZOP · MSDS</div>
+  </a>
+
+  <a class="entry ml" href="machine-learning-site/index.html">
+    <div class="row1">
+      <span class="code">CST413</span>
+      <span class="title">Machine Learning</span>
+      <span class="cr">4 cr · 5 modules</span>
+    </div>
+    <p class="desc">Paradigms, Bayesian estimation, trees &amp; neural nets, SVMs &amp; clustering, and assessment with ROC and ensembles.</p>
+    <div class="tags">paradigms · MLE/MAP · naive bayes · decision tree · SVM · PCA · ensemble</div>
+  </a>
+</main>
+
+<footer>
+  <div class="in">
+    <span>KTU S7 · CCT401 · EET435 · MCN401 · CST413</span>
+    <span>open any subject → its index.html</span>
+  </div>
+</footer>
+
+</body>
+</html>
