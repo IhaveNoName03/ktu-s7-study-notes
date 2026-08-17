@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 1.2 · Bayesian Estimation (MLE & MAP)</title>
+<title>Module 1.2 · MLE & MAP for Probability Distributions</title>
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <nav class="topnav">
       <a href="index.html">Home</a>
       <a href="m1-1.html">M1 · Paradigms</a>
-      <a href="m1-2.html" class="active">M1 · Bayes Est.</a>
+      <a href="m1-2.html" class="active">M1 · MLE/MAP</a>
       <a href="m2-1.html">M2 · Supervised</a>
       <a href="m3-1.html">M3 · NN/SVM</a>
       <a href="m4-1.html">M4 · Unsupervised</a>
@@ -28,88 +28,102 @@
 
 <section class="hero">
   <span class="kicker">Module 1 · Part 2</span>
-  <h1>Bayesian Estimation — MLE &amp; MAP</h1>
-  <p class="lede">The Bayesian way of learning parameters from data: treat the model as fixed and the
-  parameters as unknown, then use the data to find the most likely parameters (<b>MLE</b>) or the most likely
-  parameters given both data and prior belief (<b>MAP</b>). Includes worked parameter-estimation examples.</p>
+  <h1>MLE &amp; MAP for Distributions</h1>
+  <p class="lede">The core of parameter estimation: derive the <b>Maximum Likelihood Estimator (MLE)</b> for the
+  common distributions you meet in ML — Bernoulli/binomial, Poisson, exponential, and Gaussian/normal — then see how
+  <b>MAP</b> adds a prior. Each derivation follows the same recipe: write the likelihood, take the log, differentiate,
+  set to zero.</p>
   <div class="meta-row">
     <span class="chip red">MLE</span>
-    <span class="chip">MAP</span>
-    <span class="chip">Posterior</span>
+    <span class="chip">Poisson</span>
+    <span class="chip">Exponential</span>
+    <span class="chip">Gaussian</span>
   </div>
 </section>
 
 <div class="wrap">
 
   <div class="section">
-    <div class="head"><span class="num">01</span><h2>From Bayes' Theorem to Estimation</h2><span class="tag">Setup</span></div>
+    <div class="head"><span class="num">01</span><h2>Setup &amp; the Recipe</h2><span class="tag">Method</span></div>
     <div class="card full">
-      <p>Bayes' theorem relates the probability of a hypothesis (here, a parameter value θ) after seeing data D:</p>
-      <div class="eq">P(θ | D) = P(D | θ) · P(θ) / P(D)</div>
-      <p>where P(D) = ∫ P(D|θ)·P(θ) dθ is just a normalizing constant. Read it as:</p>
-      <ul>
-        <li><b>Prior</b> P(θ) — belief about θ before seeing data.</li>
-        <li><b>Likelihood</b> P(D | θ) — how probable the observed data is under parameter θ.</li>
-        <li><b>Posterior</b> P(θ | D) — updated belief after seeing data.</li>
-      </ul>
-      <div class="def"><b>Big picture:</b> ML "learns" by maximizing the likelihood (MLE) or the posterior (MAP). The prior is what separates MAP from MLE — it lets you inject domain knowledge ("θ is probably near 0.5").</div>
+      <p>Given i.i.d. samples x₁…xₙ from a distribution with parameter θ, the <b>likelihood</b> is the joint density
+      viewed as a function of θ:</p>
+      <div class="eq">L(θ) = P(D | θ) = Π<sub>i=1</sub><sup>n</sup> p(x<sub>i</sub> | θ)</div>
+      <p>The <b>MLE</b> maximizes it; in practice we maximize the easier log-likelihood:</p>
+      <div class="eq">ℓ(θ) = Σ<sub>i</sub> ln p(x<sub>i</sub> | θ), &nbsp; θ̂<sub>MLE</sub> = argmax<sub>θ</sub> ℓ(θ)</div>
+      <div class="def"><b>Recipe (every derivation below):</b> ① write p(x|θ); ② take ln; ③ differentiate w.r.t. θ;
+      ④ set = 0; ⑤ solve. Derivatives of sums turn products into clean linear equations.</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">02</span><h2>Maximum Likelihood Estimation (MLE)</h2><span class="tag">Method</span></div>
+    <div class="head"><span class="num">02</span><h2>Bernoulli / Binomial (coin toss)</h2><span class="tag">Worked</span></div>
     <div class="card full">
-      <p>MLE picks the θ that makes the observed data most probable, ignoring any prior:</p>
-      <div class="eq">θ̂<sub>MLE</sub> = argmax<sub>θ</sub> P(D | θ)</div>
-      <p>In practice we maximize the log-likelihood (monotonic, turns products into sums):</p>
-      <div class="eq">θ̂<sub>MLE</sub> = argmax<sub>θ</sub> Σ<sub>i</sub> log P(x<sub>i</sub> | θ)</div>
-      <p>For independent, identically distributed data this is just "choose the parameter that best explains what you saw."</p>
+      <p>Single trial success prob θ; n trials, h successes. Likelihood:</p>
+      <div class="eq">L(θ) = θ<sup>h</sup> (1−θ)<sup>n−h</sup> &nbsp; ⟹ &nbsp; ℓ(θ) = h·ln θ + (n−h)·ln(1−θ)</div>
+      <p>dℓ/dθ = h/θ − (n−h)/(1−θ) = 0 &nbsp;⟹&nbsp; <b>θ̂ = h/n</b>.</p>
+      <p><b>Worked:</b> 100 tosses, 62 heads → θ̂ = 62/100 = 0.62 (the empirical frequency). This is why MLE is intuitive.</p>
+      <div class="def"><b>Binomial:</b> with k successes out of n, the MLE of θ is the same, k/n. The Bernoulli case is just n=1.</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">03</span><h2>Worked Example — Coin Toss (Bernoulli MLE)</h2><span class="tag">Worked</span></div>
+    <div class="head"><span class="num">03</span><h2>Poisson (count data)</h2><span class="tag">Derivation</span></div>
     <div class="card full">
-      <p>Suppose we toss a coin n = 100 times and observe h = 62 heads. Model the outcome as Bernoulli(θ),
-      where θ is the probability of heads. The likelihood of the data is:</p>
-      <div class="eq">P(D | θ) = θ<sup>h</sup> · (1 − θ)<sup>n − h</sup> = θ<sup>62</sup> · (1 − θ)<sup>38</sup></div>
-      <p>Log-likelihood: ℓ(θ) = 62·ln θ + 38·ln(1 − θ). Maximize by setting the derivative to zero:</p>
-      <div class="eq">dℓ/dθ = 62/θ − 38/(1 − θ) = 0  ⟹  62(1 − θ) = 38θ  ⟹  62 = 100θ  ⟹  θ̂ = 0.62</div>
-      <div class="def"><b>Result:</b> the MLE is simply the observed frequency, <b>θ̂ = h/n = 62/100 = 0.62</b>. This is why MLE is intuitive: it is the empirical proportion.</div>
+      <p>For counts with rate λ &gt; 0, p(x|λ) = e<sup>−λ</sup> λ<sup>x</sup> / x!. Log-likelihood:</p>
+      <div class="eq">ℓ(λ) = Σ [ −λ + x<sub>i</sub> ln λ − ln(x<sub>i</sub>!) ] = −nλ + (Σx<sub>i</sub>) ln λ + const</div>
+      <p>dℓ/dλ = −n + (Σx<sub>i</sub>)/λ = 0 &nbsp;⟹&nbsp; <b>λ̂ = (1/n) Σ x<sub>i</sub> = x̄</b>.</p>
+      <p><b>Worked:</b> events per hour observed as 3, 5, 4, 6, 2 → x̄ = 20/5 = 4 → λ̂ = 4 events/hour.</p>
     </div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">04</span><h2>Maximum A Posteriori (MAP)</h2><span class="tag">Method</span></div>
+    <div class="head"><span class="num">04</span><h2>Exponential (waiting times)</h2><span class="tag">Derivation</span></div>
     <div class="card full">
-      <p>MAP also maximizes the posterior, which includes the prior:</p>
-      <div class="eq">θ̂<sub>MAP</sub> = argmax<sub>θ</sub> P(D | θ) · P(θ)</div>
-      <p>or, in logs: argmax<sub>θ</sub> [ Σ<sub>i</sub> log P(x<sub>i</sub> | θ) + log P(θ) ].</p>
-      <p>The prior acts as a regularizer. A common choice is a <b>Beta prior</b> for Bernoulli data:
-      P(θ) ∝ θ<sup>α−1</sup>(1−θ)<sup>β−1</sup>. With a Beta(α,β) prior, the MAP estimate becomes:</p>
-      <div class="eq">θ̂<sub>MAP</sub> = (h + α − 1) / (n + α + β − 2)</div>
-      <div class="def"><b>Effect of the prior:</b> with α = β = 1 (uniform prior) MAP equals MLE. With a stronger prior
-      (e.g. α = β = 2, "biased toward fair"), the coin example gives θ̂ = (62+1)/(100+2) ≈ 0.618 — nudged
-      slightly toward 0.5. The prior prevents over-confident estimates from small samples.</div>
+      <p>For positive waiting times with rate λ &gt; 0, p(x|λ) = λ e<sup>−λx</sup>. Log-likelihood:</p>
+      <div class="eq">ℓ(λ) = n ln λ − λ Σ x<sub>i</sub></div>
+      <p>dℓ/dλ = n/λ − Σx<sub>i</sub> = 0 &nbsp;⟹&nbsp; <b>λ̂ = n / Σ x<sub>i</sub> = 1 / x̄</b>.</p>
+      <p><b>Worked:</b> mean waiting time x̄ = 5 min → λ̂ = 1/5 = 0.2 per minute. (Note: for exponential, the MLE of λ
+      is the reciprocal of the sample mean — the opposite of Poisson.)</p>
     </div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">05</span><h2>Posterior, MLE, MAP — When to Use Which</h2><span class="tag">Summary</span></div>
+    <div class="head"><span class="num">05</span><h2>Gaussian / Normal (two parameters)</h2><span class="tag">Derivation</span></div>
     <div class="card full">
+      <p>For N(μ, σ²), p(x) = (1/√(2πσ²)) e<sup>−(x−μ)²/(2σ²)</sup>. Log-likelihood (dropping constants):</p>
+      <div class="eq">ℓ(μ,σ²) = −(n/2) ln σ² − (1/2σ²) Σ (x<sub>i</sub> − μ)²</div>
+      <p>Differentiate w.r.t. μ, then w.r.t. σ²:</p>
+      <div class="eq">∂ℓ/∂μ = (1/σ²) Σ (x<sub>i</sub> − μ) = 0 &nbsp;⟹&nbsp; <b>μ̂ = x̄ = (1/n) Σ x<sub>i</sub></b></div>
+      <div class="eq">∂ℓ/∂σ² = −n/(2σ²) + (1/2σ⁴) Σ (x<sub>i</sub> − μ)² = 0 &nbsp;⟹&nbsp; <b>σ̂² = (1/n) Σ (x<sub>i</sub> − x̄)²</b></div>
+      <p><b>Worked:</b> samples 2, 4, 6, 8 → x̄ = 5; σ̂² = [(−3)²+(−1)²+1²+3²]/4 = 20/4 = 5. So the MLE is the
+      <b>sample mean</b> and the <b>sample variance (dividing by n)</b>.</p>
+      <div class="def"><b>MLE vs unbiased variance:</b> the MLE uses 1/n (biased); the usual "unbiased" estimator uses
+      1/(n−1). The syllabus MLE result is the 1/n form — know both and which is which.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>MAP — Adding a Prior</h2><span class="tag">Contrast</span></div>
+    <div class="card full">
+      <p>MAP maximizes the posterior instead of just the likelihood:</p>
+      <div class="eq">θ̂<sub>MAP</sub> = argmax<sub>θ</sub> [ ℓ(θ) + ln P(θ) ]</div>
+      <p>The prior P(θ) acts as a regularizer. With a <b>Gaussian prior</b> on μ, N(μ₀, τ²), the MAP mean becomes a
+      shrinkage estimate:</p>
+      <div class="eq">μ̂<sub>MAP</sub> = ( Σx<sub>i</sub>/σ² + μ₀/τ² ) / ( n/σ² + 1/τ² )</div>
+      <p>As the prior tightens (τ²→0) μ̂→μ₀; as data grows (n→∞) μ̂→x̄ — the prior loses influence. This is exactly the
+      role of regularization in regression (M2).</p>
       <div class="tablewrap">
         <table>
-          <thead><tr><th>Approach</th><th>Maximizes</th><th>Uses prior?</th><th>Best when</th></tr></thead>
+          <thead><tr><th>Distribution</th><th>MLE</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td><b>MLE</b></td><td>Likelihood P(D|θ)</td><td>No</td><td>Large dataset, no strong prior belief</td></tr>
-            <tr><td><b>MAP</b></td><td>Likelihood × Prior</td><td>Yes</td><td>Small dataset, or you have domain knowledge</td></tr>
-            <tr><td><b>Posterior</b></td><td>Full P(θ|D)</td><td>Yes</td><td>You need uncertainty (e.g. confidence intervals)</td></tr>
+            <tr><td>Bernoulli</td><td>θ̂ = h/n</td><td>empirical frequency</td></tr>
+            <tr><td>Poisson</td><td>λ̂ = x̄</td><td>mean count</td></tr>
+            <tr><td>Exponential</td><td>λ̂ = 1/x̄</td><td>reciprocal mean</td></tr>
+            <tr><td>Gaussian</td><td>μ̂ = x̄, σ̂² = (1/n)Σ(x−x̄)²</td><td>sample mean / variance</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="def"><b>Link to later modules:</b> logistic regression (M2) is trained by MLE of the weights;
-      Naive Bayes (M2) uses the data frequencies as MLEs of the class/feature probabilities; regularization
-      in regression is exactly a MAP prior on the weights.</div>
     </div>
   </div>
 
