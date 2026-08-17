@@ -3,148 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KTU S7 · Study Index</title>
+<title>KTU S7 · Study Notes</title>
 <style>
   :root{
-    --paper:#FBFBF9; --ink:#16181D; --rule:#E4E4DE; --muted:#71716A; --red:#C8102E;
-    --eh:#2B2B2B; --res:#0E7C4F; --ise:#C8102E; --ml:#3A5FCD;
-    --mono:"JetBrains Mono",ui-monospace,Consolas,"SF Mono",monospace;
+    --ink:#0E0F12; --ink-2:#15171C;
+    --red:#E0241B; --red-soft:rgba(224,36,27,.16);
+    --txt:#F4F1EE; --muted:#A7A2A8; --line:rgba(255,255,255,.08);
+    --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
     --disp:"Space Grotesk","Segoe UI",system-ui,Helvetica,Arial,sans-serif;
     --body:"Segoe UI",system-ui,Helvetica,Arial,sans-serif;
-    --maxw:920px;
+    --maxw:1080px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    margin:0; background:var(--paper); color:var(--ink);
-    font-family:var(--body); font-size:16px; line-height:1.55;
-    -webkit-font-smoothing:antialiased;
+  body{margin:0;background:var(--ink);color:var(--txt);
+    font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* ---- Fluid pastel aurora hero ---- */
+  .hero{position:relative;overflow:hidden;padding:78px 22px 64px;border-bottom:1px solid var(--line)}
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;
+    animation:drift 18s ease-in-out infinite alternate}
+  .hero::before{width:620px;height:620px;left:-120px;top:-180px;
+    background:radial-gradient(circle,#ffd9e0 0%,#ffd9e0 30%,transparent 70%)}
+  .hero::after{width:560px;height:560px;right:-120px;top:-120px;
+    background:radial-gradient(circle,#e3d9ff 0%,#d9ecff 55%,transparent 72%);animation-delay:-7s}
+  .hero .glow{position:absolute;width:480px;height:480px;border-radius:50%;filter:blur(80px);opacity:.32;z-index:0;
+    left:38%;top:30px;background:radial-gradient(circle,#ffb3b3 0%,transparent 70%);animation:drift2 22s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,40px) scale(1.12)}}
+  @keyframes drift2{from{transform:translate(0,0) scale(1)}to{transform:translate(-50px,30px) scale(1.15)}}
+
+  .hero .in{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto}
+  .badge{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:1.4px;
+    text-transform:uppercase;color:#ffd9d6;background:var(--red-soft);border:1px solid rgba(224,36,27,.4);
+    padding:6px 13px;border-radius:999px;margin-bottom:20px}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(224,36,27,.22)}
+  .hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(34px,6vw,58px);line-height:1.05;
+    letter-spacing:-1px;margin:0 0 14px}
+  .hero h1 .accent{color:var(--red)}
+  .hero .sub{color:#cfc9cf;font-size:clamp(15px,2.2vw,18px);max-width:620px;margin:0 0 8px}
+  .hero .fields{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:24px;font-family:var(--mono);
+    font-size:12.5px;color:#C9C3C9}
+  .hero .fields b{color:var(--txt);font-weight:600}
+
+  /* ---- Subject cards ---- */
+  .grid{max-width:var(--maxw);margin:0 auto;padding:46px 22px 80px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{position:relative;text-decoration:none;display:block;border:1px solid var(--line);border-radius:18px;
+    padding:24px 24px 22px;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    overflow:hidden;transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s ease,border-color .25s ease;
+    opacity:0;transform:translateY(18px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
+  .card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.13s}
+  .card:nth-child(3){animation-delay:.21s}.card:nth-child(4){animation-delay:.29s}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  .card::before{content:"";position:absolute;left:0;top:0;height:100%;width:4px;background:var(--c)}
+  .card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.18);
+    box-shadow:0 18px 44px rgba(0,0,0,.45),0 0 0 1px var(--c) inset,0 0 34px -8px var(--c)}
+  .card .code{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.6px;color:var(--c)}
+  .card h2{font-family:var(--disp);font-weight:700;font-size:22px;margin:10px 0 6px;letter-spacing:-.3px}
+  .card p{color:var(--muted);font-size:14.5px;margin:0;max-width:42ch}
+  .card .meta{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.4px}
+  .card .go{margin-top:14px;display:inline-flex;align-items:center;gap:7px;color:var(--c);font-weight:600;font-size:13.5px;
+    transition:gap .2s ease}
+  .card:hover .go{gap:12px}
+
+  .eh{--c:#FF5C6C}.res{--c:#4FD1A5}.ise{--c:#FF6B6B}.ml{--c:#6AA8FF}
+
+  footer{border-top:1px solid var(--line);padding:22px 0 44px}
+  footer .in{max-width:var(--maxw);margin:0 auto;padding:0 22px;font-family:var(--mono);font-size:11.5px;
+    color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media (max-width:680px){.grid{grid-template-columns:1fr;padding:34px 18px 64px}.hero{padding:60px 18px 48px}}
+  @media (prefers-reduced-motion:reduce){
+    .hero::before,.hero::after,.hero .glow{animation:none}
+    .card{animation:none;opacity:1;transform:none}
+    *{transition:none!important}
   }
-  a{color:inherit}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
-
-  /* Slim top bar */
-  .topbar{border-bottom:1px solid var(--rule); background:var(--paper)}
-  .topbar .in{max-width:var(--maxw); margin:0 auto; padding:13px 22px;
-    display:flex; align-items:center; justify-content:space-between}
-  .topbar .brand{font-family:var(--mono); font-size:12.5px; letter-spacing:.5px; color:var(--ink)}
-  .topbar .brand b{color:var(--red)}
-  .topbar .meta{font-family:var(--mono); font-size:11.5px; color:var(--muted); letter-spacing:.4px}
-
-  /* Hero = answer-sheet header (the thesis) */
-  .sheet{max-width:var(--maxw); margin:0 auto; padding:46px 22px 30px}
-  .sheet .exam{font-family:var(--mono); font-size:12px; letter-spacing:1px;
-    text-transform:uppercase; color:var(--muted); margin-bottom:18px}
-  .sheet h1{font-family:var(--disp); font-weight:700; font-size:clamp(28px,5vw,44px);
-    line-height:1.05; letter-spacing:-.5px; margin:0 0 10px}
-  .sheet h1 .code{color:var(--red); font-family:var(--mono); font-weight:700}
-  .sheet .lede{color:var(--muted); max-width:600px; font-size:16px; margin:0}
-  .sheet .fields{display:flex; flex-wrap:wrap; gap:22px 40px; margin-top:22px;
-    font-family:var(--mono); font-size:12px; color:var(--muted)}
-  .sheet .fields b{display:block; color:var(--ink); font-size:13px; margin-top:2px; letter-spacing:.3px}
-  .rule{height:2px; background:var(--red); max-width:var(--maxw); margin:0 auto}
-
-  /* Registry */
-  .reg{padding:30px 0 70px}
-  .reg .cap{font-family:var(--mono); font-size:11.5px; letter-spacing:1px;
-    text-transform:uppercase; color:var(--muted); margin:0 0 16px}
-  .entry{display:block; text-decoration:none; border:1px solid var(--rule);
-    border-top:2px solid var(--muted); border-radius:4px; padding:18px 20px; margin-bottom:14px;
-    background:#fff; transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease}
-  .entry:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(20,22,28,.08); border-color:var(--ink)}
-  .entry .row1{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
-  .entry .code{font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:.5px;
-    padding:3px 9px; border-radius:3px; background:#f1f1ec; color:var(--ink)}
-  .entry .title{font-family:var(--disp); font-weight:700; font-size:19px; letter-spacing:-.2px}
-  .entry .cr{margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--muted)}
-  .entry .desc{color:var(--muted); font-size:14.5px; margin:9px 0 0; max-width:640px}
-  .entry .tags{margin-top:10px; font-family:var(--mono); font-size:11px; color:#9a9a92; letter-spacing:.3px}
-  .entry.eh{border-top-color:var(--eh)} .entry.eh .code{color:var(--eh)}
-  .entry.res{border-top-color:var(--res)} .entry.res .code{color:var(--res)}
-  .entry.ise{border-top-color:var(--ise)} .entry.ise .code{color:var(--ise)}
-  .entry.ml{border-top-color:var(--ml)} .entry.ml .code{color:var(--ml)}
-
-  footer{border-top:1px solid var(--rule); padding:20px 0 40px}
-  footer .in{max-width:var(--maxw); margin:0 auto; padding:0 22px;
-    font-family:var(--mono); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px}
-
-  @media (max-width:560px){
-    .sheet .fields{gap:16px 26px}
-    .entry .cr{margin-left:0; width:100%}
-    .topbar .meta{display:none}
-  }
-  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
 </head>
 <body>
 
-<header class="topbar">
+<header class="hero">
+  <span class="glow"></span>
   <div class="in">
-    <div class="brand">KTU <b>/</b> S7 STUDY INDEX</div>
-    <div class="meta">offline · last synced 2026-08-17</div>
+    <span class="badge"><span class="dot"></span> KTU · Semester 7 · Study Notes</span>
+    <h1>S7 revision, <span class="accent">beautifully</span> organised.</h1>
+    <p class="sub">Four subjects, twenty modules — one calm place to study. Open a subject to read its modules,
+      worked examples, and question bank. Fully offline; nothing leaves your device.</p>
+    <div class="fields">
+      <span>Student <b>Sidharth Dileep</b></span>
+      <span>Roll <b>PTA23CC054</b></span>
+      <span>Branch <b>CSE · Cybersecurity</b></span>
+    </div>
   </div>
 </header>
 
-<section class="sheet">
-  <div class="exam">Kerala Technological University · Semester 7 · End-Semester Preparation</div>
-  <h1>S7 Study Notes — <span class="code">4 subjects, 20 modules</span></h1>
-  <p class="lede">A self-contained revision index. Pick a subject to open its modules, worked examples, and question bank. No internet required.</p>
-  <div class="fields">
-    <div>Student<b>Sidharth Dileep · PTA23CC054</b></div>
-    <div>Branch<b>CSE · Cybersecurity</b></div>
-    <div>Status<b>20 / 20 modules · 100% offline</b></div>
-  </div>
-</section>
-<div class="rule"></div>
-
-<main class="reg wrap">
-  <p class="cap">Registry of subjects</p>
-
-  <a class="entry eh" href="ethical-hacking-site/index.html">
-    <div class="row1">
-      <span class="code">CCT401</span>
-      <span class="title">Ethical Hacking</span>
-      <span class="cr">4 cr · 5 modules</span>
-    </div>
-    <p class="desc">Footprinting, system &amp; web attacks, malware, cryptography, and session hijacking — with a full penetration-test walkthrough.</p>
-    <div class="tags">footprinting · reconnaissance · sniffing · system hacking · web attacks · cryptography</div>
+<main class="grid">
+  <a class="card eh" href="ethical-hacking-site/index.html">
+    <span class="code">CCT 401</span>
+    <h2>Ethical Hacking</h2>
+    <p>Footprinting, system &amp; web attacks, malware, cryptography, session hijacking — with a full pen-test walkthrough.</p>
+    <div class="meta">5 modules · 4 cr</div>
+    <span class="go">Open subject →</span>
   </a>
 
-  <a class="entry res" href="renewable-energy-site/index.html">
-    <div class="row1">
-      <span class="code">EET435</span>
-      <span class="title">Renewable Energy</span>
-      <span class="cr">4 cr · 5 modules</span>
-    </div>
-    <p class="desc">Solar, wind, tidal/OTEC, biomass and hydrogen — how each source is classified, converted, and rated for real grids.</p>
-    <div class="tags">solar PV · OTEC · tidal · wind · biomass · fuel cell · hydrogen</div>
+  <a class="card res" href="renewable-energy-site/index.html">
+    <span class="code">EET 435</span>
+    <h2>Renewable Energy</h2>
+    <p>Solar, wind, tidal/OTEC, biomass and hydrogen — how each source is classified, converted, and rated for real grids.</p>
+    <div class="meta">5 modules · 4 cr</div>
+    <span class="go">Open subject →</span>
   </a>
 
-  <a class="entry ise" href="industrial-safety-site/index.html">
-    <div class="row1">
-      <span class="code">MCN401</span>
-      <span class="title">Industrial Safety</span>
-      <span class="cr">4 cr · 5 modules</span>
-    </div>
-    <p class="desc">Accident theory, machine guarding, electrical and fire hazards, HAZOP, and the MSDS framework for handling materials.</p>
-    <div class="tags">accident theory · PPE · machine guarding · fire classes · HAZOP · MSDS</div>
+  <a class="card ise" href="industrial-safety-site/index.html">
+    <span class="code">MCN 401</span>
+    <h2>Industrial Safety</h2>
+    <p>Accident theory, machine guarding, electrical &amp; fire hazards, HAZOP, and the MSDS framework for handling materials.</p>
+    <div class="meta">5 modules · 4 cr</div>
+    <span class="go">Open subject →</span>
   </a>
 
-  <a class="entry ml" href="machine-learning-site/index.html">
-    <div class="row1">
-      <span class="code">CST413</span>
-      <span class="title">Machine Learning</span>
-      <span class="cr">4 cr · 5 modules</span>
-    </div>
-    <p class="desc">Paradigms, Bayesian estimation, trees &amp; neural nets, SVMs &amp; clustering, and assessment with ROC and ensembles.</p>
-    <div class="tags">paradigms · MLE/MAP · naive bayes · decision tree · SVM · PCA · ensemble</div>
+  <a class="card ml" href="machine-learning-site/index.html">
+    <span class="code">CST 413</span>
+    <h2>Machine Learning</h2>
+    <p>Paradigms, Bayesian estimation, trees &amp; neural nets, SVMs &amp; clustering, assessment with ROC and ensembles.</p>
+    <div class="meta">5 modules · 4 cr</div>
+    <span class="go">Open subject →</span>
   </a>
 </main>
 
 <footer>
   <div class="in">
     <span>KTU S7 · CCT401 · EET435 · MCN401 · CST413</span>
-    <span>open any subject → its index.html</span>
+    <span>AI-generated study companion · offline</span>
   </div>
 </footer>
 
