@@ -392,6 +392,80 @@
     </div>
   </div>
 
+  <div class="qpaper">
+    <div class="qhead"><h2>Tutorial 2 — Regression, Covariance &amp; MLE</h2><span class="meta">10 questions</span></div>
+
+    <div class="q" id="t2q1">
+      <div class="qto"><span class="qnum">Tut2 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Obtain a linear regression for the data, assuming y is the dependent variable: x = [1,2,3,4,5], y = [1.00, 2.00, 1.30, 3.75, 2.25].</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> n=5, x̄=3, ȳ=2.06. Slope b₁ = Σ(x−x̄)(y−ȳ)/Σ(x−x̄)² = 2.125/5 = <b>0.425</b>. Intercept b₀ = ȳ − b₁x̄ = 2.06 − 0.425·3 = <b>0.785</b>. So <b>y = 0.785 + 0.425 x</b>.</div></div>
+    </div>
+
+    <div class="q" id="t2q2">
+      <div class="qto"><span class="qnum">Tut2 · Q2</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">List out different types of regression models.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> (i) <b>Linear regression</b> (simple &amp; multiple); (ii) <b>Polynomial regression</b>; (iii) <b>Logistic regression</b> (for classification); (iv) <b>Ridge / Lasso</b> (regularised); (v) <b>Stepwise regression</b>; (vi) <b>Support Vector Regression</b>; (vii) <b>Decision-tree / Random-forest regression</b>. (List the main ones.)</div></div>
+    </div>
+
+    <div class="q" id="t2q3">
+      <div class="qto"><span class="qnum">Tut2 · Q3</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Find the covariance matrix of: X1 = [4, 8, 13, 7], X2 = [11, 4, 5, 14].</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Means X̄₁=8, X̄₂=8.5. Cov(X1,X1)=10.5, Cov(X1,X2)=−8.25, Cov(X2,X2)=17.25 (population form, ÷n). Matrix:<br>Σ = [[10.5, −8.25], [−8.25, 17.25]]. <br>(Using the sample estimator ÷(n−1)=3 gives [[14, −11],[−11, 23]].) X1 and X2 are negatively correlated.</div></div>
+    </div>
+
+    <div class="q" id="t2q4">
+      <div class="qto"><span class="qnum">Tut2 · Q4</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Given X = (3, 9, 11, 5, 2) and Y = (1, 8, 11, 4, 3). Evaluate the regression coefficients.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Regressing Y on X: X̄=6, Ȳ=5.4. b₁ = Σ(X−X̄)(Y−Ȳ)/Σ(X−X̄)² = 18/18 = <b>1.0</b>; b₀ = Ȳ − b₁X̄ = 5.4 − 6 = <b>−0.6</b>. So <b>Y = −0.6 + 1.0 X</b>.</div></div>
+    </div>
+
+    <div class="q" id="t2q5">
+      <div class="qto"><span class="qnum">Tut2 · Q5</span><span class="qmark">10 marks</span></div>
+      <span class="qtext">X has PMF P(0)=2θ/3, P(1)=θ/3, P(2)=2(1−θ)/3, P(3)=(1−θ)/3, 0≤θ≤1. Observations: 3,0,2,1,3,2,1,0,2,1. Find the MLE of θ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a5" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Counts: n₀=2, n₁=3, n₂=3, n₃=1 (total 10). Log-likelihood ℓ = n₀ln(2θ/3)+n₁ln(θ/3)+n₂ln(2(1−θ)/3)+n₃ln((1−θ)/3). dℓ/dθ = (n₀+n₁)/θ − (n₂+n₃)/(1−θ) = 0 → (2+3)/θ = (3+1)/(1−θ) → 5(1−θ)=4θ → 5=9θ → <b>θ̂ = 5/9 ≈ 0.556</b>. (Note the θ terms: counts with θ in numerator are x=0,1 → 5; with (1−θ) are x=2,3 → 4.)</div></div>
+    </div>
+
+    <div class="q" id="t2q6">
+      <div class="qto"><span class="qnum">Tut2 · Q6</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Linear regression h(x)=θ₀+θ₁x, cost J=½m Σ(h(x⁽ⁱ⁾)−y⁽ⁱ⁾)². Training set: (3,2),(1,2),(0,1),(4,3). (1) h(2) if θ₀=0, θ₁=1.5; (2) J(0,1); (3) if J=0 what is inferred?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a6" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a6').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a6" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> (1) h(2)=0+1.5·2=<b>3</b>. (2) J(0,1)=½·4·[(0+1·3−2)²+(0+1·1−2)²+(0+1·0−1)²+(0+1·4−3)²] = ½·4·[1+1+1+1]=<b>0.5</b>. (3) J=0 means the line passes exactly through <b>every</b> training point — a perfect zero-error fit (on real data this usually signals overfitting).</div></div>
+    </div>
+
+    <div class="q" id="t2q7">
+      <div class="qto"><span class="qnum">Tut2 · Q7</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Explain regression with an example.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a7" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a7').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a7" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Regression predicts a <b>continuous</b> value from input features by fitting a function (usually a line/plane) that minimises error. <b>Example:</b> predict a house price (y) from its size (x) using y = b₀ + b₁x — the line summarises how price changes with size. (Contrast: classification predicts a category, not a number.)</div></div>
+    </div>
+
+    <div class="q" id="t2q8">
+      <div class="qto"><span class="qnum">Tut2 · Q8</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Identify real-life examples of classification problems.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a8" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a8').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a8" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> (i) email spam vs not-spam; (ii) disease present/absent from symptoms; (iii) face recognition (who is this?); (iv) credit approval accept/reject; (v) handwritten-digit recognition (0–9). Any four — the label is a discrete class.</div></div>
+    </div>
+
+    <div class="q" id="t2q9">
+      <div class="qto"><span class="qnum">Tut2 · Q9</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Differentiate between overfitting and underfitting with suitable diagrams.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a9" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a9').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a9" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Underfitting:</b> model too simple — high training AND high test error, a straight line through curved data (bias-dominated). <b>Overfitting:</b> model too complex — very low training error but high test error, a wiggly curve that touches every training point but fails on new data (variance-dominated). Diagram idea: underfit = smooth line missing the trend; overfit = jagged line through all points; good fit = smooth curve following the trend. (Bias–variance trade-off: aim for the middle.)</div></div>
+    </div>
+
+    <div class="q" id="t2q10">
+      <div class="qto"><span class="qnum">Tut2 · Q10</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Compare Classification with Regression with an example.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a10" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a10').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a10" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Both are supervised, but <b>classification</b> predicts a discrete <i>label</i> (e.g. spam/not-spam), while <b>regression</b> predicts a continuous <i>number</i> (e.g. house price = ₹42 lakhs). Classification measures accuracy / confusion matrix; regression measures error (MSE/R²). Logistic regression is the bridge — it outputs a probability then thresholds to a class.</div></div>
+    </div>
+  </div>
+
   <div style="clear:both"></div>
 </div>
 
