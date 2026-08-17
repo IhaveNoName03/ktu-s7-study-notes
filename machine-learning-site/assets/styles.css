@@ -161,8 +161,8 @@ code{
 /* ---------- Tables ---------- */
 .tablewrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow-sm)}
-table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
-th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:#fff}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
 thead th{background:var(--ink);color:#fff;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;
   font-weight:700}
 tbody tr{transition:background .12s ease}
@@ -236,13 +236,13 @@ td:first-child,th:first-child{font-weight:600}
 /* Structure-agnostic question rows: works whether a row has a number cell
    (.qn / .qnum) + body, or a single .qtext / .qto block. No fixed grid
    columns, so nothing collapses into a 34px cell. */
-.q{display:block;padding:16px 0;border-bottom:1px solid var(--line)}
+.q{display:block;padding:22px 0;border-bottom:1px solid var(--line)}
 .q:after{content:"";display:block;clear:both}
 .q:last-child{border-bottom:none}
 /* optional leading number cell */
 .q .qn,.q .qnum{font-weight:800;color:var(--accent);font-size:15px;float:left;min-width:34px;margin-right:6px}
 /* the main question text/body should take full width */
-.q .qbody,.q .qtext,.q .qto{font-size:15px;line-height:1.6;display:block;overflow:hidden}
+.q .qbody,.q .qtext,.q .qto{font-size:15.5px;line-height:1.65;display:block;overflow:hidden;margin-bottom:4px}
 .q .qbody .marks,.q .qmark{color:var(--muted);font-size:12.5px;font-weight:600;margin-left:6px}
 .q .qlink{display:inline-block;margin-top:6px;font-size:13px;font-weight:700}
 .q .qtopic{display:inline-block;margin:6px 0 0 8px;font-size:11px;font-weight:700;letter-spacing:.5px;
@@ -267,6 +267,25 @@ td:first-child,th:first-child{font-weight:600}
 .ans b{color:var(--ink)}
 .ans ul{margin:6px 0 2px;padding-left:18px}
 .ans li{margin:3px 0}
+
+/* The collapsible answer (Show answer) — breathing room so it never feels crowded */
+.ans-collapsible{
+  overflow:hidden;max-height:0;opacity:0;
+  transition:max-height .3s ease,opacity .25s ease,margin .3s ease;
+  margin-top:0;
+}
+.ans-collapsible.open{max-height:4000px;opacity:1;margin-top:14px}
+.ans-collapsible-inner{
+  padding:18px 20px;border-left:4px solid var(--accent);border-radius:0 var(--r) var(--r) 0;
+  background:#fafbfc;font-size:15.5px;line-height:1.78;color:var(--ink-2);
+}
+.ans-collapsible-inner b{color:var(--ink);font-weight:700}
+.ans-collapsible-inner br{display:block;content:"";margin-top:8px}
+.ans-collapsible-inner .tablewrap{margin:14px 0}
+.ansbtn{margin-top:12px;display:inline-block;font:inherit;font-size:13px;font-weight:700;color:var(--accent-ink);
+  background:var(--accent-soft);border:1px solid #f1c4c0;border-radius:6px;padding:6px 14px;cursor:pointer}
+.ansbtn:hover{background:#fbd9d5}
+.ansbtn[aria-expanded="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
 
 /* ---------- Tech (exam techniques) ---------- */
 .techlist{display:grid;gap:14px}
