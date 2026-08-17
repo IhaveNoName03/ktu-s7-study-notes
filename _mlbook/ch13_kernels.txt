@@ -1,0 +1,1776 @@
+13
+Kernel Machines
+Kernel machines are maximum margin methods that allow the model
+to be written as a sum of the inﬂuences of a subset of the training in-
+stances. These inﬂuences are given by application-speciﬁc similarity
+kernels, and we discuss “kernelized” classiﬁcation, regression, out-
+lier detection, and dimensionality reduction, as well as how to choose
+and use kernels.
+13.1
+Introduction
+We now discuss a diﬀerent approach for linear classiﬁcation and regres-
+sion.
+We should not be surprised to have so many diﬀerent methods
+even for the simple case of a linear model. Each learning algorithm has
+a diﬀerent inductive bias, makes diﬀerent assumptions, and deﬁnes a
+diﬀerent objective function and thus may ﬁnd a diﬀerent linear model.
+The model that we will discuss in this chapter, called the support vector
+machine (SVM), and later generalized under the name kernel machine, has
+been popular in recent years for a number of reasons:
+1. It is a discriminant-based method and uses Vapnik’s principle to never
+solve a more complex problem as a ﬁrst step before the actual prob-
+lem (Vapnik 1995). For example, in classiﬁcation, when the task is to
+learn the discriminant, it is not necessary to estimate where the class
+densities p(x|Ci) or the exact posterior probability values P(Ci|x); we
+only need to estimate where the class boundaries lie, that is, x where
+P(Ci|x) = P(Cj|x). Similarly, for outlier detection, we do not need to
+estimate the full density p(x); we only need to ﬁnd the boundary sep-
+arating those x that have low p(x), that is, x where p(x) < θ, for some
+threshold θ ∈(0, 1).
+
+310
+13
+Kernel Machines
+2. After training, the parameter of the linear model, the weight vector,
+can be written down in terms of a subset of the training set, which are
+the so-called support vectors. In classiﬁcation, these are the cases that
+are close to the boundary and as such, knowing them allows knowl-
+edge extraction: those are the uncertain or erroneous cases that lie in
+the vicinity of the boundary between two classes. Their number gives
+us an estimate of the generalization error, and, as we see below, being
+able to write the model parameter in terms of a set of instances allows
+kernelization.
+3. As we will see shortly, the output is written as a sum of the inﬂu-
+ences of support vectors and these are given by kernel functions that
+are application-speciﬁc measures of similarity between data instances.
+Previously, we talked about nonlinear basis functions allowing us to
+map the input to another space where a linear (smooth) solution is
+possible; the kernel function uses the same idea.
+4. Typically in most learning algorithms, data points are represented as
+vectors, and either dot product (as in the multilayer perceptrons) or
+Euclidean distance (as in radial basis function networks) is used. A
+kernel function allows us to go beyond that. For example, G1 and G2
+may be two graphs and K(G1, G2) may correspond to the number of
+shared paths, which we can calculate without needing to represent G1
+or G2 explicitly as vectors.
+5. Kernel-based algorithms are formulated as convex optimization prob-
+lems, and there is a single optimum that we can solve for analytically.
+Therefore we are no longer bothered with heuristics for learning rates,
+initializations, checking for convergence, and such.
+Of course, this
+does not mean that we do not have any hyperparameters for model
+selection; we do—any method needs them, to match the algorithm to
+the data at hand.
+We start our discussion with the case of classiﬁcation, and then gen-
+eralize to regression, outlier (novelty) detection, and then dimensionality
+reduction. We see that in all cases basically we have the similar quadratic
+program template to maximize the separability, or margin, of instances
+subject to a constraint of the smoothness of solution. Solving for it, we
+get the support vectors. The kernel function deﬁnes the space according
+to its notion of similarity and a kernel function is good if we have better
+separation in its corresponding space.
+
+13.2
+Optimal Separating Hyperplane
+311
+13.2
+Optimal Separating Hyperplane
+Let us start again with two classes and use labels −1/ + 1 for the two
+classes. The sample is X = {xt, rt} where rt = +1 if xt ∈C1 and rt = −1
+if xt ∈C2. We would like to ﬁnd w and w0 such that
+wT xt + w0 ≥+1
+for
+rt = +1
+wT xt + w0 ≤−1
+for
+rt = −1
+which can be rewritten as
+rt(wTxt + w0) ≥+1
+(13.1)
+Note that we do not simply require
+rt(wTxt + w0) ≥0
+Not only do we want the instances to be on the right side of the hy-
+perplane, but we also want them some distance away, for better general-
+ization. The distance from the hyperplane to the instances closest to it
+on either side is called the margin, which we want to maximize for best
+margin
+generalization.
+Very early on, in section 2.1, we talked about the concept of the margin
+when we were talking about ﬁtting a rectangle, and we said that it is
+better to take a rectangle halfway between S and G, to get a breathing
+space. This is so that in case noise shifts a test instance slightly, it will
+still be on the right side of the boundary.
+Similarly, now that we are using the hypothesis class of lines, the opti-
+optimal separating
+hyperplane
+mal separating hyperplane is the one that maximizes the margin.
+We remember from section 10.3 that the distance of xt to the discrimi-
+nant is
+|wTxt + w0|
+∥w∥
+which, when rt ∈{−1, +1}, can be written as
+rt(wTxt + w0)
+∥w∥
+and we would like this to be at least some value ρ:
+rt(wTxt + w0)
+∥w∥
+≥ρ, ∀t
+(13.2)
+
+312
+13
+Kernel Machines
+We would like to maximize ρ but there are an inﬁnite number of so-
+lutions that we can get by scaling w and for a unique solution, we ﬁx
+ρ∥w∥= 1 and thus, to maximize the margin, we minimize ∥w∥. The task
+can therefore be deﬁned (see Cortes and Vapnik 1995; Vapnik 1995) as
+to
+min 1
+2∥w∥2 subject to rt(wT xt + w0) ≥+1, ∀t
+(13.3)
+This is a standard quadratic optimization problem, whose complexity
+depends on d, and it can be solved directly to ﬁnd w and w0. Then, on
+both sides of the hyperplane, there will be instances that are 1/∥w∥away
+from the hyperplane and the total margin will be 2/∥w∥.
+We saw in section 10.2 that if the problem is not linearly separable,
+instead of ﬁtting a nonlinear function, one trick is to map the problem to
+a new space by using nonlinear basis functions. It is generally the case
+that this new space has many more dimensions than the original space,
+and, in such a case, we are interested in a method whose complexity does
+not depend on the input dimensionality.
+In ﬁnding the optimal hyperplane, we can convert the optimization
+problem to a form whose complexity depends on N, the number of train-
+ing instances, and not on d. Another advantage of this new formulation
+is that it will allow us to rewrite the basis functions in terms of kernel
+functions, as we will see in section 13.5.
+To get the new formulation, we ﬁrst write equation 13.3 as an uncon-
+strained problem using Lagrange multipliers αt:
+Lp
+=
+1
+2∥w∥2 −
+N
+
+t=1
+αt[rt(wTxt + w0) −1]
+=
+1
+2∥w∥2 −
+
+t
+αtrt(wT xt + w0) +
+
+t
+αt
+(13.4)
+This should be minimized with respect to w, w0 and maximized with
+respect to αt ≥0. The saddle point gives the solution.
+This is a convex quadratic optimization problem because the main term
+is convex and the linear constraints are also convex. Therefore, we can
+equivalently solve the dual problem, making use of the Karush-Kuhn-
+Tucker conditions. The dual is to maximize Lp with respect to αt, subject
+to the constraints that the gradient of Lp with respect to w and w0 are 0
+
+13.2
+Optimal Separating Hyperplane
+313
+and also that αt ≥0:
+∂Lp
+∂w = 0
+⇒
+w =
+
+t
+αtrtxt
+(13.5)
+∂Lp
+∂w0
+= 0
+⇒
+
+t
+αtrt = 0
+(13.6)
+Plugging these into equation 13.4, we get the dual
+Ld
+=
+1
+2(wT w) −wT 
+t
+αtrtxt −w0
+
+t
+αtrt +
+
+t
+αt
+=
+−1
+2(wT w) +
+
+t
+αt
+=
+−1
+2
+
+t
+
+s
+αtαsrtrs(xt)T xs +
+
+t
+αt
+(13.7)
+which we maximize with respect to αt only, subject to the constraints
+
+t
+αtrt = 0, and αt ≥0, ∀t
+This can be solved using quadratic optimization methods. The size of
+the dual depends on N, sample size, and not on d, the input dimensional-
+ity. The upper bound for time complexity is O(N3), and the upper bound
+for space complexity is O(N2).
+Once we solve for αt, we see that though there are N of them, most
+vanish with αt = 0 and only a small percentage have αt > 0. The set of xt
+whose αt > 0 are the support vectors, and as we see in equation 13.5, w is
+written as the weighted sum of these training instances that are selected
+as the support vectors. These are the xt that satisfy
+rt(wTxt + w0) = 1
+and lie on the margin.
+We can use this fact to calculate w0 from any
+support vector as
+w0 = rt −wTxt
+(13.8)
+For numerical stability, it is advised that this be done for all support
+vectors and an average be taken. The discriminant thus found is called
+the support vector machine (SVM) (see ﬁgure 13.1).
+support vector
+machine
+The majority of the αt are 0, for which rt(wTxt + w0) > 1.
+These
+are the xt that lie more than suﬃciently away from the discriminant,
+
+314
+13
+Kernel Machines
+0
+0.5
+1
+1.5
+2
+0
+0.5
+1
+1.5
+2
+−1
+1
+Figure 13.1
+For a two-class problem where the instances of the classes are
+shown by plus signs and dots, the thick line is the boundary and the dashed lines
+deﬁne the margins on either side. Circled instances are the support vectors.
+and they have no eﬀect on the hyperplane. The instances that are not
+support vectors carry no information; even if any subset of them are
+removed, we would still get the same solution. From this perspective,
+the SVM algorithm can be likened to the condensed nearest neighbor al-
+gorithm (section 8.5), which stores only the instances neighboring (and
+hence constraining) the class discriminant.
+Being a discriminant-based method, the SVM cares only about the in-
+stances close to the boundary and discards those that lie in the interior.
+Using this idea, it is possible to use a simpler classiﬁer before the SVM
+to ﬁlter out a large portion of such instances, thereby decreasing the
+complexity of the optimization step of the SVM (exercise 1).
+During testing, we do not enforce a margin. We calculate g(x) = wT x +
+w0, and choose according to the sign of g(x):
+Choose C1 if g(x) > 0 and C2 otherwise
+
+13.3
+The Nonseparable Case: Soft Margin Hyperplane
+315
+13.3
+The Nonseparable Case: Soft Margin Hyperplane
+If the data is not linearly separable, the algorithm we discussed earlier
+will not work. In such a case, if the two classes are not linearly separable
+such that there is no hyperplane to separate them, we look for the one
+that incurs the least error. We deﬁne slack variables, ξt ≥0, which store
+slack variables
+the deviation from the margin.
+There are two types of deviation: An
+instance may lie on the wrong side of the hyperplane and be misclassiﬁed.
+Or, it may be on the right side but may lie in the margin, namely, not
+suﬃciently away from the hyperplane. Relaxing equation 13.1, we require
+rt(wTxt + w0) ≥1 −ξt
+(13.9)
+If ξt = 0, there is no problem with xt. If 0 < ξt < 1, xt is correctly
+classiﬁed but in the margin. If ξt ≥1, xt is misclassiﬁed (see ﬁgure 13.2).
+The number of misclassiﬁcations is #{ξt > 1}, and the number of non-
+separable points is #{ξt > 0}. We deﬁne soft error as
+soft error
+
+t
+ξt
+and add this as a penalty term:
+Lp = 1
+2∥w∥2 + C
+
+t
+ξt
+(13.10)
+subject to the constraint of equation 13.9. C is the penalty factor as in
+any regularization scheme trading oﬀcomplexity, as measured by the L2
+norm of the weight vector (similar to weight decay in multilayer percep-
+trons; see section 11.9), and data misﬁt, as measured by the number of
+nonseparable points. Note that we are penalizing not only the misclas-
+siﬁed points but also the ones in the margin for better generalization,
+though these latter would be correctly classiﬁed during testing.
+Adding the constraints, the Lagrangian of equation 13.4 then becomes
+Lp = 1
+2∥w∥2 + C
+
+t
+ξt −
+
+t
+αt[rt(wT xt + w0) −1 + ξt] −
+
+t
+μtξt
+(13.11)
+where μt are the new Lagrange parameters to guarantee the positivity of
+ξt. When we take the derivatives with respect to the parameters and set
+them to 0, we get:
+∂Lp
+∂w
+=
+w −
+
+t
+αtrtxt = 0 ⇒w =
+
+t
+αtrtxt
+(13.12)
+
+316
+13
+Kernel Machines
+0
+0.5
+1
+1.5
+2
+0
+0.5
+1
+1.5
+2
+−1
+1
+(a)
+(c)
+(d)
+(b)
+Figure 13.2
+In classifying an instance, there are four possible cases: In (a), the
+instance is on the correct side and far away from the margin; r tg(xt) > 1, ξt = 0.
+In (b), ξt = 0; it is on the right side and on the margin. In (c), ξt = 1 −g(xt), 0 <
+ξ < 1; it is on the right side but is in the margin and not suﬃciently away. In (d),
+ξt = 1 + g(xt) > 1; it is on the wrong side—this is a misclassiﬁcation. All cases
+except (a) are support vectors. In terms of the dual variable, in (a), αt = 0; in (b),
+αt < C; in (c) and (d), αt = C.
+∂Lp
+∂w0
+=
+
+t
+αtrt = 0
+(13.13)
+∂Lp
+∂ξt
+=
+C −αt −μt = 0
+(13.14)
+Since μt ≥0, this last implies that 0 ≤αt ≤C. Plugging these into
+equation 13.11, we get the dual that we maximize with respect to αt:
+Ld =
+
+t
+αt −1
+2
+
+t
+
+s
+αtαsrtrs(xt)T xs
+(13.15)
+subject to
+
+t
+αtrt = 0 and 0 ≤αt ≤C, ∀t
+
+13.3
+The Nonseparable Case: Soft Margin Hyperplane
+317
+Solving this, we see that as in the separable case, instances that lie on
+the correct side of the boundary with suﬃcient margin vanish with their
+αt = 0 (see ﬁgure 13.2). The support vectors have their αt > 0 and they
+deﬁne w, as given in equation 13.12. Of these, those whose αt < C are
+the ones that are on the margin, and we can use them to calculate w0;
+they have ξt = 0 and satisfy rt(wTxt + w0) = 1. Again, it is better to
+take an average over these w0 estimates. Those instances that are in the
+margin or misclassiﬁed have their αt = C.
+The nonseparable instances that we store as support vectors are the
+instances that we would have trouble correctly classifying if they were
+not in the training set; they would either be misclassiﬁed or classiﬁed
+correctly but not with enough conﬁdence. We can say that the number
+of support vectors is an upper-bound estimate for the expected number
+of errors. And, actually, Vapnik (1995) has shown that the expected test
+error rate is
+EN[P(error)] ≤EN[# of support vectors]
+N
+where EN[·] denotes expectation over training sets of size N. The nice
+implication of this is that it shows that the error rate depends on the
+number of support vectors and not on the input dimensionality.
+Equation 13.9 implies that we deﬁne error if the instance is on the
+wrong side or if the margin is less than 1. This is called the hinge loss. If
+hinge loss
+yt = wT xt + w0 is the output and rt is the desired output, hinge loss is
+deﬁned as
+Lhinge(yt, rt) =
+
+0
+if ytrt ≥1
+1 −ytrt
+otherwise
+(13.16)
+In ﬁgure 13.3, we compare hinge loss with 0/1 loss, squared error,
+and cross-entropy. We see that diﬀerent from 0/1 loss, hinge loss also
+penalizes instances in the margin even though they may be on the correct
+side, and the loss increases linearly as the instance moves away on the
+wrong side. This is diﬀerent from the squared loss that therefore is not as
+robust as the hinge loss. We see that cross-entropy minimized in logistic
+discrimination (section 10.7) or by the linear perceptron (section 11.3), is
+a good continuous approximation to the hinge loss.
+C of equation 13.10 is the regularization parameter ﬁne-tuned using
+cross-validation. It deﬁnes the trade-oﬀbetween margin maximization
+and error minimization: If it is too large, we have a high penalty for
+nonseparable points, and we may store many support vectors and overﬁt.
+
+318
+13
+Kernel Machines
+−2
+−1
+0
+1
+2
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0/1 loss
+hinge loss
+squared error
+cross entropy
+yt
+loss for rt = 1
+Figure 13.3
+Comparison of diﬀerent loss functions for r t = 1: 0/1 loss is 0 if
+yt = 1, 1 otherwise. Hinge loss is 0 if yt > 1, 1 −yt otherwise. Squared error is
+(1 −yt)2. Cross-entropy is log(1/(1 + exp(−yt))).
+If it is too small, we may ﬁnd too simple solutions that underﬁt. Typically,
+one chooses from [10−6, 10−5, . . . , 10+5, 10+6] in the log scale by looking
+at the accuracy on a validation set.
+13.4
+ν-SVM
+There is another, equivalent formulation of the soft margin hyperplane
+that uses a parameter ν ∈[0, 1] instead of C (Schölkopf et al. 2000). The
+objective function is
+min 1
+2∥w∥2 −νρ + 1
+N
+
+t
+ξt
+(13.17)
+subject to
+rt(wTxt + w0) ≥ρ −ξt, ξt ≥0, ρ ≥0
+(13.18)
+ρ is a new parameter that is a variable of the optimization problem and
+scales the margin: the margin is now 2ρ/∥w∥. ν has been shown to be a
+
+13.5
+Kernel Trick
+319
+lower bound on the fraction of support vectors and an upper bound on
+the fraction of instances having margin errors (
+t #{ξt > 0}). The dual is
+Ld = −1
+2
+
+t
+
+s
+αtαsrtrs(xt)Txs
+(13.19)
+subject to
+
+t
+αtrt = 0, 0 ≤αt ≤1
+N ,
+
+t
+αt ≤ν
+When we compare equation 13.19 with equation 13.15, we see that
+the term 
+t αt no longer appears in the objective function but is now
+a constraint. By playing with ν, we can control the fraction of support
+vectors, and this is advocated to be more intuitive than playing with C.
+13.5
+Kernel Trick
+Section 10.2 demonstrated that if the problem is nonlinear, instead of
+trying to ﬁt a nonlinear model, we can map the problem to a new space
+by doing a nonlinear transformation using suitably chosen basis func-
+tions and then use a linear model in this new space. The linear model
+in the new space corresponds to a nonlinear model in the original space.
+This approach can be used in both classiﬁcation and regression prob-
+lems, and in the special case of classiﬁcation, it can be used with any
+scheme. In the particular case of support vector machines, it leads to
+certain simpliﬁcations that we now discuss.
+Let us say we have the new dimensions calculated through the basis
+functions
+z = φ(x) where zj = φj(x), j = 1, . . . , k
+mapping from the d-dimensional x space to the k-dimensional z space
+where we write the discriminant as
+g(z)
+=
+wT z
+g(x)
+=
+wT φ(x)
+=
+k
+j=1
+wjφj(x)
+(13.20)
+where we do not use a separate w0; we assume that z1 = φ1(x) ≡1. Gen-
+erally, k is much larger than d and k may also be larger than N, and there
+
+320
+13
+Kernel Machines
+lies the advantage of using the dual form whose complexity depends on
+N, whereas if we used the primal it would depend on k. We also use the
+more general case of the soft margin hyperplane here because we have
+no guarantee that the problem is linearly separable in this new space.
+The problem is the same
+Lp = 1
+2∥w∥2 + C
+
+t
+ξt
+(13.21)
+except that now the constraints are deﬁned in the new space
+rtwT φ(xt) ≥1 −ξt
+(13.22)
+The Lagrangian is
+Lp = 1
+2∥w∥2 + C
+
+t
+ξt −
+
+t
+αt 
+rtwT φ(xt) −1 + ξt
+−
+
+t
+μtξt
+(13.23)
+When we take the derivatives with respect to the parameters and set
+them to 0, we get
+∂Lp
+∂w
+=
+w =
+
+t
+αtrtφ(xt)
+(13.24)
+∂Lp
+∂ξt
+=
+C −αt −μt = 0
+(13.25)
+The dual is now
+Ld =
+
+t
+αt −1
+2
+
+t
+
+s
+αtαsrtrsφ(xt)T φ(xs)
+(13.26)
+subject to
+
+t
+αtrt = 0 and 0 ≤αt ≤C, ∀t
+The idea in kernel machines is to replace the inner product of ba-
+sis functions, φ(xt)T φ(xs), by a kernel function, K(xt, xs), between in-
+kernel function
+stances in the original input space. So instead of mapping two instances
+xt and xs to the z-space and doing a dot product there, we directly apply
+the kernel function in the original space.
+Ld =
+
+t
+αt −1
+2
+
+t
+
+s
+αtαsrtrsK(xt, xs)
+(13.27)
+
+13.6
+Vectorial Kernels
+321
+The kernel function also shows up in the discriminant
+g(x)
+=
+wT φ(x) =
+
+t
+αtrtφ(xt)T φ(x)
+=
+
+t
+αtrtK(xt, x)
+(13.28)
+This implies that if we have the kernel function, we do not need to map
+it to the new space at all. Actually, for any valid kernel, there does exist
+a corresponding mapping function, but it may be much simpler to use
+K(xt, x) rather than calculating φ(xt), φ(x) and taking the dot product.
+Many algorithms have been kernelized, as we will see in later sections,
+kernelization
+and that is why we have the name “kernel machines.”
+The matrix of kernel values, K, where Kts = K(xt, xs), is called the Gram
+Gram matrix
+matrix, which should be symmetric and positive semideﬁnite. Recently,
+it has become standard practice in sharing data sets to have available
+only the K matrices without providing xt or φ(xt). Especially in bioinfor-
+matics or natural language processing applications where x (or φ(x)) has
+hundreds or thousands of dimensions, storing/downloading the N × N
+matrix is much cheaper (Vert, Tsuda, and Schölkopf 2004); this, however,
+implies that we can use only those available for training/testing and can-
+not use the trained model to make predictions outside this data set.
+13.6
+Vectorial Kernels
+The most popular, general-purpose kernel functions are
+■polynomials of degree q:
+K(xt, x) = (xTxt + 1)q
+(13.29)
+where q is selected by the user. For example, when q = 2 and d = 2,
+K(x, y)
+=
+(xTy + 1)2
+=
+(x1y1 + x2y2 + 1)2
+=
+1 + 2x1y1 + 2x2y2 + 2x1x2y1y2 + x2
+1y2
+1 + x2
+2y2
+2
+corresponds to the inner product of the basis function (Cherkassky
+and Mulier 1998):
+φ(x) = [1,
+√
+2x1,
+√
+2x2,
+√
+2x1x2, x2
+1, x2
+2]T
+
+322
+13
+Kernel Machines
+0
+0.5
+1
+1.5
+2
+0
+0.5
+1
+1.5
+2
+−1
+1
+Figure 13.4
+The discriminant and margins found by a polynomial kernel of
+degree 2. Circled instances are the support vectors.
+An example is given in ﬁgure 13.4. When q = 1, we have the linear
+kernel that corresponds to the original formulation.
+■radial-basis functions:
+K(xt, x) = exp
+
+−∥xt −x∥2
+2s2
+
+(13.30)
+deﬁnes a spherical kernel as in Parzen windows (chapter 8) where xt is
+the center and s, supplied by the user, deﬁnes the radius. This is also
+similar to radial basis functions that we discuss in chapter 12.
+An example is shown in ﬁgure 13.5 where we see that larger spreads
+smooth the boundary; the best value is found by cross-validation.
+Note that when there are two parameters to be optimized using cross-
+validation, for example, here C and s2, one should do a grid (factorial)
+search in the two dimensions; we will discuss methods for searching
+the best combination of such factors in section 19.2.
+One can have a Mahalanobis kernel, generalizing from the Euclidean
+distance:
+K(xt, x) = exp
+"
+−1
+2(xt −x)T S−1(xt −x)
+#
+(13.31)
+
+13.6
+Vectorial Kernels
+323
+0
+1
+2
+0
+1
+2
+(a) s2=2
+−1
+1
+0
+1
+2
+0
+1
+2
+(b) s2=0.5
+−1
+1
+0
+1
+2
+0
+1
+2
+(c) s2=0.25
+−1
+−1
+1
+0
+1
+2
+0
+1
+2
+(d) s2=0.1
+−1
+−1
+1
+Figure 13.5
+The boundary and margins found by the Gaussian kernel with dif-
+ferent spread values, s2. We get smoother boundaries with larger spreads.
+where S is a covariance matrix. Or, in the most general case,
+K(xt, x) = exp
+
+−D(xt, x)
+2s2
+
+(13.32)
+for some distance function D(xt, x).
+■sigmoidal functions:
+K(xt, x) = tanh(2xT xt + 1)
+(13.33)
+where tanh(·) has the same shape with sigmoid, except that it ranges
+between −1 and +1. This is similar to multilayer perceptrons that we
+discussed in chapter 11.
+
+324
+13
+Kernel Machines
+13.7
+Deﬁning Kernels
+It is also possible to deﬁne application-speciﬁc kernels. Kernels are gen-
+erally considered to be measures of similarity in the sense that K(x, y)
+takes a larger value as x and y are more “similar,” from the point of view
+of the application. This implies that any prior knowledge we have regard-
+ing the application can be provided to the learner through appropriately
+deﬁned kernels—“kernel engineering”—and such use of kernels can be
+seen as another example of a “hint” (section 11.8.4).
+There are string kernels, tree kernels, graph kernels, and so on (Vert,
+Tsuda, and Schölkopf 2004), depending on how we represent the data
+and how we measure similarity in that representation.
+For example, given two documents, the number of words appearing
+in both may be a kernel. Let us say D1 and D2 are two documents and
+one possible representation is called bag of words where we predeﬁne
+bag of words
+M words relevant for the application, and we deﬁne φ(D1) as the M-
+dimensional binary vector whose dimension i is 1 if word i appears in
+D1 and is 0 otherwise. Then, φ(D1)T φ(D2) counts the number of shared
+words. Here, we see that if we directly deﬁne and implement K(D1, D2)
+as the number of shared words, we do not need to preselect M words
+and can use just any word in the vocabulary (of course, after discarding
+uninformative words like “of,” “and,” etc.)
+and we would not need to
+generate the bag-of-words representation explicitly and it would be as if
+we allowed M to be as large as we want.
+Sometimes—for example, in bioinformatics applications—we can calcu-
+late a similarity score between two objects, which may not necessarily be
+positive semideﬁnite. Given two strings (of genes), a kernel measures the
+edit distance, namely, how many operations (insertions, deletions, sub-
+edit distance
+stitutions) it takes to convert one string into another; this is also called
+alignment. In such a case, a trick is to deﬁne a set of M templates and
+alignment
+represent an object as the M-dimensional vector of scores to all the tem-
+plates. That is, if mi, i = 1, . . . , M are the templates and s(xt, mi) is the
+score between xt and mi, then we deﬁne
+φ(xt) = [s(xt, m1), s(xt, m2), . . . , s(xt, mM)]T
+and we deﬁne the empirical kernel map as
+empirical kernel
+map
+K(xt, xs) = φ(xt)T φ(xs)
+which is a valid kernel.
+
+13.8
+Multiple Kernel Learning
+325
+Sometimes, we have a binary score function; for example, two proteins
+may interact or not, and we want to be able to generalize from this to
+scores for two arbitrary instances. In such a case, a trick is to deﬁne a
+graph where the nodes are the instances and two nodes are linked if they
+interact, that is, if the binary score returns 1. Then we say that two nodes
+that are not immediately linked are “similar” if the path between them is
+short or if they are connected by many paths. This converts pairwise local
+interactions to a global similarity measure, rather like deﬁning a geodesic
+distance used in Isomap (section 6.7), and it is called the diﬀusion kernel.
+diffusion kernel
+If p(x) is a probability density, then
+K(xt, x) = p(xt)p(x)
+is a valid kernel. This is used when p(x) is a generative model for x mea-
+suring how likely it is that we see x. For example, if x is a sequence, p(x)
+can be a hidden Markov model (chapter 15). With this kernel, K(xt, x) will
+take a high value if both xt and x are likely to have been generated by the
+same model. It is also possible to parametrize the generative model as
+p(x|θ) and learn θ from data; this is called the Fisher kernel (Jaakkola
+Fisher kernel
+and Haussler 1998).
+13.8
+Multiple Kernel Learning
+It is possible to construct new kernels by combining simpler kernels. If
+K1(x, y) and K2(x, y) are valid kernels and c a constant, then
+K(x, y) =
+⎧
+⎪⎨
+⎪⎩
+cK1(x, y)
+K1(x, y) + K2(x, y)
+K1(x, y) · K2(x, y)
+(13.34)
+are also valid.
+Diﬀerent kernels may also be using diﬀerent subsets of x.
+We can
+therefore see combining kernels as another way to fuse information from
+diﬀerent sources where each kernel measures similarity according to its
+domain. When we have input from two representations A and B
+KA(xA, yA) + KB(xB, yB)
+=
+φA(xA)TφA(yA) + φB(xB)T φB(yB)
+=
+φ(x)T φ(y)
+=
+K(x, y)
+(13.35)
+
+326
+13
+Kernel Machines
+where x = [xA, xB] is the concatenation of the two representations. That
+is, taking a sum of two kernels corresponds to doing a dot product in the
+concatenated feature vectors. One can generalize to a number of kernels
+K(x, y) =
+m
+
+i=1
+Ki(x, y)
+(13.36)
+which, similar to taking an average of classiﬁers (section 17.4), this time
+averages over kernels and frees us from the need to choose one particular
+kernel.
+It is also possible to take a weighted sum and also learn the
+weights from data (Lanckriet et al. 2004; Sonnenburg et al. 2006):
+K(x, y) =
+m
+
+i=1
+ηiKi(x, y)
+(13.37)
+subject to ηi ≥0, with or without the constraint of
+
+i ηi = 1, respectively
+known as convex or conic combination.
+This is called multiple kernel
+multiple kernel
+learning
+learning where we replace a single kernel with a weighted sum. The single
+kernel objective function of equation 13.27 becomes
+Ld =
+
+t
+αt −1
+2
+
+t
+
+s
+αtαsrtrs 
+i
+ηiKi(xt, xs)
+(13.38)
+which we solve for both the support vector machine parameters αt and
+the kernel weights ηi.
+Then, the combination of multiple kernels also
+appear in the discriminant
+g(x) =
+
+t
+αtrt 
+i
+ηiKi(xt, x)
+(13.39)
+After training, ηi will take values depending on how the corresponding
+kernel Ki(xt, x) is useful in discriminating. It is also possible to localize
+kernels by deﬁning kernel weights as a parameterized function of the
+input x, rather like the gating function in mixture of experts (section 17.8)
+g(x) =
+
+t
+αtrt 
+i
+ηi(x|θi)Ki(xt, x)
+(13.40)
+and the gating parameters θi are learned together with the support vector
+machine parameters (Gönen and Alpaydın 2008).
+When we have information coming from multiple sources in diﬀerent
+representations or modalities—for example, in speech recognition where
+we may have both acoustic and visual lip image—the usual approach is to
+feed them separately to diﬀerent classiﬁers and then fuse the decisions;
+
+13.9
+Multiclass Kernel Machines
+327
+we will discuss methods for this in detail in chapter 17. Combining mul-
+tiple kernels provides us with another way of integrating input from mul-
+tiple sources, where there is a single classiﬁer that uses diﬀerent kernels
+for inputs of diﬀerent sources, for which there are diﬀerent notions of
+similarity (Noble 2004). The localized version can then seen be an exten-
+sion of this where we can choose between sources, and hence similarity
+measures, depending on the input.
+13.9
+Multiclass Kernel Machines
+When there are K > 2 classes, the straightforward, one-vs.-all way is to
+deﬁne K two-class problems, each one separating one class from all other
+classes combined and learn K support vector machines gi(x), i = 1, . . . , K.
+That is, in training gi(x), examples of Ci are labeled +1 and examples of
+Ck, k̸ = i are labeled as −1. During testing, we calculate all gi(x) and
+choose the maximum.
+Platt (1999) proposed to ﬁt a sigmoid to the output of a single (2-class)
+SVM output to convert to a posterior probability. Similarly, one can train
+one layer of softmax outputs to minimize cross-entropy to generate K >
+2 posterior probabilities (Mayoraz and Alpaydın 1999):
+yi(x) =
+K
+
+j=1
+vijfj(x) + vi0
+(13.41)
+where fj(x) are the SVM outputs and yi are the posterior probability out-
+puts. Weights vij are trained to minimize cross-entropy. Note, however,
+that as in stacking (section 17.9), the data on which we train vij should
+be diﬀerent from the data used to train the base SVMs fj(x), to alleviate
+overﬁtting.
+Instead of the usual approach of building K two-class SVM classiﬁers to
+separate one from all the rest, as with any other classiﬁer, one can build
+K(K −1)/2 pairwise classiﬁers (see also section 10.4), each gij(x) taking
+examples of Ci with the label +1, examples of Cj with the label −1, and
+not using examples of the other classes. Separating classes in pairs is
+normally expected to be an easier job, with the additional advantage that
+because we use less data, the optimizations will be faster, noting however
+that we have O(K2) discriminants to train instead of O(K).
+In the general case, both one-vs.-all and pairwise separation are special
+cases of the error-correcting output codes that decompose a multiclass
+ECOC
+
+328
+13
+Kernel Machines
+problem to a set of two-class problems (Dietterich and Bakiri 1995) (see
+also section 17.6). SVMs being two-class classiﬁers are ideally suited to
+this (Allwein, Schapire, and Singer 2000), and it is also possible to have
+an incremental approach where new two-class SVMs are added to better
+separate pairs of classes that are confused, to ameliorate a poor ECOC
+matrix (Mayoraz and Alpaydın 1999).
+Another possibility is to write a single multiclass optimization problem
+involving all classes (Weston and Watkins 1998):
+min 1
+2
+K
+
+i=1
+∥wi∥2 + C
+
+i
+
+t
+ξt
+i
+(13.42)
+subject to
+wzt xt + wzt0 ≥wixt + wi0 + 2 −ξt
+i , ∀i̸ = zt and ξt
+i ≥0
+where zt contains the class index of xt. The regularization terms mini-
+mizes the norms of all hyperplanes simultaneously, and the constraints
+are there to make sure that the margin between the actual class and any
+other class is at least 2. The output for the correct class should be at
+least +1, the output of any other class should be at least −1, and the
+slack variables are deﬁned to make up any diﬀerence.
+Though this looks neat, the one-vs.-all approach is generally preferred
+because it solves K separate N variable problems whereas the multiclass
+formulation uses K · N variables.
+13.10
+Kernel Machines for Regression
+Now let us see how support vector machines can be generalized for re-
+gression. We see that the same approach of deﬁning acceptable margins,
+slacks, and a regularizing function that combines smoothness and error
+is also applicable here. We start with a linear model, and later on we see
+how we can use kernel functions here as well:
+f(x) = wTx + w0
+In regression proper, we use the square of the diﬀerence as error:
+e2(rt, f(xt)) = [rt −f(xt)]2
+
+13.10
+Kernel Machines for Regression
+329
+−8
+−6
+−4
+−2
+0
+2
+4
+6
+8
+0
+10
+20
+30
+40
+50
+60
+70
+Figure 13.6
+Quadratic and ϵ-sensitive error functions. We see that ϵ-sensitive
+error function is not aﬀected by small errors and also is aﬀected less by large
+errors and thus is more robust to outliers.
+whereas in support vector regression, we use the ϵ-sensitive loss func-
+tion:
+eϵ(rt, f(xt)) =
+
+0
+if |rt −f(xt)| < ϵ
+|rt −f(xt)| −ϵ
+otherwise
+(13.43)
+which means that we tolerate errors up to ϵ and also that errors beyond
+have a linear eﬀect and not a quadratic one. This error function is there-
+fore more tolerant to noise and is thus more robust (see ﬁgure 13.6). As
+robust regression
+in the hinge loss, there is a region of no error, which causes sparseness.
+Analogous to the soft margin hyperplane, we introduce slack variables
+to account for deviations out of the ϵ-zone and we get (Vapnik 1995)
+min 1
+2∥w∥2 + C
+
+t
+(ξt
++ + ξt
+−)
+(13.44)
+subject to
+rt −(wTx + w0)
+≤
+ϵ + ξt
++
+(wT x + w0) −rt
+≤
+ϵ + ξt
+−
+ξt
++, ξt
+−
+≥
+0
+where we use two types of slack variables, for positive and negative de-
+viations, to keep them positive. Actually, we can see this as two hinges
+
+330
+13
+Kernel Machines
+added back to back, one for positive and one for negative slacks. This
+formulation corresponds to the ϵ-sensitive loss function given in equa-
+tion 13.43. The Lagrangian is
+Lp
+=
+1
+2∥w∥2 + C
+
+t
+(ξt
++ + ξt
+−)
+−
+
+t
+αt
++
+
+ϵ + ξt
++ −rt + (wTx + w0)
+
+−
+
+t
+αt
+−
+
+ϵ + ξt
+−+ (wTx + w0) −rt
+−
+
+t
+(μt
++ξt
++ + μt
+−ξt
+−)
+(13.45)
+Taking the partial derivatives, we get
+∂Lp
+∂w
+=
+w −
+
+t
+(αt
++ −αt
+−)xt = 0 ⇒w =
+
+t
+(αt
++ −αt
+−)xt
+(13.46)
+∂Lp
+∂w0
+=
+
+t
+(αt
++ −αt
+−)xt = 0
+(13.47)
+∂Lp
+∂ξt+
+=
+C −αt
++ −μt
++ = 0
+(13.48)
+∂Lp
+∂ξt−
+=
+C −αt
+−−μt
+−= 0
+(13.49)
+The dual is
+Ld
+=
+−1
+2
+
+t
+
+s
+(αt
++ −αt
+−)(αs
++ −αs
+−)(xt)Txs
+−ϵ
+
+t
+(αt
++ + αt
+−) −
+
+t
+rt(αt
++ −αt
+−)
+(13.50)
+subject to
+0 ≤αt
++ ≤C , 0 ≤αt
+−≤C ,
+
+t
+(αt
++ −αt
+−) = 0
+Once we solve this, we see that all instances that fall in the tube have
+αt
++ = αt
+−= 0; these are the instances that are ﬁtted with enough precision
+(see ﬁgure 13.7). The support vectors satisfy either αt
++ > 0 or αt
+−> 0 and
+are of two types. They may be instances that are on the boundary of the
+tube (either αt
++ or αt
+−is between 0 and C), and we use these to calculate
+w0. For example, assuming that αt
++ > 0, we have rt = xTxt + w0 + ϵ.
+Instances that fall outside the ϵ-tube are of the second type; these are
+
+13.10
+Kernel Machines for Regression
+331
+0
+2
+4
+6
+8
+1.2
+1.4
+1.6
+1.8
+2
+2.2
+2.4
+(a)
+(b)
+(c)
+Figure 13.7
+The ﬁtted regression line to data points shown as crosses and the ϵ-
+tube are shown (C = 10, ϵ = 0.25). There are three cases: In (a), the instance is in
+the tube; in (b), the instance is on the boundary of the tube (circled instances); in
+(c), it is outside the tube with a positive slack, that is, ξt
++ > 0 (squared instances).
+(b) and (c) are support vectors. In terms of the dual variable, in (a), αt
++ = 0, αt
+−=
+0, in (b), αt
++ < C, and in (c), αt
++ = C.
+instances for which we do not have a good ﬁt (αt
++ = C), as shown in
+ﬁgure 13.7.
+Using equation 13.46, we can write the ﬁtted line as a weighted sum of
+the support vectors:
+f(x) = wT x + w0 =
+
+t
+(αt
++ −αt
+−)(xt)T x + w0
+(13.51)
+Again, the dot product (xt)Txs in equation 13.50 can be replaced with
+a kernel K(xt, xs), and similarly (xt)T x be replaced with K(xt, x) and we
+can have a nonlinear ﬁt. Using a polynomial kernel would be similar to
+ﬁtting a polynomial (ﬁgure 13.8), and using a Gaussian kernel (ﬁgure 13.9)
+would be similar to nonparametric smoothing models (section 8.6) except
+that because of the sparsity of solution, we would not need the whole
+training set but only a subset.
+There is also an equivalent ν-SVM formulation for regression (Schölkopf
+et al. 2000), where instead of ﬁxing ϵ, we ﬁx ν to bound the fraction of
+support vectors. There is still a need for C though.
+
+332
+13
+Kernel Machines
+0
+2
+4
+6
+8
+1
+1.5
+2
+2.5
+3
+3.5
+Figure 13.8
+The ﬁtted regression line and the ϵ-tube using a quadratic kernel
+are shown (C = 10, ϵ = 0.25). Circled instances are the support vectors on the
+margins, squared instances are support vectors which are outliers.
+0
+2
+4
+6
+8
+0
+1
+2
+3
+(a) s2 = 5
+0
+2
+4
+6
+8
+1
+1.5
+2
+2.5
+(b) s2 = 0.1
+Figure 13.9
+The ﬁtted regression line and the ϵ-tube using a Gaussian kernel
+with two diﬀerent spreads are shown (C = 10, ϵ = 0.25). Circled instances are
+the support vectors on the margins, and squared instances are support vectors
+that are outliers.
+
+13.11
+One-Class Kernel Machines
+333
+13.11
+One-Class Kernel Machines
+Support vector machines, originally proposed for classiﬁcation, are ex-
+tended to regression by deﬁning slack variables for deviations around the
+regression line, instead of the discriminant. We now see how SVM can be
+used for a restricted type of unsupervised learning, namely, for estimat-
+ing regions of high density. We are not doing a full density estimation;
+rather, we want to ﬁnd a boundary (so that it reads like a classiﬁcation
+problem) that separates volumes of high density from volumes of low
+density (Tax and Duin 1999). Such a boundary can then be used for nov-
+elty or outlier detection. This is also called one-class classiﬁcation.
+outlier detection
+one-class
+classification
+We consider a sphere with center a and radius R that we want to en-
+close as much as possible of the density, measured empirically as the
+enclosed training set percentage. At the same time, trading oﬀwith it,
+we want to ﬁnd the smallest radius (see ﬁgure 13.10). We deﬁne slack
+variables for instances that lie outside (we only have one type of slack
+variable because we have examples from one class and we do not have
+any penalty for those inside), and we have a smoothness measure that is
+proportional to the radius:
+min R2 + C
+
+t
+ξt
+(13.52)
+subject to
+∥xt −a∥2 ≤R2 + ξt and ξt ≥0, ∀t
+Adding the constraints, we get the Lagrangian, which we write keeping
+in mind that ∥xt −a∥2 = (xt −a)T(xt −a):
+Lp = R2 + C
+
+t
+ξt −
+
+t
+αt %
+R2 + ξt −
+
+(xt)T xt −2aT xt + aT a
+&
+−
+
+t
+γtξt
+(13.53)
+with αt ≥0 and γt ≥0 being the Lagrange multipliers. Taking the deriva-
+tive with respect to the parameters, we get
+∂L
+∂R
+=
+2R −2R
+
+t
+αt = 0 ⇒
+
+t
+αt = 1
+(13.54)
+∂L
+∂a
+=
+
+t
+αt(2xt −2a) = 0 ⇒a =
+
+t
+αtxt
+(13.55)
+∂L
+∂ξt
+=
+C −αt −γt = 0
+(13.56)
+
+334
+13
+Kernel Machines
+0
+0.5
+1
+1.5
+2
+0
+0.5
+1
+1.5
+2
+(c)
+(a)
+(b)
+Figure 13.10
+One-class support vector machine places the smoothest boundary
+(here using a linear kernel, the circle with the smallest radius) that encloses as
+much of the instances as possible. There are three possible cases: In (a), the
+instance is a typical instance.
+In (b), the instance falls on the boundary with
+ξt = 0; such instances deﬁne R. In (c), the instance is an outlier with ξt > 0. (b)
+and (c) are support vectors. In terms of the dual variable, we have, in (a), αt = 0;
+in (b), 0 < αt < C; in (c), αt = C.
+Since γt ≥0, we can write this last as the constraint: 0 ≤αt ≤C.
+Plugging these into equation 13.53, we get the dual that we maximize
+with respect to αt:
+Ld =
+
+t
+αt(xt)Txt −
+
+t
+
+s
+αtαs(xt)T xs
+(13.57)
+subject to
+0 ≤αt ≤C and
+
+t
+αt = 1
+When we solve this, we again see that most of the instances vanish
+with their αt = 0; these are the typical, highly likely instances that fall
+inside the sphere (ﬁgure 13.10). There are two type of support vectors
+with αt > 0: There are instances that satisfy 0 < αt < C and lie on the
+boundary, ∥xt −a∥2 = R2 (ξt = 0), which we use to calculate R. Instances
+
+13.12
+Kernel Dimensionality Reduction
+335
+that satisfy αt = C (ξt > 0) lie outside the boundary and are the outliers.
+From equation 13.55, we see that the center a is written as a weighted
+sum of the support vectors.
+Then given a test input x, we say that it is an outlier if
+∥x −a∥2 > R2
+or
+xtx −2aT x + aTa > R2
+Using kernel functions, allow us to go beyond a sphere and deﬁne
+boundaries of arbitrary shapes. Replacing the dot product with a kernel
+function, we get (subject to the same constraints):
+Ld =
+
+t
+αtK(xt, xt) −
+
+t
+
+s
+αtαsK(xt, xs)
+(13.58)
+For example, using a polynomial kernel of degree 2 allows arbitrary
+quadratic surfaces to be used. If we use a Gaussian kernel (equation 13.30),
+we have a union of local spheres. We reject x as an outlier if
+K(x, x) −2
+
+t
+αtK(x, xt) +
+
+t
+
+s
+αtαsK(xt, xs) > R2
+The third term does not depend on x and is therefore a constant (we
+use this as an equality to solve for R where x is an instance on the mar-
+gin). In the case of a Gaussian kernel where K(x, x) = 1, the condition
+reduces to
+
+t
+αtKG(x, xt) < Rc
+for some constant Rc, which is analogous to the kernel density estimator
+(section 8.2.2)—except for the sparseness of the solution—with a proba-
+bility threshold Rc (see ﬁgure 13.11).
+There is also an alternative, equivalent ν-SVM type of formulation of
+one-class support vector machines that uses the canonical (1/2)∥w∥2
+type of smoothness (Schölkopf et al. 2001).
+13.12
+Kernel Dimensionality Reduction
+We know from section 6.3 that principal components analysis (PCA) re-
+duces dimensionality by projecting on the eigenvectors of the covariance
+
+336
+13
+Kernel Machines
+0
+1
+2
+0
+0.5
+1
+1.5
+2
+(a) s2 = 1
+0
+1
+2
+0
+0.5
+1
+1.5
+2
+(a) s2 = 0.1
+Figure 13.11
+One-class support vector machine using a Gaussian kernel with
+diﬀerent spreads.
+matrix Σ with the largest eigenvalues, which, if data instances are cen-
+tered (E[x] = 0), can be written as XT X. In the kernelized version, we
+work in the space of φ(x) instead of the original x and because, as usual,
+the dimensionality d of this new space may be much larger than the data
+set size N, we prefer to work with the N × N matrix XXT instead of the
+d × d matrix XT X. The projected data matrix is Φ = φ(X), and hence we
+work on the eigenvectors of ΦT Φ and hence of the kernel matrix K.
+Kernel PCA uses the eigenvectors and eigenvalues of the kernel ma-
+Kernel PCA
+trix and this corresponds to doing a linear dimensionality reduction in
+the φ(x) space. When ci and λi are the corresponding eigenvectors and
+eigenvalues, the projected new k-dimensional values can be calculated as
+zt
+j =
+$
+λict
+j, j = 1, . . . , k, t = 1, . . . , N
+An example is given in ﬁgure 13.12 where we ﬁrst use a quadratic ker-
+nel and then decrease dimensionality to two (out of ﬁve) using kernel PCA
+and implement a linear SVM there. Note that in the general case (e.g., with
+a Gaussian kernel), the eigenvalues do not necessarily decay and there is
+no guarantee that we can reduce dimensionality using kernel PCA.
+What we are doing here is multidimensonal scaling (section 6.5) using
+kernel values as the similarity values.
+For example, by taking k = 2,
+one can visualize the data in the space induced by the kernel matrix,
+which can give us information as to how similarity is deﬁned by the used
+kernel. Linear discriminality reduction (LDA) (section 6.6) can similarly
+
+13.13
+Notes
+337
+−1
+−0.5
+0
+0.5
+1
+−1
+0
+1
+(a) Quadratic kernel in the x space
+−1
+1
+0.9
+0.95
+1
+1.05
+1.1
+1.15
+−2
+0
+2
+(b) Linear kernel in the z space
+−1
+1
+Figure 13.12
+Instead of using a quadratic kernel in the original space (a), we
+can use kernel PCA on the quadratic kernel values to map to a two-dimensional
+new space where we use a linear discriminant (b); these two dimensions (out of
+ﬁve) explain 80 percent of the variance.
+be kernelized (Müller et al. 2001).
+In chapter 6, we discussed nonlinear dimensionality reduction meth-
+ods, Isomap and LLE. In fact, by viewing the elements of the cost matrix
+in equation 6.47 as kernel evaluations for pairs of inputs, LLE can be seen
+as kernel PCA for a particular choice of kernel. The same also holds for
+Isomap when a kernel function is deﬁned as a function of the geodesic
+distance on the graph.
+13.13
+Notes
+The idea of generalizing linear models by mapping the data to a new
+space through nonlinear basis functions is old, but the novelty of sup-
+port vector machines is that of integrating this into a learning algorithm
+whose parameters are deﬁned in terms of a subset of data instances (the
+so-called dual representation), hence also without needing to explicitly
+dual
+representation
+
+338
+13
+Kernel Machines
+evaluate the basis functions and thereby also limiting complexity by the
+size of the training set; this is also true for Gaussian processes where the
+kernel function is called the covariance function (section 14.4).
+The sparsity of the solution shows the advantage over nonparametric
+estimators, such as k-nearest neighbor and Parzen windows, or Gaussian
+processes, and the ﬂexibility to use kernel functions allows working with
+nonvectorial data. Because there is a unique solution to the optimization
+problem, we do not need any iterative optimization procedure as we do in
+neural networks. Because of all these reasons, support vector machines
+are now considered to be the best, oﬀ-the-shelf learners and are widely
+used in many domains, especially bioinformatics (Schölkopf, Tsuda, and
+Vert 2004) and natural language processing applications, where an in-
+creasing number of tricks are being developed to derive kernels (Shawe-
+Taylor and Cristianini 2004).
+The use of kernel functions implies a diﬀerent data representation; we
+no longer deﬁne an instance (object/event) as a vector of attributes by
+itself, but in terms of how it is similar to or diﬀers from other instances;
+this is akin to the diﬀerence between multidimensional scaling that uses
+a matrix of distances (without any need to know how they are calculated)
+and principal components analysis that uses vectors in some space.
+More information on support vector machines can be found in books
+by Vapnik (1995, 1998) and Schölkopf and Smola (2002). The chapter
+on SVM in Cherkassky and Mulier 1998 is a very readable introduction.
+Burges 1998 and Smola and Schölkopf 1998 are good tutorials on SVM
+classiﬁcation and regression, respectively. There is a dedicated Web site
+http://www.kernel-machines.org and many free software packages are
+available, such as SVMlight (Joachims 2004) and LIBSVM (Chang and Lin
+2008).
+13.14
+Exercises
+1. Propose a ﬁltering algorithm to ﬁnd training instances that are very unlikely
+to be support vectors.
+2. In equation 13.31, how can we estimate S?
+3. In the empirical kernel map, how can we choose the templates?
+4. In the localized multiple kernel of equation 13.40, propose a suitable model
+for ηi(x|θi) and discuss how it can be trained.
+5. In kernel regression, what is the relation, if any, between ϵ and noise variance?
+
+13.15
+References
+339
+6. In kernel regression, what is the eﬀect of using diﬀerent ϵ on bias and vari-
+ance?
+7. How can we use one-class SVM for classiﬁcation?
+8. In a setting as in ﬁgure 13.12, use kernel PCA with a Gaussian kernel.
+9. Let us say we have two representations for the same object and associated
+with each, we have a diﬀerent kernel. How can we use both to implement a
+joint dimensionality reduction using kernel PCA?
+13.15
+References
+Allwein, E. L., R. E. Schapire, and Y. Singer. 2000. “Reducing Multiclass to Binary:
+A Unifying Approach for Margin Classiﬁers.”
+Journal of Machine Learning
+Research 1: 113–141.
+Burges, C. J. C. 1998. “A Tutorial on Support Vector Machines for Pattern Recog-
+nition.” Data Mining and Knowledge Discovery 2: 121–167.
+Chang, C.-C., and C.-J. Lin. 2008. LIBSVM: A Library for Support Vector Machines.
+http://www.csie.ntu.edu.tw/∼cjlin/libsvm/.
+Cherkassky, V., and F. Mulier. 1998. Learning from Data: Concepts, Theory,
+and Methods. New York: Wiley.
+Cortes, C., and V. Vapnik. 1995. “Support Vector Networks.” Machine Learning
+20: 273–297.
+Dietterich, T. G., and G. Bakiri. 1995. “Solving Multiclass Learning Problems via
+Error-Correcting Output Codes.” Journal of Artiﬁcial Intelligence Research 2:
+263–286.
+Gönen, M., and E. Alpaydın. 2008. “Localized Multiple Kernel Learning.” In
+25th International Conference on Machine Learning, ed. A. McCallum and S.
+Roweis, 352–359. Madison, WI: Omnipress.
+Jaakkola, T., and D. Haussler. 1999. “Exploiting Generative Models in Discrimi-
+native Classiﬁers.” In Advances in Neural Information Processing Systems 11,
+ed. M. J. Kearns, S. A. Solla, and D. A. Cohn, 487-493. Cambridge, MA: MIT
+Press.
+Joachims, T. 2004. SVMlight, http://svmlight.joachims.org.
+Lanckriet, G. R. G, N. Cristianini, P. Bartlett, L. El Ghaoui, and M. I. Jordan. 2004.
+“Learning the Kernel Matrix with Semideﬁnite Programming.” Journal of Ma-
+chine Learning Research 5: 27–72.
+Mayoraz, E., and E. Alpaydın. 1999. “Support Vector Machines for Multiclass
+Classiﬁcation.” In Foundations and Tools for Neural Modeling, Proceedings of
+IWANN’99, LNCS 1606, ed. J. Mira and J. V. Sanchez-Andres, 833–842. Berlin:
+Springer.
+
+340
+13
+Kernel Machines
+Müller, K. R., S. Mika, G. Rätsch, K. Tsuda, and B. Schölkopf. 2001. “An Intro-
+duction to Kernel-Based Learning Algorithms.” IEEE Transactions on Neural
+Networks 12: 181–201.
+Noble, W. S. 2004. “Support Vector Machine Applications in Computational Biol-
+ogy.” In Kernel Methods in Computational Biology, ed. B. Schölkopf, K. Tsuda,
+and J.-P. Vert, 71–92. Cambridge, MA: MIT Press.
+Platt, J. 1999. “Probabilities for Support Vector Machines.” In Advances in Large
+Margin Classiﬁers, ed. A. J. Smola, P. Bartlett, B. Schölkopf, and D. Schuur-
+mans, 61–74. Cambridge, MA: MIT Press.
+Schölkopf, B., J. Platt, J. Shawe-Taylor, A. J. Smola, and R. C. Williamson. 2001.
+“Estimating the Support of a High-Dimensional Distribution.” Neural Compu-
+tation 13: 1443–1471.
+Schölkopf, B., and A. J. Smola. 2002. Learning with Kernels: Support Vector
+Machines, Regularization, Optimization, and Beyond.
+Cambridge, MA: MIT
+Press.
+Schölkopf, B., A. J. Smola, R. C. Williamson, and P. L. Bartlett.
+2000.
+“New
+Support Vector Algorithms.” Neural Computation 12: 1207–1245.
+Schölkopf, B., K. Tsuda, and J.-P. Vert, eds. 2004. Kernel Methods in Computa-
+tional Biology. Cambridge, MA: MIT Press.
+Shawe-Taylor, J., and N. Cristianini. 2004. Kernel Methods for Pattern Analysis.
+Cambridge, UK: Cambridge University Press.
+Smola, A., and B. Schölkopf. 1998. A Tutorial on Support Vector Regression,
+NeuroCOLT TR-1998-030, Royal Holloway College, University of London, UK.
+Sonnenburg, S., G. Rätsch, C. Schäfer, and B. Schölkopf.
+2006. “Large Scale
+Multiple Kernel Learning.” Journal of Machine Learning Research 7: 1531–
+1565.
+Tax, D. M. J., and R. P. W. Duin. 1999. “Support Vector Domain Description.”
+Pattern Recognition Letters 20: 1191–1199.
+Vapnik, V. 1995. The Nature of Statistical Learning Theory. New York: Springer.
+Vapnik, V. 1998. Statistical Learning Theory. New York: Wiley.
+Vert, J.-P., K. Tsuda, and B. Schölkopf. 2004. “A Primer on Kernel Methods.”
+In Kernel Methods in Computational Biology, ed. B. Schölkopf, K. Tsuda, and
+J.-P. Vert, 35–70. Cambridge, MA: MIT Press.
+Weston, J., and C. Watkins. 1998. “Multiclass Support Vector Machines.” Tech-
+nical Report CSD-TR-98-04, Department of Computer Science, Royal Holloway,
+University of London.

@@ -240,7 +240,30 @@
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">07</span><h2>Naïve Bayes — Worked Example (Play-Tennis)</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="head"><span class="num">07</span><h2>Logistic Regression — Odds, Logit &amp; Gradient Descent</h2><span class="tag">Classification by regression</span></div>
+    <div class="card full">
+      <p>Despite the name, <b>logistic regression</b> is a classification method. It keeps the same linear form as linear
+      regression, <b>wᵀx</b>, but passes it through a <b>sigmoid</b> so the output is a probability in (0,1). The textbook
+      (Alpaydın, logistic discrimination, §10.7 / §11.3) writes the two-class model as:</p>
+      <div class="eq">yₜ = sigmoid(wᵀxₜ) &nbsp;&nbsp; ( P(C₁|xₜ) = yₜ ; &nbsp; rₜ = 1 if xₜ∈C₁, &nbsp; 0 if xₜ∈C₂ )</div>
+      <p>Inverting the sigmoid shows the model is <b>linear in the log-odds (the logit)</b>:</p>
+      <div class="eq">log( yₜ / (1 − yₜ) ) = wᵀxₜ</div>
+      <div class="def"><b>Odds &amp; logit:</b> the <i>odds</i> of class C₁ are yₜ ⁄ (1 − yₜ); the <i>logit</i> is their logarithm. Logistic
+      regression therefore models the log-odds as a linear combination of the inputs. A one-unit increase in feature xⱼ multiplies the
+      odds by e<sup>wⱼ</sup> — this is exactly why the method is called <i>logistic</i>.</div>
+      <p>The parameters are learned by <b>maximum likelihood</b>: maximize the Bernoulli log-likelihood, equivalently minimize its
+      negative — the <b>cross-entropy</b>:</p>
+      <div class="eq">L(r|X) = Σ<sub>t</sub> [ rₜ log yₜ + (1 − rₜ) log(1 − yₜ) ]</div>
+      <p>This is minimized with <b>gradient descent</b>. For a single training instance the online (stochastic) update is:</p>
+      <div class="eq">Δw<sup>t</sup><sub>j</sub> = η (rₜ − yₜ) x<sub>tⱼ</sub> &nbsp;&nbsp; ( j = 0, …, d )</div>
+      <div class="def"><b>Update rule:</b> η is the learning factor. The batch version sums the correction (rₜ − yₜ)x<sub>tⱼ</sub> over <i>all</i>
+      instances before updating; the online version updates after each pattern. Both share the same shape —
+      <b>Update = learning-factor × (desired − actual) × input</b> — the perceptron learning rule applied to the cross-entropy error.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Naïve Bayes — Worked Example (Play-Tennis)</h2><span class="tag">From the handwritten notes</span></div>
     <div class="card full">
       <p>The <b>Naïve Bayes</b> classifier is a probability-based classifier built on <b>Bayes' theorem</b> with the "naïve" assumption that features are conditionally independent given the class. For a test instance with attributes a₁…aₙ it picks the class that maximises:</p>
       <div class="qbox">
@@ -281,7 +304,7 @@
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">08</span><h2>Decision Trees (ID3) — Entropy &amp; Information Gain</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="head"><span class="num">09</span><h2>Decision Trees (ID3) — Entropy &amp; Information Gain</h2><span class="tag">From the handwritten notes</span></div>
     <div class="card full">
       <p>A <b>decision tree</b> is a non-linear model (uses supervised learning) that splits data at each internal node by the attribute that best separates the classes; leaf nodes hold the predicted class. <b>ID3</b> picks the split using <b>entropy</b> (impurity) and <b>information gain</b>.</p>
       <div class="qbox">

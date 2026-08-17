@@ -1,0 +1,1153 @@
+7
+Clustering
+In the parametric approach, we assumed that the sample comes
+from a known distribution.
+In cases when such an assumption is
+untenable, we relax this assumption and use a semiparametric ap-
+proach that allows a mixture of distributions to be used for estimat-
+ing the input sample. Clustering methods allow learning the mixture
+parameters from data. In addition to probabilistic modeling, we dis-
+cuss vector quantization and hierarchical clustering.
+7.1
+Introduction
+In chapters 4 and 5, we discussed the parametric method for density
+estimation where we assumed that the sample X is drawn from some
+parametric family, for example, Gaussian. In parametric classiﬁcation,
+this corresponds to assuming a certain density for the class densities
+p(x|Ci). The advantage of any parametric approach is that given a model,
+the problem reduces to the estimation of a small number of parameters,
+which, in the case of density estimation, are the suﬃcient statistics of the
+density, for example, the mean and covariance in the case of Gaussian
+densities.
+Though parametric approaches are used quite frequently, assuming a
+rigid parametric model may be a source of bias in many applications
+where this assumption does not hold. We thus need more ﬂexible models.
+In particular, assuming Gaussian density corresponds to assuming that
+the sample, for example, instances of a class, forms one single group in
+the d-dimensional space, and as we saw in chapter 5, the center and the
+shape of this group is given by the mean and the covariance respectively.
+In many applications, however, the sample is not one group; there may
+
+144
+7
+Clustering
+be several groups.
+Consider the case of optical character recognition:
+There are two ways of writing the digit 7; the American writing is ‘7’,
+whereas the European writing style has a horizontal bar in the middle (to
+tell it apart from the European ‘1’, which keeps the small stroke on top in
+handwriting). In such a case, when the sample contains examples from
+both continents, the class for the digit 7 should be represented as the
+disjunction of two groups. If each of these groups can be represented by
+a Gaussian, the class can be represented by a mixture of two Gaussians,
+one for each writing style.
+A similar example is in speech recognition where the same word can be
+uttered in diﬀerent ways, due to diﬀerent pronounciation, accent, gender,
+age, and so forth. Thus when there is not a single, universal prototype,
+all these diﬀerent ways should be represented in the density to be statis-
+tically correct.
+We call this approach semiparametric density estimation, as we still
+semiparametric
+density estimation
+assume a parametric model for each group in the sample. We discuss
+the nonparametric approach in chapter 8, which is used when there is no
+structure to the data and even a mixture model is not applicable. In this
+chapter, we focus on density estimation and defer supervised learning to
+chapter 12.
+7.2
+Mixture Densities
+The mixture density is written as
+mixture density
+p(x) =
+k
+i=1
+p(x|Gi)P(Gi)
+(7.1)
+where Gi are the mixture components. They are also called group or clus-
+mixture
+components
+groups
+clusters
+ters. p(x|Gi) are the component densities and P(Gi) are the mixture pro-
+component
+densities
+mixture
+proportions
+portions. The number of components, k, is a hyperparameter and should
+be speciﬁed beforehand. Given a sample and k, learning corresponds to
+estimating the component densities and proportions. When we assume
+that the component densities obey a parametric model, we need only
+estimate their parameters. If the component densities are multivariate
+Gaussian, we have p(x|Gi) ∼N (μi, Σi), and Φ = {P(Gi), μi, Σi}k
+i=1 are the
+parameters that should be estimated from the iid sample X = {xt}t.
+
+7.3
+k-Means Clustering
+145
+Parametric classiﬁcation is a bona ﬁde mixture model where groups,
+Gi, correspond to classes, Ci, component densities p(x|Gi) correspond to
+class densities p(x|Ci), and P(Gi) correspond to class priors, P(Ci):
+p(x) =
+K
+
+i=1
+p(x|Ci)P(Ci)
+In this supervised case, we know how many groups there are and learn-
+ing the parameters is trivial because we are given the labels, namely,
+which instance belongs to which class (component). We remember from
+chapter 5 that when we are given the sample X = {xt, rt}N
+t=1, where rt
+i = 1
+if xt ∈Ci and 0 otherwise, the parameters can be calculated using max-
+imum likelihood.
+When each class is Gaussian distributed, we have a
+Gaussian mixture, and the parameters are estimated as
+ˆP(Ci)
+=
+
+t rt
+i
+N
+(7.2)
+mi
+=
+
+t rt
+i xt
+
+t rt
+i
+Si
+=
+
+t rt
+i (xt −mi)(xt −mi)T
+
+t rt
+i
+The diﬀerence in this chapter is that the sample is X = {xt}t: We have
+an unsupervised learning problem. We are given only xt and not the labels
+rt, that is, we do not know which xt comes from which component. So we
+should estimate both: First, we should estimate the labels, rt
+i , the compo-
+nent that a given instance belongs to; and, second, once we estimate the
+labels, we should estimate the parameters of the components given the
+set of instances belonging to them. We are ﬁrst going to discuss a simple
+algorithm, k-means clustering, for this purpose and later on show that it
+is a special case of the Expectation-Maximization algorithm.
+7.3
+k-Means Clustering
+Let us say we have an image that is stored with 24 bits/pixel and can have
+up to 16 million colors. Assume we have a color screen with 8 bits/pixel
+that can display only 256 colors. We want to ﬁnd the best 256 colors
+among all 16 million colors such that the image using only the 256 colors
+in the palette looks as close as possible to the original image. This is color
+color quantization
+quantization where we map from high to lower resolution. In the general
+
+146
+7
+Clustering
+case, the aim is to map from a continuous space to a discrete space; this
+process is called vector quantization.
+vector
+quantization
+Of course we can always quantize uniformly, but this wastes the col-
+ormap by assigning entries to colors not existing in the image, or would
+not assign extra entries to colors frequently used in the image. For ex-
+ample, if the image is a seascape, we expect to see many shades of blue
+and maybe no red. So the distribution of the colormap entries should
+reﬂect the original density as close as possible placing many entries in
+high-density regions, discarding regions where there is no data.
+Let us say we have a sample of X = {xt}N
+t=1.
+We have k reference
+reference vectors
+vectors, mj, j = 1, . . . , k. In our example of color quantization, xt are the
+image pixel values in 24 bits and mj are the color map entries also in 24
+bits, with k = 256.
+Assume for now that we somehow have the mj values; we will discuss
+how to learn them shortly. Then in displaying the image, given the pixel,
+xt, we represent it with the most similar entry, mi in the color map,
+satisfying
+∥xt −mi∥= min
+j
+∥xt −mj∥
+That is, instead of the original data value, we use the closest value we
+have in the alphabet of reference vectors. mi are also called codebook
+codebook vectors
+vectors or code words, because this is a process of encoding/decoding
+code words
+(see ﬁgure 7.1): Going from xt to i is a process of encoding the data using
+the codebook of mi, i = 1, . . . , k and, on the receiving end, generating mi
+from i is decoding. Quantization also allows compression: For example,
+compression
+instead of using 24 bits to store (or transfer over a communication line)
+each xt, we can just store/transfer its index i in the colormap using 8 bits
+to index any one of 256, and we get a compression rate of almost 3; there
+is also the color map to store/transfer.
+Let us see how we can calculate mi: When xt is represented by mi, there
+is an error that is proportional to the distance, ∥xt −mi∥. For the new
+image to look like the original image, we should have these distances as
+small as possible for all pixels. The total reconstruction error is deﬁned
+reconstruction
+error
+as
+E({mi}k
+i=1|X) =
+
+t
+
+i
+bt
+i ∥xt −mi∥2
+(7.3)
+
+7.3
+k-Means Clustering
+147
+mi
+x
+i
+.
+.
+.
+i
+Communication
+line
+.
+.
+.
+mi
+x' =mi
+Encoder
+Decoder
+Find closest
+Figure 7.1
+Given x, the encoder sends the index of the closest code word and
+the decoder generates the code word with the received index as x′.
+Error is
+∥x′ −x∥2.
+where
+bt
+i =
+
+1
+if ∥xt −mi∥= minj ∥xt −mj∥
+0
+otherwise
+(7.4)
+The best reference vectors are those that minimize the total reconstruc-
+tion error. bt
+i also depend on mi, and we cannot solve this optimization
+problem analytically.
+We have an iterative procedure named k-means
+k-means clustering
+clustering for this: First, we start with some mi initialized randomly.
+Then at each iteration, we ﬁrst use equation 7.4 and calculate bt
+i for all
+xt, which are the estimated labels; if bt
+i is 1, we say that xt belongs to the
+group of mi. Then, once we have these labels, we minimize equation 7.3.
+Taking its derivative with respect to mi and setting it to 0, we get
+mi =
+
+t bt
+i xt
+
+t bt
+i
+(7.5)
+The reference vector is set to the mean of all the instances that it rep-
+resents. Note that this is the same as the formula for the mean in equa-
+tion 7.2, except that we place the estimated labels bt
+i in place of the labels
+rt
+i . This is an iterative procedure because once we calculate the new mi,
+bt
+i change and need to be recalculated, which in turn aﬀect mi. These two
+steps are repeated until mi stabilize (see ﬁgure 7.2). The pseudocode of
+the k-means algorithm is given in ﬁgure 7.3.
+One disadvantage is that this is a local search procedure, and the ﬁ-
+nal mi highly depend on the initial mi. There are various methods for
+initialization:
+■One can simply take randomly selected k instances as the initial mi.
+
+148
+7
+Clustering
+−40
+−20
+0
+20
+40
+−30
+−20
+−10
+0
+10
+20
+x1
+x2
+k−means: Initial
+−40
+−20
+0
+20
+40
+−30
+−20
+−10
+0
+10
+20
+x1
+x2
+After 1 iteration
+−40
+−20
+0
+20
+40
+−30
+−20
+−10
+0
+10
+20
+x1
+x2
+After 2 iterations
+−40
+−20
+0
+20
+40
+−30
+−20
+−10
+0
+10
+20
+x1
+x2
+After 3 iterations
+Figure 7.2
+Evolution of k-means. Crosses indicate center positions. Data points
+are marked depending on the closest center.
+■The mean of all data can be calculated and small random vectors may
+be added to the mean to get the k initial mi.
+■One can calculate the principal component, divide its range into k
+equal intervals, partitioning the data into k groups, and then take the
+means of these groups as the initial centers.
+After convergence, all the centers should cover some subset of the data
+instances and be useful; therefore, it is best to initialize centers where we
+believe there is data.
+There are also algorithms for adding new centers incrementally or delet-
+ing empty ones. In leader cluster algorithm, an instance that is far away
+leader cluster
+algorithm
+from existing centers (deﬁned by a threshold value) causes the creation
+of a new center at that point (we discuss such a neural network algorithm,
+
+7.4
+Expectation-Maximization Algorithm
+149
+Initialize mi, i = 1, . . . , k, for example, to k random xt
+Repeat
+For all xt ∈X
+bt
+i ←
+
+1
+if ∥xt −mi∥= minj ∥xt −mj∥
+0
+otherwise
+For all mi, i = 1, . . . , k
+mi ←
+
+t bt
+i xt/
+
+t bt
+i
+Until mi converge
+Figure 7.3
+k-means algorithm.
+ART, in chapter 12). Or, a center that covers a large number of instances
+(
+
+t bt
+i /N > θ) can be split into two (by adding a small random vector to
+one of the two copies to make them diﬀerent). Similarly, a center that
+covers too few instances can be removed and restarted from some other
+part of the input space.
+k-means algorithm is for clustering, that is, for ﬁnding groups in the
+data, where the groups are represented by their centers, which are the
+typical representatives of the groups. Vector quantization is one applica-
+tion of clustering, but clustering is also used for preprocessing before a
+later stage of classiﬁcation or regression. Given xt, when we calculate bt
+i ,
+we do a mapping from the original space to the k-dimensional space, that
+is, to one of the corners of the k-dimensional hypercube. A regression or
+discriminant function can then be learned in this new space; we discuss
+such methods in chapter 12.
+7.4
+Expectation-Maximization Algorithm
+In k-means, we approached clustering as the problem of ﬁnding codebook
+vectors that minimize the total reconstruction error. In this section, our
+approach is probabilistic and we look for the component density parame-
+ters that maximize the likelihood of the sample. Using the mixture model
+of equation 7.1, the log likelihood given the sample X = {xt}t is
+L(Φ|X)
+=
+log
+
+t
+p(xt|Φ)
+=
+
+t
+log
+k
+i=1
+p(xt|Gi)P(Gi)
+(7.6)
+
+150
+7
+Clustering
+where Φ includes the priors P(Gi) and also the suﬃcient statistics of the
+component densities p(xt|Gi).
+Unfortunately, we cannot solve for the
+parameters analytically and need to resort to iterative optimization.
+The Expectation-Maximization (EM) algorithm (Dempster, Laird, and Ru-
+Expectation-
+Maximization
+bin 1977; Redner and Walker 1984) is used in maximum likelihood esti-
+mation where the problem involves two sets of random variables of which
+one, X, is observable and the other, Z, is hidden. The goal of the algo-
+rithm is to ﬁnd the parameter vector Φ that maximizes the likelihood of
+the observed values of X, L(Φ|X). But in cases where this is not feasi-
+ble, we associate the extra hidden variables Z and express the underlying
+model using both, to maximize the likelihood of the joint distribution of
+X and Z, the complete likelihood Lc(Φ|X, Z).
+Since the Z values are not observed, we cannot work directly with the
+complete data likelihood Lc; instead, we work with its expectation, Q,
+given X and the current parameter values Φl, where l indexes iteration.
+This is the expectation (E) step of the algorithm. Then in the maximization
+(M) step, we look for the new parameter values, Φl+1, that maximize this.
+Thus
+E-step
+:
+Q(Φ|Φl) = E[Lc(Φ|X, Z)|X, Φl]
+M-step
+:
+Φl+1 = arg max
+Φ
+Q(Φ|Φl)
+Dempster, Laird, and Rubin (1977) proved that an increase in Q implies
+an increase in the incomplete likelihood
+L(Φl+1|X) ≥L(Φl|X)
+In the case of mixtures, the hidden variables are the sources of ob-
+servations, namely, which observation belongs to which component. If
+these were given, for example, as class labels in a supervised setting, we
+would know which parameters to adjust to ﬁt that data point. The EM
+algorithm works as follows: in the E-step we estimate these labels given
+our current knowledge of components, and in the M-step we update our
+component knowledge given the labels estimated in the E-step. These two
+steps are the same as the two steps of k-means; calculation of bt
+i (E-step)
+and reestimation of mi (M-step).
+We deﬁne a vector of indicator variables zt = {zt
+1, . . . , zt
+k} where zt
+i = 1
+if xt belongs to cluster Gi, and 0 otherwise. z is a multinomial distribu-
+
+7.4
+Expectation-Maximization Algorithm
+151
+tion from k categories with prior probabilities πi, shorthand for P(Gi).
+Then
+P(zt) =
+k
+
+i=1
+π
+zt
+i
+i
+(7.7)
+The likelihood of an observation xt is equal to its probability speciﬁed by
+the component that generated it:
+p(xt|zt) =
+k
+
+i=1
+pi(xt)zt
+i
+(7.8)
+pi(xt) is shorthand for p(xt|Gi). The joint density is
+p(xt, zt) = P(zt)p(xt|zt)
+and the complete data likelihood of the iid sample X is
+Lc(Φ|X, Z)
+=
+log
+
+t
+p(xt, zt|Φ)
+=
+
+t
+log p(xt, zt|Φ)
+=
+
+t
+log P(zt|Φ) + log p(xt|zt, Φ)
+=
+
+t
+
+i
+zt
+i [log πi + log pi(xt|Φ)]
+E-step: We deﬁne
+Q(Φ|Φl)
+≡
+E
+
+log P(X, Z)|X, Φl
+=
+E
+
+Lc(Φ|X, Z)|X, Φl)
+
+=
+
+t
+
+i
+E[zt
+i |X, Φl][log πi + log pi(xt|Φl)]
+where
+E[zt
+i |X, Φl]
+=
+E[zt
+i |xt, Φl]
+xt are iid
+=
+P(zt
+i = 1|xt, Φl)
+zt
+i is a 0/1 random variable
+=
+p(xt|zt
+i = 1, Φl)P(zt
+i = 1|Φl)
+p(xt|Φl)
+Bayes’ rule
+=
+pi(xt|Φl)πi
+
+j pj(xt|Φl)πj
+
+152
+7
+Clustering
+=
+p(xt|Gi, Φl)P(Gi)
+
+j p(xt|Gj, Φl)P(Gj)
+=
+P(Gi|xt, Φl) ≡ht
+i
+(7.9)
+We see that the expected value of the hidden variable, E[zt
+i ], is the
+posterior probability that xt is generated by component Gi. Because this
+is a probability, it is between 0 and 1 and is a “soft” label, as opposed to
+the 0/1 “hard” label of k-means.
+M-step: We maximize Q to get the next set of parameter values Φl+1:
+Φl+1 = arg max
+Φ
+Q(Φ|Φl)
+which is
+Q(Φ|Φl)
+=
+
+t
+
+i
+ht
+i[log πi + log pi(xt|Φl)]
+=
+
+t
+
+i
+ht
+i log πi +
+
+t
+
+i
+ht
+i log pi(xt|Φl)
+(7.10)
+The second term is independent of πi and using the constraint that
+
+i πi = 1 as the Lagrangian, we solve for
+∇πi
+
+t
+
+i
+ht
+i log πi −λ
+⎛
+⎝
+i
+πi −1
+⎞
+⎠= 0
+and get
+πi =
+
+t ht
+i
+N
+(7.11)
+which is analogous to the calculation of priors in equation 7.2.
+Similarly, the ﬁrst term of equation 7.10 is independent of the compo-
+nents and can be dropped while estimating the parameters of the com-
+ponents. We solve for
+∇Φ
+
+t
+
+i
+ht
+i log pi(xt|Φ) = 0
+(7.12)
+If we assume Gaussian components, ˆpi(xt|Φ) ∼N (mi, Si), the M-step
+is
+ml+1
+i
+=
+
+t ht
+i xt
+
+t ht
+i
+(7.13)
+Sl+1
+i
+=
+
+t ht
+i (xt −ml+1
+i
+)(xt −ml+1
+i
+)T
+
+t ht
+i
+
+7.4
+Expectation-Maximization Algorithm
+153
+−40
+−30
+−20
+−10
+0
+10
+20
+−30
+−25
+−20
+−15
+−10
+−5
+0
+5
+10
+15
+20
+x1
+x2
+EM solution
+Figure 7.4
+Data points and the ﬁtted Gaussians by EM, initialized by one k-
+means iteration of ﬁgure 7.2.
+Unlike in k-means, as can be seen, EM allows
+estimating the covariance matrices. The data points labeled by greater hi, the
+contours of the estimated Gaussian densities, and the separating curve of hi =
+0.5 (dashed line) are shown.
+where, for Gaussian components in the E-step, we calculate
+ht
+i =
+πi|Si|−1/2 exp[−(1/2)(xt −mi)TS−1
+i
+(xt −mi)]
+
+j πj|Sj|−1/2 exp[−(1/2)(xt −mj)T S−1
+j (xt −mj)]
+(7.14)
+Again, the similarity between equations 7.13 and 7.2 is not accidental;
+the estimated soft labels ht
+i replace the actual (unknown) labels rt
+i .
+EM is initalized by k-means. After a few iterations of k-means, we get
+the estimates for the centers mi and using the instances covered by each
+center, we estimate the Si and
+
+t bt
+i /N give us the πi. We run EM from
+that point on, as shown in ﬁgure 7.4.
+Just as in parametric classiﬁcation (section 5.5), with small samples and
+large dimensionality we can regularize by making simplifying assump-
+tions. When ˆpi(xt|Φ) ∼N (mi, S), the case of a shared covariance matrix,
+
+154
+7
+Clustering
+equation 7.12 reduces to
+min
+mi,S
+
+t
+
+i
+ht
+i(xt −mi)T S−1(xt −mi)
+(7.15)
+When ˆpi(xt|Φ) ∼N (mi, s2I), the case of a shared diagonal matrix, we
+have
+min
+mi,s
+
+t
+
+i
+ht
+i
+∥xt −mi∥2
+s2
+(7.16)
+which is the reconstruction error we deﬁned in k-means clustering (equa-
+tion 7.3). The diﬀerence is that now
+ht
+i =
+exp
+(
+−(1/2s2)∥xt −mi∥2)
+
+j exp
+
+−(1/2s2)∥xt −mj∥2
+
+(7.17)
+is a probability between 0 and 1. bt
+i of k-means clustering makes a hard
+0/1 decision, whereas ht
+i is a soft label that assigns the input to a cluster
+with a certain probability. When ht
+i are used instead of bt
+i , an instance
+contributes to the update of parameters of all components, to each pro-
+portional to that probability. This is especially useful if the instance is
+close to the midpoint between two centers.
+We thus see that k-means clustering is a special case of EM applied
+to Gaussian mixtures where inputs are assumed independent with equal
+and shared variances, all components have equal priors, and labels are
+hardened. k-means thus pave the input density with circles, whereas EM
+in the general case uses ellipses of arbitrary shapes, orientations, and
+coverage proportions.
+7.5
+Mixtures of Latent Variable Models
+When full covariance matrices are used with Gaussian mixtures, even if
+there is no singularity, one risks overﬁtting if the input dimensionality
+is high and the sample is small. To decrease the number of parameters,
+assuming a common covariance matrix may not be right since clusters
+may really have diﬀerent shapes. Assuming diagonal matrices is even
+more risky because it removes all correlations.
+The alternative is to do dimensionality reduction in the clusters. This
+decreases the number of parameters while still capturing the correla-
+tions. The number of free parameters is controlled through the dimen-
+sionality of the reduced space.
+
+7.6
+Supervised Learning after Clustering
+155
+When we do factor analysis (section 6.4) in the clusters, we look for
+latent or hidden variables or factors that generate the data in the clusters
+(Bishop 1999):
+p(xt|Gi) ∼N (mi, ViVT
+i + Ψ i)
+(7.18)
+where Vi and Ψ i are the factor loadings and speciﬁc variances of cluster
+Gi.
+Rubin and Thayer (1982) give EM equations for factor analysis. It
+is possible to extend this in mixture models to ﬁnd mixtures of factor
+mixtures of factor
+analyzers
+analyzers (Ghahramani and Hinton 1997). In the E-step, in equation 7.9,
+we use equation 7.18, and in the M-step, we solve equation 7.12 for Vi
+and Ψ i instead of Si. Similarly, one can also do PCA in groups, which
+is called mixtures of probabilistic principal component analyzers (Tipping
+mixtures of
+probabilistic
+principal
+component
+analyzers
+and Bishop 1999).
+We can of course use EM to learn Si and then do FA or PCA separately
+in each cluster, but doing EM is better because it couples these two steps
+of clustering and dimensionality reduction and does a soft partitioning.
+An instance contributes to the calculation of the latent variables of all
+groups, weighted by ht
+i.
+7.6
+Supervised Learning after Clustering
+Clustering, like the dimensionality reduction methods discussed in chap-
+ter 6, can be used for two purposes: it can be used for data exploration,
+to understand the structure of data. Dimensionality reduction methods
+are used to ﬁnd correlations between variables and thus group variables;
+clustering methods, on the other hand, are used to ﬁnd similarities be-
+tween instances and thus group instances.
+If such groups are found, these may be named (by application experts)
+and their attributes be deﬁned. One can choose the group mean as the
+representative prototype of instances in the group, or the possible range
+of attributes can be written.
+This allows a simpler description of the
+data. For example, if the customers of a company seem to fall in one
+of k groups, called segments, customers being deﬁned in terms of their
+customer
+segmentation
+demographic attributes and transactions with the company, then a better
+understanding of the customer base will be provided that will allow the
+company to provide diﬀerent strategies for diﬀerent types of customers;
+this is part of customer relationship management (CRM). Likewise, the
+customer
+relationship
+management
+company will also be able to develop strategies for those customers who
+
+156
+7
+Clustering
+do not fall in any large group, and who may require attention, for exam-
+ple, churning customers.
+Frequently, clustering is also used as a preprocessing stage. Just like
+the dimensionality reduction methods of chapter 6 allowed us to make
+a mapping to a new space, after clustering, we also map to a new k-
+dimensional space where the dimensions are hi (or bi at the risk of loss of
+information). In a supervised setting, we can then learn the discriminant
+or regression function in this new space. The diﬀerence from dimension-
+ality reduction methods like PCA however is that k, the dimensionality of
+the new space, can be larger than d, the original dimensionality.
+When we use a method like PCA, where the new dimensions are combi-
+nations of the original dimensions, to represent any instance in the new
+space, all dimensions contribute; that is, all zj are nonzero. In the case of
+a method like clustering where the new dimensions are deﬁned locally,
+there are many more new dimensions, bj, but only one (or if we use hj,
+few) of them have a nonzero value. In the former case, where there are
+few dimensions but all contribute, we have a distributed representation;
+distributed vs.
+local
+representation
+in the latter case, where there are many dimensions but few contribute,
+we have a local representation.
+One advantage of preceding a supervised learner with unsupervised
+clustering or dimensionality reduction is that the latter does not need
+labeled data. Labeling the data is costly. We can use a large amount of
+unlabeled data for learning the cluster parameters and then use a smaller
+labeled data to learn the second stage of classiﬁcation or regression. Un-
+supervised learning is called “learning what normally happens” (Barrow
+1989). When followed by a supervised learner, we ﬁrst learn what nor-
+mally happens and then learn what that means. We discuss such methods
+in chapter 12.
+In the case of classiﬁcation, when each class is a mixture model com-
+posed of a number of components, the whole density is a mixture of
+mixture of mixtures
+mixtures:
+p(x|Ci)
+=
+ki
+
+j=1
+p(x|Gij)P(Gij)
+p(x)
+=
+K
+
+i=1
+p(x|Ci)P(Ci)
+where ki is the number of components making up p(x|Ci) and Gij is the
+component j of class i. Note that diﬀerent classes may need diﬀerent
+
+7.7
+Hierarchical Clustering
+157
+number of components. Learning the parameters of components is done
+separately for each class (probably after some regularization) as we dis-
+cussed previously. This is better than ﬁtting many components to data
+from all classes and then labeling them later with classes.
+7.7
+Hierarchical Clustering
+We discussed clustering from a probabilistic point of view as ﬁtting a
+mixture model to the data, or in terms of ﬁnding code words minimizing
+reconstruction error. There are also methods for clustering that only use
+similarities of instances, without any other requirement on the data; the
+aim is to ﬁnd groups such that instances in a group are more similar to
+each other than instances in diﬀerent groups. This is the approach taken
+by hierarchical clustering.
+hierarchical
+clustering
+This needs the use of a similarity, or equivalently a distance, measure
+deﬁned between instances. Generally Euclidean distance is used, where
+one has to make sure that all attributes have the same scale. This is a
+special case of the Minkowksi distance with p = 2:
+dm(xr, xs) =
+⎡
+⎣
+d
+j=1
+(xr
+j −xs
+j)p
+⎤
+⎦
+1/p
+City-block distance is easier to calculate:
+dcb(xr, xs) =
+d
+j=1
+|xr
+j −xs
+j|
+An agglomerative clustering algorithm starts with N groups, each ini-
+agglomerative
+clustering
+tially containing one training instance, merging similar groups to form
+larger groups, until there is a single one. A divisive clustering algorithm
+divisive clustering
+goes in the other direction, starting with a single group and dividing large
+groups into smaller groups, until each group contains a single instance.
+At each iteration of an agglomerative algorithm, we choose the two
+closest groups to merge. In single-link clustering, this distance is deﬁned
+single-link
+clustering
+as the smallest distance between all possible pair of elements of the two
+groups:
+d(Gi, Gj) =
+min
+xr ∈Gi,xs∈Gj
+d(xr, xs)
+(7.19)
+Consider a weighted, completely connected graph with nodes corre-
+sponding to instances and edges between nodes with weights equal to
+
+158
+7
+Clustering
+the distances between the instances. Then the single-link method corre-
+sponds to constructing the minimal spanning tree of this graph.
+In complete-link clustering, the distance between two groups is taken as
+complete-link
+clustering
+the largest distance between all possible pairs:
+d(Gi, Gj) =
+max
+xr ∈Gi,xs∈Gj
+d(xr, xs)
+(7.20)
+These are the two most frequently used measures to choose the two
+closest groups to merge. Other possibilities are the average-link method
+that uses the average of distances between all pairs and the centroid dis-
+tance that measures the distance between the centroids (means) of the
+two groups.
+Once an agglomerative method is run, the result is generally drawn as
+a hierarchical structure known as the dendrogram. This is a tree where
+dendrogram
+leaves correspond to instances, which are grouped in the order in which
+they are merged. An example is given in ﬁgure 7.5. The tree can be then
+intersected at any level to get the wanted number of groups.
+Single-link and complete-link methods calculate the distance between
+groups diﬀerently that aﬀect the clusters and the dendrogram. In the
+single-link method, two instances are grouped together at level h if the
+distance between them is less than h, or if there is an intermediate se-
+quence of instances between them such that the distance between con-
+secutive instances is less than h. On the other hand, in the complete-link
+method, all instances in a group have a distance less than h between
+them. Single-link clusters may be elongated due to this “chaining” eﬀect.
+(In ﬁgure 7.5, what if there were an instance halfway between e and c?)
+Complete-link clusters tend to be more compact.
+7.8
+Choosing the Number of Clusters
+Like any learning method, clustering also has its knob to adjust complex-
+ity; it is k, the number of clusters. Given any k, clustering will always ﬁnd
+k centers, whether they really are meaningful groups, or whether they
+are imposed by the method we use. There are various ways we can use to
+ﬁne-tune k:
+■In some applications such as color quantization, k is deﬁned by the
+application.
+
+7.8
+Choosing the Number of Clusters
+159
+a
+b
+f
+e
+d
+c
+a 
+d 
+e 
+c 
+b
+f
+1
+3
+2
+h
+Figure 7.5
+A two-dimensional dataset and the dendrogram showing the result
+of single-link clustering is shown. Note that leaves of the tree are ordered so
+that no branches cross. The tree is then intersected at a desired value of h to get
+the clusters.
+■Plotting the data in two dimensions using PCA may be used in uncov-
+ering the structure of data and the number of clusters in the data.
+■An incremental approach may also help: setting a maximum allowed
+distance is equivalent to setting a maximum allowed reconstruction
+error per instance.
+■In some applications, validation of the groups can be done manually
+by checking whether clusters actually code meaningful groups of the
+data. For example, in a data mining application, application experts
+may do this check. In color quantization, we may inspect the image
+visually to check its quality (despite the fact that our eyes and brain
+do not analyze an image pixel by pixel).
+Depending on what type of clustering method we use, we can plot the
+reconstruction error or log likelihood as a function of k and look for the
+“elbow.” After a large enough k, the algorithm will start dividing groups,
+in which case there will not be a large decrease in the reconstruction error
+or large increase in the log likelihood. Similarly, in hierarchical clustering,
+by looking at the diﬀerences between levels in the tree, we can decide on
+a good split.
+
+160
+7
+Clustering
+7.9
+Notes
+Mixture models are frequently used in statistics. Dedicated textbooks are
+those by Titterington, Smith, and Makov (1985) and McLachlan and Bas-
+ford (1988). McLachlan and Krishnan (1997) discuss recent developments
+in the EM algorithm, how its convergence can be accelerated, and vari-
+ous variants. In signal processing, k-means is called the Linde-Buzo-Gray
+(LBG) algorithm (Gersho and Gray 1992). It is frequently used in both
+statistics and signal processing in a large variety of applications and has
+many variants, one of which is fuzzy k-means. The fuzzy membership of
+fuzzy k-means
+an input to a component is also a number between 0 and 1 (Bezdek and
+Pal 1995). Alpaydın (1998) compares k-means, fuzzy k-means, and EM on
+Gaussian mixtures. A comparison of EM and other learning algorithms
+for the learning of Gaussian mixture models is given by Xu and Jordan
+(1996). On small data samples, an alternative to simplifying assumptions
+is to use a Bayesian approach (Ormoneit and Tresp 1996).
+Moerland
+(1999) compares mixtures of Gaussians and mixtures of latent variable
+models on a set of classiﬁcation problems, showing the advantage of la-
+tent variable models empirically. A book on clustering methods is by Jain
+and Dubes (1988) and survey articles are by Jain, Murty, and Flynn (1999)
+and Xu and Wunsch (2005).
+7.10
+Exercises
+1. In image compression, k-means can be used as follows: The image is divided
+into nonoverlapping c×c windows and these c2-dimensional vectors make up
+the sample. For a given k, which is generally a power of two, we do k-means
+clustering. The reference vectors and the indices for each window is sent over
+the communication line. At the receiving end, the image is then reconstructed
+by reading from the table of reference vectors using the indices. Write the
+computer program that does this for diﬀerent values of k and c. For each
+case, calculate the reconstruction error and the compression rate.
+2. We can do k-means clustering, partition the instances, and then calculate Si
+separately in each group. Why is this not a good idea?
+3. Derive the M-step equations for S in the case of shared arbitrary covariance
+matrix S (equation 7.15) and s2, in the case of shared diagonal covariance
+matrix (equation 7.16).
+4. Deﬁne a multivariate Bernoulli mixture where inputs are binary and derive
+the EM equations.
+
+7.11
+References
+161
+5. In the mixture of mixtures approach for classiﬁcation, how can we ﬁne-tune
+ki, the number of components for class Ci?
+6. How can we do hierarchical clustering with binary input vectors, for example,
+for text clustering using the bag-of-words representation?
+7. What are the similarities and diﬀerences between average-link clustering and
+k-means?
+8. In hierarchical clustering, how can we have locally adaptive distances? What
+are the advantages and disadvantages of this?
+9. How can we make k-means robust to outliers?
+10. Having generated a dendrogram, can we “prune” it?
+7.11
+References
+Alpaydın, E. 1998. “Soft Vector Quantization and the EM Algorithm.” Neural
+Networks 11: 467–477.
+Barrow, H. B. 1989. “Unsupervised Learning.” Neural Computation 1: 295–311.
+Bezdek, J. C., and N. R. Pal.
+1995.
+“Two Soft Relatives of Learning Vector
+Quantization.” Neural Networks 8: 729–743.
+Bishop, C. M. 1999. “Latent Variable Models.” In Learning in Graphical Models,
+ed. M. I. Jordan, 371–403. Cambridge, MA: MIT Press.
+Dempster, A. P., N. M. Laird, and D. B. Rubin. 1977. “Maximum Likelihood from
+Incomplete Data via the EM Algorithm.” Journal of Royal Statistical Society B
+39: 1–38.
+Gersho, A., and R. M. Gray. 1992. Vector Quantization and Signal Compression.
+Boston: Kluwer.
+Ghahramani, Z., and G. E. Hinton. 1997. The EM Algorithm for Mixtures of Factor
+Analyzers. Technical Report CRG TR-96-1, Department of Computer Science,
+University of Toronto (revised Feb. 1997).
+Jain, A. K., and R. C. Dubes. 1988. Algorithms for Clustering Data. New York:
+Prentice Hall.
+Jain, A. K., M. N. Murty, and P. J. Flynn. 1999. “Data Clustering: A Review.” ACM
+Computing Surveys 31: 264–323.
+McLachlan, G. J., and K. E. Basford. 1988. Mixture Models: Inference and Appli-
+cations to Clustering. New York: Marcel Dekker.
+McLachlan, G. J., and T. Krishnan. 1997. The EM Algorithm and Extensions. New
+York: Wiley.
+
+162
+7
+Clustering
+Moerland, P. 1999. “A Comparison of Mixture Models for Density Estimation.”
+In International Conference on Artiﬁcial Neural Networks, ed. D. Willshaw,
+and A. Murray, 25–30. London, UK: IEE Press.
+Ormoneit, D., and V. Tresp. 1996. “Improved Gaussian Mixture Density Esti-
+mates using Bayesian Penalty Terms and Network Averaging.” In Advances in
+Neural Information Processing Systems 8, ed. D. S. Touretzky, M. C. Mozer,
+and M. E. Hasselmo, 542–548. Cambridge, MA: MIT Press.
+Redner, R. A., and H. F. Walker. 1984. “Mixture Densities, Maximum Likelihood
+and the EM Algorithm.” SIAM Review 26: 195–239.
+Rubin, D. B., and D. T. Thayer. 1982. “EM Algorithms for ML Factor Analysis.”
+Psychometrika 47: 69–76.
+Tipping, M. E., and C. M. Bishop.
+1999.
+“Mixtures of Probabilistic Principal
+Component Analyzers.” Neural Computation 11: 443–482.
+Titterington, D. M., A. F. M. Smith, and E. E. Makov. 1985. Statistical Analysis of
+Finite Mixture Distributions. New York: Wiley.
+Xu, L., and M. I. Jordan. 1996. “On Convergence Properties of the EM Algorithm
+for Gaussian Mixtures.” Neural Computation 8: 129–151.
+Xu, R., and D. Wunsch II. 2005. “Survey of Clustering Algorithms.” IEEE Trans-
+actions on Neural Networks 16: 645–678.

@@ -125,6 +125,13 @@
         </table>
       </div>
     </div>
+
+    <div class="section">
+      <div class="head"><span class="num">07</span><h2>Bias of Estimators</h2><span class="tag">Note</span></div>
+      <div class="card full">
+        <p>A good estimator should be <b>consistent</b> (converges to the truth as n→∞) and, ideally, <b>unbiased</b>. The MLE mean μ̂ = x̄ is unbiased: E[x̄] = μ. But the MLE variance σ̂² = (1/n)Σ(x−x̄)² is <b>slightly biased</b> — its expectation is (n−1)/n · σ², so it underestimates σ². The usual fix is the <b>unbiased sample variance</b> s² = (1/(n−1))Σ(x−x̄)². This is the only place MLE and the "textbook" variance differ; everything else (means, rates, λ) is unbiased. (Bias–variance of <i>predictors</i> is covered in M5.)</p>
+      </div>
+    </div>
   </div>
 
   <nav class="pagenav">

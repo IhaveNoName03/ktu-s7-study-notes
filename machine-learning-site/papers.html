@@ -413,7 +413,7 @@
       <div class="qto"><span class="qnum">Tut2 · Q3</span><span class="qmark">4 marks</span></div>
       <span class="qtext">Find the covariance matrix of: X1 = [4, 8, 13, 7], X2 = [11, 4, 5, 14].</span>
       <button class="ansbtn" aria-expanded="false" aria-controls="t2a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a3').classList.toggle('open')">Show answer</button>
-      <div class="ans-collapsible" id="t2a3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Means X̄₁=8, X̄₂=8.5. Cov(X1,X1)=10.5, Cov(X1,X2)=−8.25, Cov(X2,X2)=17.25 (population form, ÷n). Matrix:<br>Σ = [[10.5, −8.25], [−8.25, 17.25]]. <br>(Using the sample estimator ÷(n−1)=3 gives [[14, −11],[−11, 23]].) X1 and X2 are negatively correlated.</div></div>
+      <div class="ans-collapsible" id="t2a3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Means X̄₁=8, X̄₂=8.5. Using the <b>sample covariance</b> (divide by n−1 = 3, the usual convention for an estimated covariance matrix):<br>Var(X1) = [(−4)²+0²+5²+(−1)²]/3 = 42/3 = <b>14</b><br>Cov(X1,X2) = [(−4)(2.5)+0+5(−3.5)+(−1)(5.5)]/3 = −33/3 = <b>−11</b><br>Var(X2) = [2.5²+(−4.5)²+(−3.5)²+5.5²]/3 = 69/3 = <b>23</b><br>Σ = <b>[[14, −11], [−11, 23]]</b>.<br>(If you divide by n = 4 instead — the population form — you get [[10.5, −8.25], [−8.25, 17.25]]. Use n−1 unless the question specifically says "population".) X1 and X2 are negatively correlated.</div></div>
     </div>
 
     <div class="q" id="t2q4">

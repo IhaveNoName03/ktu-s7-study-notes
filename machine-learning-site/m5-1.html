@@ -321,6 +321,16 @@
     </div>
   </div>
 
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>Bayesian Decision Theory</h2><span class="tag">Optimal classifier</span></div>
+    <div class="card full">
+      <p>The theoretically <b>optimal</b> classifier (minimum error) is the Bayes classifier: assign x to the class Cₖ that maximizes the posterior P(Cₖ|x). Using Bayes' rule this becomes:</p>
+      <div class="eq">decide Cₖ if &nbsp; p(x|Cₖ)·P(Cₖ) &nbsp; is largest &nbsp; (the denominator p(x) is the same for every class, so it can be dropped)</div>
+      <p>Equivalently, compare <b>discriminant functions</b> gₖ(x) = log p(x|Cₖ) + log P(Cₖ); pick the largest. For Gaussian classes with equal covariance, the boundary is linear; with unequal covariance it is quadratic. This is the bridge from M1's Bayes/MLE ideas to building an actual classifier — and a reason generative classifiers (Naive Bayes, LDA) and discriminative ones (logistic regression, SVM) both exist.</p>
+      <div class="def"><b>Why it matters:</b> the Bayes classifier is the accuracy ceiling — no method can beat it on average. Practical models (incl. ensembles) are trying to approximate this optimum from data.</div>
+    </div>
+  </div>
+
   <nav class="pagenav">
     <a class="prev" href="m5-2.html">← Prev: M5.2 · Ensembles &amp; CV</a>
     <a class="next" href="m-t1.html">Next: Exam Techniques →</a>
