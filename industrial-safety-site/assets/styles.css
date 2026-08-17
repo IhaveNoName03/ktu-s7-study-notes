@@ -71,6 +71,31 @@ a:hover{text-decoration:underline}
   content:"";position:absolute;left:-9px;top:50%;transform:translateY(-50%);
   width:1px;height:18px;background:rgba(255,255,255,.18);
 }
+  /* Desktop Modules dropdown */
+  .topnav .navhead{display:none}
+  .moddd{position:relative;display:inline-block}
+  .moddd-btn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    color:#B7BEC7;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;
+    background:transparent;border:1px solid rgba(255,255,255,.14);
+    transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease}
+  .moddd-btn:hover{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.28);transform:translateY(-1px)}
+  .moddd-btn .caret{font-size:10px;line-height:1;transition:transform .2s ease}
+  .moddd-btn.active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent)}
+  .moddd.open .moddd-btn{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent)}
+  .moddd.open .moddd-btn .caret{transform:rotate(180deg)}
+  .moddd-panel{position:absolute;top:calc(100% + 10px);right:0;z-index:70;min-width:230px;
+    display:flex;flex-direction:column;gap:6px;padding:12px;
+    background:rgba(15,17,21,.98);border:1px solid rgba(255,255,255,.10);border-radius:16px;
+    box-shadow:0 18px 44px rgba(0,0,0,.45);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);
+    opacity:0;visibility:hidden;transform:translateY(8px);
+    transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+  .moddd.open .moddd-panel{opacity:1;visibility:visible;transform:translateY(0)}
+  .moddd-panel a{padding:10px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:#cfd4da;
+    border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.06);
+    transition:background .18s ease,color .18s ease,transform .18s cubic-bezier(.2,.7,.3,1)}
+  .moddd-panel a:hover{background:rgba(255,255,255,.12);color:#fff;transform:translateY(-1px)}
+  .moddd-panel a.active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent)}
 .navtoggle{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:#EDEFF2;
   border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer}
 
@@ -315,7 +340,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
     opacity:0;transform:translateY(-10px);visibility:hidden;
     transition:opacity .22s ease,transform .22s ease,visibility .22s ease;
   }
-  .topnav .navhead{display:none}
   .topnav.open{opacity:1;transform:translateY(0);visibility:visible}
   .topnav a{
     padding:11px 16px;border-radius:999px;font-size:13.5px;font-weight:600;letter-spacing:.2px;
@@ -325,6 +349,10 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
   .topnav a:hover{background:rgba(255,255,255,.12);color:#fff;transform:translateY(-1px)}
   .topnav .navhead{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
     color:#8A929C;padding:2px 4px 4px;margin-bottom:2px}
+  .moddd{display:block;position:static}
+  .moddd-btn{display:none}
+  .moddd-panel{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:transparent;border:none;padding:0;min-width:0;gap:6px}
+
   .topnav a:hover{background:rgba(255,255,255,.10);color:#fff;transform:translateY(-1px)}
   .topnav a.active{background:var(--accent);color:#fff;border-color:transparent;
     box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent);transform:translateY(-1px)}

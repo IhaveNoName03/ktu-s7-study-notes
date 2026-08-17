@@ -51,10 +51,10 @@
                path.indexOf("industrial-safety-site")>-1?"ise":null;
     if(!subj) return;
     var NAVS={
-      ml:[['index.html','Home'],['m1-1.html','M1 · Paradigms'],['m2-1.html','M2 · Supervised'],['m3-1.html','M3 · NN &amp; SVM'],['m4-1.html','M4 · Unsupervised'],['m5-1.html','M5 · Classification'],['m-t1.html','Exam Techniques'],['papers.html','Papers']],
-      eh:[['index.html','Home'],['m1-1.html','M1 · Basics'],['m1-2.html','M1 · Hackers'],['m1-3.html','M1 · Pentest'],['m2-1.html','M2 · Recon'],['m2-2.html','M2 · Attacks'],['m2-3.html','M2 · Social Eng.'],['m3-1.html','M3 · Vuln/Attacks'],['m4-1.html','M4 · Net/Sys'],['m5-1.html','M5 · Tracks'],['m-t1.html','Exam Techniques'],['papers.html','Papers']],
-      res:[['index.html','Home'],['m1-1.html','M1 · Resources'],['m1-2.html','M1 · Solar Thermal'],['m1-3.html','M1 · Solar PV'],['m2-1.html','M2 · OTEC'],['m2-2.html','M2 · Tidal'],['m3-1.html','M3 · Wind'],['m4-1.html','M4 · Biomass'],['m5-1.html','M5 · Hydro/Fuel'],['m-t1.html','Exam Techniques'],['papers.html','Papers']],
-      ise:[['index.html','Home'],['m1-1.html','M1 · Intro'],['m2-1.html','M2 · PPE'],['m3-1.html','M3 · Construction'],['m4-1.html','M4 · Machines'],['m5-1.html','M5 · Hazards'],['m-t1.html','Exam Techniques'],['papers.html','Papers']]
+      ml:[["index.html","Home"],["m1-1.html","M1 · Paradigms"],["m2-1.html","M2 · Supervised"],["m3-1.html","M3 · NN &amp; SVM"],["m4-1.html","M4 · Unsupervised"],["m5-1.html","M5 · Classification"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
+      eh:[["index.html","Home"],["m1-1.html","M1 · Basics"],["m1-2.html","M1 · Hackers"],["m1-3.html","M1 · Pentest"],["m2-1.html","M2 · Recon"],["m2-2.html","M2 · Attacks"],["m2-3.html","M2 · Social Eng."],["m3-1.html","M3 · Vuln/Attacks"],["m4-1.html","M4 · Net/Sys"],["m5-1.html","M5 · Tracks"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
+      res:[["index.html","Home"],["m1-1.html","M1 · Resources"],["m1-2.html","M1 · Solar Thermal"],["m1-3.html","M1 · Solar PV"],["m2-1.html","M2 · OTEC"],["m2-2.html","M2 · Tidal"],["m3-1.html","M3 · Wind"],["m4-1.html","M4 · Biomass"],["m5-1.html","M5 · Hydro/Fuel"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
+      ise:[["index.html","Home"],["m1-1.html","M1 · Intro"],["m2-1.html","M2 · PPE"],["m3-1.html","M3 · Construction"],["m4-1.html","M4 · Machines"],["m5-1.html","M5 · Hazards"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]]
     };
     var items=NAVS[subj]; if(!items) return;
     var file=path.split("/").pop().split("?")[0];
@@ -70,15 +70,31 @@
       var tog=document.createElement("button"); tog.className="navtoggle"; tog.setAttribute("aria-label","Menu"); tog.textContent="Menu"; topbar.appendChild(tog);
     }
     if(!nav) return;
-    nav.innerHTML='<span class=\"navhead\">Browse</span>'+items.map(function(it){
+    var modLinks=items.slice(1).map(function(it){
       return '<a href="'+it[0]+'"'+(it[0]===activeHref?' class="active"':'')+'>'+it[1]+'</a>';
     }).join("");
+    nav.innerHTML='<span class="navhead">Browse</span>'+
+      '<a href="index.html" class="home'+(activeHref==="index.html"?' active':'')+'">Home</a>'+
+      '<div class="moddd"><button class="moddd-btn'+(activeHref!=="index.html"?' active':'')+'" type="button" aria-haspopup="true" aria-expanded="false">Modules <span class="caret">&#9662;</span></button><div class="moddd-panel">'+modLinks+'</div></div>';
   }
   buildNav();
+  /* ---------- Desktop Modules dropdown ---------- */
+  var moddd=document.querySelector(".moddd");
+  var modBtn=document.querySelector(".moddd-btn");
+  function openModdd(){ if(moddd){moddd.classList.add("open"); if(modBtn)modBtn.setAttribute("aria-expanded","true");} }
+  function closeModdd(){ if(moddd){moddd.classList.remove("open"); if(modBtn)modBtn.setAttribute("aria-expanded","false");} }
+  if(moddd && modBtn){
+    modBtn.addEventListener("click",function(e){ e.stopPropagation(); var o=moddd.classList.toggle("open"); modBtn.setAttribute("aria-expanded",o?"true":"false"); });
+    moddd.addEventListener("mouseenter",openModdd);
+    moddd.addEventListener("mouseleave",closeModdd);
+    document.addEventListener("click",function(e){ if(moddd.classList.contains("open") && !moddd.contains(e.target)) closeModdd(); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeModdd(); });
+  }
+
   /* ---------- Mobile navigation ---------- */
   var toggle = document.querySelector(".navtoggle");
   var nav = document.querySelector(".topnav");
-  function closeNav() { if (nav) nav.classList.remove("open"); }
+  function closeNav() { if (nav) nav.classList.remove("open"); var m=document.querySelector(".moddd"); if(m) m.classList.remove("open"); var b=document.querySelector(".moddd-btn"); if(b) b.setAttribute("aria-expanded","false"); }
   if (toggle && nav) {
     toggle.setAttribute("aria-expanded", "false");
     toggle.addEventListener("click", function (e) {
