@@ -58,13 +58,29 @@ a:hover{text-decoration:underline}
 .brand .name{color:#EDEFF2}
 .brand .sep{color:#8A929C;font-weight:400;margin:0 2px}
 .brand .subj{color:#B7BEC7;font-weight:500}
-.topnav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
 .topnav a{
-  color:#B7BEC7;font-size:12.5px;padding:7px 11px;border-radius:999px;
-  white-space:nowrap;font-weight:600;transition:background .18s ease,color .18s ease,transform .18s ease;
+  position:relative;color:#B7BEC7;font-size:13px;padding:8px 13px;border-radius:999px;letter-spacing:.2px;
+  white-space:nowrap;font-weight:600;
+  transition:background .2s ease,color .2s ease,transform .2s cubic-bezier(.2,.7,.3,1),box-shadow .2s ease;
+  opacity:0;transform:translateY(-6px);animation:navIn .5s cubic-bezier(.2,.7,.3,1) forwards;
 }
-.topnav a:hover{background:rgba(255,255,255,.10);color:#fff;text-decoration:none}
-.topnav a.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 45%,transparent)}
+.topnav a:nth-child(1){animation-delay:.04s}
+.topnav a:nth-child(2){animation-delay:.08s}
+.topnav a:nth-child(3){animation-delay:.12s}
+.topnav a:nth-child(4){animation-delay:.16s}
+.topnav a:nth-child(5){animation-delay:.20s}
+.topnav a:nth-child(6){animation-delay:.24s}
+.topnav a:nth-child(7){animation-delay:.28s}
+.topnav a:nth-child(8){animation-delay:.32s}
+@keyframes navIn{to{opacity:1;transform:translateY(0)}}
+.topnav a:hover{background:rgba(255,255,255,.10);color:#fff;transform:translateY(-1px);text-decoration:none}
+.topnav a.active{background:var(--accent);color:#fff;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent);transform:translateY(-1px)}
+.topnav a:first-child{margin-right:4px}
+.topnav a:nth-child(2)::before{
+  content:"";position:absolute;left:-9px;top:50%;transform:translateY(-50%);
+  width:1px;height:18px;background:rgba(255,255,255,.18);
+}
 .navtoggle{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:#EDEFF2;
   border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer}
 
@@ -364,6 +380,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 @media (prefers-reduced-motion: reduce){
   *{scroll-behavior:auto !important}
   .card,.modcard,.techitem,.pagenav a,.chip,.backtop{transition:none !important}
+  .topnav a{animation:none !important;opacity:1 !important;transform:none !important}
 }
 
 /* ---------- Question-bank live search ---------- */
@@ -447,6 +464,7 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
 @media (prefers-reduced-motion: reduce){
   *{scroll-behavior:auto !important}
   .card,.modcard,.techitem,.pagenav a,.chip,.backtop{transition:none !important}
+  .topnav a{animation:none !important;opacity:1 !important;transform:none !important}
 }
 
 /* ===================== DARK THEME (toggle via [data-theme="dark"]) ===================== */
