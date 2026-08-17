@@ -98,6 +98,30 @@
   .foot b{color:var(--ink-2)}
   .empty{max-width:var(--maxw); margin:24px auto; padding:0 20px; color:var(--muted); display:none}
   @media (max-width:640px){ .stats .stat{flex:1 1 40%} .home-hero{padding:54px 16px 48px} }
+
+  /* ---- DARK THEME (toggle via [data-theme="dark"]) ---- */
+  html[data-theme="dark"] body{background:#0E0F12;color:#EDEFF2}
+  html[data-theme="dark"] .scard{background:#16191F;border-color:#2a2f37;box-shadow:none}
+  html[data-theme="dark"] .scard .top{border-bottom-color:#2a2f37}
+  html[data-theme="dark"] .scard .desc{color:#B7BEC7}
+  html[data-theme="dark"] .scard .mods span{color:#B7BEC7;background:#1b1f26;border-color:#2a2f37}
+  html[data-theme="dark"] .scard .meta{color:#8A929C;background:#12151a;border-top-color:#2a2f37}
+  html[data-theme="dark"] .searchbox{background:#16191F;border-color:#2a2f37;box-shadow:none}
+  html[data-theme="dark"] .searchbox input{color:#EDEFF2}
+  html[data-theme="dark"] .searchbox input::placeholder{color:#8A929C}
+  html[data-theme="dark"] .quick a{color:#B7BEC7;background:#16191F;border-color:#2a2f37}
+  html[data-theme="dark"] .quick a:hover{border-color:var(--accent);color:var(--accent)}
+  html[data-theme="dark"] .foot{color:#8A929C;border-top-color:#2a2f37}
+  html[data-theme="dark"] .foot b{color:#B7BEC7}
+  html[data-theme="dark"] .empty{color:#8A929C}
+  html[data-theme="dark"] h2{color:#8A929C}
+  html[data-theme="dark"] .theme-toggle{color:#8A929C;border-color:#2a2f37}
+  html[data-theme="dark"] .theme-toggle:hover{color:#EDEFF2;border-color:var(--accent)}
+  .theme-toggle{margin-left:14px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+    font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;
+    border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:color .15s ease,border-color .15s ease}
+  .theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
+  .theme-toggle .ic{font-size:13px;line-height:1}
 </style>
 </head>
 <body class="landing">
@@ -223,6 +247,24 @@
     var target=+el.getAttribute('data-count'), cur=0, step=Math.max(1,Math.round(target/28));
     var t=setInterval(function(){ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=cur; },22);
   });
+
+  // Theme toggle (light/dark) — persists across pages & sites via cookie + localStorage
+  (function(){
+    var root=document.documentElement;
+    function read(){ try{var c=document.cookie.match(/(^|; )theme=(dark|light)(;|$)/); if(c) return c[2];}catch(e){}
+      try{var ls=localStorage.getItem("theme"); if(ls==="dark"||ls==="light") return ls;}catch(e){} return null; }
+    function write(v){ try{document.cookie="theme="+v+";path=/;max-age=31536000;samesite=lax";}catch(e){}
+      try{localStorage.setItem("theme",v);}catch(e){} }
+    var saved=read(); if(saved) root.setAttribute("data-theme",saved);
+    var bar=document.querySelector(".topbar-inner"); if(!bar) return;
+    var btn=document.createElement("button"); btn.className="theme-toggle"; btn.type="button";
+    btn.setAttribute("aria-label","Toggle dark theme");
+    function paint(){ var d=root.getAttribute("data-theme")==="dark";
+      btn.innerHTML='<span class="ic">'+(d?"☾":"☀︎")+'</span> <span class="lbl">'+(d?"Dark":"Light")+'</span>'; }
+    btn.addEventListener("click",function(){ var d=root.getAttribute("data-theme")==="dark"; var n=d?"light":"dark";
+      root.setAttribute("data-theme",n); write(n); paint(); });
+    paint(); bar.appendChild(btn);
+  })();
 </script>
 </body>
 </html>
