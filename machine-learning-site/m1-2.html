@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1.2 · Bayesian Estimation (MLE & MAP)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m1-2.html" class="active">M1 · Bayes Est.</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN/SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Assessment</a>
+      <a href="m-t1.html">Exam</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Part 2</span>
+  <h1>Bayesian Estimation — MLE &amp; MAP</h1>
+  <p class="lede">The Bayesian way of learning parameters from data: treat the model as fixed and the
+  parameters as unknown, then use the data to find the most likely parameters (<b>MLE</b>) or the most likely
+  parameters given both data and prior belief (<b>MAP</b>). Includes worked parameter-estimation examples.</p>
+  <div class="meta-row">
+    <span class="chip red">MLE</span>
+    <span class="chip">MAP</span>
+    <span class="chip">Posterior</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>From Bayes' Theorem to Estimation</h2><span class="tag">Setup</span></div>
+    <div class="card full">
+      <p>Bayes' theorem relates the probability of a hypothesis (here, a parameter value θ) after seeing data D:</p>
+      <div class="eq">P(θ | D) = P(D | θ) · P(θ) / P(D)</div>
+      <p>where P(D) = ∫ P(D|θ)·P(θ) dθ is just a normalizing constant. Read it as:</p>
+      <ul>
+        <li><b>Prior</b> P(θ) — belief about θ before seeing data.</li>
+        <li><b>Likelihood</b> P(D | θ) — how probable the observed data is under parameter θ.</li>
+        <li><b>Posterior</b> P(θ | D) — updated belief after seeing data.</li>
+      </ul>
+      <div class="def"><b>Big picture:</b> ML "learns" by maximizing the likelihood (MLE) or the posterior (MAP). The prior is what separates MAP from MLE — it lets you inject domain knowledge ("θ is probably near 0.5").</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Maximum Likelihood Estimation (MLE)</h2><span class="tag">Method</span></div>
+    <div class="card full">
+      <p>MLE picks the θ that makes the observed data most probable, ignoring any prior:</p>
+      <div class="eq">θ̂<sub>MLE</sub> = argmax<sub>θ</sub> P(D | θ)</div>
+      <p>In practice we maximize the log-likelihood (monotonic, turns products into sums):</p>
+      <div class="eq">θ̂<sub>MLE</sub> = argmax<sub>θ</sub> Σ<sub>i</sub> log P(x<sub>i</sub> | θ)</div>
+      <p>For independent, identically distributed data this is just "choose the parameter that best explains what you saw."</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Worked Example — Coin Toss (Bernoulli MLE)</h2><span class="tag">Worked</span></div>
+    <div class="card full">
+      <p>Suppose we toss a coin n = 100 times and observe h = 62 heads. Model the outcome as Bernoulli(θ),
+      where θ is the probability of heads. The likelihood of the data is:</p>
+      <div class="eq">P(D | θ) = θ<sup>h</sup> · (1 − θ)<sup>n − h</sup> = θ<sup>62</sup> · (1 − θ)<sup>38</sup></div>
+      <p>Log-likelihood: ℓ(θ) = 62·ln θ + 38·ln(1 − θ). Maximize by setting the derivative to zero:</p>
+      <div class="eq">dℓ/dθ = 62/θ − 38/(1 − θ) = 0  ⟹  62(1 − θ) = 38θ  ⟹  62 = 100θ  ⟹  θ̂ = 0.62</div>
+      <div class="def"><b>Result:</b> the MLE is simply the observed frequency, <b>θ̂ = h/n = 62/100 = 0.62</b>. This is why MLE is intuitive: it is the empirical proportion.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Maximum A Posteriori (MAP)</h2><span class="tag">Method</span></div>
+    <div class="card full">
+      <p>MAP also maximizes the posterior, which includes the prior:</p>
+      <div class="eq">θ̂<sub>MAP</sub> = argmax<sub>θ</sub> P(D | θ) · P(θ)</div>
+      <p>or, in logs: argmax<sub>θ</sub> [ Σ<sub>i</sub> log P(x<sub>i</sub> | θ) + log P(θ) ].</p>
+      <p>The prior acts as a regularizer. A common choice is a <b>Beta prior</b> for Bernoulli data:
+      P(θ) ∝ θ<sup>α−1</sup>(1−θ)<sup>β−1</sup>. With a Beta(α,β) prior, the MAP estimate becomes:</p>
+      <div class="eq">θ̂<sub>MAP</sub> = (h + α − 1) / (n + α + β − 2)</div>
+      <div class="def"><b>Effect of the prior:</b> with α = β = 1 (uniform prior) MAP equals MLE. With a stronger prior
+      (e.g. α = β = 2, "biased toward fair"), the coin example gives θ̂ = (62+1)/(100+2) ≈ 0.618 — nudged
+      slightly toward 0.5. The prior prevents over-confident estimates from small samples.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Posterior, MLE, MAP — When to Use Which</h2><span class="tag">Summary</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Approach</th><th>Maximizes</th><th>Uses prior?</th><th>Best when</th></tr></thead>
+          <tbody>
+            <tr><td><b>MLE</b></td><td>Likelihood P(D|θ)</td><td>No</td><td>Large dataset, no strong prior belief</td></tr>
+            <tr><td><b>MAP</b></td><td>Likelihood × Prior</td><td>Yes</td><td>Small dataset, or you have domain knowledge</td></tr>
+            <tr><td><b>Posterior</b></td><td>Full P(θ|D)</td><td>Yes</td><td>You need uncertainty (e.g. confidence intervals)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Link to later modules:</b> logistic regression (M2) is trained by MLE of the weights;
+      Naive Bayes (M2) uses the data frequencies as MLEs of the class/feature probabilities; regularization
+      in regression is exactly a MAP prior on the weights.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-1.html">← Prev: M1 · Paradigms</a>
+    <a class="next" href="m2-1.html">Next: M2 · Supervised →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

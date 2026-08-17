@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4.2 · PCA & Dimensionality Reduction</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m4-1.html">M4 · Clustering</a>
+      <a href="m4-2.html" class="active">M4 · PCA</a>
+      <a href="m5-1.html">M5 · Assessment</a>
+      <a href="m-t1.html">Exam</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 4 · Part 2</span>
+  <h1>PCA &amp; Dimensionality Reduction</h1>
+  <p class="lede">When features are many and correlated, <b>Principal Component Analysis (PCA)</b> rotates the data
+  to new axes — the directions of largest variance — and keeps only the top ones. It compresses data, removes
+  redundancy, and visualizes high dimensions, with almost no loss of information.</p>
+  <div class="meta-row">
+    <span class="chip red">Variance</span>
+    <span class="chip">Eigen</span>
+    <span class="chip">Projection</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>The Idea</h2><span class="tag">Concept</span></div>
+    <div class="card full">
+      <p>Given d-dimensional data, PCA finds d orthogonal directions (principal components) ordered by how much
+      variance they capture. Project onto the first k components to get a k-dimensional representation that keeps
+      as much variance as possible.</p>
+      <div class="eq">Z = W<sup>T</sup> X</div>
+      <p>where the columns of W are the top-k eigenvectors of the data's covariance matrix, and Z is the reduced data.</p>
+      <div class="def"><b>Why reduce?</b> fewer features → faster training, less overfitting, and you can plot 2-D/3-D to see structure. PCA is unsupervised — it only looks at variance, not labels.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Covariance &amp; Eigen-decomposition</h2><span class="tag">Math</span></div>
+    <div class="card full">
+      <p>Steps of PCA:</p>
+      <ol>
+        <li>Center the data (subtract the mean of each feature).</li>
+        <li>Compute the covariance matrix Σ = (1/n) X<sup>T</sup> X.</li>
+        <li>Eigen-decompose Σ = V Λ V<sup>T</sup>; eigenvectors V are the principal components.</li>
+        <li>Sort eigenvectors by eigenvalue Λ (variance along that component), keep the top k.</li>
+        <li>Project: Z = V<sub>k</sub><sup>T</sup> X.</li>
+      </ol>
+      <div class="eq">variance along component j = λ<sub>j</sub> &nbsp; (fraction kept = Σ<sub>j≤k</sub> λ<sub>j</sub> / Σ<sub>all</sub> λ<sub>j</sub>)</div>
+      <div class="def"><b>Choosing k:</b> keep enough components to retain, say, 95% of total variance. A scree plot (eigenvalue vs index) shows the "elbow" where extra components add little.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Worked — 2-D to 1-D</h2><span class="tag">Worked</span></div>
+    <div class="card full">
+      <p>Centered 2-D points roughly lie along a tilted line. The covariance matrix has eigenvectors v₁ (the long
+      direction, large λ₁) and v₂ (the short direction, small λ₂). Projecting onto v₁ keeps most of the spread:</p>
+      <div class="eq">fraction kept = λ₁ / (λ₁ + λ₂)</div>
+      <p>If λ₁ = 9 and λ₂ = 1, one component already retains <b>90%</b> of the variance — so dropping v₂ (the
+      near-zero-variance axis) barely loses information. This is why PCA can compress 100 correlated features down
+      to 10–20 without hurting model accuracy.</p>
+      <div class="def"><b>Rotation view:</b> PCA is just a rotation of the axes so the new x-axis points where the data
+      is widest. The short axis is mostly noise and can be dropped.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>PCA vs Clustering (M4 family)</h2><span class="tag">Compare</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>PCA (this page)</th><th>Clustering (m4-1)</th></tr></thead>
+          <tbody>
+            <tr><td>Goal</td><td>Compress / rotate features</td><td>Group similar points</td></tr>
+            <tr><td>Output</td><td>Lower-dim coordinates</td><td>Cluster labels</td></tr>
+            <tr><td>Uses labels?</td><td>No (unsupervised)</td><td>No (unsupervised)</td></tr>
+            <tr><td>Often combined?</td><td>PCA → then cluster in low-D</td><td>k-means on reduced data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m4-1.html">← Prev: M4 · Clustering</a>
+    <a class="next" href="m5-1.html">Next: M5 · Assessment →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

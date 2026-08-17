@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5.2 · Ensembles, CV & Bias–Variance</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m5-1.html">M5 · Metrics</a>
+      <a href="m5-2.html" class="active">M5 · Ensembles</a>
+      <a href="m-t1.html">Exam</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 5 · Part 2</span>
+  <h1>Ensembles, Cross-Validation &amp; Bias–Variance</h1>
+  <p class="lede">How to make a good classifier great: combine many weak models (<b>ensembles</b>), estimate
+  performance honestly with <b>cross-validation</b>, and understand the <b>bias–variance trade-off</b> that limits
+  every model. Ends with the face-detection case study.</p>
+  <div class="meta-row">
+    <span class="chip red">Bagging</span>
+    <span class="chip">Boosting</span>
+    <span class="chip">k-fold CV</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Bias–Variance Decomposition</h2><span class="tag">Theory</span></div>
+    <div class="card full">
+      <p>The expected test error splits into three parts:</p>
+      <div class="eq">Error = Bias² + Variance + Irreducible noise</div>
+      <ul>
+        <li><b>Bias</b> — error from a too-simple model (underfitting); it consistently misses the pattern.</li>
+        <li><b>Variance</b> — error from a too-sensitive model (overfitting); it changes a lot with small data changes.</li>
+      </ul>
+      <div class="def"><b>The trade-off:</b> as model complexity rises, bias falls but variance grows. The sweet spot
+      minimizes their sum. Regularization and more data both help push the frontier.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Cross-Validation</h2><span class="tag">Honest estimate</span></div>
+    <div class="card full">
+      <p><b>k-fold CV:</b> split data into k equal parts; train on k−1, test on the held-out part; repeat k times
+      and average the scores. Common choices: k = 5 or 10.</p>
+      <div class="eq">CV score = (1/k) Σ<sub>j=1</sub><sup>k</sup> error on fold j</div>
+      <p>This uses all data for both train and test (just never at the same time), giving a stable estimate of how
+      the model will perform on unseen data. <b>Bootstrapping</b> is the cousin that resamples with replacement to
+      build confidence intervals.</p>
+      <div class="def"><b>Why not just use the training accuracy?</b> a model can score 100% on data it already saw
+      and fail on new data. CV measures generalization, not memorization.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Ensemble Methods</h2><span class="tag">Combine</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>How</th><th>Intuition</th></tr></thead>
+          <tbody>
+            <tr><td><b>Bagging</b> (e.g. Random Forest)</td><td>Train many models on bootstrap samples, average/vote</td><td>Reduces variance</td></tr>
+            <tr><td><b>Boosting</b> (e.g. AdaBoost, XGBoost)</td><td>Train sequentially; each fixes the previous errors</td><td>Reduces bias</td></tr>
+            <tr><td><b>Stacking</b></td><td>Meta-model learns to combine base models' outputs</td><td>Best of both</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Why ensembles win:</b> independent models make different errors; averaging cancels many of them out.
+      A Random Forest (many deep trees) is far more stable than one deep tree, which is why it is a default go-to.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Case Study — Face-Detection Classifier</h2><span class="tag">Apply</span></div>
+    <div class="card full">
+      <p>Build a classifier that labels an image window "face / not-face":</p>
+      <ol>
+        <li><b>Features:</b> pixel windows → Haar-like or HOG features (high-dimensional).</li>
+        <li><b>Model:</b> train a classifier (e.g. boosted decision stumps, as in Viola–Jones) on labelled windows.</li>
+        <li><b>Assess:</b> use ROC/AUC (m5-1) and k-fold CV to pick the threshold that meets the false-positive budget.</li>
+        <li><b>Improve:</b> an ensemble (boosting) lifts accuracy far above a single weak classifier.</li>
+      </ol>
+      <p>This ties the whole course together: features + supervised learning + evaluation (ROC) + ensembles + honest CV.</p>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m5-1.html">← Prev: M5 · Metrics</a>
+    <a class="next" href="m-t1.html">Next: Exam Techniques →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

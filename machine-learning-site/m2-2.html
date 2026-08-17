@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2.2 · Naive Bayes & Decision Trees</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m2-1.html">M2 · Regression</a>
+      <a href="m2-2.html" class="active">M2 · NB &amp; Trees</a>
+      <a href="m3-1.html">M3 · NN/SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Assessment</a>
+      <a href="m-t1.html">Exam</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Part 2</span>
+  <h1>Naive Bayes &amp; Decision Trees</h1>
+  <p class="lede">Two foundational supervised classifiers. <b>Naive Bayes</b> applies Bayes' theorem with the
+  "naive" assumption that features are independent. <b>Decision trees</b> split the data by asking the most
+  informative question first (using entropy / information gain). Both come with full worked examples.</p>
+  <div class="meta-row">
+    <span class="chip red">Bayes</span>
+    <span class="chip">ID3</span>
+    <span class="chip">Entropy</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Naive Bayes — the Idea</h2><span class="tag">Classifier</span></div>
+    <div class="card full">
+      <p>For a class C and feature vector x = (x₁,…,xₙ), Bayes' theorem gives the posterior:</p>
+      <div class="eq">P(C | x) = P(x | C) · P(C) / P(x)</div>
+      <p>The <b>naive</b> assumption: features are conditionally independent given the class, so
+      P(x|C) = Π<sub>i</sub> P(x<sub>i</sub> | C). The classifier picks the class with the largest posterior:</p>
+      <div class="eq">Ĉ = argmax<sub>C</sub> [ P(C) · Π<sub>i</sub> P(x<sub>i</sub> | C) ]</div>
+      <div class="def"><b>Why "naive"?</b> Real features are rarely independent, yet the method works surprisingly well —
+      it is fast, needs little data, and is a strong baseline for text/spam classification.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Worked Example — Play Tennis</h2><span class="tag">Worked</span></div>
+    <div class="card full">
+      <p>Training data (14 days): features Outlook, Temp, Humidity, Wind; label Play = Yes/No. Class priors:</p>
+      <div class="eq">P(Yes) = 9/14 &nbsp;&nbsp; P(No) = 5/14</div>
+      <p>Likelihoods from the table (counts / class total):</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Feature=value</th><th>P(·|Yes)</th><th>P(·|No)</th></tr></thead>
+          <tbody>
+            <tr><td>Outlook=Sunny</td><td>2/9</td><td>3/5</td></tr>
+            <tr><td>Outlook=Overcast</td><td>4/9</td><td>0/5</td></tr>
+            <tr><td>Outlook=Rain</td><td>3/9</td><td>2/5</td></tr>
+            <tr><td>Humidity=High</td><td>3/9</td><td>4/5</td></tr>
+            <tr><td>Humidity=Normal</td><td>6/9</td><td>1/5</td></tr>
+            <tr><td>Wind=Strong</td><td>3/9</td><td>3/5</td></tr>
+            <tr><td>Wind=Weak</td><td>6/9</td><td>2/5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>Test 1:</b> &lt;Sunny, Cool, High, Strong&gt;</p>
+      <div class="eq">P(Yes)·Π = (9/14)·(2/9)·P(Cool|Yes)·(3/9)·(3/9) ≈ 0.0053</div>
+      <div class="eq">P(No)·Π = (5/14)·(3/5)·P(Cool|No)·(4/5)·(3/5) ≈ 0.0206</div>
+      <p>Since 0.0206 &gt; 0.0053 → predict <b>No</b>.</p>
+      <p><b>Test 2:</b> &lt;Overcast, Mild, Normal, Weak&gt;</p>
+      <div class="eq">P(Yes)·Π = (9/14)·(4/9)·(6/9)·(6/9) ≈ 0.0278 &nbsp; (largest) → predict <b>Yes</b>.</div>
+      <div class="def"><b>Takeaway:</b> multiply the prior by every matching feature-likelihood, then compare classes. Zero-likelihood features are handled with smoothing (Laplace) in practice.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Decision Trees &amp; Entropy</h2><span class="tag">ID3</span></div>
+    <div class="card full">
+      <p>A decision tree asks a feature question at each node to split the data. <b>ID3</b> picks the question
+      that most reduces <b>entropy</b> ( disorder ). Entropy of a set with class proportions p<sub>i</sub>:</p>
+      <div class="eq">H(S) = − Σ<sub>i</sub> p<sub>i</sub> log<sub>2</sub> p<sub>i</sub></div>
+      <p><b>Worked:</b> the 14 tennis examples have 9 Yes, 5 No:</p>
+      <div class="eq">H(S) = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = 0.940 bits</div>
+      <p>Information gain of splitting on feature A:</p>
+      <div class="eq">Gain(S, A) = H(S) − Σ<sub>v</sub> (|S<sub>v</sub>|/|S|) · H(S<sub>v</sub>)</div>
+      <p>The feature with the highest gain is chosen as the root, and the process repeats on each child. (For the
+      tennis set the gains work out roughly: Outlook ≈ 0.24, Wind ≈ 0.48, Humidity ≈ 0.15, Temp ≈ 0.03 —
+      so Wind then Humidity are the strongest splitters after Outlook.)</p>
+      <div class="def"><b>Overfitting:</b> a tree grown to full depth memorizes the training data. Prune (pre- or
+      post-) or limit depth to keep it general. C4.5 extends ID3 with continuous features and pruning.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Naive Bayes vs Decision Tree</h2><span class="tag">Compare</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Naive Bayes</th><th>Decision Tree</th></tr></thead>
+          <tbody>
+            <tr><td>Assumption</td><td>Features independent</td><td>None (finds splits)</td></tr>
+            <tr><td>Output</td><td>Probabilistic</td><td>Rule-based path</td></tr>
+            <tr><td>Speed</td><td>Very fast to train</td><td>Fast, scales with depth</td></tr>
+            <tr><td>Strength</td><td>Small data, text</td><td>Interpretable, mixed features</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m2-1.html">← Prev: M2 · Regression</a>
+    <a class="next" href="m3-1.html">Next: M3 · NN/SVM →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>
