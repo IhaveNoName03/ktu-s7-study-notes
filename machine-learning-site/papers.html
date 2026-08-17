@@ -314,6 +314,84 @@
     </div>
   </div>
 
+  <div class="qpaper">
+    <div class="qhead"><h2>WhatsApp Set — ML Theory &amp; MLE</h2><span class="meta">8 questions</span></div>
+
+    <div class="q" id="waq1">
+      <div class="qto"><span class="qnum">WA · Q1</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Compare Unsupervised Learning and Reinforcement Learning with examples.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b>
+      <div class="tablewrap"><table>
+        <thead><tr><th></th><th>Unsupervised Learning</th><th>Reinforcement Learning</th></tr></thead>
+        <tbody>
+          <tr><td>Labels?</td><td>No labels — finds hidden structure in unlabelled data</td><td>No fixed labels — learns from reward/penalty signals</td></tr>
+          <tr><td>Goal</td><td>Group similar items (clustering) or compress (PCA)</td><td>Learn a policy that maximises cumulative reward</td></tr>
+          <tr><td>Feedback</td><td>None during training (structure is the output)</td><td>Delayed reward from the environment after actions</td></tr>
+          <tr><td>Example</td><td>Customer segmentation; document clustering; k-means image compression</td><td>Game playing; robot navigation; autonomous-car adaptive control</td></tr>
+        </tbody>
+      </table></div>
+      <b>One-line:</b> unsupervised finds patterns in static data; RL learns actions through trial-and-error with a reward signal.</div></div>
+    </div>
+
+    <div class="q" id="waq2">
+      <div class="qto"><span class="qnum">WA · Q2</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">What is reinforcement learning in machine learning and list any two applications?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> RL is learning an <b>agent</b> that interacts with an <b>environment</b>: it takes actions, receives a reward (or penalty), and updates its policy to maximise long-term cumulative reward. There is no supervisor — learning comes from the reinforcement signal. <b>Applications:</b> (i) game playing (chess/Go/Atari), (ii) robot navigation / autonomous vehicles, (iii) adaptive control systems. (Any two.)</div></div>
+    </div>
+
+    <div class="q" id="waq3">
+      <div class="qto"><span class="qnum">WA · Q3</span><span class="qmark">—</span></div>
+      <span class="qtext">List any 4 applications of Machine Learning.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa3" role="region"><div class="ans-collapsible-inner"><b>Answer (4):</b> (i) face / speech recognition; (ii) medical diagnosis; (iii) stock-price / weather prediction; (iv) recommendation systems (market-basket analysis); (v) spam filtering; (vi) autonomous driving. (Any four.)</div></div>
+    </div>
+
+    <div class="q" id="waq4">
+      <div class="qto"><span class="qnum">WA · Q4</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Compute the ML estimate for the parameter p in the binomial distribution whose probability function is f(x) = C(n,x) pˣ (1−p)^(n−x), x = 0,1,2…n.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> For x successes in n trials, likelihood L(p) = C(n,x) pˣ (1−p)^(n−x). Drop the constant C(n,x): ℓ(p) = x ln p + (n−x) ln(1−p). dℓ/dp = x/p − (n−x)/(1−p) = 0 → x(1−p) = (n−x)p → x = np → <b>p̂ = x/n</b> (the observed proportion of successes).</div></div>
+    </div>
+
+    <div class="q" id="waq5">
+      <div class="qto"><span class="qnum">WA · Q5</span><span class="qmark">3+3 marks</span></div>
+      <span class="qtext">(a) A coin is tossed 100 times and lands heads 62 times. What is the MLE for θ, the probability of heads? (b) Compute the ML estimate for λ in the Poisson distribution f(x) = e^(−λ) λˣ / x!, x = 0,1,2,…</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa5" role="region"><div class="ans-collapsible-inner"><b>(a)</b> Bernoulli likelihood L(θ)=θ^62(1−θ)^38, ℓ=62 ln θ+38 ln(1−θ), dℓ/dθ=62/θ−38/(1−θ)=0 → <b>θ̂ = 62/100 = 0.62</b>.<br><b>(b)</b> Poisson ℓ(λ)=Σ[−λ+xᵢ ln λ−ln(xᵢ!)] = −nλ + (Σxᵢ) ln λ + const. dℓ/dλ = −n + (Σxᵢ)/λ = 0 → <b>λ̂ = (1/n)Σxᵢ = x̄</b> (the sample mean).</div></div>
+    </div>
+
+    <div class="q" id="waq6">
+      <div class="qto"><span class="qnum">WA · Q6</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Define Bayes' theorem and discuss its terminologies.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa6" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa6').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa6" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> P(A|B) = P(B|A)·P(A) / P(B).<br><b>Terminologies:</b> <b>P(A)</b> = prior probability of A (before seeing B); <b>P(B|A)</b> = likelihood (probability of evidence B given A); <b>P(A|B)</b> = posterior (updated probability of A after seeing B); <b>P(B)</b> = evidence / marginal, a normalising constant = Σ_A P(B|A)P(A). Used to update belief from prior to posterior using observed data.</div></div>
+    </div>
+
+    <div class="q" id="waq7">
+      <div class="qto"><span class="qnum">WA · Q7</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Differentiate Supervised, Semi-Supervised and Unsupervised Learning.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa7" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa7').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa7" role="region"><div class="ans-collapsible-inner"><b>Answer:</b>
+      <div class="tablewrap"><table>
+        <thead><tr><th></th><th>Supervised</th><th>Semi-supervised</th><th>Unsupervised</th></tr></thead>
+        <tbody>
+          <tr><td>Data</td><td>Fully labelled (X,Y)</td><td>Mostly unlabelled + few labels</td><td>Completely unlabelled</td></tr>
+          <tr><td>Task</td><td>Classification / regression</td><td>Learn from little labelled + lots unlabelled</td><td>Clustering / dimensionality reduction</td></tr>
+          <tr><td>Example</td><td>Spam filter, price prediction</td><td>Labelling a few then propagating to many</td><td>Customer segmentation, PCA</td></tr>
+        </tbody>
+      </table></div></div></div>
+    </div>
+
+    <div class="q" id="waq8">
+      <div class="qto"><span class="qnum">WA · Q8</span><span class="qmark">—</span></div>
+      <span class="qtext">MLE vs MAP.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa8" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa8').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa8" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>MLE</b> maximises P(D|θ) — picks the parameter that best explains the data, ignoring prior belief. <b>MAP</b> maximises P(θ|D) ∝ P(D|θ)·P(θ) — also includes a prior P(θ), acting as regularization. With a uniform prior, MAP = MLE. As data grows, MAP → MLE (prior stops mattering). MLE can overfit small data; MAP is more stable when data is scarce or domain knowledge exists.</div></div>
+    </div>
+  </div>
+
   <div style="clear:both"></div>
 </div>
 
