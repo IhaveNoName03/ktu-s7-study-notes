@@ -3,8 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Renewable Energy Systems · EET435</title>
+<title>Renewable Energy Systems · EET 435 · Modules 1–5</title>
 <link rel="stylesheet" href="assets/styles.css">
+<style>
+  .subj-hero{position:relative;overflow:hidden;background:
+    radial-gradient(1100px 460px at 88% -10%, rgba(224,36,27,.22), transparent 60%),
+    linear-gradient(180deg,#0d0f12 0%, #111418 62%, #16191e 100%);
+    color:#fff;padding:64px 20px 52px;border-bottom:3px solid var(--accent)}
+  .subj-hero .inner{max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+  .subj-hero .badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#ffd9d6;background:rgba(224,36,27,.16);border:1px solid rgba(224,36,27,.4);padding:6px 12px;border-radius:999px;margin-bottom:16px}
+  .subj-hero h1{font-size:clamp(30px,5.4vw,52px);line-height:1.05;margin:0 0 12px;font-weight:800;letter-spacing:-1px}
+  .subj-hero h1 .accent{color:var(--accent)}
+  .subj-hero .sub{font-size:clamp(14px,2.1vw,18px);color:#c7cdd4;max-width:680px;line-height:1.55;margin:0 0 22px}
+  .subj-hero .stats{display:flex;flex-wrap:wrap;gap:12px}
+  .subj-hero .stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:12px 16px;min-width:104px}
+  .subj-hero .stat .n{font-size:26px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+  .subj-hero .stat .l{font-size:11.5px;color:#9aa2ab;letter-spacing:.6px;text-transform:uppercase;margin-top:2px}
+  .searchwrap{max-width:var(--maxw);margin:-26px auto 0;padding:0 20px;position:relative;z-index:5}
+  .searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 16px;box-shadow:var(--shadow-lg)}
+  .searchbox svg{flex:none;opacity:.5}
+  .searchbox input{border:none;outline:none;width:100%;font-size:16px;color:var(--ink);background:transparent;font-family:inherit}
+  .grid{max-width:var(--maxw);margin:30px auto 8px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+  .mcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;opacity:0;transform:translateY(14px)}
+  .mcard.in{opacity:1;transform:none}
+  .mcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(224,36,27,.4);text-decoration:none}
+  .mcard .top{padding:16px 16px 12px;border-bottom:1px solid var(--line);position:relative}
+  .mcard .top .bar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+  .mcard .top .num{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.5px}
+  .mcard .top h3{margin:5px 0 3px;font-size:18px;font-weight:800;letter-spacing:-.2px}
+  .mcard .body{padding:12px 16px 16px;flex:1}
+  .mcard .desc{font-size:13.2px;color:var(--ink-2);line-height:1.5;margin:0 0 12px}
+  .mcard ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .mcard ul a{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink-2);background:var(--bg);border:1px solid var(--line);padding:7px 10px;border-radius:8px;transition:all .15s ease}
+  .mcard ul a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  .mcard ul a .mi{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:800}
+  .mcard ul a .ar{margin-left:auto;color:var(--muted)}
+  .practice{background:linear-gradient(180deg,#111418,#16191e);color:#fff;border-color:transparent}
+  .practice .top{border-bottom:1px solid rgba(255,255,255,.12)}
+  .practice .top .num{color:#ffd9d6}
+  .practice .top h3{color:#fff}
+  .practice ul a{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#dfe3e8}
+  .practice ul a:hover{border-color:var(--accent);color:#fff}
+  .practice ul a .mi{color:#ffd9d6}
+  .empty{max-width:var(--maxw);margin:20px auto;padding:0 20px;color:var(--muted);display:none}
+  .foot{max-width:var(--maxw);margin:36px auto 0;padding:18px 20px 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .foot b{color:var(--ink-2)}
+  @media (max-width:640px){.subj-hero{padding:46px 16px 44px}.subj-hero .stat{flex:1 1 40%}}
+</style>
 </head>
 <body>
 
@@ -20,71 +65,116 @@
   </div>
 </header>
 
-<main class="toc">
-  <div class="toc-head">
-    <span class="kicker">EET435 · KTU</span>
+<section class="subj-hero">
+  <div class="inner">
+    <div class="badge">EET 435 · KTU</div>
     <h1>Renewable Energy Systems</h1>
-    <p>Exam-ready study site for the KTU EET435 Renewable Energy course, built from the Ktunotes.in
-    module notes and syllabus. Modules 1 and 2 are the most detailed; all five modules are covered
-    with comparison tables, worked examples, diagrams, and a marks-scaled question bank.</p>
+    <p class="sub">Exam-ready study site for the KTU EET435 Renewable Energy course, built from the Ktunotes.in module notes and syllabus. Modules 1 and 2 are the most detailed; all five modules are covered with comparison tables, worked examples, diagrams, and a marks-scaled question bank.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">5</div><div class="l">Modules</div></div>
+      <div class="stat"><div class="n">11</div><div class="l">Pages</div></div>
+      <div class="stat"><div class="n">100%</div><div class="l">Offline</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="searchwrap">
+  <div class="searchbox">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="q" type="text" placeholder="Search modules &amp; topics… (e.g. solar, OTEC, wind, biomass)" autocomplete="off">
+  </div>
+</div>
+
+<div class="grid" id="grid">
+
+  <div class="mcard" data-k="m1 energy resources classification solar thermal photovoltaic pv">
+    <div class="top"><span class="bar"></span><div class="num">M1</div><h3>Energy Resources &amp; Solar</h3></div>
+    <div class="body">
+      <p class="desc">Classification of energy resources, then solar energy — thermal collection and photovoltaic conversion.</p>
+      <ul>
+        <li><a href="m1-1.html"><span class="mi">1.1</span><span class="lk">Classification of energy resources</span><span class="ar">→</span></a></li>
+        <li><a href="m1-2.html"><span class="mi">1.2</span><span class="lk">Solar thermal systems</span><span class="ar">→</span></a></li>
+        <li><a href="m1-3.html"><span class="mi">1.3</span><span class="lk">Solar PV systems</span><span class="ar">→</span></a></li>
+      </ul>
+    </div>
   </div>
 
-  <section class="toc-subject">
-    <div class="name"><span class="num">M1</span><h2>Energy Resources &amp; Solar</h2><span class="meta">3 parts</span></div>
-    <p class="desc">Classification of energy resources, then solar energy — thermal collection and photovoltaic conversion.</p>
-    <ul class="toc-list">
-      <li><a href="m1-1.html"><span class="mi">1.1</span><span class="lk">Classification of energy resources</span><span class="ar">→</span></a></li>
-      <li><a href="m1-2.html"><span class="mi">1.2</span><span class="lk">Solar thermal systems</span><span class="ar">→</span></a></li>
-      <li><a href="m1-3.html"><span class="mi">1.3</span><span class="lk">Solar PV systems</span><span class="ar">→</span></a></li>
-    </ul>
-  </section>
-
-  <section class="toc-subject">
-    <div class="name"><span class="num">M2</span><h2>Ocean Energy</h2><span class="meta">2 parts</span></div>
-    <p class="desc">Energy from the sea — temperature gradient (OTEC) and tidal motion.</p>
-    <ul class="toc-list">
-      <li><a href="m2-1.html"><span class="mi">2.1</span><span class="lk">Ocean thermal energy conversion (OTEC)</span><span class="ar">→</span></a></li>
-      <li><a href="m2-2.html"><span class="mi">2.2</span><span class="lk">Tidal energy</span><span class="ar">→</span></a></li>
-    </ul>
-  </section>
-
-  <section class="toc-subject">
-    <div class="name"><span class="num">M3</span><h2>Wind Energy</h2><span class="meta">1 part</span></div>
-    <p class="desc">Wind energy conversion systems — turbine parts, the wind-power equation, Betz limit, and site selection.</p>
-    <ul class="toc-list">
-      <li><a href="m3-1.html"><span class="mi">3.1</span><span class="lk">Wind energy systems (WECS)</span><span class="ar">→</span></a></li>
-    </ul>
-  </section>
-
-  <section class="toc-subject">
-    <div class="name"><span class="num">M4</span><h2>Biomass Energy</h2><span class="meta">1 part</span></div>
-    <p class="desc">Biofuels and conversion technologies — gasification, ethanol, biogas plants, and the India program.</p>
-    <ul class="toc-list">
-      <li><a href="m4-1.html"><span class="mi">4.1</span><span class="lk">Biomass &amp; conversion technologies</span><span class="ar">→</span></a></li>
-    </ul>
-  </section>
-
-  <section class="toc-subject">
-    <div class="name"><span class="num">M5</span><h2>Hydro, Fuel Cells &amp; Hydrogen</h2><span class="meta">1 part</span></div>
-    <p class="desc">Small/mini hydro, fuel-cell principles and types (PAFC, PEM), and hydrogen energy.</p>
-    <ul class="toc-list">
-      <li><a href="m5-1.html"><span class="mi">5.1</span><span class="lk">Small hydro, fuel cells, hydrogen</span><span class="ar">→</span></a></li>
-    </ul>
-  </section>
-
-  <section class="toc-subject">
-    <div class="name"><span class="num">·</span><h2>Practice</h2><span class="meta">2 pages</span></div>
-    <ul class="toc-list">
-      <li><a href="m-t1.html"><span class="mi">·</span><span class="lk">Exam techniques &amp; formulae</span><span class="ar">→</span></a></li>
-      <li><a href="papers.html"><span class="mi">·</span><span class="lk">Question bank (marks-scaled answers)</span><span class="ar">→</span></a></li>
-    </ul>
-  </section>
-
-  <div class="toc-foot">
-    <span>5 modules</span><span>·</span><span>11 pages</span><span>·</span><span>offline</span><span>·</span><span>Swiss typographic style</span>
+  <div class="mcard" data-k="m2 ocean energy otec tidal temperature gradient">
+    <div class="top"><span class="bar"></span><div class="num">M2</div><h3>Ocean Energy</h3></div>
+    <div class="body">
+      <p class="desc">Energy from the sea — temperature gradient (OTEC) and tidal motion.</p>
+      <ul>
+        <li><a href="m2-1.html"><span class="mi">2.1</span><span class="lk">Ocean thermal energy conversion (OTEC)</span><span class="ar">→</span></a></li>
+        <li><a href="m2-2.html"><span class="mi">2.2</span><span class="lk">Tidal energy</span><span class="ar">→</span></a></li>
+      </ul>
+    </div>
   </div>
-</main>
 
+  <div class="mcard" data-k="m3 wind energy wecs turbine betz limit site selection">
+    <div class="top"><span class="bar"></span><div class="num">M3</div><h3>Wind Energy</h3></div>
+    <div class="body">
+      <p class="desc">Wind energy conversion systems — turbine parts, the wind-power equation, Betz limit, and site selection.</p>
+      <ul>
+        <li><a href="m3-1.html"><span class="mi">3.1</span><span class="lk">Wind energy systems (WECS)</span><span class="ar">→</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mcard" data-k="m4 biomass biofuel gasification ethanol biogas hydrogen india program">
+    <div class="top"><span class="bar"></span><div class="num">M4</div><h3>Biomass Energy</h3></div>
+    <div class="body">
+      <p class="desc">Biofuels and conversion technologies — gasification, ethanol, biogas plants, and the India program.</p>
+      <ul>
+        <li><a href="m4-1.html"><span class="mi">4.1</span><span class="lk">Biomass &amp; conversion technologies</span><span class="ar">→</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mcard" data-k="m5 hydro small mini fuel cell pafc pem hydrogen">
+    <div class="top"><span class="bar"></span><div class="num">M5</div><h3>Hydro, Fuel Cells &amp; Hydrogen</h3></div>
+    <div class="body">
+      <p class="desc">Small/mini hydro, fuel-cell principles and types (PAFC, PEM), and hydrogen energy.</p>
+      <ul>
+        <li><a href="m5-1.html"><span class="mi">5.1</span><span class="lk">Small hydro, fuel cells, hydrogen</span><span class="ar">→</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mcard practice" data-k="practice exam techniques formulae question bank papers">
+    <div class="top"><span class="bar"></span><div class="num">·</div><h3>Practice</h3></div>
+    <div class="body">
+      <p class="desc">Exam techniques and the marks-scaled question bank.</p>
+      <ul>
+        <li><a href="m-t1.html"><span class="mi">·</span><span class="lk">Exam techniques &amp; formulae</span><span class="ar">→</span></a></li>
+        <li><a href="papers.html"><span class="mi">·</span><span class="lk">Question bank (marks-scaled answers)</span><span class="ar">→</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="empty" id="empty">No modules match your search — try a broader term.</div>
+
+<div class="foot">
+  <span><b>Renewable Energy Systems (EET 435, KTU)</b></span><span>·</span><span>11 pages</span><span>·</span><span><a href="../index.html">All subjects →</a></span>
+</div>
+
+<script>
+  var q=document.getElementById('q'), grid=document.getElementById('grid'), empty=document.getElementById('empty');
+  q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase(), shown=0;
+    grid.querySelectorAll('.mcard').forEach(function(c){
+      var hit=c.getAttribute('data-k').toLowerCase().indexOf(v)>-1 || c.textContent.toLowerCase().indexOf(v)>-1;
+      c.style.display=hit?'':'none'; if(hit) shown++;
+    });
+    empty.style.display=shown?'none':'block';
+  });
+  var cards=grid.querySelectorAll('.mcard');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    cards.forEach(function(c,i){setTimeout(function(){io.observe(c);},i*80);});
+  } else { cards.forEach(function(c){c.classList.add('in');}); }
+</script>
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
 <script src="assets/app.js"></script>
 </body>
