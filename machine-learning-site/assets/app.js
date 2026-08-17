@@ -171,4 +171,18 @@
     makeBtn();
   })();
 
+
+  /* ---------- Restructure brand into mark + name + subject (no HTML edits needed) ---------- */
+  (function () {
+    var b = document.querySelector(".brand");
+    if (b && !b.querySelector(".mark")) {
+      var txt = b.textContent.trim();
+      var parts = txt.split(/\s*\/\s*/);
+      var name = parts[0] || "Study Notes";
+      var subj = parts.slice(1).join(" / ");
+      b.innerHTML = '<span class="mark"></span><span class="name">' + name + '</span>' +
+        (subj ? '<span class="sep">/</span><span class="subj">' + subj + '</span>' : '');
+    }
+  })();
+
 })();

@@ -4,6 +4,7 @@
    =========================================================== */
 
 :root{
+  --subj:#4FD1A5;
   --ink:#111418;        /* near-black text */
   --ink-2:#3a4149;      /* secondary text */
   --muted:#6b7480;      /* captions */
@@ -40,26 +41,32 @@ a:hover{text-decoration:underline}
 /* ---------- Top bar ---------- */
 .topbar{
   position:sticky;top:0;z-index:50;
-  background:var(--ink);color:#fff;
-  border-bottom:3px solid var(--accent);
-  box-shadow:0 2px 10px rgba(0,0,0,.25);
+  background:rgba(17,20,24,.82);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);backdrop-filter:saturate(140%) blur(10px);
+  color:#EDEFF2;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 1px 0 rgba(224,36,27,.5), 0 6px 20px rgba(0,0,0,.18);
 }
 .topbar-inner{
   max-width:var(--maxw);margin:0 auto;padding:0 20px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;
-  height:58px;
+  height:60px;
 }
-.brand{font-weight:700;letter-spacing:.5px;font-size:15px;white-space:nowrap}
-.brand span{color:var(--accent);margin:0 6px}
-.topnav{display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px;font-size:15px;white-space:nowrap;color:#EDEFF2}
+.brand .mark{width:11px;height:11px;border-radius:3px;background:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent);flex:none}
+.brand .name{color:#EDEFF2}
+.brand .sep{color:#8A929C;font-weight:400;margin:0 2px}
+.brand .subj{color:#B7BEC7;font-weight:500}
+.topnav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
 .topnav a{
-  color:#cfd4da;font-size:12.5px;padding:7px 9px;border-radius:6px;
-  white-space:nowrap;font-weight:500;transition:background .15s ease,color .15s ease;
+  color:#B7BEC7;font-size:12.5px;padding:7px 11px;border-radius:999px;
+  white-space:nowrap;font-weight:600;transition:background .18s ease,color .18s ease,transform .18s ease;
 }
-.topnav a:hover{background:#22272e;color:#fff;text-decoration:none}
-.topnav a.active{background:var(--accent);color:#fff}
-.navtoggle{display:none;background:none;border:1px solid #4a525c;color:#fff;
-  border-radius:6px;padding:6px 10px;font-size:13px;cursor:pointer}
+.topnav a:hover{background:rgba(255,255,255,.10);color:#fff;text-decoration:none}
+.topnav a.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 45%,transparent)}
+.navtoggle{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:#EDEFF2;
+  border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer}
 
 /* ---------- Hero ---------- */
 .hero{
@@ -290,9 +297,13 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 
 /* ---------- Responsive ---------- */
 @media (max-width:860px){
-  .topnav{display:none;position:absolute;top:58px;left:0;right:0;background:var(--ink);
-    flex-direction:column;padding:10px 20px;gap:4px;border-bottom:1px solid #2c333b;
+  .topbar-inner{height:56px}
+  .topnav{display:none;position:absolute;top:56px;left:0;right:0;
+    background:rgba(17,20,24,.97);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    flex-direction:column;align-items:stretch;padding:10px 16px;gap:4px;border-bottom:1px solid rgba(255,255,255,.1);
     box-shadow:var(--shadow-lg)}
+  .topnav a{border-radius:8px}
   .topnav.open{display:flex}
   .navtoggle{display:block}
   .grid.cols-2,.grid.cols-3{grid-template-columns:1fr}
@@ -460,6 +471,8 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
 :root[data-theme="dark"] .qsearch{background:#16191F;color:var(--ink);border-color:var(--line)}
 :root[data-theme="dark"] .qsearch::placeholder{color:var(--muted)}
 :root[data-theme="dark"] .qsearch-clear{background:#16191F;color:var(--ink-2);border-color:var(--line)}
+
+html[data-theme="dark"] .topbar{background:rgba(12,14,18,.86)}
 
 /* theme toggle button */
 .theme-toggle{margin-left:14px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;

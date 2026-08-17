@@ -256,14 +256,25 @@
     function write(v){ try{document.cookie="theme="+v+";path=/;max-age=31536000;samesite=lax";}catch(e){}
       try{localStorage.setItem("theme",v);}catch(e){} }
     var saved=read(); if(saved) root.setAttribute("data-theme",saved);
-    var bar=document.querySelector(".topbar-inner"); if(!bar) return;
-    var btn=document.createElement("button"); btn.className="theme-toggle"; btn.type="button";
-    btn.setAttribute("aria-label","Toggle dark theme");
-    function paint(){ var d=root.getAttribute("data-theme")==="dark";
-      btn.innerHTML='<span class="ic">'+(d?"☾":"☀︎")+'</span> <span class="lbl">'+(d?"Dark":"Light")+'</span>'; }
-    btn.addEventListener("click",function(){ var d=root.getAttribute("data-theme")==="dark"; var n=d?"light":"dark";
-      root.setAttribute("data-theme",n); write(n); paint(); });
-    paint(); bar.appendChild(btn);
+    var bar=document.querySelector(".topbar-inner"); if(bar){
+      var btn=document.createElement("button"); btn.className="theme-toggle"; btn.type="button";
+      btn.setAttribute("aria-label","Toggle dark theme");
+      function paint(){ var d=root.getAttribute("data-theme")==="dark";
+        btn.innerHTML='<span class="ic">'+(d?"☾":"☀︎")+'</span> <span class="lbl">'+(d?"Dark":"Light")+'</span>'; }
+      btn.addEventListener("click",function(){ var d=root.getAttribute("data-theme")==="dark"; var n=d?"light":"dark";
+        root.setAttribute("data-theme",n); write(n); paint(); });
+      paint(); bar.appendChild(btn);
+    }
+  })();
+
+  // Restructure brand into mark + name + subject (no HTML edits needed)
+  (function(){
+    var b=document.querySelector(".brand");
+    if(b && !b.querySelector(".mark")){
+      var parts=b.textContent.trim().split(/\s*\/\s*/);
+      var name=parts[0]||"Study Notes", subj=parts.slice(1).join(" / ");
+      b.innerHTML='<span class="mark"></span><span class="name">'+name+'</span>'+(subj?'<span class="sep">/</span><span class="subj">'+subj+'</span>':'');
+    }
   })();
 </script>
 </body>
