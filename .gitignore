@@ -1,0 +1,27 @@
+# ---- Render / screenshot artifacts (Playwright / vision checks) ----
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+
+# ---- Temp / scratch files ----
+_*.py
+_*.*
+*.tmp
+*.bak
+
+# ---- OS junk ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- Editor / IDE junk ----
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---- Python ----
+__pycache__/
+*.pyc
