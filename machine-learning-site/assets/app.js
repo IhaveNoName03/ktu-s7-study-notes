@@ -130,12 +130,23 @@
     });
   });
 
-  /* ---------- Theme toggle (light/dark) ---------- */
+  /* ---------- Theme toggle (light/dark) — persists across pages & sites ---------- */
   (function () {
     var root = document.documentElement;
-    var saved = null;
-    try { saved = localStorage.getItem("theme"); } catch (e) {}
-    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+    function read() {
+      try {
+        var c = document.cookie.match(/(^|; )theme=(dark|light)(;|$)/);
+        if (c) return c[2];
+      } catch (e) {}
+      try { var ls = localStorage.getItem("theme"); if (ls === "dark" || ls === "light") return ls; } catch (e) {}
+      return null;
+    }
+    function write(v) {
+      try { document.cookie = "theme=" + v + ";path=/;max-age=31536000;samesite=lax"; } catch (e) {}
+      try { localStorage.setItem("theme", v); } catch (e) {}
+    }
+    var saved = read();
+    if (saved) root.setAttribute("data-theme", saved);
     function makeBtn() {
       var bar = document.querySelector(".topbar-inner") || document.querySelector(".topbar");
       if (!bar) return;
@@ -151,7 +162,7 @@
         var dark = root.getAttribute("data-theme") === "dark";
         var next = dark ? "light" : "dark";
         root.setAttribute("data-theme", next);
-        try { localStorage.setItem("theme", next); } catch (e) {}
+        write(next);
         paint();
       });
       paint();
