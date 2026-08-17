@@ -63,17 +63,7 @@ a:hover{text-decoration:underline}
   position:relative;color:#B7BEC7;font-size:13px;padding:8px 13px;border-radius:999px;letter-spacing:.2px;
   white-space:nowrap;font-weight:600;
   transition:background .2s ease,color .2s ease,transform .2s cubic-bezier(.2,.7,.3,1),box-shadow .2s ease;
-  opacity:0;transform:translateY(-6px);animation:navIn .5s cubic-bezier(.2,.7,.3,1) forwards;
 }
-.topnav a:nth-child(1){animation-delay:.04s}
-.topnav a:nth-child(2){animation-delay:.08s}
-.topnav a:nth-child(3){animation-delay:.12s}
-.topnav a:nth-child(4){animation-delay:.16s}
-.topnav a:nth-child(5){animation-delay:.20s}
-.topnav a:nth-child(6){animation-delay:.24s}
-.topnav a:nth-child(7){animation-delay:.28s}
-.topnav a:nth-child(8){animation-delay:.32s}
-@keyframes navIn{to{opacity:1;transform:translateY(0)}}
 .topnav a:hover{background:rgba(255,255,255,.10);color:#fff;transform:translateY(-1px);text-decoration:none}
 .topnav a.active{background:var(--accent);color:#fff;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent);transform:translateY(-1px)}
 .topnav a:first-child{margin-right:4px}
