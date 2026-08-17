@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 · Classification Assessment</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .hero{background:var(--ink);color:#fff;padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .qbox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
+  .qbox p{margin:0}
+  .qbox .eq{text-align:center;font-size:16px;font-weight:700;margin:8px 0;color:var(--accent-ink);font-family:var(--mono),monospace}
+  .qbox .eq span{color:var(--accent)}
+  .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
+  .def b{color:var(--accent-ink)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html" class="active">M5 · Classification</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 5 · Classification Assessment · 7 hours</span>
+    <h1>Performance Measures, Cross Validation, Ensembles, Bias–Variance, Face Detection</h1>
+    <p class="lede">Building a classifier is only half the story — <b>evaluating</b> it honestly is the other half. This module covers how to measure whether a
+    classifier is any good (beyond raw accuracy), how to get reliable estimates of performance (cross validation, bootstrapping), how to combine several
+    weak classifiers into a strong one (ensembles: bagging and boosting), the fundamental bias–variance decomposition that explains why models over- and
+    under-fit, and a concrete case study: building a face detector.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Classification Performance Measures</h2><span class="tag">Beyond accuracy</span></div>
+    <div class="card full">
+      <p>When a classifier makes predictions, every prediction is one of four kinds, relative to the true class. These four counts form the foundation of every performance measure in
+      binary classification.</p>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th></th><th>Predicted YES (positive)</th><th>Predicted NO (negative)</th></tr></thead>
+          <tbody>
+            <tr><td><b>Actual YES</b> (positive)</td><td><b>TP</b> — True Positive</td><td><b>FN</b> — False Negative</td></tr>
+            <tr><td><b>Actual NO</b> (negative)</td><td><b>FP</b> — False Positive</td><td><b>TN</b> — True Negative</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">TP</span>True Positive</h3>
+          <p>The classifier said YES and the truth is YES. A correct positive prediction — the classifier caught a real positive case.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">FP</span>False Positive</h3>
+          <p>The classifier said YES but the truth is NO. A "false alarm" — the classifier raised an alert on a negative case. Also called a <b>Type I error</b>.</p>
+        </div>
+      </div>
+      <div class="grid cols-2" style="margin-top:10px">
+        <div class="card">
+          <h3><span class="idx">FN</span>False Negative</h3>
+          <p>The classifier said NO but the truth is YES. A "miss" — the classifier failed to catch a real positive case. Also called a <b>Type II error</b>.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">TN</span>True Negative</h3>
+          <p>The classifier said NO and the truth is NO. A correct negative prediction — correctly ignored a negative case.</p>
+        </div>
+      </div>
+
+      <div class="tablewrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th>Measure</th><th>Formula</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><b>Accuracy</b></td><td>(TP + TN) / (TP + FP + TN + FN)</td><td>Fraction of all predictions that are correct. Intuitive but misleading when classes are imbalanced.</td></tr>
+            <tr><td><b>Precision</b></td><td>TP / (TP + FP)</td><td>Of all the cases the classifier called positive, how many really were? Answers "when it says yes, how trustworthy is it?"</td></tr>
+            <tr><td><b>Recall</b> (Sensitivity, True Positive Rate)</td><td>TP / (TP + FN)</td><td>Of all the real positive cases, how many did the classifier catch? Answers "did it find the positives?"</td></tr>
+            <tr><td><b>F-Measure</b> (F1 score)</td><td>2 · (Precision·Recall) / (Precision + Recall)</td><td>The harmonic mean of precision and recall — a single number that balances both. Useful when you care about both false alarms and misses.</td></tr>
+            <tr><td><b>True Positive Rate</b> (TPR)</td><td>TP / (TP + FN)</td><td>Same as recall. The fraction of positives correctly identified.</td></tr>
+            <tr><td><b>False Positive Rate</b> (FPR)</td><td>FP / (FP + TN)</td><td>The fraction of negatives incorrectly flagged as positive. The "false alarm rate."</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>Precision vs recall — the tension:</b> a classifier that says YES to everything has perfect recall (catches all positives) but terrible precision (most of its YESes are wrong).
+      A classifier that says YES only when it is absolutely certain has high precision but low recall (misses many positives). The right balance depends on the cost of each error: is a false alarm
+      worse, or is a miss worse? In medical diagnosis, a missed cancer (false negative) is usually far worse than a false alarm, so recall matters more. In spam filtering, a false positive (legitimate
+      email marked as spam) is costly, so precision matters more.</div>
+
+      <div class="def"><b>The accuracy trap — worked example:</b> suppose a dataset has 9700 cancer-free images and 300 cancer images (3% positive). A classifier that predicts "no cancer" for everything gets
+      accuracy = 9700/10000 = 97% — looks great, but it completely fails to detect any cancer. Now suppose the classifier predicts cancer for 210 images, of which 120 are true cancers and 90 are false
+      alarms, and correctly says no-cancer for the rest. Then TP=120, FP=90, TN=9600, FN=180, accuracy=(120+9600)/10000=97.2%, precision=120/210≈57%, recall=120/300=40%. Accuracy barely moved,
+      but now we have real information: the classifier catches 40% of cancers with 57% precision. This is why accuracy alone is dangerous on imbalanced data.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>ROC Curve &amp; AUC</h2><span class="tag">The full picture of a classifier</span></div>
+    <div class="card full">
+      <p>A classifier that outputs a <b>score</b> (or probability) can be thresholded at different levels — "call it positive if the score is above t." As we vary the threshold, the true positive rate
+      and false positive rate change. The <b>ROC (Receiver Operating Characteristic) curve</b> plots TPR against FPR for all possible thresholds, giving a complete picture of the classifier's behaviour.</p>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">ROC space</span></h3>
+          <p>The ROC plot has <b>FPR on the x-axis</b> (0 to 1) and <b>TPR on the y-axis</b> (0 to 1). Each point on the curve is one threshold setting. The diagonal line from (0,0) to (1,1) is the
+          line of <b>random guessing</b> — a classifier that guesses at chance falls on this line.</p>
+          <div class="def" style="margin-top:8px"><b>Points in ROC space:</b>
+          <ul style="margin:6px 0 0 18px;padding:0">
+            <li><b>(0, 1)</b> — perfect prediction: zero false positives, all true positives caught.</li>
+            <li><b>(1, 1)</b> — always predict positive: catches all positives (TPR=1) but also flags everything as positive (FPR=1).</li>
+            <li><b>(1, 0)</b> — always predict negative: catches no positives (TPR=0) and flags nothing as positive (FPR=0).</li>
+            <li><b>(0, 0)</b> — always predict negative: misses everything, false-alarm-free.</li>
+          </ul>
+          The farther a point is toward the top-left corner (0,1), the better the classifier.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">AUC</span>Area Under the Curve</h3>
+          <p><b>AUC</b> summarises the ROC curve as a single number — the area under it. AUC = 1 means a perfect classifier. AUC = 0.5 means random guessing (the diagonal). AUC < 0.5 means the
+          classifier is worse than random (and you could flip its predictions to get > 0.5).</p>
+          <div class="def" style="margin-top:8px"><b>Interpretation:</b> AUC is the probability that the classifier ranks a randomly chosen positive example higher than a randomly chosen negative example.
+          Higher AUC = better ranking. It is a threshold-independent measure — it evaluates the classifier's ability to order examples correctly, regardless of any single threshold.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>Worked example — three classifiers:</b> suppose A=(0,1), B=(1,1), C=(1,0.5) in (FPR, TPR) space. <b>A</b> is at (0,1) — perfect: it catches all true positives with zero false
+      positives. <b>B</b> is at (1,1) — always says YES: perfect recall but zero precision. <b>C</b> is at (1,0.5) — always says YES on half the positives but flags everything, so many false alarms.
+      Classifier A is the only perfect one. B is useless in practice despite TPR=1 (everything is a false alarm). C is worse than A and B on both dimensions. The lesson: a single raw number like TPR
+      or FPR can be misleading; the ROC point (both together) tells the truth.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>The Better Classifier — Training vs Test</h2><span class="tag">Generalisation matters</span></div>
+    <div class="card full">
+      <p>Two classifiers can have very different behaviour on training data versus unseen test data. The key question is always: <b>how well does it generalise?</b></p>
+
+      <div class="def"><b>Worked example:</b> Classifier A gets 100% accuracy on the training set but only 70% on the test set. Classifier B gets 70% on training and 75% on test. <b>B is the better
+      classifier.</b> A is clearly overfitting — it memorised the training data perfectly but the knowledge does not transfer (test accuracy is much lower). B's small gap between train and test
+      (70% vs 75%, with test slightly higher — possibly due to sampling) shows reasonable generalisation. A's huge gap (100% → 70%) is the hallmark of overfitting. The test accuracy is what counts,
+      and B wins: 75% > 70%.</div>
+
+      <div class="def"><b>The rule to remember:</b> a model that is perfect on training data is suspicious. The point of machine learning is not to fit the training set — it is to perform well on data the
+      model has <b>never seen</b>. A large gap between training and test performance is the clearest sign of overfitting. A small gap and decent test performance is what we want.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Bootstrapping &amp; Cross Validation</h2><span class="tag">Reliable performance estimates</span></div>
+    <div class="card full">
+      <p>How do we know our performance numbers are trustworthy? A single train/test split can be lucky or unlucky. <b>Cross validation</b> and <b>bootstrapping</b> are resampling methods that give
+      more reliable estimates by repeatedly training and testing on different subsets of the data.</p>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">k-fold</span>Cross Validation</h3>
+          <p>Split the data into <b>k</b> equal folds. Train on k−1 folds, test on the held-out fold; repeat k times so every fold is the test set once. Average the k test scores. This uses all the
+          data for both training and testing (just at different times) and gives a more stable estimate than a single random split.</p>
+          <div class="def" style="margin-top:8px"><b>Common choice:</b> 10-fold CV is standard. <b>Leave-one-out</b> (k = n) uses a single example as the test set each time — very expensive but uses almost all
+          data for training each time. CV reduces the variance of the performance estimate and is the default tool for model selection and evaluation.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Bootstrap</span></h3>
+          <p>Draw <b>n</b> samples <b>with replacement</b> from the original dataset of size n to form a "bootstrap sample" (about 63% of distinct original points appear, on average). Train on the
+          bootstrap sample, test on the points <b>not</b> drawn (the "out-of-bag" data). Repeat many times.</p>
+          <div class="def" style="margin-top:8px"><b>Why it helps:</b> bootstrapping lets us estimate the <b>distribution</b> of a statistic (e.g. accuracy) and its variance, by simulating many possible training
+          sets. It is especially useful when data is limited. Bootstrap and CV answer the same question — "how well will this model generalise?" — with slightly different mechanics.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>When to use which:</b> cross validation is the go-to for most model evaluation and for choosing hyperparameters (e.g. which λ for regularization, which k for k-means, which degree
+      for polynomial regression). Bootstrapping is useful when you want confidence intervals or when the dataset is small. Both are more reliable than a single hold-out split, and both help you avoid
+      over-fitting your <b>evaluation</b> — picking a model that just happens to do well on one particular test split.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Ensemble Methods — Bagging &amp; Boosting</h2><span class="tag">Many heads are better than one</span></div>
+    <div class="card full">
+      <p>An <b>ensemble</b> combines several classifiers (the "base learners") to make a single prediction, usually better than any one alone. The idea is that different models make different mistakes,
+      and by combining them — by voting or averaging — the individual errors cancel out.</p>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">Bagging</span>Bootstrap Aggregation</h3>
+          <p>Train many base learners, each on a different <b>bootstrap sample</b> of the data (sampled with replacement). At prediction time, average the regression outputs or take a majority vote
+          for classification.</p>
+          <div class="def" style="margin-top:8px"><b>What it does:</b> bagging primarily <b>reduces variance</b>. By averaging many models trained on different samples, the fluctuations of any one model average out.
+          It is especially effective for high-variance, low-bias models like deep decision trees. A single tree overfits; a <b>bag of trees</b> (Random Forest) generalises much better.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Boosting</span></h3>
+          <p>Train base learners <b>sequentially</b>, each one focusing on the examples the previous ones got wrong. Early learners are weak (slightly better than random); later ones concentrate on
+          the hard cases. The final prediction weights the learners (often by their accuracy).</p>
+          <div class="def" style="margin-top:8px"><b>What it does:</b> boosting primarily <b>reduces bias</b> (and can also reduce variance). By successively correcting errors, boosting turns many weak learners into
+          a strong one. <b>AdaBoost</b> and <b>Gradient Boosting</b> are the classic examples. Boosting is one of the most powerful and widely used techniques in practice.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>Can ensemble learning using linear classifiers learn a linearly non-separable set?</b> Yes — this is an important point. A single linear classifier can only learn a linear
+      boundary. But an <b>ensemble</b> of linear classifiers can combine several linear boundaries (vote, or weighted vote) to approximate a <b>non-linear</b> decision surface. Each base learner draws a
+      straight line; the ensemble's vote creates a piecewise-linear or more complex boundary that can separate data a single line cannot. (This is closely related to how boosting and to some extent how
+      neural networks build complex functions from simple pieces.)</div>
+      <div class="def"><b>Boosting and ensemble learning — the relation:</b> boosting <b>is</b> a form of ensemble learning. Ensemble learning is the general idea (combine multiple models); boosting is a
+      specific ensemble strategy (sequential, error-focused, weighted combination). Bagging is another ensemble strategy (parallel, bootstrap-based, variance-reducing). Both are ensemble methods; boosting
+      is the one that builds strength by correcting mistakes step by step.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Bias–Variance Decomposition</h2><span class="tag">Why models fail</span></div>
+    <div class="card full">
+      <p>The <b>expected</b> error of a learned model on new data can be decomposed into three parts: <b>bias</b>, <b>variance</b>, and <b>irreducible error</b> (noise in the data itself, which no
+      model can eliminate). This decomposition is the theoretical foundation for understanding over- and underfitting.</p>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Term</th><th>What it means</th><th>High bias looks like</th><th>High variance looks like</th></tr></thead>
+          <tbody>
+            <tr><td><b>Bias</b></td><td>Error from the model being too simple / wrong assumptions — the gap between what the model <i>can</i> represent and the true function.</td>
+              <td>Underfitting: high error on both training and test data; the model cannot capture the pattern even on data it has seen.</td>
+              <td>—</td></tr>
+            <tr><td><b>Variance</b></td><td>Error from the model being too sensitive to the particular training sample — small changes in training data produce very different models.</td>
+              <td>—</td>
+              <td>Overfitting: low training error, high test error; the model's predictions swing wildly with different training data.</td></tr>
+            <tr><td><b>Irreducible error</b></td><td>Noise inherent in the data — variability that no model can explain (measurement noise, unobserved variables).</td>
+              <td colspan="2">Cannot be reduced by any model; it is a property of the problem, not of the learning algorithm.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>The trade-off:</b> as a model becomes more complex, bias tends to <b>decrease</b> (it can represent more functions) but variance tends to <b>increase</b> (it fits the noise in the
+      particular training set). The best model sits at the "sweet spot" where the sum of bias² and variance is minimised — enough complexity to capture the truth, not so much that it memorises noise.
+      This is the bias–variance trade-off. It is the theoretical reason that regularisation (Ridge, Lasso), ensembles, and cross validation all work: they all shift this balance toward better
+      generalisation.</div>
+
+      <div class="def"><b>Worked example — high bias, low variance:</b> a model with high bias and low variance is <b>consistently wrong</b> but <b>stable</b> — it makes roughly the same errors regardless of
+      which training sample it saw. A very simple model (a straight line fit to a clearly curved relationship) has high bias (the line cannot capture the curve) and low variance (any training sample gives
+      roughly the same line). The predictions don't change much with the data, but they are systematically off. This is underfitting. The fix is to increase model complexity (more features, higher-degree
+      polynomial, a richer model class) to reduce bias — while watching that variance does not grow too much.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Case Study — Face Detection</h2><span class="tag">A classifier in the real world</span></div>
+    <div class="card full">
+      <p>Face detection is the task of deciding, for each region of an image, whether it contains a face or not. It is a concrete, well-studied example of a classification pipeline that brings together many
+      of the ideas from this course.</p>
+
+      <div class="def"><b>The pipeline (typical approach):</b>
+      <ol style="margin:8px 0 0 18px;padding:0">
+        <li><b>Candidate generation:</b> propose many image regions (windows) that might contain a face — at different positions, scales, and aspect ratios. A face can appear anywhere and at any size.</li>
+        <li><b>Feature extraction:</b> for each candidate window, compute a feature vector that captures the appearance of the region — e.g. Haar-like features (simple rectangular intensity comparisons),
+        or histogram of oriented gradients (HOG), or features from a trained model. The features should be <b>discriminative</b> — they should differ systematically between face and non-face regions.</li>
+        <li><b>Classifier training:</b> train a binary classifier (face vs not-face) on a large, labelled dataset of face and non-face windows. This is where the supervised-learning machinery applies — the
+          classifier learns to separate the two classes in feature space.</li>
+        <li><b>Sliding-window evaluation:</b> run the trained classifier over every candidate window in a new image. Windows classified as "face" with sufficient confidence are reported as detections.</li>
+        <li><b>Post-processing:</b> handle multiple detections of the same face (non-maximum suppression), filter by confidence threshold, and possibly use context (e.g. faces are usually upright, on a person).</li>
+      </ol>
+      </div>
+
+      <div class="def"><b>Key challenges that make face detection a good case study:</b>
+      <ul style="margin:8px 0 0 18px;padding:0">
+        <li><b>Scale and position variation:</b> a face can be anywhere and any size, so the classifier must be evaluated at many windows — this is computationally heavy and motivates efficient feature
+        representations and cascade architectures (quickly discard obvious non-faces, focus computation on promising windows).</li>
+        <li><b>Class imbalance:</b> most candidate windows are <b>not</b> faces, so the negative class vastly outnumbers the positive. This is a classic imbalanced-classification problem — accuracy is
+        misleading, and precision/recall and ROC/AUC become essential.</li>
+        <li><b>Hard negatives:</b> some non-face windows look face-like (patterns of light and shadow, windows on a building, a round fruit). A good detector must be trained on these "hard negative" examples
+        to avoid false positives — often by iteratively mining the false positives and adding them to the training set.</li>
+        <li><b>Appearance variation:</b> faces vary in pose, expression, lighting, occlusion, accessories (glasses, hats), and ethnicity. A robust classifier must generalise across all of these — a direct
+        illustration of the bias–variance and generalisation themes of this course.</li>
+      </ul>
+      </div>
+
+      <div class="def"><b>Why this case study matters for the exam:</b> it ties the abstract pieces together — feature design, binary classification, evaluation under imbalance (precision/recall/ROC), the
+      need for large and representative training data, and the practical reality that a classifier is only one part of a larger system. It also shows how a model with good theoretical properties still needs
+      careful data collection (hard negatives, diverse examples) and sensible evaluation to be useful in practice.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Confusion-Matrix Metrics — Worked Examples</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="card full">
+      <p>From a confusion matrix — TP (true positive), TN, FP, FN — we derive the standard metrics:</p>
+      <div class="qbox">
+        <h4>Definitions</h4>
+        <p class="eq" style="font-size:14px">Accuracy = (TP+TN)/N &nbsp;·&nbsp; Precision = TP/(TP+FP) &nbsp;·&nbsp; Recall = TP/(TP+FN)</p>
+        <p class="eq" style="font-size:14px">F1 = 2·Precision·Recall / (Precision+Recall) = 2 / (1/Precision + 1/Recall)</p>
+      </div>
+      <div class="qbox">
+        <h4>Worked 1 — F1 from given precision &amp; recall</h4>
+        <p>Precision = 2/7, Recall = 1/2.</p>
+        <p class="eq">F1 = 2 / (7/2 + 2) = 2 / (11/2) = <b>4/11</b></p>
+      </div>
+      <div class="qbox">
+        <h4>Worked 2 — Database search (80 records, 55 relevant, 50 retrieved, 40 of retrieved relevant)</h4>
+        <p>TP=40, FN=15, FP=10, TN=15.</p>
+        <p class="eq">Precision = 40/(40+10) = <b>0.80</b></p>
+        <p class="eq">Recall = 40/(40+15) = <b>8/11 ≈ 0.727</b></p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m4-1.html">← Prev: M4 · Unsupervised Learning</a>
+    <a class="next" href="m-t1.html">Next: Exam Techniques →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

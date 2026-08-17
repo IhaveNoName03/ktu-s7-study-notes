@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · Penetration Testing &amp; Frameworks</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html" class="active">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Page 3 of 3</span>
+  <h1>Penetration Testing &amp; Frameworks</h1>
+  <p class="lede">How "good" hacking is structured: the methodology, the industry frameworks (OSSTMM,
+  NIST, OWASP), and the phases a professional test follows.</p>
+  <div class="meta-row">
+    <span class="chip red">Pen test</span>
+    <span class="chip">OWASP Top 10</span>
+    <span class="chip">OSSTMM</span>
+    <span class="chip">NIST 800-115</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What Is a Penetration Test?</h2>
+      <span class="tag">Authorized attack</span></div>
+    <div class="card full">
+      <p>A <b>penetration test (pen test)</b> is an authorized, simulated attack on a system to evaluate
+      its security. Testers use the same tools/techniques as attackers to find and demonstrate the
+      business impact of weaknesses.</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Types by knowledge of the target</h4>
+      <div class="grid cols-3">
+        <div class="card"><h4>Black-box</h4><p>No internal knowledge — simulates an external attacker. Most realistic, slowest.</p></div>
+        <div class="card"><h4>White-box</h4><p>Full knowledge (source, arch, creds) — deepest coverage, fastest, highest assurance.</p></div>
+        <div class="card"><h4>Grey-box</h4><p>Partial knowledge — a balance of realism and efficiency.</p></div>
+      </div>
+      <div class="def"><b>Pen test vs vulnerability assessment:</b> a vuln assessment finds and lists weaknesses (often automated); a pen test goes further and <b>exploits</b> them to prove real impact.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Frameworks &amp; Standards</h2>
+      <span class="tag">Methodology</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">O</span>OSSTMM</h3><p>Open Source Security Testing Methodology Manual — covers Communications, Infrastructure, Applications, Wireless, and the Human (social engineering) channels.</p></div>
+      <div class="card"><h3><span class="idx">N</span>NIST SP 800-115</h3><p>Technical Guide to Information Security Testing and Assessment — planning, scanning, exploitation, reporting.</p></div>
+      <div class="card"><h3><span class="idx">W</span>OWASP</h3><p>Open Web Application Security Project — focuses on web app risk (the Top 10 below).</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>OWASP Top 10 (2021)</h2>
+      <span class="tag">Web risk</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Risk</th><th>One-line</th></tr></thead>
+        <tbody>
+          <tr><td>A01</td><td>Broken Access Control</td><td>Users act outside their allowed permissions</td></tr>
+          <tr><td>A02</td><td>Cryptographic Failures</td><td>Weak/ missing protection of data in transit/at rest</td></tr>
+          <tr><td>A03</td><td>Injection</td><td>Untrusted input sent to an interpreter (SQLi, XSS)</td></tr>
+          <tr><td>A04</td><td>Insecure Design</td><td>Missing or weak control design upstream</td></tr>
+          <tr><td>A05</td><td>Security Misconfiguration</td><td>Defaults left on, unnecessary features, open buckets</td></tr>
+          <tr><td>A06</td><td>Vulnerable &amp; Outdated Components</td><td>Known CVEs in libraries/frameworks</td></tr>
+          <tr><td>A07</td><td>Identification &amp; Authentication Failures</td><td>Weak login, session, credential handling</td></tr>
+          <tr><td>A08</td><td>Software &amp; Data Integrity Failures</td><td>Untrusted updates / insecure deserialization</td></tr>
+          <tr><td>A09</td><td>Security Logging &amp; Monitoring Failures</td><td>Not detecting / alerting on incidents</td></tr>
+          <tr><td>A10</td><td>Server-Side Request Forgery (SSRF)</td><td>App fetches attacker-controlled URLs</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">Worked mapping — kill chain to OWASP</h4>
+      <p>A pen test walks the same path an attacker would, and each step tends to trip specific OWASP risks:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Test phase</th><th>Likely OWASP finding</th></tr></thead>
+          <tbody>
+            <tr><td>Recon / scanning</td><td>A05 Security Misconfiguration (open admin, default creds)</td></tr>
+            <tr><td>Exploitation</td><td>A03 Injection (SQLi/XSS), A01 Broken Access Control</td></tr>
+            <tr><td>Auth testing</td><td>A07 Auth Failures (weak reset, session fix)</td></tr>
+            <tr><td>Dependencies check</td><td>A06 Vulnerable &amp; Outdated Components</td></tr>
+            <tr><td>Logging review</td><td>A09 Logging &amp; Monitoring Failures</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:8px"><b>Real example:</b> scanning <code>/api/user?id=1</code> and changing the id reveals another user's data → A01 Broken Access Control (IDOR). Fix: server-side ownership checks, not trusting the client parameter.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Phases &amp; Tools</h2>
+      <span class="tag">Execution</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Typical phases</h4><ol>
+        <li>Planning &amp; scoping (rules of engagement)</li>
+        <li>Reconnaissance (passive/active)</li>
+        <li>Scanning &amp; enumeration</li>
+        <li>Exploitation / gaining access</li>
+        <li>Post-exploitation (maintain, pivot)</li>
+        <li>Reporting &amp; remediation</li>
+      </ol></div>
+      <div class="card"><h4>Common tools</h4><ul>
+        <li><b>Nmap</b> — port/ host discovery</li>
+        <li><b>Metasploit</b> — exploitation framework</li>
+        <li><b>Burp Suite</b> — web app testing</li>
+        <li><b>Wireshark</b> — packet analysis</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04b</span><h2>Phases of Ethical Hacking — Visual</h2><span class="tag">Kill chain</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Penetration Test Lifecycle</div>
+      <svg viewBox="0 0 720 150" role="img" aria-label="Phases of ethical hacking flow">
+        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="#1d1f24"/></marker></defs>
+        <g font-family="inherit" font-size="12.5" font-weight="700" text-anchor="middle">
+          <rect class="box" x="10" y="50" width="120" height="44" rx="6"/><text x="70" y="77" class="lbl">1 · Plan &amp; Scope</text>
+          <line class="arrow" x1="130" y1="72" x2="158" y2="72"/>
+          <rect class="box" x="160" y="50" width="120" height="44" rx="6"/><text x="220" y="77" class="lbl">2 · Recon</text>
+          <line class="arrow" x1="280" y1="72" x2="308" y2="72"/>
+          <rect class="box" x="310" y="50" width="120" height="44" rx="6"/><text x="370" y="77" class="lbl">3 · Scan</text>
+          <line class="arrow" x1="430" y1="72" x2="458" y2="72"/>
+          <rect class="box" x="460" y="50" width="120" height="44" rx="6"/><text x="520" y="77" class="lbl">4 · Exploit</text>
+          <line class="arrow" x1="580" y1="72" x2="608" y2="72"/>
+          <rect class="box" x="610" y="50" width="100" height="44" rx="6"/><text x="660" y="77" class="lbl">5 · Report</text>
+        </g>
+        <g font-family="inherit" font-size="11" fill="#7f8c8d" text-anchor="middle">
+          <text x="70" y="112">rules of engagement</text>
+          <text x="220" y="112">passive + active</text>
+          <text x="370" y="112">enumerate</text>
+          <text x="520" y="112">gain access</text>
+          <text x="660" y="112">findings + fix</text>
+        </g>
+      </svg>
+      <p class="dcap">A test runs as a controlled lifecycle: define the rules → gather intel → map the surface → exploit to prove impact → document and remediate. Post-exploitation (maintain/pivot) sits between 4 and 5.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Scoping &amp; Rules of Engagement</h2>
+      <span class="tag">Before you test</span></div>
+    <div class="card full">
+      <p>A real engagement is a written contract, not a spontaneous hack. Key clauses:</p>
+      <ul>
+        <li><b>Scope</b> — exact IPs, URLs, apps in (and out of) bounds.</li>
+        <li><b>Timing</b> — windows when testing is allowed.</li>
+        <li><b>Test type</b> — black/grey/white box agreed upfront.</li>
+        <li><b>Out-of-bounds</b> — no DoS, no real PII exfil, no social engineering unless permitted.</li>
+        <li><b>Reporting</b> — confidential delivery to a named contact.</li>
+      </ul>
+      <div class="def"><b>Pen test vs vulnerability assessment:</b> a vuln scan is automated and lists "you have CVE-X"; a pen test proves "CVE-X lets me reach domain admin," with business impact.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Sample Finding &amp; Report</h2>
+      <span class="tag">Deliverable</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Field</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Title</td><td>SQL injection in /login search parameter</td></tr>
+          <tr><td>Severity</td><td>Critical (CVSS 9.1)</td></tr>
+          <tr><td>Evidence</td><td>Boolean payload returned differing page lengths</td></tr>
+          <tr><td>Impact</td><td>Full read of users table</td></tr>
+          <tr><td>Remediation</td><td>Use parameterized queries + input validation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-2.html">Prev: Hackers</a>
+    <a class="next" href="m2-1.html">Next: Footprinting</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 1, Page 3 — Penetration Testing, OWASP Top 10, OSSTMM, NIST 800-115.</div>
+    <div><a href="index.html">Home</a> · <a href="m2-1.html">M2</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

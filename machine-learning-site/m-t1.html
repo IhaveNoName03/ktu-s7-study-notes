@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Techniques · Machine Learning</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .hero{background:var(--ink);color:#fff;padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Classification</a>
+      <a href="m-t1.html" class="active">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">How to answer · KTU CST413</span>
+    <h1>Exam Techniques</h1>
+    <p class="lede">The KTU end-semester exam has two parts: <b>Part A</b> (10 short questions × 3 marks each, answer all) and <b>Part B</b> (2 full questions per module, pick one from each module × 14 marks).
+    This page explains how each part is marked, what the recurring question pairs are, and how to structure your answers so you hit the marks.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>The Exam Structure</h2><span class="tag">Know the paper</span></div>
+    <div class="card full">
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Part</th><th>What's in it</th><th>Marks</th><th>How to answer</th></tr></thead>
+          <tbody>
+            <tr><td><b>Part A</b></td><td>10 questions, 2 from each module</td><td>10 × 3 = <b>30 marks</b></td><td>Answer <b>all</b>. Short, precise answers — definition, formula, one-line explanation. No rambling.</td></tr>
+            <tr><td><b>Part B</b></td><td>2 full questions per module (5 modules × 2 = 10 questions)</td><td>Pick <b>one from each module</b> × 14 = <b>70 marks</b></td><td>Choose the <b>easiest</b> full question from each module. Each has up to 2 sub-parts. Answer completely — show steps, draw diagrams where asked.</td></tr>
+            <tr><td><b>Total ESE</b></td><td>—</td><td><b>100 marks</b></td><td>3 hours duration.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def" style="margin-top:14px"><b>Marks split at a glance:</b> Part A = 30 marks (all 10 answered). Part B = 70 marks (5 chosen, one per module). Do <b>not</b> leave any Part A question blank — 3 marks each, and they are the easiest marks on the paper. For Part B, time-box each module's answer to about 25 minutes; a full 14-mark answer needs structure, not just prose.</div>
+      <div class="def"><b>Bloom's levels:</b> 30% Remember, 30% Understand, 40% Apply. That means a good chunk of the paper tests <b>application</b> — "compute this", "apply this algorithm to this data", "find the MLE for this distribution". Definitions alone will not carry you. Practice working through the CO questions (below) until the computations are automatic.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>How to Answer by Marks</h2><span class="tag">3-mark vs 14-mark</span></div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><span class="idx">3 marks</span>Part A — short answers</h3>
+        <p>Three marks means <b>three distinct points</b>, or a crisp definition + one-line explanation + tiny example. Aim for 4–6 lines.</p>
+        <div class="def" style="margin-top:8px"><b>What gets the marks:</b> a correct definition, the key idea stated in one sentence, and one concrete detail (a formula, a property, an example). Do not pad — the marker wants to see you know it, not that you can write about it. For "state", "define", "differentiate", "specify" — give exactly what is asked.</div>
+        <div class="def" style="margin-top:6px"><b>Typical 3-mark commands:</b> define, state, differentiate, mention, illustrate (with a one-line example), specify, compare (briefly).</div>
+      </div>
+      <div class="card">
+        <h3><span class="idx">14 marks</span>Part B — full answers</h3>
+        <p>Fourteen marks is a <b>structured</b> answer: step-by-step derivation or walkthrough, diagrams where the question asks for "illustrate" or "draw", tables for comparisons, and clearly labelled sub-answers (a, b, c).</p>
+        <div class="def" style="margin-top:8px"><b>What gets the marks:</b> the marker looks for <b>steps shown</b> (especially in computation questions), <b>correct final answers</b>, <b>diagrams</b> where asked, <b>comparison tables</b> for "differentiate/compare" questions, and <b>justification</b> for "why"/"discuss" parts. Show your work — even if the final number is wrong, clear steps earn partial marks.</div>
+        <div class="def" style="margin-top:6px"><b>Typical 14-mark commands:</b> explain, describe, derive, illustrate, find, compute, apply, compare (in depth), discuss, develop a classifier (case study).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Recurring Question Pairs</h2><span class="tag">What shows up again and again</span></div>
+    <div class="card full">
+      <p>Certain questions — or near-variants of them — appear across Part A and Part B, and across years. These are the pairs worth being fully ready for. The CO (Course Outcome) assessment questions below are the clearest signal of what the examiner likes to ask.</p>
+
+      <div class="def"><b>Pair 1 — MLE vs MAP, and "find the MLE for θ":</b> these show up in multiple forms: coin-toss MLE for θ (Part A + CO1-Q1), geometric distribution MLE (Part B Q12), Poisson λ (CO1-Q2), exponential λ (CO1-Q2 alternative), binomial MLE (Q11), normal mean MLE &amp; MAP (CO1-Q4, Q12b). You should be able to derive the MLE for any of these distributions from scratch — write the likelihood, take the log, differentiate, solve. Know the MAP version too (likelihood × prior, same steps).</div>
+
+      <div class="def"><b>Pair 2 — Naive Bayes parameter counting:</b> "How many parameters do you need for a Naive Bayes classifier with D binary attributes and K classes?" appears as CO2-Q2 and Part B Q11(b). The answer: for each class you need the prior P(class) and, for each of the D binary attributes, P(attribute=1 | class) — so K·(D+1) parameters (or K·D if priors are implicit). Be ready to count for the specific numbers given (3 classes, 3 binary attributes → 3×4 = 12, or 3×3 = 9 depending on whether you count the prior).</div>
+
+      <div class="def"><b>Pair 3 — Linear regression computation:</b> "Given training examples, find h(2) for θ₀=0, θ₁=1.5" (CO2-Q1, Q13a) and "find J(0,1)" (Q13a) and "what if J=0?" (Q13a). These are plug-and-chug: h(x)=θ₀+θ₁x; J=(1/2m)Σ(h−y)². Know that J=0 means perfect fit on the training set. Also ready for the gradient descent pseudo-code question (Q14b) — write the update rule, on-line vs batch.</div>
+
+      <div class="def"><b>Pair 4 — Decision trees / ID3 / information gain:</b> "Find the best attribute at the root using ID3" (Q14a) and "compute the information gain of the test hair color = blond" (Q13b). These need you to compute entropy and information gain by hand on small tables. Practice the steps: entropy of the full set, entropy after splitting on each attribute, gain = entropy_before − weighted_entropy_after, pick the max.</div>
+
+      <div class="def"><b>Pair 5 — SVM / kernel / support vectors:</b> "What are support vectors and list three properties" (CO3-Q1), "why use kernels instead of projecting directly?" (CO3-Q2), "extend SVM to use kernels" (CO3-Q3), "Gaussian kernel K(x,y)=e^{-||x-y||²}" (Q—model paper), "mapping to feature space implicitly defined by kernel" (Q15a), "soft margin as a constraint optimisation problem" (Q16b). Be ready to explain the kernel trick (compute dot products in high-D feature space without ever constructing the features), name properties of the SVM solution (sparsity — only support vectors matter; maximum margin; unique solution under certain conditions), and write the soft-margin formulation with slack variables.</div>
+
+      <div class="def"><b>Pair 6 — Neural network / activation / backprop:</b> "one way tanh is easier than logistic" (CO3-Q4), "ReLU vs tanh — advantage + disadvantage" (CO3-Q5, Q15c), "compute neuron output given inputs and weights" (Q15b), "basic idea of backpropagation" (Q16a). Compute a neuron's output: z = Σ wᵢxᵢ + b, output = f(z). Know the shapes of ReLU, sigmoid, tanh, and the pros/cons (ReLU: sparse, fast, no vanishing gradient for positive inputs — but dead neurons; sigmoid/tanh: smooth, bounded — but vanishing gradient).</div>
+
+      <div class="def"><b>Pair 7 — Clustering / distance / k-means / EM:</b> "which similarity measure for image feature vectors and why?" (CO4-Q1), "strength and weakness of k-means" (CO4-Q2, Part A Q8), "apply k-means to 8 points, k=3, Manhattan distance" (CO4-Q3, Q18), "hierarchical clustering — single linkage on a data set" (Q17a), "EM for Gaussian mixtures" (Q18b), "Euclidean/Manhattan/Minkowski distance between two tuples" (Q17b). Practice computing these distances by hand and running one or two iterations of k-means on paper.</div>
+
+      <div class="def"><b>Pair 8 — Classification measures / ROC / better classifier:</b> "precision, recall, accuracy from a 2×2 table — is it a good classifier?" (CO5-Q3, Q19a), "ROC space and ROC curve — which points are perfect/always-positive/always-negative and why?" (CO5-Q4, Q20b), "three classifiers A,B,C at (FPR,TPR) — which is perfect?" (CO5-Q5, Q20b variant), "classifier A 100% train/70% test vs B 70%/75% — which is better?" (CO5-Q3, Part A Q9, Q20a). The recurring theme: know that accuracy is misleading under imbalance, that (0,1) is the perfect ROC point, that the (1,1) point is "always positive" and (0,0) is "always negative".</div>
+
+      <div class="def"><b>Pair 9 — Bias–variance / high-bias model:</b> "how does bias–variance trade-off affect ML algorithms?" (Part A Q10, Q20a variant), "a model with high bias and low variance — what are its characteristics?" (Q20a). Know the decomposition: expected error = bias² + variance + irreducible noise. High bias = underfitting (too simple, stable but wrong); high variance = overfitting (fits noise, unstable); the trade-off is that complexity reduces bias but raises variance.</div>
+
+      <div class="def"><b>Pair 10 — Regularisation / Ridge vs Lasso:</b> "significance of regularisation, how Ridge differs from Lasso" (Q13c — "Explain the significance of regularization. How do Ridge differs from Lasso regularization?"). This is a 4-mark sub-question. Answer: regularisation prevents overfitting by penalising large weights; Ridge (L2) shrinks all weights, no feature selection; Lasso (L1) can zero out weights → feature selection. Know the penalty forms: λΣθ² vs λΣ|θ|.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>The Course Outcome Questions</h2><span class="tag">Practise these by heart</span></div>
+    <div class="card full">
+      <p>These are the 20 CO questions from the syllabus — the closest thing to a question bank the course gives you. Every one has appeared or could appear. Work through all of them, especially the computation ones, until you can do them without looking.</p>
+
+      <div class="def"><b>CO1 (Module 1 — estimation):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1">
+        <li>Coin tossed 100 times, 62 heads — MLE for θ (probability of heads). <i>Answer: θ̂ = 62/100 = 0.62.</i></li>
+        <li>x₁..xₙ iid from exponential exp(λ) — MLE for λ. <i>Answer: λ̂ = 1 / x̄ (the reciprocal of the sample mean).</i></li>
+        <li>Find MLE for θ from a given density (generic). <i>Approach: write likelihood L(θ)=Π f(xᵢ;θ), log-likelihood ℓ(θ), dℓ/dθ=0, solve.</i></li>
+        <li>MLE and MAP for mean of univariate normal, known variance σ², unknown mean μ, prior μ ~ N(ν, β²). What happens as N→∞? <i>Answer: MLE μ̂ = x̄. MAP μ̂ = ( (1/σ²)Σxᵢ + (1/β²)ν ) / ( N/σ² + 1/β² ). As N→∞, MAP → MLE → x̄ (the prior washes out).</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO2 (Module 2 — supervised learning):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="5">
+        <li>Linear regression, D≈100 independent attributes, N data points — closed form vs gradient descent? <i>Answer: prefer gradient descent — closed form requires inverting a D×D matrix (O(D³)), with D≈100 that is expensive and may be unstable. GD handles large D and large N better.</i></li>
+        <li>3-class problem, 3 binary attributes — how many parameters for Naive Bayes? <i>Answer: for each class, P(class) + for each of 3 binary attributes P(attr=1|class). With 3 classes: 3 priors + 3×3 = 9 conditional parameters, total 12 (or 9 if priors are implicit).</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO3 (Module 3 — NN &amp; SVM):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="7">
+        <li>What are support vectors? List three properties of the SVM solution. <i>Answer: support vectors are the training points that lie on or within the margin (the ones with non-zero α). Properties: (1) the solution depends only on support vectors (sparsity), (2) the margin is maximised (maximum-margin separator), (3) the solution is unique (for a given kernel and soft-margin constant) under standard conditions.</i></li>
+        <li>Why use kernels instead of projecting the data directly? <i>Answer: projecting into a high-dimensional feature space explicitly can be impossible (the space may be infinite-dimensional, e.g. RBF). Kernels compute the inner product in that space without ever constructing the features — the "kernel trick".</i></li>
+        <li>How can SVMs be extended to use kernels? <i>Answer: in the dual formulation, every occurrence of the input vectors appears only as a dot product xᵢ·xⱼ. Replacing that with K(xᵢ, xⱼ) gives a kernelised SVM — the same optimisation, but now operating implicitly in the feature space of K.</i></li>
+        <li>One way tanh is easier than logistic for optimisation. <i>Answer: tanh is zero-centred (output ranges −1 to +1, mean near 0), so the next layer's inputs are centred, which helps gradient flow; logistic outputs 0 to 1, so gradients can be consistently positive/negative, slowing learning.</i></li>
+        <li>ReLU vs tanh — one advantage and one disadvantage of ReLU. <i>Advantage: ReLU is sparse (negative inputs → 0) and has no vanishing gradient for positive inputs, so it trains faster and avoids saturation. Disadvantage: "dead ReLU" — a neuron whose weights put it in the negative region forever outputs 0 and stops learning; also not smooth at 0.</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO4 (Module 4 — unsupervised learning):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="12">
+        <li>Which similarity measure for image feature vectors? Justify. <i>Answer: typically Euclidean distance (or cosine similarity) — depends on the features. Euclidean for dense, normalised vectors; cosine when magnitude is irrelevant (e.g. bag-of-words / normalised embeddings). Justify by saying which property of the features each measure captures.</i></li>
+        <li>Strength and weakness of k-means. <i>Strength: simple, fast, scales, easy. Weakness: must choose k; sensitive to initial centroids (local optimum); assumes spherical, similar-sized clusters; sensitive to outliers; needs numeric features.</i></li>
+        <li>K-means on 8 points, k=3, initial clusters given, run until convergence, Manhattan distance. <i>Approach: compute centroid of each cluster, reassign each point to nearest centroid by Manhattan distance, recompute centroids, repeat until stable.</i></li>
+        <li>K-means on 8 location points, k=3, initial centres A₁, A₄, A₇, distance D(a,b)=|x₂−x₁|+|y₂−y₁|, find centres after second iteration. <i>Approach: assignment by Manhattan distance, recompute mean of each cluster, repeat once more (second iteration), report the three resulting centres.</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO5 (Module 5 — classification assessment):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="16">
+        <li>What is ensemble learning? Can an ensemble of linear classifiers learn a linearly non-separable set? <i>Answer: ensemble learning combines multiple base classifiers to get a better overall predictor. Yes — an ensemble of linear classifiers can combine several linear boundaries (by voting) to approximate a non-linear decision surface, so it can separate data no single line can.</i></li>
+        <li>Describe boosting. Relation to ensemble learning? <i>Answer: boosting trains base learners sequentially, each focusing on the examples previous learners got wrong, then combines them (weighted). It is a form of ensemble learning — specifically a sequential, error-focused ensemble strategy (vs bagging which is parallel and variance-reducing).</i></li>
+        <li>Classifier A: 100% train, 70% test. B: 70% train, 75% test. Which is better? Justify. <i>Answer: B is better — it generalises (75% test vs 70% test). A overfits (100% train but 70% test — huge gap). The test accuracy is what counts.</i></li>
+        <li>What are ROC space and ROC curve? Which points are perfect / always-positive / always-negative, and why? <i>Answer: ROC space plots FPR (x) vs TPR (y). ROC curve is TPR vs FPR across all thresholds. Perfect = (0,1): zero false positives, all true positives caught. Always-positive = (1,1): TPR=1 (all positives caught) but FPR=1 (everything flagged). Always-negative = (0,0): nothing flagged, nothing caught. The diagonal is random guessing.</i></li>
+        <li>Three classifiers A(0,1), B(1,1), C(1,0.5) in (FPR,TPR). Which is perfect? <i>Answer: A is perfect — (0,1) means zero false positives and all true positives caught. B always says YES (FPR=1,TPR=1). C always says YES but only catches half (FPR=1,TPR=0.5). Only A is perfect.</i></li>
+      </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Practical Exam Tips</h2><span class="tag">What the marker rewards</span></div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><span class="idx">Do</span></h3>
+        <ul>
+          <li><b>Write the formula first</b> in any computation question, then plug numbers. Marks often go to the formula even if the arithmetic slips.</li>
+          <li><b>Show each step</b> in MLE/MAP and k-means and ID3 — the marker awards partial credit per step.</li>
+          <li><b>Draw a small diagram</b> when the question says "illustrate" — even a rough one scores; a missing diagram on an "illustrate" question loses marks.</li>
+          <li><b>Use a table</b> for "compare/differentiate" questions — it is cleaner and the marker can tick each row.</li>
+          <li><b>State the answer plainly</b> in 3-mark questions — the first sentence should be the answer, then one line of explanation.</li>
+          <li><b>Time-box</b>: ~5 minutes per Part A question (30 marks / 10), ~25 minutes per Part B (70 marks / 5 modules).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="idx">Don't</span></h3>
+        <ul>
+          <li><b>Don't leave any Part A blank</b> — 3 marks is the easiest mark on the paper; even a correct definition gets 1–2.</li>
+          <li><b>Don't pick a Part B question you can't finish</b> over one you can — the "easiest full question per module" strategy beats the "coolest topic" strategy.</li>
+          <li><b>Don't write paragraphs for "state/define"</b> — the marker wants the fact, not the essay.</li>
+          <li><b>Don't forget units / notation</b> — write "θ̂ = 0.62", not just "0.62".</li>
+          <li><b>Don't confuse logistic regression (classification) with linear regression (regression)</b> — the names are similar, the tasks are not.</li>
+          <li><b>Don't claim a model is "good" on accuracy alone</b> when classes are imbalanced — say precision/recall/ROC.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>How to Use This Site for Revision</h2><span class="tag">A quick plan</span></div>
+    <div class="card full">
+      <p>The most efficient revision order is: (1) read each module page once, top to bottom, so the structure is in your head. (2) Go to the <b>Question Bank</b> and work the CO questions one module at a time — try to answer before toggling the model answer. (3) Revisit the recurring pairs list above and make sure you can write each answer cold. (4) For computation-heavy topics (MLE, k-means, ID3, neuron output, distances), do the numbers on paper, not just read them. (5) In the last pass, skim the module pages' <b>key definitions</b> (the ones in <b>bold</b>) — those are the 3-mark material.</p>
+      <div class="def"><b>3-hour exam pacing:</b> first 30 minutes on Part A (all 10, aim to finish in 25 so you have buffer). Then 25 minutes on each of the 5 Part B answers (125 minutes). Leaves ~10 minutes to review. If a Part B is running long, move on — a finished good answer beats a half-finished hard one.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m5-1.html">← Prev: M5 · Classification &amp; Assessment</a>
+    <a class="next" href="papers.html">Next: Question Bank →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

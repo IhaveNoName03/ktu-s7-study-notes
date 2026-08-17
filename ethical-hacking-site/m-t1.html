@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Techniques · Ethical Hacking</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html" class="active">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">How to answer</span>
+  <h1>Exam Techniques &amp; Key Facts</h1>
+  <p class="lede">How to think about exam questions in this course — what the examiner is really asking,
+  how to match your answer to the marks, and which definitions, tables, and recurring comparisons
+  you should keep ready. Pair this with the <a href="papers.html">Question Bank</a> where the same
+  ideas are worked through as model answers.</p>
+  <div class="meta-row">
+    <span class="chip red">How to answer</span>
+    <span class="chip">Recurring pairs</span>
+    <span class="chip">Definitions</span>
+    <span class="chip">By marks</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ====== HOW THE EXAM WORKS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>How questions are set</h2><span class="tag">Read the examiner</span></div>
+    <div class="card full">
+      <p>Most questions in this course fall into one of a few shapes. Spotting the shape before you write
+      saves time and stops you answering the wrong thing:</p>
+      <ul>
+        <li><b>Define / explain a term</b> — the examiner wants the meaning, in your own words, with one
+          concrete angle (what it protects, what breaks it, how it's done).</li>
+        <li><b>List the types / phases / categories</b> — ordered, enumerated, with a short note per item
+          so it reads as a list, not a dump.</li>
+        <li><b>Compare two things</b> — the examiner is checking you know the boundary between them.
+          A two-column table with the same axes for both is the cleanest way to show it.</li>
+        <li><b>Describe an attack / a process / a system</b> — narrative, step by step, from start to
+          outcome, with the "why" at each step, not just a list of buzzwords.</li>
+        <li><b>Discuss advantages and limitations</b> — both sides, explicitly. A one-sided "it's great"
+          answer loses marks; the limitation is often where the marks live.</li>
+        <li><b>"With a neat diagram"</b> — labels matter more than artistic quality. A labelled
+          schematic that shows the flow or layout the question names scores; a pretty but unlabelled one
+          doesn't. See the diagrams built into each module page — they're exactly the shapes examiners
+          expect.</li>
+      </ul>
+      <div class="def">The single most useful reflex: <b>rephrase the question in plain English</b>
+      before you write. "Explain DoS" is really "what is it, how does it work, why does it break
+      availability, what's an example?" If you answer each of those, you've covered the mark scheme.</div>
+    </div>
+  </div>
+
+  <!-- ====== DEFINITIONS TO KEEP READY ====== -->
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Core definitions to keep ready</h2><span class="tag">Part A material</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Term</th><th>What to say (short, precise)</th></tr></thead>
+        <tbody>
+          <tr><td>Information security</td><td>Protecting information and systems from unauthorised access, use, disclosure, disruption, modification, or destruction — so the CIA goals are met.</td></tr>
+          <tr><td>CIA triad</td><td>Confidentiality, Integrity, Availability — the three properties every control is judged against.</td></tr>
+          <tr><td>Threat</td><td>A potential cause of an unwanted incident — a person, event, or thing with the capability and intent (or chance) to harm a system.</td></tr>
+          <tr><td>Vulnerability</td><td>A weakness an attacker can exploit — in software, a config, a process, or a person.</td></tr>
+          <tr><td>Exploit</td><td>The technique or code that takes advantage of a vulnerability.</td></tr>
+          <tr><td>Attack</td><td>An action that harms confidentiality, integrity, or availability.</td></tr>
+          <tr><td>Risk</td><td>Likelihood × impact — the chance something bad happens, times how bad it would be.</td></tr>
+          <tr><td>Penetration testing</td><td>An authorised, simulated attack to find real vulnerabilities before an attacker does — scoped, time-boxed, and reported.</td></tr>
+          <tr><td>Footprinting</td><td>The first recon phase — collecting public and passive information about a target to map what's exposed.</td></tr>
+          <tr><td>Sniffing</td><td>Capturing network traffic to read data meant for others — breaks confidentiality on plaintext channels.</td></tr>
+          <tr><td>Social engineering</td><td>Manipulating people into breaking security procedures or giving up information — "human hacking."</td></tr>
+          <tr><td>Honeypot</td><td>A decoy system that looks like a real target to attract and study attackers — used for detection, research, and diversion.</td></tr>
+          <tr><td>Malware</td><td>Malicious software (virus, worm, trojan, ransomware, rootkit, bot) — the payload of many attacks.</td></tr>
+          <tr><td>Non-repudiation</td><td>A party cannot deny an action they took — achieved with digital signatures and strong audit trails.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">When a 3-mark "define" question appears, give the meaning in one sentence, then add one
+    line that shows you know what breaks it or how it's done. That second line is often where the third
+    mark comes from.</div>
+  </div>
+
+  <!-- ====== THE RECURRING PAIRS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Recurring comparisons to have ready</h2><span class="tag">Two-column tables</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Pair</th><th>Why it shows up</th><th>Axes to compare</th></tr></thead>
+        <tbody>
+          <tr><td>White hat vs Black hat vs Grey hat</td><td>Hacker classes — definitions come up early and in papers.</td><td>Intent, permission, legality, after finding a vuln</td></tr>
+          <tr><td>Footprinting vs scanning vs enumeration</td><td>The three recon sub-phases are easily confused.</td><td>Passive vs active, what info is gathered, when in the kill chain</td></tr>
+          <tr><td>Virus vs Worm</td><td>Both are malware but spread differently — a classic 5-mark compare.</td><td>Needs a host, spreads on its own, human action required</td></tr>
+          <tr><td>Symmetric vs Asymmetric encryption</td><td>Cryptography basics.</td><td>One key vs two, speed, key distribution, typical use</td></tr>
+          <tr><td>Hash vs Encryption</td><td>Both "scramble" data but serve different goals.</td><td>One-way vs reversible, purpose (integrity vs confidentiality)</td></tr>
+          <tr><td>DoS vs DDoS</td><td>Availability attack with different scale and origin.</td><td>Single source vs many, botnet, mitigation difficulty</td></tr>
+          <tr><td>Phishing vs Spear phishing vs Whaling</td><td>Social engineering by target scope.</td><td>Broadcast vs targeted vs executive</td></tr>
+          <tr><td>Replay vs MITM vs Sniffing</td><td>Different integrity/confidentiality attacks.</td><td>Capture only, capture+modify, re-send old data</td></tr>
+          <tr><td>Firewall vs IDS vs IPS</td><td>Perimeter and monitoring tech.</td><td>Block vs detect, inline vs passive, false-positive handling</td></tr>
+          <tr><td>Cover tracks via log clearing vs log editing vs disabling</td><td>Module 5 — ways to hide evidence.</td><td>Delete all, alter records, stop logging; why each is detectable</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">Having a ready two-column table for each pair is worth more than memorising one long
+    paragraph — it's faster to write and easier for the examiner to award marks against.</div>
+  </div>
+
+  <!-- ====== ANSWER BY MARKS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>How to match your answer to the marks</h2><span class="tag">Marks-aware</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Marks</th><th>What the examiner expects</th><th>What to write</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>A tight definition or short list — enough to show you know the term, not a full essay.</td>
+            <td>One sentence of meaning, then one line with an angle (what breaks it, how it's done, one example). Stop when you've said the thing.</td>
+          </tr>
+          <tr>
+            <td>5–7</td>
+            <td>A comparison, a short process, or a "list with notes."</td>
+            <td>Three to five headed points, each with a one-line reason. If it's a compare, use a small table. A worked mini-example helps here.</td>
+          </tr>
+          <tr>
+            <td>10–14</td>
+            <td>A full answer: definition, principle, sub-points, a comparison or diagram if asked, and both advantages and limitations.</td>
+            <td>Lead with the definition, then build structured sub-sections (a/b/c or a table), then close with limits and an example. "With a neat diagram" means a labelled schematic of the shape the question names — draw the one on the module page.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Don't pad.</b> Repeating the same point in different words wastes time and can read as
+    uncertainty. If the question is 3 marks, a 3-mark answer that is accurate beats a 10-mark answer that
+    wanders.</div>
+  </div>
+
+  <!-- ====== DO'S AND DON'TS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Do's and don'ts in the exam</h2><span class="tag">Practical</span></div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h4>Do</h4>
+        <ul>
+          <li>Rephrase the question in plain English before writing.</li>
+          <li>Lead a long answer with a definition or one-line framing.</li>
+          <li>Use a two-column table when a question says "compare" or two things are naturally paired.</li>
+          <li>Give one concrete example or scenario — it usually anchors a mark that a bare list misses.</li>
+          <li>If the question asks for "advantages and limitations," give both, labelled.</li>
+          <li>If it says "with a neat diagram," draw the labelled schematic from the module — labels count.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Don't</h4>
+        <ul>
+          <li>Pad with buzzwords you can't explain — a misused term reads as guessing.</li>
+          <li>Answer a "compare" as two separate lists with no connecting axis.</li>
+          <li>Stop at the advantages when the question asks for limitations too.</li>
+          <li>Run on past the marks — a 3-mark answer shouldn't be half a page.</li>
+          <li>Leave a "diagram" out because you can't draw well — labels on a schematic are what score, not artistry.</li>
+          <li>Mix up pairs that are frequently swapped (virus/worm, symmetric/asymmetric, IDS/IPS) — those are exactly where a trick question lives.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== HOW TO USE THESE NOTES ====== -->
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>How to use these notes</h2><span class="tag">Study flow</span></div>
+    <div class="card full">
+      <p>Read a module page top to bottom once to get the shape — the headings are the skeleton, the tables
+      are the comparisons, and the worked examples are the parts that usually earn marks. Then:</p>
+      <ul>
+        <li><b>For definitions:</b> use the core-definitions table on this page (02) as a checklist — can you
+          say each one in one sentence? If not, that's a gap to close before the exam.</li>
+        <li><b>For comparisons:</b> rehearse the recurring pairs in section 03 from memory — write the table
+          out once, then close the notes and try again.</li>
+        <li><b>For attacks and processes:</b> narrate them aloud in your own words, step by step, with the
+          "why" at each step. If you can't say what breaks (CIA goal) or how detection works, go back to the
+          module page.</li>
+        <li><b>For "with a neat diagram":</b> redraw the labelled schematic on the module page — flat-plate
+          collector, solar cell, OTEC loop, tidal basin, wind turbine, fuel cell, machine guard, fire-class
+          wheel, HAZOP flow. Labels matter more than neatness.</li>
+        <li><b>For full answers:</b> use the question bank on <a href="papers.html">papers.html</a> as
+          practice — try one, then read the model answer and note what it included that you missed.</li>
+      </ul>
+      <div class="def">The goal isn't to memorise this whole site word-for-word. It's to be able to
+      <b>rebuild</b> each module's key tables and a labelled diagram from memory, and to narrate each attack
+      and process in your own words with the CIA property and an example attached.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m5-1.html">Prev: M5 · Tracking &amp; covering</a>
+    <a class="next" href="papers.html">Next: Question Bank</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Exam Techniques — Ethical Hacking (CCT 401, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

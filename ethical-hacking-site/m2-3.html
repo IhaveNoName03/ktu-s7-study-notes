@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Social Engineering</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html" class="active">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Page 3 of 3</span>
+  <h1>Social Engineering</h1>
+  <p class="lede">The "human hacking" layer: manipulating people rather than breaking systems. The
+  techniques below are why the strongest firewall still fails to a well-told lie.</p>
+  <div class="meta-row">
+    <span class="chip red">Manipulation</span>
+    <span class="chip">Phishing</span>
+    <span class="chip">Human firewall</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What &amp; Why</h2>
+      <span class="tag">Definition</span></div>
+    <div class="card full">
+      <p><b>Social engineering</b> = tricking people into breaking security procedures or giving up
+      sensitive info. It works because humans are trusting, helpful, and rushed. The <b>insider threat</b>
+      — a trusted person abusing access — is the most dangerous variant.</p>
+      <div class="def">The best defense is a <b>"human firewall"</b>: trained, skeptical users who verify
+      requests and report suspicious contact.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Techniques</h2>
+      <span class="tag">The toolbox</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>Channel / Method</th><th>How it works</th></tr></thead>
+        <tbody>
+          <tr><td>Phishing</td><td>Email</td><td>Fake message lures creds / malware</td></tr>
+          <tr><td>Spear phishing</td><td>Targeted email</td><td>Personalized to one victim/org</td></tr>
+          <tr><td>Whaling</td><td>Email to execs</td><td>High-value targets (CFO/CEO)</td></tr>
+          <tr><td>Vishing</td><td>Voice / phone</td><td>Impersonate IT/bank to get info</td></tr>
+          <tr><td>Smishing</td><td>SMS</td><td>Malicious link via text</td></tr>
+          <tr><td>Pretexting</td><td>Any</td><td>Fabricated scenario to extract data</td></tr>
+          <tr><td>Baiting</td><td>Physical/USB</td><td>Enticing item (free USB) drops malware</td></tr>
+          <tr><td>Quid pro quo</td><td>Any</td><td>"Service for info" (fake tech support)</td></tr>
+          <tr><td>Tailgating / Piggybacking</td><td>Physical</td><td>Follow an authorized person through a door</td></tr>
+          <tr><td>Impersonation</td><td>Any</td><td>Pretend to be staff/vendor</td></tr>
+          <tr><td>Shoulder surfing</td><td>Physical</td><td>Watch PIN / password being entered</td></tr>
+          <tr><td>Dumpster diving</td><td>Physical</td><td>Recover discarded documents/media</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Defenses</h2>
+      <span class="tag">Human firewall</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Training &amp; awareness</h4><p>Teach users to recognize lures and verify requests out-of-band.</p></div>
+      <div class="card"><h4>Verification policies</h4><p>Confirm high-risk requests (wire transfers, password resets) by phone.</p></div>
+      <div class="card"><h4>Clear procedures</h4><p>Document how legit requests look; ban sharing creds.</p></div>
+      <div class="card"><h4>Multi-factor auth</h4><p>MFA blunts stolen-password attacks (avoid SMS-only — SIM swap).</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Best control</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Phishing / credential theft</td><td>MFA (app/TOTP)</td><td>Stolen password alone is useless</td></tr>
+          <tr><td>CEO fraud / whaling</td><td>Out-of-band verify for payments</td><td>Breaks the authority+urgency trick</td></tr>
+          <tr><td>Tailgating</td><td>Badge + mantrap, no tailgate</td><td>Stops piggyback entry</td></tr>
+          <tr><td>Shoulder surfing</td><td>Privacy screens, no typing secrets in public</td><td>Blocks visual capture</td></tr>
+          <tr><td>Dumpster diving</td><td>Shredding, clean-desk policy</td><td>No recoverable paper</td></tr>
+          <tr><td>All of the above</td><td>Report channel + drills</td><td>Catches what tech misses</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Why It Works — Psychology</h2>
+      <span class="tag">The lever</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Authority</h4><p>"I'm from IT, reset your password now" — people obey perceived superiors.</p></div>
+      <div class="card"><h4>Urgency</h4><p>"Your account closes in 10 minutes" kills careful thinking.</p></div>
+      <div class="card"><h4>Familiarity / trust</h4><p>Known brand or colleague name lowers guard.</p></div>
+      <div class="card"><h4>Scarcity / reward</h4><p>"Free gift / limited offer" triggers impulse.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Anatomy of a Phish &amp; the Human Firewall</h2>
+      <span class="tag">Dissection</span></div>
+    <div class="card full">
+      <p>A phishing email has four parts: <b>sender</b> (spoofed/lookalike domain), <b>lure</b> (urgent ask),
+      <b>payload</b> (malicious link/attachment), and <b>goal</b> (creds/C2). Spotting any weak link breaks the chain.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Worked example — a credential phish</h4>
+      <ol>
+        <li><b>Sender:</b> <code>security@micros0ft-support.com</code> — a lookalike domain (zero vs o) impersonating Microsoft.</li>
+        <li><b>Lure:</b> "Unusual sign-in detected — secure your account in 10 minutes or it is locked." (authority + urgency).</li>
+        <li><b>Payload:</b> a button linking to a cloned login page that sends typed creds to the attacker.</li>
+        <li><b>Goal:</b> harvest the password, then reuse it (or the MFA prompt) to enter the real account.</li>
+      </ol>
+      <p style="margin-top:10px"><b>Why the human firewall stops it:</b> the user checks the real sender domain, pauses at the urgency, and verifies via a known bookmark / phone — never the link. MFA (app/TOTP, not SMS) then blunts even a stolen password.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Insider-threat case</h4>
+      <p>A trusted contractor with legit DB access exfiltrates customer records to a personal cloud account over weeks.
+      Controls that catch it: least-privilege access, DLP/ egress monitoring, and off-box logging so the activity is visible even though the person was "authorized."</p>
+      <div class="def"><b>Building the human firewall:</b> simulated phishing drills, a "verify out-of-band" rule for money/access requests, and a no-blame reporting channel so users flag tries instead of hiding them.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m2-2.html">Prev: Malware &amp; Attacks</a>
+    <a class="next" href="m3-1.html">Next: Module 3 · Vuln/Attacks</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 2, Page 3 — Social Engineering techniques &amp; defenses.</div>
+    <div><a href="index.html">Home</a> · <a href="m3-1.html">M3</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

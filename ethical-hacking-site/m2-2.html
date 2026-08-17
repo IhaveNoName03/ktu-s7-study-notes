@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Malware &amp; Network Attacks</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html" class="active">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Page 2 of 3</span>
+  <h1>Malware &amp; Network Attacks</h1>
+  <p class="lede">How attackers get a foothold and disrupt systems: the families of malware and the
+  network-layer attacks (DoS, session hijacking, sniffing) that M3 covers in depth.</p>
+  <div class="meta-row">
+    <span class="chip red">Malware</span>
+    <span class="chip">DoS/DDoS</span>
+    <span class="chip">Session hijack</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Malware Types</h2>
+      <span class="tag">Families</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">V</span>Virus</h3><p>Attaches to a host file; needs user action / a host to spread.</p></div>
+      <div class="card"><h3><span class="idx">W</span>Worm</h3><p>Self-propagates across networks with no host program needed.</p></div>
+      <div class="card"><h3><span class="idx">T</span>Trojan</h3><p>Disguised as legitimate software; hidden malicious function.</p></div>
+      <div class="card"><h3><span class="idx">R</span>Ransomware</h3><p>Encrypts / locks data and demands payment to restore it.</p></div>
+      <div class="card"><h3><span class="idx">K</span>Rootkit</h3><p>Hides its own presence and other malware from the OS.</p></div>
+      <div class="card"><h3><span class="idx">B</span>Backdoor</h3><p>Secret entry point bypassing normal auth.</p></div>
+      <div class="card"><h3><span class="idx">L</span>Logic bomb</h3><p>Triggers malicious action on a condition / date.</p></div>
+      <div class="card"><h3><span class="idx">S</span>Spyware / Keylogger</h3><p>Steals keystrokes / monitors activity silently.</p></div>
+      <div class="card"><h3><span class="idx">A</span>Adware / Botnet</h3><p>Unwanted ads; botnet = mass of infected machines under C2.</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>Needs host?</th><th>Self-spreads?</th><th>Primary goal</th></tr></thead>
+        <tbody>
+          <tr><td>Virus</td><td>Yes</td><td>No (needs user)</td><td>Corrupt / replicate</td></tr>
+          <tr><td>Worm</td><td>No</td><td>Yes</td><td>Spread / overload</td></tr>
+          <tr><td>Trojan</td><td>Delivered via host</td><td>No</td><td>Secret access</td></tr>
+          <tr><td>Ransomware</td><td>Via host</td><td>Sometimes</td><td>Extort</td></tr>
+          <tr><td>Rootkit</td><td>Yes</td><td>No</td><td>Hide presence</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">Deep comparison — virus vs worm (the classic question)</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Virus</th><th>Worm</th></tr></thead>
+          <tbody>
+            <tr><td>Needs a host file</td><td>Yes</td><td>No</td></tr>
+            <tr><td>Spreads on its own</td><td>No (needs user action)</td><td>Yes (network/email)</td></tr>
+            <tr><td>Execution</td><td>When host runs</td><td>Self-executes</td></tr>
+            <tr><td>Detection</td><td>Signature on file</td><td>Network anomaly / traffic spike</td></tr>
+            <tr><td>Example</td><td>File-infector, macro virus</td><td>Morris, Storm, WannaCry</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px"><b>Worked example — WannaCry (2017):</b> an encrypting worm that used the EternalBlue SMB exploit to spread across networks with no user click, encrypted files, and demanded Bitcoin. It combined <b>worm</b> (self-spread) + <b>ransomware</b> (extort) + <b>exploit</b> (SMB RCE). Patch (MS17-010) + SMB segmentation stopped it — a textbook case of "unpatched + flat network = disaster."</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">01b</span><h2>Malware Taxonomy — Visual</h2><span class="tag">How they spread</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Malware Families by Propagation</div>
+      <svg viewBox="0 0 560 220" role="img" aria-label="Malware taxonomy tree">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- root -->
+        <rect class="box" x="225" y="12" width="110" height="34" rx="6"/><text x="280" y="34" text-anchor="middle" class="lbl">MALWARE</text>
+        <!-- branches -->
+        <line class="arrow" x1="250" y1="46" x2="120" y2="78"/>
+        <line class="arrow" x1="280" y1="46" x2="280" y2="78"/>
+        <line class="arrow" x1="310" y1="46" x2="440" y2="78"/>
+        <rect class="box" x="55" y="80" width="130" height="34" rx="6"/><text x="120" y="102" text-anchor="middle" class="lbl">Needs a host</text>
+        <rect class="box" x="215" y="80" width="130" height="34" rx="6"/><text x="280" y="102" text-anchor="middle" class="lbl">Self-spreads</text>
+        <rect class="box" x="375" y="80" width="140" height="34" rx="6"/><text x="445" y="102" text-anchor="middle" class="lbl">Deceptive</text>
+        <!-- leaves -->
+        <line class="arrow" x1="120" y1="114" x2="80" y2="146"/><line class="arrow" x1="120" y1="114" x2="150" y2="146"/>
+        <line class="arrow" x1="280" y1="114" x2="230" y2="146"/><line class="arrow" x1="280" y1="114" x2="320" y2="146"/>
+        <line class="arrow" x1="445" y1="114" x2="400" y2="146"/><line class="arrow" x1="445" y1="114" x2="490" y2="146"/>
+        <text x="60" y="168" text-anchor="middle" font-size="11" font-weight="700">Virus</text>
+        <text x="160" y="168" text-anchor="middle" font-size="11" font-weight="700">Trojan</text>
+        <text x="220" y="168" text-anchor="middle" font-size="11" font-weight="700">Worm</text>
+        <text x="330" y="168" text-anchor="middle" font-size="11" font-weight="700">Botnet</text>
+        <text x="400" y="168" text-anchor="middle" font-size="11" font-weight="700">Ransomware</text>
+        <text x="500" y="168" text-anchor="middle" font-size="11" font-weight="700">Spyware</text>
+        <text x="120" y="200" text-anchor="middle" font-size="10.5" fill="#7f8c8d">(attaches to a file)</text>
+        <text x="280" y="200" text-anchor="middle" font-size="10.5" fill="#7f8c8d">(no host needed)</text>
+        <text x="445" y="200" text-anchor="middle" font-size="10.5" fill="#7f8c8d">(masquerades)</text>
+      </svg>
+      <p class="dcap">A simple way to sort malware: does it need a host file (virus, trojan), does it spread on its own (worm, botnet), or does it trick the user (ransomware, spyware)? A single sample can sit in more than one branch.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Network Attacks</h2>
+      <span class="tag">Layer 3–7</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">D</span>DoS / DDoS</h3><p>Overwhelm a target to deny service. Full detail (floods, Smurf, mitigation) on <a href="m3-1.html">Module 3</a>.</p></div>
+      <div class="card"><h3><span class="idx">S</span>Session hijacking</h3><p>Steal a valid session token/cookie to impersonate the user. See <a href="m4-1.html">M4</a> (defenses: HTTPS, HttpOnly, regen).</p></div>
+      <div class="card"><h3><span class="idx">N</span>Sniffing</h3><p>Packet capture on a shared/flat network. Full detail + types on <a href="m3-1.html">Module 3</a>.</p></div>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">DoS vs DDoS (detail)</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>DoS</th><th>DDoS</th></tr></thead>
+          <tbody>
+            <tr><td>Source</td><td>One machine / IP</td><td>Many compromised machines (botnet)</td></tr>
+            <tr><td>Volume</td><td>Limited</td><td>Massive (can be terabits/s)</td></tr>
+            <tr><td>Blocking</td><td>Block the single IP</td><td>Hard — IPs are everywhere</td></tr>
+            <tr><td>Common forms</td><td>SYN flood, HTTP GET flood</td><td>Volumetric, amplification (DNS/NTP), app-layer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px"><b>How it works:</b> the attacker exhausts a resource — bandwidth (flood the pipe),
+      connection table (SYN flood fills the backlog), or CPU (slowloris holds connections open).
+      <b>Mitigation:</b> upstream scrubbing/clean-pipe, rate-limiting, anycast, and blocking amplification by
+      disabling open resolvers. The deeper treatment is on <a href="m3-1.html">Module 3</a>.</p>
+      <div class="def">Network attacks build on the reconnaissance from
+      <a href="m2-1.html">Page 1</a> and lead into exploitation (<a href="m3-1.html">M3</a>, <a href="m4-1.html">M4</a>).</div>
+    </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>How Malware Gets In &amp; Acts</h2>
+      <span class="tag">Delivery &amp; payload</span></div>
+    <div class="card full">
+      <p>Most malware follows: <b>delivery</b> (phish, drive-by, USB) &rarr; <b>execution</b> (macro, exploit) &rarr; <b>establish</b> (persistence) &rarr; <b>action</b> (encrypt, steal, spy) &rarr; <b>command &amp; control</b> (call home).</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Ransomware kill chain</h4>
+      <ol>
+        <li>Entry via phishing or RDP</li>
+        <li>Disable defenses / spread via SMB</li>
+        <li>Exfiltrate data (double extortion)</li>
+        <li>Encrypt files, demand payment</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Defending the Endpoint &amp; Network</h2>
+      <span class="tag">Controls</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Endpoint</h4><ul>
+        <li>EDR / next-gen antivirus with behavior analysis</li>
+        <li>Patch management, app allow-listing</li>
+        <li>Restrict macros &amp; admin rights</li>
+      </ul></div>
+      <div class="card"><h4>Network</h4><ul>
+        <li>Segmentation + VLANs limit lateral movement</li>
+        <li>DNS filtering blocks C2 call-backs</li>
+        <li>Egress monitoring, offline backups</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Proxy &amp; Packet Filtering</h2>
+      <span class="tag">Network controls</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Packet filtering</h4><p>A firewall function that permits or blocks packets by
+      source/destination IP, port, and protocol (stateless = per-packet rules; stateful = tracks connections).
+      This is the basic "allow/deny" wall between networks.</p></div>
+      <div class="card"><h4>Proxy server</h4><p>Intermediary that fetches resources on a client's behalf. It hides the
+      client's real IP, enforces content/URL filtering, and can cache. An <b>application-layer proxy</b> inspects
+      the request content (deeper than packet filters) — the basis of Gen-3 firewalls.</p></div>
+    </div>
+    <div class="def">Together they shape what enters and leaves a network: packet filtering at the boundary, proxies for
+    content-level control and anonymity. Covered again under firewall generations in Module 4.</div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m2-1.html">Prev: Footprinting</a>
+    <a class="next" href="m2-3.html">Next: Social Engineering</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 2, Page 2 — Malware &amp; Network Attacks.</div>
+    <div><a href="index.html">Home</a> · <a href="m3-1.html">M3</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</div>
+</body>
+</html>

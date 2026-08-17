@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · The Hacker Landscape</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html" class="active">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Page 2 of 3</span>
+  <h1>The Hacker Landscape</h1>
+  <p class="lede">Not all hackers are criminals. This page catalogues the many "hats," their motivations,
+  and the kill-chain phases every intrusion follows — the skeleton the later modules hang on.</p>
+  <div class="meta-row">
+    <span class="chip red">Hat classes</span>
+    <span class="chip">Motivation</span>
+    <span class="chip">Kill chain</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Hacker Classes</h2>
+      <span class="tag">Who's who</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">W</span>White hat</h3><p>Ethical / authorized hacker — finds flaws to help defend. The role this course trains you for.</p></div>
+      <div class="card"><h3><span class="idx">B</span>Black hat</h3><p>Malicious — breaks in for personal gain, damage, or crime.</p></div>
+      <div class="card"><h3><span class="idx">G</span>Grey hat</h3><p>Neither fully good nor bad — may break in without permission but usually reports it.</p></div>
+      <div class="card"><h3><span class="idx">H</span>Hacktivist</h3><p>Hacks to push a political/social message (e.g. defacement for a cause).</p></div>
+      <div class="card"><h3><span class="idx">S</span>Script kiddie</h3><p>Uses ready-made tools/scripts without deep understanding.</p></div>
+      <div class="card"><h3><span class="idx">$</span>State-sponsored</h3><p>Funded by nations for espionage/sabotage; highly resourced.</p></div>
+      <div class="card"><h3><span class="idx">I</span>Insider / threat</h3><p>Trusted user who abuses access — employee, contractor, partner.</p></div>
+      <div class="card"><h3><span class="idx">!</span>Motivation</h3><p>Money, ideology, ego, entertainment, espionage, or simply the challenge.</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Class</th><th>Permission?</th><th>Intent</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>White hat</td><td>Yes (contract)</td><td>Defend</td><td>Internal security tester</td></tr>
+          <tr><td>Black hat</td><td>No</td><td>Harm / profit</td><td>Ransomware operator</td></tr>
+          <tr><td>Grey hat</td><td>No</td><td>Mixed</td><td>Discloses bug, no permission</td></tr>
+          <tr><td>Hacktivist</td><td>No</td><td>Activism</td><td>Site defacement</td></tr>
+          <tr><td>Script kiddie</td><td>No</td><td>Thrill / clout</td><td>Runs LOIC botnet</td></tr>
+          <tr><td>State-sponsored</td><td>No</td><td>Espionage</td><td>APT41-style campaign</td></tr>
+          <tr><td>Insider</td><td>Yes (abused)</td><td>Gain / revenge</td><td>Leaks customer DB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>The Hacking Kill Chain</h2>
+      <span class="tag">Phases</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">1</span>Reconnaissance</h3><p>Passive + active info gathering (footprinting, scanning) — map the target. See <a href="m2-1.html">M2</a>.</p></div>
+      <div class="card"><h3><span class="idx">2</span>Scanning &amp; Enumeration</h3><p>Find live hosts, open ports, services, users. See <a href="m2-1.html">M2</a>.</p></div>
+      <div class="card"><h3><span class="idx">3</span>Gaining access</h3><p>Exploit a vulnerability to get in (SQLi, buffer overflow, phishing). See <a href="m3-1.html">M3</a>/<a href="m4-1.html">M4</a>.</p></div>
+      <div class="card"><h3><span class="idx">4</span>Maintaining access</h3><p>Backdoors, rootkits, escalation — keep the door open. See <a href="m5-1.html">M5</a>.</p></div>
+      <div class="card"><h3><span class="idx">5</span>Covering tracks</h3><p>Clear logs, hide files, wipe evidence. See <a href="m5-1.html">M5</a>.</p></div>
+      <div class="card"><h3><span class="idx">+</span>Skills of a hacker</h3><p>Curiosity, scripting, networking, OS internals, patience, methodical note-taking.</p></div>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">What happens at each phase (worked view)</h4>
+      <ol>
+        <li><b>Reconnaissance</b> — attacker builds an attack-surface map: domains, IPs, staff, tech stack (no packets touch the target in passive recon).</li>
+        <li><b>Scanning &amp; Enumeration</b> — Nmap finds <code>10.0.0.5:443</code> open; banner grab shows outdated web server; SMTP <code>VRFY</code> lists valid usernames.</li>
+        <li><b>Gaining access</b> — attacker exploits the outdated server (or sends a phishing link) and lands a shell as a low-priv user.</li>
+        <li><b>Maintaining access</b> — drops a scheduled-task backdoor and escalates to admin so re-entry survives a reboot.</li>
+        <li><b>Covering tracks</b> — clears the Security event log and timestomps dropped files before leaving.</li>
+      </ol>
+      <div class="def">Mnemonic for the phases: <b>R</b>econ → <b>S</b>can → <b>G</b>ain → <b>M</b>aintain → <b>C</b>over (RSGMC). Every later module is one of these phases in detail.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Reconnaissance in Practice</h2>
+      <span class="tag">Phase 1, detailed</span></div>
+    <div class="card full">
+      <p>Before any exploit, an attacker maps the target. Two styles:</p>
+      <div class="grid cols-2">
+        <div class="card"><h4>Passive (low risk of detection)</h4><ul>
+          <li><b>OSINT</b> — WHOIS, DNS records, certificate transparency logs</li>
+          <li>Social media, job postings (tech stack leaks), LinkedIn</li>
+          <li>Search-engine dorking, archived sites (Wayback)</li>
+          <li>Shodan / passive DNS for exposed assets</li>
+        </ul></div>
+        <div class="card"><h4>Active (touches the target)</h4><ul>
+          <li>Port scanning, OS &amp; service fingerprinting</li>
+          <li>Banner grabbing, traceroute</li>
+          <li>More detectable — may trip IDS/IPS</li>
+        </ul></div>
+      </div>
+      <div class="def">The goal is an <b>attack surface map</b>: live hosts, open ports, versions, users, and the easiest entry (often a person, not a port).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Gaining &amp; Keeping a Foothold</h2>
+      <span class="tag">Phases 3–5</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Initial access</h4><p>Phishing link, a public exploit (e.g. unpatched web app), or stolen creds. The weakest link decides.</p></div>
+      <div class="card"><h4>Privilege &amp; persistence</h4><p>Escalate to admin/root, then plant a backdoor / scheduled task so re-entry survives a reboot.</p></div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-1.html">Prev: Basics</a>
+    <a class="next" href="m1-3.html">Next: Pen Testing</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 1, Page 2 — The Hacker Landscape (hats, motivation, kill chain).</div>
+    <div><a href="index.html">Home</a> · <a href="m2-1.html">M2</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

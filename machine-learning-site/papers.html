@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Bank · CST413</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Classification</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html" class="active">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Question Bank · CST413</span>
+    <h1>Course-Level &amp; Model-Paper Questions</h1>
+    <p class="lede">The official KTU <b>Course Level Assessment Questions</b> (CO1–CO5) plus the <b>Model Question Paper</b>, with short model answers. The CO questions are the university's own assessment pool; the Model Paper shows the real 3-hour exam pattern (Part A 10×3 marks, Part B 14-marks each). Click "Show answer" to self-test first.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="qsearch-wrap">
+    <input class="qsearch" type="search" placeholder="Search questions, topics, modules…" aria-label="Search the question bank">
+    <button class="qsearch-clear" type="button">Clear</button>
+    <span class="qsearch-status" aria-live="polite"></span>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 1 (CO1) — Estimation &amp; MLE/MAP</h2><span class="meta">4 questions</span></div>
+
+    <div class="q" id="c1q1">
+      <div class="qto"><span class="qnum">CO1 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">A coin is tossed 100 times and lands heads 62 times. What is the maximum likelihood estimate for θ, the probability of heads?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Bernoulli likelihood L(θ) = θ^62 (1−θ)^38. Log-likelihood ℓ = 62 ln θ + 38 ln(1−θ). dℓ/dθ = 62/θ − 38/(1−θ) = 0 → 62(1−θ) = 38θ → 62 = 100θ → <b>θ̂ = 62/100 = 0.62</b>. The MLE is simply the observed proportion of heads.</div></div>
+    </div>
+
+    <div class="q" id="c1q2">
+      <div class="qto"><span class="qnum">CO1 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Suppose data x₁,…,xₙ are i.i.d. drawn from an exponential distribution exp(λ). Find the maximum likelihood for λ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Exponential density f(x;λ) = λ e^{−λx}. Likelihood L(λ) = λⁿ e^{−λ Σxᵢ}. Log-likelihood ℓ = n ln λ − λ Σxᵢ. dℓ/dλ = n/λ − Σxᵢ = 0 → <b>λ̂ = n / Σxᵢ = 1 / x̄</b>. The MLE is the reciprocal of the sample mean.</div></div>
+    </div>
+
+    <div class="q" id="c1q3">
+      <div class="qto"><span class="qnum">CO1 · Q3</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Suppose x₁,…,xₙ are i.i.d. samples from a distribution with density f(x;θ) = (θ+1) x^θ for 0 ≤ x ≤ 1. Find the MLE for θ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> L(θ) = Π (θ+1) xᵢ^θ = (θ+1)ⁿ Π xᵢ^θ. ℓ = n ln(θ+1) + θ Σ ln xᵢ. dℓ/dθ = n/(θ+1) + Σ ln xᵢ = 0. Since ln xᵢ ≤ 0, let S = Σ ln xᵢ (negative). Then n/(θ+1) = −S → <b>θ̂ = −n/S − 1 = −n/Σ ln xᵢ − 1</b>.</div></div>
+    </div>
+
+    <div class="q" id="c1q4">
+      <div class="qto"><span class="qnum">CO1 · Q4</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Find the MLE and MAP estimator for the mean of a univariate normal distribution (known variance σ², unknown mean µ), with a normal prior mean ν, variance β². What happens as N → ∞?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Data xᵢ ~ N(µ, σ²), prior µ ~ N(ν, β²).<br><b>MLE:</b> µ̂_MLE = x̄ (sample mean).<br><b>MAP:</b> maximise log-likelihood + log-prior: −½σ²Σ(xᵢ−µ)² − ½β²(µ−ν)². Differentiating: Σ(xᵢ−µ)/σ² − (µ−ν)/β² = 0 → µ̂_MAP = (σ⁻² N x̄ + β⁻² ν) / (σ⁻² N + β⁻²) = a weighted average of the data mean and the prior mean.<br><b>As N→∞:</b> the data term dominates the prior term (σ⁻²N grows), so <b>µ̂_MAP → x̄ = µ̂_MLE</b>. With enough data, the prior stops mattering and MAP converges to MLE. This is the classic "frequentist limit" of Bayesian estimation.</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 2 (CO2) — Regression &amp; Naive Bayes</h2><span class="meta">2 questions</span></div>
+
+    <div class="q" id="c2q1">
+      <div class="qto"><span class="qnum">CO2 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Linear regression on N points, D attributes, D ≈ 100. Would you prefer the closed-form solution or gradient descent?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c2a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c2a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c2a1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Closed form needs (XᵀX)⁻¹ — a D×D matrix. With D≈100 that is 100×100 (cheap, 10⁴ entries). The cost is O(D³) ≈ 10⁶ — trivial. With "all D attributes linearly independent" and only N data points, if N is comparable to or smaller than D, (XᵀX) is invertible only if N≥D. <b>Prefer closed form</b> here (D=100 is tiny; gradient descent's advantage appears when D is huge, e.g. millions of features, or data doesn't fit in memory).</div></div>
+    </div>
+
+    <div class="q" id="c2q2">
+      <div class="qto"><span class="qnum">CO2 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Three-class problem, labels y ∈ {0,1,2}, 3 binary attributes X₁,X₂,X₃ ∈ {0,1}. How many probability parameters are needed for Naive Bayes?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c2a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c2a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c2a2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Naive Bayes: P(y) for each class + P(Xⱼ | y) for each attribute per class. P(y): 3 classes but sum to 1 → <b>2</b> free params. Each attribute given a class: 2 values → 1 free param per (attribute, class). 3 attributes × 3 classes = 9, but each conditional sums to 1 → 9 − 3 = <b>6</b>. Total = 2 + 6 = <b>8 parameters</b>. (Plus the class prior is the 2.) So 8 probability numbers fully specify the classifier.</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 3 (CO3) — SVM &amp; Neural Nets</h2><span class="meta">5 questions</span></div>
+
+    <div class="q" id="c3q1">
+      <div class="qto"><span class="qnum">CO3 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What are support vectors and list any three properties of the support vector classifier solution?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Support vectors</b> are the training points that lie on (or inside, for soft margin) the margin boundaries — the critical points the hyperplane depends on. Three properties: (1) <b>Sparsity</b> — the solution depends only on support vectors, not on other points; (2) <b>Maximum margin</b> — it is the hyperplane that maximises the margin; (3) the solution is the <b>unique maximum-margin separator</b> for a given kernel / C (under the standard convex formulation).</div></div>
+    </div>
+
+    <div class="q" id="c3q2">
+      <div class="qto"><span class="qnum">CO3 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Why use kernels to model a projection into feature space instead of projecting the dataset directly?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> The feature space can be <b>infinite-dimensional</b> (e.g. the RBF kernel). Explicitly mapping every point and computing dot products there would be impossible / infinitely expensive. The kernel trick avoids it: the algorithm only ever needs <b>dot products</b> between points, and a kernel K(x,y) computes that dot product in feature space <b>implicitly</b>, without ever constructing the features. You get the power of an infinite-dimensional space at the cost of evaluating a simple function.</div></div>
+    </div>
+
+    <div class="q" id="c3q3">
+      <div class="qto"><span class="qnum">CO3 · Q3</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Describe how SVMs use kernels. Illustrate with the Gaussian kernel K(x,y) = e^{−(x−y)²}.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> An SVM finds the maximum-margin hyperplane in the (possibly mapped) feature space. With kernels, instead of mapping x→φ(x) and computing φ(x)·φ(y), we replace the dot product with K(x,y). The dual optimum and the decision function sign(Σ αᵢ yᵢ K(xᵢ,x) + b) use only K.<br><b>Gaussian / RBF kernel</b> K(x,y)=exp(−||x−y||²): points close in input space have K≈1 (very similar in feature space); points far apart have K≈0. The feature space is infinite-dimensional and very flexible — the decision boundary in the original space becomes a smooth, non-linear curve built from RBF "bumps" centred on the support vectors. σ (or γ=1/2σ²) controls the reach of each bump.</div></div>
+    </div>
+
+    <div class="q" id="c3q4">
+      <div class="qto"><span class="qnum">CO3 · Q4</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Briefly explain one way in which using tanh instead of logistic activations makes optimisation easier.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> tanh is <b>zero-centred</b> (outputs range −1 to +1, mean ~0), whereas logistic sigmoid is always positive (mean ~0.5). With all-positive activations, gradients flowing back to the weights all have the same sign, so weight updates zig-zag in a narrow direction. Zero-centred outputs let gradients take both signs, which makes the updates more balanced and converges faster. (Batch normalisation later solved the same problem more generally.)</div></div>
+    </div>
+
+    <div class="q" id="c3q5">
+      <div class="qto"><span class="qnum">CO3 · Q5</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">ReLU is most used instead of tanh. Draw both activation functions and give (a) an advantage, (b) a disadvantage of ReLU vs tanh.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a5" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>tanh:</b> S-shaped, −1 to +1. <b>ReLU:</b> f(x)=max(0,x) — flat at 0 for x&lt;0, linear for x≥0.<br><b>(a) Advantage:</b> ReLU is non-saturating for positive inputs, so gradients don't vanish on the positive side — training is faster and deep networks train more reliably. It is also cheap to compute (no exp). The sparsity (many zeros) can be regularising.<br><b>(b) Disadvantage:</b> the "dying ReLU" problem — if a neuron's weights push all inputs negative, it outputs 0 forever and its gradient is 0, so it stops learning (dead neuron). tanh doesn't have this hard dead zone (though it can still saturate).</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 4 (CO4) — Clustering</h2><span class="meta">4 questions</span></div>
+
+    <div class="q" id="c4q1">
+      <div class="qto"><span class="qnum">CO4 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Which similarity measure could compare feature vectors of two images? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Cosine similarity</b> (dot product of the two vectors divided by their magnitudes) is a strong choice for image feature vectors. Image features (e.g. bag-of-visual-words, CNN embeddings) are often high-dimensional and the <i>direction</i> of the vector matters more than its magnitude (brightness/scale differences shouldn't dominate). Cosine ignores magnitude and compares orientation, so two images of the same scene at different exposures score high. Euclidean distance is an alternative when absolute pixel differences matter.</div></div>
+    </div>
+
+    <div class="q" id="c4q2">
+      <div class="qto"><span class="qnum">CO4 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Illustrate the strength and weakness of the k-means algorithm.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Strengths:</b> simple, fast (linear in N, D, k, iterations), scales to large datasets, easy to interpret (centroids are prototypes).<br><b>Weaknesses:</b> must choose k in advance; sensitive to initial centres (can settle in a local optimum — hence k-means++ initialisation); assumes spherical, similarly-sized, equal-variance clusters (fails on elongated or varying-density clusters); sensitive to outliers; only works for Euclidean-ish distances; every point forced into one cluster (no "noise" class).</div></div>
+    </div>
+
+    <div class="q" id="c4q3">
+      <div class="qto"><span class="qnum">CO4 · Q3</span><span class="qmark">10 marks</span></div>
+      <span class="qtext">Apply k-means (Manhattan distance, k=3) to the eight given points with initial clusters C1={x1,x2,x3}, C2={x4,x5,x6}, C3={x7,x8}, until convergence.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a3" role="region"><div class="ans-collapsible-inner"><b>Answer (method):</b> The exact coordinates were given as a figure in the paper; the procedure is: (1) compute each cluster centroid as the Manhattan-median of its members (with Manhattan distance, the medoid/median minimises within-cluster cost); (2) reassign every point to the nearest centroid by Manhattan distance |Δx|+|Δy|; (3) repeat until no point changes cluster. Because the points and initial assignment are in the figure, carry out the iterations step by step — usually 2–4 iterations converge. State the final centroid coordinates and the final cluster membership. (The second given instance, A1…A8 with explicit coordinates, is worked the same way and is easier to compute by hand since the points are numeric.)</div></div>
+    </div>
+
+    <div class="q" id="c4q4">
+      <div class="qto"><span class="qnum">CO4 · Q4</span><span class="qmark">10 marks</span></div>
+      <span class="qtext">Cluster A1(2,10), A2(2,5), A3(8,4), A4(5,8), A5(7,5), A6(6,4), A7(1,2), A8(4,9) into three clusters with initial centres A1(2,10), A4(5,8), A7(1,2). Manhattan distance. Find the centres after the second iteration.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Manhattan distance D = |Δx|+|Δy|.<br><b>Iteration 1 — assign each point to nearest centre:</b><br>C1(2,10): A1(0), A8|4−2|+|9−10|=3, A4|5−2|+|8−10|=5, A2|0|+|5|? =7… compute all: A1→0, A2→|0|+5=5, A3→|6|+6=12, A4→3+2=5, A5→5+5=10, A6→4+6=10, A7→1+8=9, A8→2+1=3. Nearest to C1: A1(0), A8(3). <br>C2(5,8): A1→5, A2→|3|+3=6, A3→3+4=7, A4→0, A5→2+3=5, A6→1+4=5, A7→4+6=10, A8→1+1=2. Nearest: A4(0), A8 already taken by C1 with smaller dist, A5(5), A6(5). So C2: A4, A5, A6. <br>C3(1,2): A2→|1|+3=4, A3→7+2=9, A7→0, others larger. C3: A2, A3, A7. <br><b>New centres (iteration 1) = Manhattan medians:</b> C1 over {A1(2,10),A8(4,9)} → x-median (2,4)=3, y-median(9,10)=9.5 → (3, 9.5). C2 over {A4(5,8),A5(7,5),A6(6,4)} → x-median (5,6,7)=6, y-median(4,5,8)=5 → (6,5). C3 over {A2(2,5),A3(8,4),A7(1,2)} → x-median(1,2,8)=2, y-median(2,4,5)=4 → (2,4).<br><b>Iteration 2 — reassign:</b> recompute distances from (3,9.5),(6,5),(2,4): A1→|1|+0.5=1.5(C1), A2→|1|+1=2(C1) vs C3|0|+1=1 → C3, A3→|5|+0.5=5.5 vs C3|6|+0=6 → C1, A4→|2|+3.5=5.5 vs C2|1|+3=4 → C2, A5→|4|+4.5=8.5 vs C2|1|+0=1 → C2, A6→|3|+4.5=7.5 vs C2|0|+1=1 → C2, A7→|2|+5.5=7.5 vs C3|1|+2=3 → C3, A8→|1|+0.5=1.5(C1). So C1={A1,A3,A8}, C2={A4,A5,A6}, C3={A2,A7}. <br><b>Centres after 2nd iteration:</b> C1 over {(2,10),(8,4),(4,9)} → x-median(2,4,8)=4, y-median(4,9,10)=9 → <b>(4,9)</b>. C2 over {(5,8),(7,5),(6,4)} → x-median(5,6,7)=6, y-median(4,5,8)=5 → <b>(6,5)</b>. C3 over {(2,5),(1,2)} → x-median(1,2)=1.5, y-median(2,5)=3.5 → <b>(1.5, 3.5)</b>. These are the requested centres after the second iteration.</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 5 (CO5) — Ensemble &amp; Evaluation</h2><span class="meta">5 questions</span></div>
+
+    <div class="q" id="c5q1">
+      <div class="qto"><span class="qnum">CO5 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What is ensemble learning? Can an ensemble of linear classifiers learn a linearly non-separable set?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Ensemble learning</b> combines multiple base models ("weak learners") into one stronger model — the idea that many modest models beat a single complex one (wisdom of crowds, reduced variance/bias). <b>Yes</b> — an ensemble of linear classifiers (e.g. boosted linear models, or averaging several linear separators) can represent a non-linear, non-separable decision boundary. Example: a majority vote of several lines can carve out a region that no single line can. (This is why boosted stumps — depth-1 trees — can learn any boundary.)</div></div>
+    </div>
+
+    <div class="q" id="c5q2">
+      <div class="qto"><span class="qnum">CO5 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Describe boosting. What is its relation to ensemble learning?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Boosting</b> is a sequential ensemble method: it trains weak learners one after another, each new learner focusing on the examples the previous ones got wrong (re-weighting misclassified points). Final prediction = weighted vote of all learners. <b>Relation:</b> boosting <i>is</i> an ensemble method — specifically an ensemble that builds learners sequentially and combines them, as opposed to bagging/random forests which build them in parallel and average.</div></div>
+    </div>
+
+    <div class="q" id="c5q3">
+      <div class="qto"><span class="qnum">CO5 · Q3</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Classifier A: 100% train, 70% test. Classifier B: 70% train, 75% test. Which is better? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>B is better.</b> A overfits (100% train vs 70% test — huge gap, it memorised training data, poor generalisation). B generalises (75% test ≥ 70% train — small gap, works on unseen data). The goal of a model is performance on new data, so test accuracy is what matters. B wins despite lower training accuracy.</div></div>
+    </div>
+
+    <div class="q" id="c5q4">
+      <div class="qto"><span class="qnum">CO5 · Q4</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What are ROC space and the ROC curve? Which points are perfect prediction, always-positive, and always-negative? Why?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>ROC space</b> plots classifiers by FPR (x-axis) vs TPR (y-axis). The <b>ROC curve</b> traces a classifier's TPR/FPR as its decision threshold is varied. <b>Perfect prediction:</b> (0,1) — zero false positives, all true positives. <b>Always-positive:</b> (1,1) — every point predicted positive, so all positives caught (TPR=1) but all negatives also wrong (FPR=1). <b>Always-negative:</b> (0,0) — nothing predicted positive, so TPR=0 and FPR=0. The diagonal (0,0)→(1,1) is random guessing.</div></div>
+    </div>
+
+    <div class="q" id="c5q5">
+      <div class="qto"><span class="qnum">CO5 · Q5</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Three classifiers with (FPR, TPR): A(0,1), B(1,1), C(1,0.5). Which is perfect? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a5" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>A(0,1) is perfect</b> — it sits at the ideal corner: FPR=0 (no false alarms) and TPR=1 (catches all positives). B(1,1) is always-positive (no discriminative power), C(1,0.5) is worse than random on the useful side (half the positives caught but every negative wrong). A dominates.</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Model Question Paper — Part A (3 marks each, answer all)</h2><span class="meta">10 questions</span></div>
+
+    <div class="q" id="mp1">
+      <div class="qto"><span class="qnum">Part A · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Define supervised learning. Name special cases depending on whether inputs/outputs are categorical or continuous.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa1" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Supervised learning learns a mapping from inputs X to outputs Y from <b>labelled</b> training data (each example has the correct answer). Two special cases by output type: <b>classification</b> — output is categorical (e.g. spam/not-spam); <b>regression</b> — output is continuous (e.g. predict house price). (Inputs being categorical vs continuous describes the feature type, not the learning task.)</div></div>
+    </div>
+
+    <div class="q" id="mp2">
+      <div class="qto"><span class="qnum">Part A · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Differentiate between Maximum Likelihood Estimation (MLE) and Maximum A Posteriori (MAP) estimation.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa2" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>MLE</b> chooses the parameter that maximises the likelihood of the observed data P(data | θ) — purely data-driven, no prior. <b>MAP</b> chooses the parameter that maximises the <i>posterior</i> P(θ | data) ∝ P(data | θ)·P(θ) — it adds a <b>prior</b> belief P(θ). MLE = MAP with a uniform prior. MAP is the Bayesian view (folds in prior knowledge); MLE is the frequentist view (let the data speak).</div></div>
+    </div>
+
+    <div class="q" id="mp3">
+      <div class="qto"><span class="qnum">Part A · Q3</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What is overfitting and why is it a problem?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa3" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Overfitting</b> is when a model learns the training data (including its noise and quirks) so well that it performs badly on new, unseen data. The gap between training accuracy and test accuracy is large. It is a problem because the whole point of ML is to <b>generalise</b> to new data; an overfit model has memorised instead of learned the underlying pattern, so it fails in practice.</div></div>
+    </div>
+
+    <div class="q" id="mp4">
+      <div class="qto"><span class="qnum">Part A · Q4</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Specify the basic principle of the gradient descent algorithm.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa4" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Gradient descent minimises a loss/cost function J(θ) by iteratively moving the parameters <b>down the slope</b>: θ ← θ − η·∇J(θ), where η is the learning rate and ∇J is the gradient. It takes small steps opposite to the gradient (the direction of steepest increase), so each step reduces the cost. Repeat until the gradient is ~0 (a minimum). Learning rate too big → overshoot/diverge; too small → slow.</div></div>
+    </div>
+
+    <div class="q" id="mp5">
+      <div class="qto"><span class="qnum">Part A · Q5</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Linear SVM binary classifier. A point is correctly classified and far from the decision boundary. If you remove it and re-train, does the boundary change? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa5" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>No, it stays the same.</b> The SVM's decision boundary depends only on the <b>support vectors</b> — points on (or inside) the margin. A point that is correctly classified and far from the boundary is <i>not</i> a support vector, so removing it changes neither the margin nor the solution. The boundary is identical.</div></div>
+    </div>
+
+    <div class="q" id="mp6">
+      <div class="qto"><span class="qnum">Part A · Q6</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Mention the primary motivation for using the kernel trick.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa6" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa6').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa6" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> To get the power of a <b>very high (even infinite) dimensional feature space</b> for non-linear classification <b>without ever computing the mapping explicitly</b>. The kernel computes the required dot products in feature space directly and cheaply, so training stays tractable while the model captures complex, non-linear boundaries.</div></div>
+    </div>
+
+    <div class="q" id="mp7">
+      <div class="qto"><span class="qnum">Part A · Q7</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">EM is for finding the MLE when some data is missing. Does it converge? To a local or global optimum?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa7" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa7').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa7" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Yes, the EM algorithm <b>converges</b> — each iteration is guaranteed not to decrease the (observed) likelihood. But it converges only to a <b>local optimum</b> (or a saddle point), not necessarily the global one. Where you start (initial parameters) matters; multiple restarts are often used to find a better local maximum.</div></div>
+    </div>
+
+    <div class="q" id="mp8">
+      <div class="qto"><span class="qnum">Part A · Q8</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Illustrate the strength and weakness of k-means. (Same as CO4-Q2.)</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa8" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa8').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa8" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>Strength:</b> simple, fast, scales well, easy to interpret via centroids. <b>Weakness:</b> must pre-set k; sensitive to initial centres and to outliers; assumes spherical, equal-variance, similar-sized clusters; every point forced into a cluster (no noise class). (See CO4-Q2 for the fuller version.)</div></div>
+    </div>
+
+    <div class="q" id="mp9">
+      <div class="qto"><span class="qnum">Part A · Q9</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Classifier A: 100% train, 70% test. Classifier B: 70% train, 75% test. Which is better? (Same as CO5-Q3.)</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa9" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa9').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa9" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> <b>B is better</b> — A overfits (memorised training data, poor generalisation); B generalises (higher test accuracy, small train/test gap). Test performance on unseen data is what matters.</div></div>
+    </div>
+
+    <div class="q" id="mp10">
+      <div class="qto"><span class="qnum">Part A · Q10</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">How does the bias–variance trade-off affect machine learning algorithms?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa10" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa10').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa10" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Expected error = <b>bias² + variance + noise</b>. <b>Bias</b> = error from oversimplified assumptions (underfitting — too rigid). <b>Variance</b> = error from sensitivity to training noise (overfitting — too complex). Increasing model complexity lowers bias but raises variance, and vice-versa. The trade-off is finding the sweet spot (regularisation, more data, ensembles) that minimises total error.</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Model Question Paper — Part B (14 marks each; answer 1 from each module)</h2><span class="meta">selected</span></div>
+
+    <div class="q" id="mpb11">
+      <div class="qto"><span class="qnum">Part B · Q11(a)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Discrete random variable with the given p.m.f. (0 ≤ θ ≤ 1). Observations: 3, 0, 2, 1, 3, 2, 1, 0, 2, 1. Find the MLE of θ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb11a" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb11a').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb11a" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> The p.m.f. is given in the paper as a small table over x = 0,1,2,3 in terms of θ. Write the likelihood as the product of the 10 observed probabilities (counting how many times each x appears: x=0 twice, x=1 three times, x=2 three times, x=3 twice). Take the log, differentiate w.r.t. θ, set to 0. Because the exact table values weren't extractable as text, the <b>method</b> is: L(θ) = Π p(xᵢ;θ); ℓ(θ) = Σ count(x)·ln p(x;θ); solve dℓ/dθ = 0. With the concrete p.m.f. this gives a closed-form θ̂ (a rational number). Substitute the counts and solve — the answer is the MLE that maximises the observed frequencies.</div></div>
+    </div>
+
+    <div class="q" id="mpb11b">
+      <div class="qto"><span class="qnum">Part B · Q11(b)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Three-class problem, y ∈ {0,1,2}, 3 binary attributes. How many parameters for Naive Bayes? (Same as CO2-Q2.)</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb11b" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb11b').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb11b" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> Class prior P(y): 3 classes, sums to 1 → <b>2</b> free params. Conditionals P(Xⱼ|y): 3 attributes × 3 classes = 9, each sums to 1 → 9 − 3 = <b>6</b>. Total = <b>8 parameters</b>.</div></div>
+    </div>
+
+    <div class="q" id="mpb13a">
+      <div class="qto"><span class="qnum">Part B · Q13(a)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Linear regression hθ(x)=θ₀+θ₁x, cost J=½m Σ(hθ(x⁽ⁱ⁾)−y⁽ⁱ⁾)². Given training examples, find (1) hθ(2) if θ₀=0, θ₁=1.5; (2) J(0,1); (3) what if J=0?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb13a" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb13a').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb13a" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> (1) hθ(2) = 0 + 1.5·2 = <b>3</b>. (2) J(0,1) = ½m Σ((0+1·x⁽ⁱ⁾) − y⁽ⁱ⁾)² — substitute the given (x,y) pairs and sum. (3) If J(θ₀,θ₁)=0, the line passes exactly through <b>every</b> training point with zero error — a perfect fit on the training data (which on real data would usually mean overfitting).</div></div>
+    </div>
+
+    <div class="q" id="mpb13b">
+      <div class="qto"><span class="qnum">Part B · Q13(b)</span><span class="qmark">3+4 marks</span></div>
+      <span class="qtext">750 students, 150 staff, 100 professors. Blond hair: 50 staff, 250 students, all professors. Compute information gain of "hair colour = blond". Explain regularization (Ridge vs Lasso).</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb13b" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb13b').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb13b" role="region"><div class="ans-collapsible-inner"><b>Answer (info gain):</b> Total N = 1000. Prior entropy H = −Σ pᵢ log₂ pᵢ for {prof 0.10, staff 0.15, stud 0.75}. For the test "blond = true": 100 prof + 50 staff + 250 stud = 400, P(blond)=0.4; within it {0.25, 0.125, 0.625}. For "blond = false": 600, {0, 0.10·150/600?…} compute entropy of each child, weight by 0.4/0.6, subtract from H → <b>information gain</b>.<br><b>Regularisation:</b> adds a penalty to the cost for large weights to reduce overfitting. <b>Ridge (L2)</b> penalises Σwᵢ² — shrinks weights toward 0 but keeps all features. <b>Lasso (L1)</b> penalises Σ|wᵢ| — can shrink weights exactly to 0, giving <b>feature selection</b>. Ridge keeps correlated features; Lasso picks one.</div></div>
+    </div>
+
+    <div class="q" id="mpb14a">
+      <div class="qto"><span class="qnum">Part B · Q14(a)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Dataset to predict car ownership; features: education (primary/secondary/university), residence (city/country), gender (female/male). Use ID3 and find the best root attribute.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb14a" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb14a').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb14a" role="region"><div class="ans-collapsible-inner"><b>Answer:</b> ID3 picks the root attribute with the <b>highest information gain</b> (or lowest entropy) on the labelled examples. Compute the entropy of "owns car?" for the full set, then for each candidate attribute compute the weighted average child entropy after splitting, and gain = parent entropy − that average. The attribute with the largest gain becomes the root. (The concrete instance table wasn't extractable as text — apply the formula to the given rows: split on education / residence / gender, compute each gain, pick the max. Typically "education" or "residence" dominates for this kind of social dataset.)</div></div>
+    </div>
+  </div>
+
+  <div style="clear:both"></div>
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

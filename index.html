@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Notes · All Subjects</title>
+<link rel="stylesheet" href="ethical-hacking-site/assets/styles.css">
+<style>
+  /* ---- Landing page only (kept self-contained, no CDN) ---- */
+  .landing{ --maxw:1180px; }
+
+  /* Hero */
+  .home-hero{
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(224,36,27,.20), transparent 60%),
+      radial-gradient(900px 400px at 5% 110%, rgba(11,95,214,.12), transparent 55%),
+      linear-gradient(180deg,#0d0f12 0%, #111418 60%, #16191e 100%);
+    color:#fff; padding:74px 20px 60px; border-bottom:3px solid var(--accent);
+  }
+  .home-hero .inner{max-width:var(--maxw); margin:0 auto; position:relative; z-index:2}
+  .home-hero .badge{
+    display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700;
+    letter-spacing:1.4px; text-transform:uppercase; color:#ffd9d6;
+    background:rgba(224,36,27,.16); border:1px solid rgba(224,36,27,.4);
+    padding:6px 12px; border-radius:999px; margin-bottom:18px;
+  }
+  .home-hero .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(224,36,27,.25)}
+  .home-hero h1{
+    font-size:clamp(34px,6vw,60px); line-height:1.04; margin:0 0 14px; font-weight:800; letter-spacing:-1px;
+  }
+  .home-hero h1 .accent{color:var(--accent)}
+  .home-hero .sub{font-size:clamp(15px,2.2vw,19px); color:#c7cdd4; max-width:680px; line-height:1.55; margin:0 0 26px}
+  .home-hero .cta{display:flex; gap:12px; flex-wrap:wrap}
+  .home-hero .cta a{
+    font-weight:700; font-size:14.5px; padding:12px 20px; border-radius:10px; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .home-hero .cta .primary{background:var(--accent); color:#fff}
+  .home-hero .cta .primary:hover{transform:translateY(-2px); box-shadow:0 8px 22px rgba(224,36,27,.4); text-decoration:none}
+  .home-hero .cta .ghost{border:1px solid rgba(255,255,255,.25); color:#fff}
+  .home-hero .cta .ghost:hover{background:rgba(255,255,255,.08); text-decoration:none}
+
+  /* Stats ribbon */
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px}
+  .stat{
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);
+    border-radius:12px; padding:14px 18px; min-width:120px; backdrop-filter:blur(4px);
+  }
+  .stat .n{font-size:30px; font-weight:800; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-1px}
+  .stat .l{font-size:12px; color:#9aa2ab; letter-spacing:.6px; text-transform:uppercase; margin-top:2px}
+
+  /* Search */
+  .searchwrap{max-width:var(--maxw); margin:-30px auto 0; padding:0 20px; position:relative; z-index:5}
+  .searchbox{
+    display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line);
+    border-radius:12px; padding:12px 16px; box-shadow:var(--shadow-lg);
+  }
+  .searchbox svg{flex:none; opacity:.5}
+  .searchbox input{
+    border:none; outline:none; width:100%; font-size:16px; color:var(--ink); background:transparent;
+    font-family:inherit;
+  }
+
+  /* Subject grid */
+  .grid{max-width:var(--maxw); margin:34px auto 10px; padding:0 20px;
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px}
+  .scard{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:var(--shadow-sm); text-decoration:none; color:inherit; display:flex; flex-direction:column;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; opacity:0; transform:translateY(14px);
+  }
+  .scard.in{opacity:1; transform:none}
+  .scard:hover{transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:rgba(224,36,27,.4); text-decoration:none}
+  .scard .top{padding:18px 18px 14px; border-bottom:1px solid var(--line); position:relative}
+  .scard .code{font-size:11.5px; font-weight:700; letter-spacing:.8px; color:var(--accent); text-transform:uppercase}
+  .scard h3{margin:6px 0 4px; font-size:21px; font-weight:800; letter-spacing:-.3px}
+  .scard .bar{position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent)}
+  .scard .body{padding:14px 18px 18px; flex:1}
+  .scard .desc{font-size:13.8px; color:var(--ink-2); line-height:1.5; margin:0 0 12px}
+  .scard .mods{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px}
+  .scard .mods span{font-size:11.5px; font-weight:600; color:var(--ink-2); background:var(--bg);
+    border:1px solid var(--line); padding:3px 8px; border-radius:6px}
+  .scard .go{display:inline-flex; align-items:center; gap:7px; font-weight:800; font-size:13.5px; color:var(--accent)}
+  .scard .go .arr{transition:transform .15s ease}
+  .scard:hover .go .arr{transform:translateX(4px)}
+  .scard .meta{font-size:12px; color:var(--muted); border-top:1px solid var(--line); padding:10px 18px; background:#fafbfc}
+
+  /* Quick jump */
+  .quick{max-width:var(--maxw); margin:26px auto 0; padding:0 20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+  .quick .lab{font-size:12px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--muted)}
+  .quick a{font-size:13px; font-weight:600; color:var(--ink-2); background:var(--paper); border:1px solid var(--line);
+    padding:7px 13px; border-radius:8px; transition:all .15s ease}
+  .quick a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+
+  /* Footer note */
+  .foot{max-width:var(--maxw); margin:40px auto 0; padding:20px 20px 60px; color:var(--muted); font-size:13px;
+    border-top:1px solid var(--line); display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+  .foot b{color:var(--ink-2)}
+  .empty{max-width:var(--maxw); margin:24px auto; padding:0 20px; color:var(--muted); display:none}
+  @media (max-width:640px){ .stats .stat{flex:1 1 40%} .home-hero{padding:54px 16px 48px} }
+</style>
+</head>
+<body class="landing">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Index</div>
+  </div>
+</header>
+
+<section class="home-hero">
+  <div class="inner">
+    <div class="badge"><span class="dot"></span> KTU · S7 Study Companion</div>
+    <h1>All your subjects,<br><span class="accent">one tap away.</span></h1>
+    <p class="sub">A complete, offline textbook across four KTU subjects — modules, exam techniques, and a
+    question bank for each. No internet, no login. Open it on your laptop or phone and study anywhere.</p>
+    <div class="cta">
+      <a class="primary" href="ethical-hacking-site/index.html">Start with Ethical Hacking →</a>
+      <a class="ghost" href="#subjects">Browse all subjects</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n" data-count="4">0</div><div class="l">Subjects</div></div>
+      <div class="stat"><div class="n" data-count="20">0</div><div class="l">Modules</div></div>
+      <div class="stat"><div class="n" data-count="40">0</div><div class="l">Pages</div></div>
+      <div class="stat"><div class="n"><span data-count="100">0</span>%</div><div class="l">Offline</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="searchwrap">
+  <div class="searchbox">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="q" type="text" placeholder="Search subjects, modules, topics… (e.g. Naive Bayes, fire, scaffold)" autocomplete="off">
+  </div>
+</div>
+
+<h2 id="subjects" style="max-width:var(--maxw);margin:34px auto 0;padding:0 20px;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)">Subjects</h2>
+
+<div class="grid" id="grid">
+
+  <a class="scard" href="ethical-hacking-site/index.html" data-keywords="ethical hacking cct401 footprinting reconnaissance malware sniffing system hacking session hijacking web attacks cryptography tracking pentest">
+    <div class="top"><span class="bar"></span><div class="code">CCT 401 · KTU</div><h3>Ethical Hacking</h3></div>
+    <div class="body">
+      <p class="desc">Footprinting &amp; reconnaissance, malware, sniffing, system hacking, session hijacking, web attacks, cryptography, and tracking.</p>
+      <div class="mods"><span>M1 Basics</span><span>M2 Recon</span><span>M3 Attacks</span><span>M4 Net/Sys</span><span>M5 Crypto</span></div>
+      <span class="go">Open subject <span class="arr">→</span></span>
+    </div>
+    <div class="meta">12 pages · modules + exam + papers</div>
+  </a>
+
+  <a class="scard" href="renewable-energy-site/index.html" data-keywords="renewable energy eet435 solar otec tidal wind biomass hydro fuel cell hydrogen energy classification photovoltaic">
+    <div class="top"><span class="bar"></span><div class="code">EET 435 · KTU</div><h3>Renewable Energy Systems</h3></div>
+    <div class="body">
+      <p class="desc">Energy classification and solar (M1), OTEC and tidal (M2), wind (M3), biomass (M4), small hydro / fuel cells / hydrogen (M5).</p>
+      <div class="mods"><span>M1 Solar</span><span>M2 OTEC</span><span>M3 Wind</span><span>M4 Biomass</span><span>M5 Hydro</span></div>
+      <span class="go">Open subject <span class="arr">→</span></span>
+    </div>
+    <div class="meta">11 pages · modules + exam + papers</div>
+  </a>
+
+  <a class="scard" href="industrial-safety-site/index.html" data-keywords="industrial safety mcn401 accident theory domino ppe construction machine guarding hazard fire hazop msds">
+    <div class="top"><span class="bar"></span><div class="code">MCN 401 · KTU</div><h3>Industrial Safety Engineering</h3></div>
+    <div class="body">
+      <p class="desc">Safety fundamentals and accident theories (M1), personal protection (M2), construction safety (M3), machine guarding (M4), hazard identification (M5).</p>
+      <div class="mods"><span>M1 Intro</span><span>M2 PPE</span><span>M3 Construction</span><span>M4 Machines</span><span>M5 Hazards</span></div>
+      <span class="go">Open subject <span class="arr">→</span></span>
+    </div>
+    <div class="meta">8 pages · modules + exam + papers</div>
+  </a>
+
+  <a class="scard" href="machine-learning-site/index.html" data-keywords="machine learning cst413 paradigms bayesian regression naive bayes tree neural network svm clustering pca assessment roc ensemble">
+    <div class="top"><span class="bar"></span><div class="code">CST 413 · KTU</div><h3>Machine Learning</h3></div>
+    <div class="body">
+      <p class="desc">ML paradigms and Bayesian estimation (M1), supervised learning — regression, Naive Bayes, trees (M2), neural networks and SVMs (M3), unsupervised learning — clustering and PCA (M4), classification assessment, ROC, ensembles (M5).</p>
+      <div class="mods"><span>M1 Paradigms</span><span>M2 Supervised</span><span>M3 NN/SVM</span><span>M4 Unsupervised</span><span>M5 Assessment</span></div>
+      <span class="go">Open subject <span class="arr">→</span></span>
+    </div>
+    <div class="meta">8 pages · modules + exam + papers</div>
+  </a>
+
+</div>
+
+<div class="empty" id="empty">No subjects match your search — try a broader term.</div>
+
+<div class="quick">
+  <span class="lab">Jump to:</span>
+  <a href="ethical-hacking-site/papers.html">EH Papers</a>
+  <a href="renewable-energy-site/papers.html">RES Papers</a>
+  <a href="industrial-safety-site/papers.html">ISE Papers</a>
+  <a href="machine-learning-site/papers.html">ML Papers</a>
+  <a href="machine-learning-site/m2-1.html">ML Naïve Bayes</a>
+  <a href="industrial-safety-site/m5-1.html">ISE Hazards</a>
+</div>
+
+<div class="foot">
+  <span><b>4 subjects</b> · 40 pages · 20 modules</span>
+  <span>·</span>
+  <span>Swiss typographic study style</span>
+  <span>·</span>
+  <span>Works fully offline — just open the file</span>
+</div>
+
+<script>
+  // Live search filter
+  var q=document.getElementById('q'), grid=document.getElementById('grid'), empty=document.getElementById('empty');
+  q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase(), shown=0;
+    grid.querySelectorAll('.scard').forEach(function(c){
+      var hit=c.getAttribute('data-keywords').toLowerCase().indexOf(v)>-1 || c.textContent.toLowerCase().indexOf(v)>-1;
+      c.style.display=hit?'':'none'; if(hit) shown++;
+    });
+    empty.style.display=shown?'none':'block';
+  });
+
+  // Animated reveal + count-up
+  var cards=grid.querySelectorAll('.scard');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });},{threshold:.15});
+    cards.forEach(function(c,i){ setTimeout(function(){io.observe(c);}, i*90); });
+  } else { cards.forEach(function(c){c.classList.add('in');}); }
+
+  document.querySelectorAll('.stat .n').forEach(function(el){
+    var target=+el.getAttribute('data-count'), cur=0, step=Math.max(1,Math.round(target/28));
+    var t=setInterval(function(){ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=cur; },22);
+  });
+</script>
+</body>
+</html>

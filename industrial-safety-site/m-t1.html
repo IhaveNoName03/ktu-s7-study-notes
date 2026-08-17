@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Techniques · Industrial Safety</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Industrial Safety</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html" class="active">Home</a>
+      <a href="m1-1.html">M1 · Intro</a>
+      <a href="m2-1.html">M2 · PPE</a>
+      <a href="m3-1.html">M3 · Construction</a>
+      <a href="m4-1.html">M4 · Machines</a>
+      <a href="m5-1.html">M5 · Hazards</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">How to answer</span>
+  <h1>Exam Techniques &amp; Key Facts</h1>
+  <p class="lede">How to approach an MCN401 exam — which definitions to keep ready, how the safety-rate
+  formulae work, the HAZOP guide-words, and a marks-aware way to structure your answers. The same ideas
+  appear in the <a href="papers.html">Question Bank</a> as worked model answers, so use this page to
+  learn the method and the bank to practise it.</p>
+  <div class="meta-row">
+    <span class="chip red">How to answer</span>
+    <span class="chip">Definitions</span>
+    <span class="chip">Rates</span>
+    <span class="chip">HAZOP</span>
+    <span class="chip">Recurring pairs</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ====== HOW QUESTIONS ARE SET ====== -->
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>How questions are set in this course</h2><span class="tag">Read the examiner</span></div>
+    <div class="card full">
+      <p>Most questions in Industrial Safety fall into a small number of shapes. Spotting the shape before
+      you write stops you from answering the wrong thing and saves time:</p>
+      <ul>
+        <li><b>Define a term</b> — give the meaning in one clear sentence, then add one line that shows you
+          know what it implies (what it protects, what breaks it, or one concrete example).</li>
+        <li><b>List the categories / types / steps</b> — ordered and enumerated, with a short note per item
+          so it reads as a structured list, not a dump of headings.</li>
+        <li><b>Compare two things</b> — the examiner is checking you know the boundary between them. A
+          two-column table with the same axes for both is the cleanest way to show it, and it is faster to
+          write than two separate paragraphs.</li>
+        <li><b>Describe a process / a plant / a technique</b> — narrative, step by step, from start to
+          outcome, with the "why" at each step. For plant layouts (gasifier, biogas plant, tidal basin),
+          name the flow and what each component does.</li>
+        <li><b>Discuss advantages and limitations</b> — both sides, labelled. A one-sided answer loses
+          marks; the limitation is often where the marks are.</li>
+        <li><b>"With a neat diagram" / "labelled sketch"</b> — labels matter more than artistry. A labelled
+          schematic that shows the flow or layout the question names scores; a pretty but unlabelled one
+          does not. The diagrams built into each module page are exactly the shapes examiners expect — use
+          them as the reference when you redraw from memory.</li>
+      </ul>
+      <div class="def">The most useful reflex: <b>rephrase the question in plain English</b> before you write.
+      "Explain gasification" really means "what is it, how does it work, what comes out, what are the two
+      common types, one advantage and one limitation." If you answer each of those, you have covered the
+      mark scheme.</div>
+    </div>
+  </div>
+
+  <!-- ====== DEFINITIONS TO KEEP READY ====== -->
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Core definitions to keep ready</h2><span class="tag">Part A / Part A-like</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Term</th><th>What to say (short, precise)</th></tr></thead>
+        <tbody>
+          <tr><td>Accident</td><td>An unplanned event that results in injury and/or damage — something that actually happened, not a possibility.</td></tr>
+          <tr><td>Reportable accident</td><td>An accident of a type and severity the law requires to be reported to the appropriate authority — the threshold is defined by statute, not by opinion.</td></tr>
+          <tr><td>Dangerous occurrence</td><td>A near-miss or specified event that could have caused serious harm (e.g. collapse, explosion) but did not — still reportable in many systems because it signals a real hazard.</td></tr>
+          <tr><td>Unsafe act</td><td>A human action that departs from a safe procedure — e.g. bypassing a guard, working at height without fall protection.</td></tr>
+          <tr><td>Unsafe condition</td><td>A physical hazard present in the workplace — e.g. unguarded blade, slippery floor, exposed live conductor.</td></tr>
+          <tr><td>Hazard</td><td>A source or situation with the potential to cause harm — not harm itself, but the thing that could cause it.</td></tr>
+          <tr><td>Risk</td><td>Likelihood × severity of harm — how probable an unwanted event is, times how bad it would be.</td></tr>
+          <tr><td>PPE</td><td>Personal protective equipment — the last line of defence, worn by the worker (helmet, respirator, boot, glove, etc.).</td></tr>
+          <tr><td>Confined space</td><td>An enclosed or partially enclosed space not meant for continuous occupancy, with limited entry/exit and a realistic risk of hazardous atmosphere, engulfment, or entrapment.</td></tr>
+          <tr><td>Gasification</td><td>Thermochemical conversion of solid biomass into a combustible gas (CO + H₂, plus some CH₄) through partial combustion with restricted air — no solid carbon residue in the ideal case.</td></tr>
+          <tr><td>Biogas</td><td>An inflammable methane-rich gas produced by anaerobic digestion of cattle dung and other organic matter in a digester.</td></tr>
+          <tr><td>Hazard identification</td><td>The systematic search for sources of harm before they cause an incident — the basis for HIRA, HAZOP, and similar methods.</td></tr>
+          <tr><td>HAZOP</td><td>Hazard and Operability study — a structured team method that takes a process node, picks a parameter, applies a guide-word, and works causes → consequences → safeguards → recommendations.</td></tr>
+          <tr><td>MSDS</td><td>Material Safety Data Sheet — the document that tells a worker what a chemical is, how it harms, how to handle and store it, and what to do in an emergency.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">When a 3-mark "define" question appears, say the meaning in one sentence and add one line
+    that shows you know what it implies — that second line is often where the third mark comes from.</div>
+  </div>
+
+  <!-- ====== SAFETY PERFORMANCE RATES ====== -->
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Safety-performance rates — how they work</h2><span class="tag">Formulae + meaning</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Indicator</th><th>How it is built</th><th>What it tells you</th></tr></thead>
+        <tbody>
+          <tr><td>Frequency rate (FR)</td><td>Number of injuries × base (e.g. 10⁵ or 10⁶) ÷ total man-hours worked</td><td>How often injuries happen relative to exposure — good for comparing activity levels, but hides rare devastating events.</td></tr>
+          <tr><td>Severity rate (SR)</td><td>Days lost × base ÷ total man-hours worked</td><td>How bad the injuries are on average — captures the cost in lost time.</td></tr>
+          <tr><td>Incidence rate (IR)</td><td>Cases (or lost-time cases) per given workforce or per man-hours</td><td>How many people are actually getting hurt — a workforce-oriented view.</td></tr>
+          <tr><td>Activity rate</td><td>Exposed / active workers ÷ total workforce</td><td>What fraction of the workforce is in the hazard zone — useful for scoping the exposure.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Use at least two together.</b> Comparing only frequency can hide a severe but rare
+    accident; comparing only severity can hide a high-frequency minor-injury problem. A real comparison of
+    two industries or two periods should mention both, and say which you think is the bigger concern and why.</div>
+  </div>
+
+  <!-- ====== RECURRING PAIRS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Recurring comparisons to have ready</h2><span class="tag">Two-column tables</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Pair</th><th>Why it shows up</th><th>Axes to compare</th></tr></thead>
+        <tbody>
+          <tr><td>Updraft vs Downdraft gasifier</td><td>Biomass — same zones, opposite flow.</td><td>Direction of fuel/air, tar content, gas cleanliness, typical use</td></tr>
+          <tr><td>Floating-drum (KVIC) vs Fixed-dome (Janata) biogas</td><td>Two standard plant designs.</td><td>Dome moves vs fixed, moving parts, cost, gas storage</td></tr>
+          <tr><td>Open vs Closed vs Hybrid OTEC</td><td>Ocean thermal — cycle choice.</td><td>Working fluid, seawater in turbine, freshwater bonus, complexity</td></tr>
+          <tr><td>Single basin vs Double basin tidal</td><td>Tidal — layout affects output.</td><td>One basin vs two, generation pattern, steadiness, cost</td></tr>
+          <tr><td>HAZ vs HAZOP vs PHA</td><td>Hazard analysis methods.</td><td>What each focuses on, structured guide-words, when used</td></tr>
+          <tr><td>Manual vs Mechanical material handling</td><td>Handling — both have hazards.</td><td>Human strain vs mechanical risk, typical injuries, controls</td></tr>
+          <tr><td>Safe vs unsafe ladder use</td><td>Construction — a classic example.</td><td>Correct angle, footing, load, three points of contact vs the unsafe version</td></tr>
+          <tr><td>Fixed guard vs Interlocked guard vs Device</td><td>Machine guarding.</td><td>Permanent vs opens→stop vs presence-sensing/two-hand</td></tr>
+          <tr><td>Fire classes A–F and their extinguishers</td><td>Fire safety — match fuel to agent.</td><td>Fuel type, suitable agent, what not to use</td></tr>
+          <tr><td>PAFC vs PEM fuel cell</td><td>Fuel cells — electrolyte and temp differ.</td><td>Electrolyte, operating temperature, typical application, maturity</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">Having a ready two-column table for each pair is worth more than memorising one long
+    paragraph — it is faster to produce under time pressure, and the examiner can award marks against each
+    axis.</div>
+  </div>
+
+  <!-- ====== ANSWER BY MARKS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>How to match your answer to the marks</h2><span class="tag">Marks-aware</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Marks</th><th>What the examiner expects</th><th>What to write</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>A tight definition or a short list — enough to show you know the term, not a full essay.</td>
+            <td>One sentence of meaning, then one line with an angle (what it protects, how it's done, one example, or one limitation). Stop when you have said the thing.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>A comparison, a short process, or "list with notes."</td>
+            <td>Three to five headed points, each with a one-line reason. If it is a comparison, use a small table. A worked example or mini-numeric step helps here.</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>A full answer: definition, principle, sub-points, a comparison or diagram if asked, and both advantages and limitations.</td>
+            <td>Lead with the definition, then build structured sub-sections (a/b/c or a table), then draw the labelled diagram the question names if it asks for one, then close with limitations and a concrete example. Split long answers into (a)/(b) if that helps.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Don't pad.</b> Repeating the same point in different words wastes time and reads as
+    uncertainty. If the question is 3 marks, a clean 3-mark answer beats a 14-mark answer that wanders.</div>
+  </div>
+
+  <!-- ====== DO'S AND DON'TS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Do's and don'ts in the exam</h2><span class="tag">Practical</span></div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h4>Do</h4>
+        <ul>
+          <li>Rephrase the question in plain English before you write.</li>
+          <li>Lead a long answer with a one-line definition or framing.</li>
+          <li>Use a two-column table when a question asks to "compare" or two things are naturally paired.</li>
+          <li>Give one concrete example, numeric step, or plant component name — it anchors a mark a bare list often misses.</li>
+          <li>If the question asks for advantages <i>and</i> limitations, give both, labelled.</li>
+          <li>If it asks for a labelled diagram, draw the one from the module page — labels are what score.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Don't</h4>
+        <ul>
+          <li>Pad with headings you can't explain — a misused term reads as guessing.</li>
+          <li>Answer a "compare" as two separate lists with no connecting axis.</li>
+          <li>Stop at the advantages when the question asks for limitations too.</li>
+          <li>Run past the marks — a 3-mark answer should not be half a page.</li>
+          <li>Leave a diagram out because you cannot draw well — labels on a schematic are what score, not artistry.</li>
+          <li>Mix up pairs that are frequently swapped (updraft/downdraft, KVIC/Janata, PAFC/PEM, fixed/open OTEC) — those are exactly where a trick question lives.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== HOW TO USE THESE NOTES ====== -->
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>How to use these notes</h2><span class="tag">Study flow</span></div>
+    <div class="card full">
+      <p>Read a module page top to bottom once to get the shape — the headings are the skeleton, the tables
+      are the comparisons, and the worked examples are the parts that usually earn marks. Then:</p>
+      <ul>
+        <li><b>For definitions:</b> use the core-definitions table on this page (02) as a checklist — can you
+          say each one in one sentence? If not, that is a gap to close before the exam.</li>
+        <li><b>For comparisons:</b> rehearse the recurring pairs in section 04 from memory — write the table
+          out once, then close the notes and try again.</li>
+        <li><b>For processes and plant:</b> narrate them aloud in your own words, step by step, with the "why"
+          at each step. If you cannot name what comes out of a gasifier, what a biogas dome does, or what the
+          ammonia loop in OTEC is for, go back to the module page.</li>
+        <li><b>For "labelled diagram":</b> redraw the diagram on the module page from memory — gasifier zones,
+          KVIC/Janata biogas, OTEC loop, tidal basin, wind turbine, fuel cell, machine guard, fire-class wheel,
+          HAZOP flow. Labels matter more than neatness.</li>
+        <li><b>For full answers:</b> use the question bank on <a href="papers.html">papers.html</a> as practice —
+          try one, then read the model answer and note what it included that you missed.</li>
+      </ul>
+      <div class="def">The goal is not to memorise this whole site word-for-word. It is to be able to
+      <b>rebuild</b> each module's key tables and a labelled diagram from memory, define each core term in one
+      sentence, and narrate each process and attack in your own words with the "why" attached.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m5-1.html">Prev: M5 · Hazards</a>
+    <a class="next" href="papers.html">Next: Question Bank</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Exam Techniques — Industrial Safety Engineering (MCN401, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

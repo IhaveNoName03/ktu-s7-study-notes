@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Ocean Thermal Energy Conversion (OTEC)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html">M1 · Solar Thermal</a>
+      <a href="m1-3.html">M1 · Solar PV</a>
+      <a href="m2-1.html" class="active">M2 · OTEC</a>
+      <a href="m2-2.html">M2 · Tidal</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Page 1 of 2</span>
+  <h1>Ocean Thermal Energy Conversion (OTEC)</h1>
+  <p class="lede">Power from the temperature difference between warm surface seawater and cold deep
+  seawater. This page covers the principle (with the absorption law + Carnot limit), the three plant
+  cycles, site selection, biofouling, and the pros/cons.</p>
+  <div class="meta-row">
+    <span class="chip red">OTEC</span>
+    <span class="chip">Open/Closed/Hybrid</span>
+    <span class="chip">Carnot</span>
+    <span class="chip">Biofouling</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Principle of OTEC</h2><span class="tag">Heat engine at sea</span></div>
+    <div class="card full">
+      <p>Ocean surface water absorbs solar radiation and warms; deep water stays cold. This creates a
+      <b>temperature gradient</b> that a heat engine can exploit: surface water = <b>heat source</b> (~27 °C),
+      deep water = <b>heat sink</b> (~4–7 °C). A minimum ΔT of <b>20 °C</b> is required for the engine to work
+      effectively.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Absorption law (Lampert's law)</h4>
+      <p>Each equal-thickness layer of water absorbs the same fraction of solar heat as radiation passes through:</p>
+      <p style="text-align:center;font-size:15px"><code>dI/dy = −µ·I₀</code> &nbsp;→&nbsp; integrating: &nbsp; <code>I = I₀·e^(−µy)</code></p>
+      <p>where I₀ = intensity at y=0, µ = absorption coefficient, y = depth. No convective mixing occurs between the warm light top layer and cold heavy bottom layer, so the two act as infinite reservoirs at ~27 °C (source) and ~4–7 °C (sink).</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Carnot efficiency limit</h4>
+      <p style="text-align:center;font-size:15px"><code>η = (T₁ − T₂) / T₁</code> &nbsp;(T in Kelvin)</p>
+      <p>Example: T₁ = 27 °C = 300 K, T₂ = 7 °C = 280 K → <b>η = (300−280)/300 = 6.67%</b>. Low, because the gradient is small — characteristic of OTEC.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>The Three Plant Cycles</h2><span class="tag">Open · Closed · Hybrid</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">O</span>Open cycle<br>(Claude)</h3><p>Warm surface water is flash-evaporated at low pressure (water boils at lower T under low pressure). The steam expands through a turbine → mechanical energy, then is condensed by cold deep seawater. Working fluid = seawater itself.</p></div>
+      <div class="card"><h3><span class="idx">C</span>Closed cycle<br>(Anderson)</h3><p>Warm surface water evaporates a low-boiling refrigerant (ammonia/Freon) in a heat exchanger → vapor drives a turbine → generator. Cold seawater condenses the vapor; refrigerant is recycled. Working fluid stays separate from seawater.</p></div>
+      <div class="card"><h3><span class="idx">H</span>Hybrid</h3><p>Combines both: warm seawater is flash-evaporated in a vacuum (open step); that vapor then evaporates a working fluid (ammonia) in a separate closed loop → turbine → electricity. The vaporized seawater is condensed into <b>freshwater</b> by cold seawater (bonus: desalination).</p></div>
+    </div>
+    <div class="def">Closed-cycle is the most common because it avoids the huge turbine needed for low-density steam in the open cycle; hybrid adds freshwater production.</div>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · Closed-cycle (Anderson) OTEC</div>
+      <svg viewBox="0 0 560 280" role="img" aria-label="Closed cycle OTEC diagram">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- warm surface -->
+        <rect class="hot" x="40" y="30" width="180" height="40" rx="3"/>
+        <text x="130" y="55" text-anchor="middle" class="lbl">Warm surface water (~27°C)</text>
+        <!-- cold deep -->
+        <rect class="cold" x="40" y="210" width="180" height="40" rx="3"/>
+        <text x="130" y="235" text-anchor="middle" class="lbl">Cold deep water (~4–7°C)</text>
+        <!-- evaporator -->
+        <rect class="box" x="250" y="30" width="90" height="55" rx="3"/>
+        <text x="295" y="52" text-anchor="middle" class="lbl">Evaporator</text>
+        <text x="295" y="70" text-anchor="middle" class="txtsm">NH₃ boils</text>
+        <!-- turbine -->
+        <rect class="box g" x="300" y="110" width="80" height="45" rx="3"/>
+        <text x="340" y="137" text-anchor="middle" class="lbl">Turbine</text>
+        <!-- generator -->
+        <rect class="box" x="300" y="170" width="80" height="40" rx="3"/>
+        <text x="340" y="194" text-anchor="middle" class="lbl">Generator</text>
+        <!-- condenser -->
+        <rect class="box" x="250" y="225" width="90" height="50" rx="3"/>
+        <text x="295" y="248" text-anchor="middle" class="lbl">Condenser</text>
+        <text x="295" y="264" text-anchor="middle" class="txtsm">NH₃ condenses</text>
+        <!-- flows -->
+        <line class="arrow" x1="220" y1="55" x2="250" y2="55"/>
+        <line class="arrow" x1="295" y1="85" x2="340" y2="110"/>
+        <line class="arrow" x1="340" y1="155" x2="340" y2="170"/>
+        <line class="arrow" x1="340" y2="225" x1="340" y1="210"/>
+        <line class="arrow" x1="250" y1="250" x2="220" y2="250"/><text x="200" y="244" class="txtsm">pump</text>
+        <line class="arrow" x1="130" y1="70" x2="130" y2="210"/><text x="135" y="145" class="txtsm" transform="rotate(90 135 145)">ammonia loop</text>
+        <line class="arrow r" x1="220" y1="250" x2="130" y2="250"/>
+      </svg>
+      <p class="dcap">Warm surface water boils ammonia in the evaporator → vapor drives the turbine/generator → cold deep water condenses the ammonia → pumped back. Working fluid never mixes with seawater.</p>
+    </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Site Selection for OTEC</h2><span class="tag">Where it works</span></div>
+    <div class="card full">
+      <p>Multi-criteria decision analysis (e.g. TOPSIS) picks optimal sites using technical, environmental, and socioeconomic criteria:</p>
+      <ul>
+        <li><b>Thermal potential:</b> evaluate 16-year sea-surface-temperature data; compute % of time the power threshold (ΔT ≥ 20 °C) is met.</li>
+        <li><b>Feasibility:</b> decision matrix over technical / environmental / socioeconomic factors.</li>
+        <li><b>Site identification:</b> typically tropical/subtropical deep-ocean sites close to land with a steep continental shelf (so cold deep water is near the surface plant).</li>
+        <li><b>Cost:</b> compare OTEC levelized cost of energy (LCOE) against other technologies.</li>
+      </ul>
+      <div class="def">Need: warm surface water + access to cold deep water nearby + grid/load proximity. Tropical islands are ideal.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Biofouling</h2><span class="tag">Efficiency killer</span></div>
+    <div class="card full">
+      <p><b>Definition:</b> deposition and growth of microorganisms inside the evaporator and condenser heat-exchanger pipes. It (i) reduces heat-transfer area efficiency and (ii) lowers performance.</p>
+      <p>More heat-transfer surface = more area for organisms to attach, so it scales with plant size.</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Control</h4>
+      <ul>
+        <li><b>Mechanical:</b> continuous circulation of close-fitting cleaning balls.</li>
+        <li><b>Chemical:</b> chlorination / biocide additives. Release can be held to ~1/10 of the environmental limit, but biocides still risk pollution.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Advantages &amp; Limitations of OTEC</h2><span class="tag">Balanced</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Advantages</h4><ul>
+        <li>Renewable, baseload-capable (ocean temp steady day/night)</li>
+        <li>Non-polluting; large resource in tropics</li>
+        <li>Hybrid variant produces freshwater (desalination co-benefit)</li>
+        <li>Uses existing heat-engine technology</li>
+      </ul></div>
+      <div class="card"><h4>Limitations</h4><ul>
+        <li>Very low Carnot efficiency (~3–7%) → huge plant for little power</li>
+        <li>Needs ΔT ≥ 20 °C + deep cold water nearby → few sites</li>
+        <li>Biofouling cuts heat-exchanger performance</li>
+        <li>Long pipes to deep water; marine corrosion; high capital cost</li>
+        <li>Cold-water pumping energy eats into net output</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-3.html">Prev: Solar PV</a>
+    <a class="next" href="m2-2.html">Next: Tidal Energy</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 2, Page 1 — Ocean Thermal Energy Conversion.</div>
+    <div><a href="index.html">Home</a> · <a href="m2-2.html">M2</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

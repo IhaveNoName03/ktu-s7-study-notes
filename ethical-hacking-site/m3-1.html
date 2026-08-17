@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 · Vulnerability Resources, Sniffing, MITM &amp; Attacks</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html" class="active">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 3 · From Ethical M3.pdf</span>
+  <h1>Vulnerability Data, Sniffing, MITM &amp; Attacks</h1>
+  <p class="lede">Module 3 covers where vulnerabilities are catalogued, what an exploit is, how
+  attackers listen on the wire (sniffing), how they sit in the middle of a conversation (MITM),
+  and the flooding/crashing and remote attacks used to disrupt or break in.</p>
+  <div class="meta-row">
+    <span class="chip red">Vulnerability DBs</span>
+    <span class="chip">Sniffing</span>
+    <span class="chip">MITM</span>
+    <span class="chip">DoS / DDoS</span>
+    <span class="chip">Brute force</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- VULN RESOURCES -->
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Vulnerability Data Resources</h2>
+      <span class="tag">Where flaws are tracked</span></div>
+    <div class="card full">
+      <div class="def">A <b>vulnerability</b> is a weakness that lets an attacker enter and harm a
+      system — a flaw in design or a misconfiguration. To exploit it, the attacker needs a tool or
+      technique that connects to that weakness. The top sources used to trace new vulnerabilities:</div>
+      <div class="grid cols-3">
+        <div class="card"><h3><span class="idx">1</span>NVD</h3><p>US-government repository of standards-based vulnerability data using SCAP. Enables automation of vuln management, measurement and compliance; includes checklists, flaws, misconfigurations, product names, impact metrics.</p></div>
+        <div class="card"><h3><span class="idx">2</span>CVE</h3><p>International, free dictionary of publicly-known vulnerabilities &amp; exposures. Common identifiers let security products exchange data. Scanning tools use CVEs for classification; SIEMs understand them.</p></div>
+        <div class="card"><h3><span class="idx">3</span>CERT Notes</h3><p>CERT Knowledgebase — public Vulnerability Notes Database plus restricted components. Notes include summaries, technical details, remediation, affected vendors.</p></div>
+        <div class="card"><h3><span class="idx">4</span>VulnDB</h3><p>Risk-Based Security's commercial feed — 2000+ tracked libraries, RESTful API, email alerting, CVE mapping, VTEM metrics, links to patches/exploits.</p></div>
+        <div class="card"><h3><span class="idx">5</span>DISA IAVA / STIG</h3><p>US Defense mapping of CVE IDs to IAVAs; posted on DISA's public STIG site. A must for .gov/.mil work.</p></div>
+        <div class="card"><h3><span class="idx">6</span>Security Tracker</h3><p>Third-party DB updated daily; focuses on non-OS flaws (infrastructure &amp; IoT front page most).</p></div>
+        <div class="card"><h3><span class="idx">7</span>OVAL</h3><p>Open community standard to assess &amp; report machine state — encode system details, express states, report results; enables interoperable, reproducible metrics.</p></div>
+        <div class="card"><h3><span class="idx">8</span>National Council of ISACs</h3><p>Sector-specific Information Sharing &amp; Analysis Centers (MS-ISAC, FS-ISAC, A-ISAC, AUTO-ISAC, ONG-ISAC, NH-ISAC, IT-ISAC) that rapidly share threat alerts between govt and industry.</p></div>
+        <div class="card"><h3><span class="idx">9</span>Exploit-DB</h3><p>An archive of exploits for public security — useful for finding weaknesses in your network and staying current on attacks elsewhere (see <a href="#exploit">§02</a>).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLOIT DB -->
+  <div class="section" id="exploit">
+    <div class="head"><span class="num">02</span><h2>Exploit Databases &amp; What an Exploit Is</h2>
+      <span class="tag">Definitions</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h3><span class="idx">DB</span>Exploit Database</h3><p>An archive of exploits for public security — useful for finding weaknesses in your network and staying current on attacks elsewhere. Lets defenders learn attackers' methods.</p></div>
+      <div class="card"><h3><span class="idx">!</span>Exploit vs Vulnerability</h3><p>An <b>exploit</b> is a program or piece of code that finds and takes advantage of a flaw — it is <b>not malware itself</b>, but the method used to deliver malware. Defenses: EDR, threat-defense software, pen-testing programs.</p></div>
+      <div class="card"><h3><span class="idx">K</span>Known exploits</h3><p>Once known, the flaw is usually patched and the info goes to security vendors. Public vulns get an ID, description and references.</p></div>
+      <div class="card"><h3><span class="idx">0</span>Zero-day exploits</h3><p>Unknown to all but their authors — the most dangerous. The vuln is unknown to the vendor until a hacker is caught exploiting it. Either a patch eventually ships or security software detects/blocks it.</p></div>
+    </div>
+  </div>
+
+  <!-- SNIFFING -->
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Network Sniffing</h2>
+      <span class="tag">Listening on the wire</span></div>
+    <div class="card full">
+      <p>Sniffing monitors and records all packets crossing a network. Admins use it to troubleshoot;
+      attackers use it to capture passwords and account info. A <b>packet sniffer</b> in
+      <b>promiscuous mode</b> gathers all traffic. Can be <b>active</b> (spikes traffic into a switch
+      LAN to monitor) or <b>passive</b> (no interaction; sits on a hub, needs only a LAN account).</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Types of network sniffers</h4>
+      <div class="grid cols-3">
+        <div class="card"><h4>MAC sniffers</h4><p>Sniff data relevant to a MAC-address filter.</p></div>
+        <div class="card"><h4>Protocol sniffers</h4><p>Sniff for specific network protocols.</p></div>
+        <div class="card"><h4>LAN sniffers</h4><p>Inspect an entire range of internal IP addresses.</p></div>
+        <div class="card"><h4>IP sniffers</h4><p>Capture all data for a specific IP filter; logged in human-readable form.</p></div>
+        <div class="card"><h4>ARP sniffers</h4><p>Map IP→MAC, enabling packet spoofing / poisoning attacks.</p></div>
+        <div class="card"><h4>Password sniffers</h4><p>Harvest credentials from traffic; hits sites without SSL/TLS encryption.</p></div>
+      </div>
+      <div class="def">Popular tools: <b>Wireshark, TCPdump, Microsoft Message Analyzer, EtherApe, NetworkMiner</b>. Can capture visited sites, page contents, emails, downloaded files.</div>
+    </div>
+  </div>
+
+  <!-- MITM -->
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Man-in-the-Middle (MITM) Attacks</h2>
+      <span class="tag">Intercepting traffic</span></div>
+    <div class="card full">
+      <p>An attacker eavesdrops on (or alters) communication between two legit hosts. <b>Types of MITM:</b></p>
+      <div class="grid cols-2">
+        <div class="card"><h3><span class="idx">R</span>Rogue Access Point</h3><p>Attacker sets up an AP with the strongest signal; nearby devices auto-join. All victim traffic is then manipulable — no need to be on a trusted network, just close by.</p></div>
+        <div class="card"><h3><span class="idx">A</span>ARP Spoofing</h3><p>ARP resolves IP→MAC on a LAN. Attacker answers ARP requests with its own MAC, poisoning both router and workstation caches, sitting silently in the middle. Detect with <code>arp -a</code> (two IPs, same MAC). Prevent with VPN, static ARP, packet filtering.</p></div>
+        <div class="card"><h3><span class="idx">m</span>mDNS Spoofing</h3><p>Multicast DNS on a LAN; attacker replies to <code>tv.local</code>-style requests with a fake address it controls; victim caches it as trusted.</p></div>
+        <div class="card"><h3><span class="idx">D</span>DNS Spoofing</h3><p>Corrupt DNS cache so the victim sends sensitive data to a malicious host believing it is trusted (e.g. onlinebanking.com). Prevent with DNSSEC, source auth, rate limiting, DNS filtering, monitoring.</p></div>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Technique</th><th>Purpose</th><th>Prevention</th></tr></thead>
+          <tbody>
+            <tr><td>Sniffing</td><td>Promiscuous-mode capture of packets</td><td>Encryption (TLS/SSH), VPN</td></tr>
+            <tr><td>Packet Injection</td><td>Blend malicious packets into a stream</td><td>Integrity checks, TLS</td></tr>
+            <tr><td>Session Hijacking</td><td>Steal the session token</td><td>HTTPS, HttpOnly/Secure cookies, session regen</td></tr>
+            <tr><td>SSL Stripping</td><td>Downgrade HTTPS→HTTP</td><td>HSTS, force HTTPS everywhere</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOS -->
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Denial-of-Service &amp; Remote Attacks</h2>
+      <span class="tag">Availability</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h3><span class="idx">D</span>DoS vs DDoS</h3><p>DoS uses a <b>single</b> computer to overwhelm a target. <b>DDoS</b> comes from <b>many distributed</b> sources (e.g. a botnet). Goal: oversaturate capacity so legitimate requests are denied.</p></div>
+      <div class="card"><h3><span class="idx">F</span>Attack categories</h3><ul>
+        <li><b>Buffer overflow</b> — memory overrun consumes disk/RAM/CPU → crash.</li>
+        <li><b>Flood attacks</b> — saturate with packets (needs more bandwidth than target).</li>
+        <li><b>Smurf / Ping flood / Ping of Death</b> — historic ICMP-based attacks.</li>
+      </ul></div>
+      <div class="card"><h3><span class="idx">R</span>Remote attacks</h3><p>Target a computer/network the attacker is not using. Classified by method: DNS Poisoning, TCP Desynchronization, DoS, ICMP attacks, Port Scanning. Often start with network service scanning for unpatched software; RDP is a common target (credentials left in memory).</p></div>
+      <div class="card"><h3><span class="idx">M</span>Mitigation</h3><ul>
+        <li>Network segmentation, firewalls, IDS/IPS.</li>
+        <li>Bandwidth limiting, CDN, anti-malware, regular scans &amp; patching.</li>
+        <li>ISP / scrubbing-center DDoS mitigation.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- BRUTE FORCE + SMTP/SQL -->
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Brute Force &amp; Protocol Attacks</h2>
+      <span class="tag">Credential &amp; app layer</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h3><span class="idx">B</span>Brute Force types</h3><ul>
+        <li><b>Simple</b> — manual guessing of weak/custom passwords (no software).</li>
+        <li><b>Dictionary</b> — run words (+symbols/numbers) against a username.</li>
+        <li><b>Hybrid</b> — dictionary + simple brute force (e.g. SanDiego123).</li>
+        <li><b>Reverse</b> — start with a known password, hunt matching usernames.</li>
+        <li><b>Credential stuffing</b> — stolen creds replayed across sites (password reuse).</li>
+      </ul></div>
+      <div class="card"><h3><span class="idx">S</span>Attacking SMTP</h3><p>Abusing Simple Mail Transfer Protocol lets an attacker send spam/phishing as the victim's domain (reputation damage, blocklisting) and even enable DoS. Enabled by phishing/malware, lost devices, lack of encryption — mitigated with SSL/TLS and user education.</p></div>
+      <div class="card full"><h3><span class="idx">Q</span>SQL Server Attacks / SQL Injection</h3><p>SQLi arises when user input is concatenated into a query without constraint/sanitization. Any user-controlled parameter (GET/POST params, user-agent, cookies, host) may hide a flaw. An attacker crafts SQL to read the DB schema and steal data. (Full SQLi types — In-band Error/Union, Inferential Blind Boolean/Time-based, Out-of-band — are covered on the <a href="m4-1.html">Module 4 · Web server/SQLi</a> page.) Entry point + exploit are both required.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Vulnerability Management Lifecycle</h2>
+      <span class="tag">Operational</span></div>
+    <div class="card full">
+      <p>Finding a CVE is not the end. The lifecycle: <b>discover</b> assets &rarr; <b>scan</b> for known issues
+      &rarr; <b>prioritize</b> by CVSS score &times; exposure &rarr; <b>remediate</b> (patch/compensate) &rarr;
+      <b>verify</b> the fix &rarr; <b>report</b>. CVSS ranges: 0.1–3.9 low, 4.0–6.9 medium, 7.0–8.9 high, 9.0–10 critical.</p>
+      <div class="def"><b>Exploit-DB</b> is read two ways: defenders check whether a public exploit exists for their stack (patch first); attackers use it as a ready toolkit. Either way, "known + unpatched" is the danger zone.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Detecting &amp; Stopping Sniffing / MITM</h2>
+      <span class="tag">Defense</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Detection</th><th>Defense</th></tr></thead>
+        <tbody>
+          <tr><td>Sniffing (hub/promisc)</td><td>Unexpected NIC in promisc mode</td><td>Switched nets, encryption, port security</td></tr>
+          <tr><td>ARP spoofing</td><td>Two IPs share one MAC (<code>arp -a</code>)</td><td>Static ARP, ARP inspection, VPN</td></tr>
+          <tr><td>DNS spoofing</td><td>Wrong IP for known host</td><td>DNSSEC, monitoring</td></tr>
+          <tr><td>SSL stripping</td><td>HTTP where HTTPS expected</td><td>HSTS, HTTPS-everywhere</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>DDoS response:</b> traffic scrubbing, rate-limiting, anycast/CDN, and upstream ISP blackholing — plus an incident plan so "it's down" has a known owner.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>DHCP Spoofing &amp; DNS Manipulation</h2>
+      <span class="tag">Module 3</span></div>
+    <div class="card full">
+      <p>A <b>rogue DHCP server</b> on the network hands clients an attacker-chosen gateway and DNS, so the victim's
+      traffic is routed through the attacker (classic MITM). Combined with <b>DNS spoofing</b>, the attacker can map
+      legitimate names (e.g. <code>bank.com</code>) to a fake IP.</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Defense</h4>
+      <ul>
+        <li><b>DHCP Snooping</b> — switch marks trusted ports; only the real server may answer DHCP.</li>
+        <li><b>Dynamic ARP Inspection</b> — validates ARP against the DHCP binding table.</li>
+        <li><b>DNSSEC</b> — cryptographically signed answers foil spoofed records.</li>
+        <li>802.1X port authentication stops rogue devices joining in the first place.</li>
+      </ul>
+      <div class="def">Attack chain recap: rogue DHCP &rarr; bad default gateway/DNS &rarr; victim traffic intercepted &rarr; DNS hijack to fake sites &rarr; credential theft over "HTTP".</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m2-3.html">Prev: Social Engineering</a>
+    <a class="next" href="m4-1.html">Next: Module 4 · Network &amp; System</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 3 — Vulnerability resources, sniffing, MITM, DoS, remote &amp; brute-force.</div>
+    <div><a href="index.html">Home</a> · <a href="m4-1.html">M4</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

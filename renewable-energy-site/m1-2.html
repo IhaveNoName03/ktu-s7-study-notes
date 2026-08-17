@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · Solar Thermal Systems</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html" class="active">M1 · Solar Thermal</a>
+      <a href="m1-3.html">M1 · Solar PV</a>
+      <a href="m2-1.html">M2 · OTEC</a>
+      <a href="m2-2.html">M2 · Tidal</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Page 2 of 3</span>
+  <h1>Solar Thermal Systems</h1>
+  <p class="lede">How sunlight becomes heat: the conversion principle, the two collector families
+  (flat-plate and concentrating), the three concentrator geometries, and a head-to-head comparison.
+  This page pairs with the solar PV page that follows.</p>
+  <div class="meta-row">
+    <span class="chip red">Solar → heat</span>
+    <span class="chip">Flat-plate</span>
+    <span class="chip">Concentrators</span>
+    <span class="chip">Comparison</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Two Ways to Use Solar Energy</h2><span class="tag">Thermal vs PV</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h3><span class="idx">T</span>Solar Thermal</h3><p>Collect radiant heat; use it in a thermal system. Best for low-grade heat (comfort heating, hot water, preheating, drying, process heat up to ~180 °C).</p></div>
+      <div class="card"><h3><span class="idx">P</span>Solar Photovoltaic</h3><p>Convert sunlight directly to electricity (Module 1, Page 3). No thermal step.</p></div>
+    </div>
+    <div class="def"><b>Conversion principle:</b> solar radiation is shortwave light. When it strikes a solid/liquid it is absorbed and becomes heat — the material warms, stores heat, conducts it to surroundings (water/air), or reradiates to cooler materials. Same idea as the greenhouse effect.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Why Collectors?</h2><span class="tag">Low density</span></div>
+    <div class="card full">
+      <p>Solar power density is low — about <b>1 kW/m² down to 0.1 kW/m²</b>. To gather useful heat you must cover a large ground area with collectors. The collector is the first unit in any solar thermal system: it absorbs solar energy as heat and transfers it efficiently to a heat-transport fluid, which delivers it to a storage tank / boiler / heat exchanger.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Classification of collectors</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Type</th><th>How it collects</th></tr></thead>
+          <tbody>
+            <tr><td>Non-concentrating (flat-plate)</td><td>Absorbs radiation as received — both beam + diffuse</td></tr>
+            <tr><td>Concentrating — non-focus</td><td>Concentrates by simple reflection/refraction, no tight focus</td></tr>
+            <tr><td>Concentrating — focus (line)</td><td>Line focus (e.g. parabolic trough)</td></tr>
+            <tr><td>Concentrating — focus (point)</td><td>Point focus (e.g. parabolic dish, central tower)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Flat-Plate Collector</h2><span class="tag">Non-concentrating</span></div>
+    <div class="card full">
+      <p>Simple, stationary, no sun-tracking. Mechanically strong (rigid platform), withstands outdoor conditions (rain, storm), low maintenance. <b>Disadvantage:</b> no optical concentration → large heat-loss area, so high temperatures cannot be reached.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Five components</h4>
+      <div class="grid cols-2">
+        <div class="card"><h4>i. Absorber plate</h4><p>Blackened plate (copper/aluminium/steel) that intercepts and absorbs incident radiation; coating minimises re-emission.</p></div>
+        <div class="card"><h4>ii. Transparent cover</h4><p>One or more glass/plastic sheets above the absorber. Lets radiation in but blocks reradiation + convective heat loss.</p></div>
+        <div class="card"><h4>iii. Fluid tubes / channels</h4><p>In thermal contact with the absorber; carry fluid that receives the heat.</p></div>
+        <div class="card"><h4>iv. Thermal insulation</h4><p>Under the absorber + tubes; cuts heat loss by transmission/convection.</p></div>
+        <div class="card"><h4>v. Tight container / box</h4><p>Encloses and protects all components.</p></div>
+        <div class="card"><h4>Characteristic features</h4><ul>
+          <li>Absorbs direct <i>and</i> diffuse radiation</li>
+          <li>No tracking → stronger, simpler, low maintenance</li>
+        </ul></div>
+      </div>
+      <div class="def"><b>Modified flat-plate:</b> plain "booster" mirrors at the edges reflect extra radiation onto the absorber, raising concentration ratio from 1 to ~4.</div>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · Flat-Plate Collector — cross-section</div>
+      <svg viewBox="0 0 560 300" role="img" aria-label="Flat-plate solar collector cross-section">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- sky / sun -->
+        <circle class="sun" cx="60" cy="46" r="18"/><text x="60" y="82" text-anchor="middle" class="txtsm">Sun</text>
+        <line class="arrow" x1="74" y1="56" x2="150" y2="120"/>
+        <!-- glazing -->
+        <rect class="box f" x="150" y="110" width="300" height="22" rx="3"/>
+        <text x="300" y="125" text-anchor="middle" class="lbl">Transparent cover (glass)</text>
+        <!-- absorber -->
+        <rect x="150" y="138" width="300" height="30" rx="2" fill="#2c2c2c"/>
+        <text x="300" y="158" text-anchor="middle" fill="#fff" class="lbl">Blackened absorber plate</text>
+        <!-- tubes -->
+        <g stroke="#2e86c1" stroke-width="6">
+          <line x1="170" y1="160" x2="170" y2="200"/><line x1="220" y1="160" x2="220" y2="200"/>
+          <line x1="270" y1="160" x2="270" y2="200"/><line x1="320" y1="160" x2="320" y2="200"/>
+          <line x1="370" y1="160" x2="370" y2="200"/><line x1="420" y1="160" x2="420" y2="200"/>
+        </g>
+        <text x="300" y="218" text-anchor="middle" class="lbl">Fluid tubes / channels</text>
+        <!-- insulation + box -->
+        <rect class="box" x="150" y="232" width="300" height="20" rx="2"/>
+        <text x="300" y="246" text-anchor="middle" class="lbl">Thermal insulation (sides/bottom)</text>
+        <rect class="box" x="142" y="104" width="316" height="154" rx="6" fill="none" stroke-dasharray="4 3"/>
+        <text x="300" y="284" text-anchor="middle" class="txtsm">Tight container / box — stationary, no sun tracking</text>
+        <!-- heat out -->
+        <line class="arrow" x1="430" y1="180" x2="500" y2="180"/><text x="508" y="184" class="txtsm">heat →</text>
+      </svg>
+      <p class="dcap">Sunlight passes the glazing, is absorbed by the black plate, and heats fluid in the tubes; insulation limits loss. No tracking required.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Concentrating Collectors (Solar Concentrators)</h2><span class="tag">Focus type</span></div>
+    <div class="card full">
+      <p>Converge radiation from a large area to a small area using mirrored/optical surfaces. Only <b>beam</b> radiation (unique direction, straight-line) can be concentrated; <b>diffuse</b> radiation has no direction and cannot be concentrated — a key disadvantage versus flat-plate.</p>
+      <ul>
+        <li><b>Advantage:</b> high temperatures (concentration → high-grade heat).</li>
+        <li><b>Disadvantage:</b> need tracking (frequent maintenance); only work in direct sun (poor on hazy/cloudy days); need a receiver at focal point/line; heat-transfer fluid flows through receiver.</li>
+      </ul>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Geometry</th><th>Focus</th><th>Tracker</th><th>Temp / concentration</th></tr></thead>
+          <tbody>
+            <tr><td>Parabolic trough</td><td>Line (focal line)</td><td>1-axis (E-W or N-S)</td><td>Receiver tube; moderate</td></tr>
+            <tr><td>Parabolic dish</td><td>Point (focal point)</td><td>2-axis</td><td>10–1000×; up to ~3000 °C</td></tr>
+            <tr><td>Central tower</td><td>Point (receiver on tower)</td><td>Many heliostats, 2-axis each</td><td>Up to ~3000× concentration</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>The Three Concentrator Geometries</h2><span class="tag">Detail</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">T</span>Parabolic trough</h3><p>"U"-shaped; concentrates sunlight onto a receiver tube along the focal line. Glass envelope may surround the tube to cut loss. Reflector: polished aluminium, silvered glass, or aluminized plastic. Needs sun on the plane through focal line + vertex.</p></div>
+      <div class="card"><h3><span class="idx">D</span>Parabolic dish</h3><p>Paraboloidal (parabola rotated about axis) → point focus. <b>Two-axis tracking:</b> rotate about vertical axis (alignment) + about horizontal axis (elevation). Concentration 10–1000×; temperatures to ~3000 °C.</p></div>
+      <div class="card"><h3><span class="idx">C</span>Central tower</h3><p>Receiver atop a tower; many independently 2-axis <b>heliostats</b> on the ground reflect sun onto it from all sides — acting as one huge dish. Thousands of heliostats; concentration up to ~3000×. Heat sent to a heat engine.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Flat-Plate vs Concentrating — Comparison</h2><span class="tag">Exam favourite</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Flat-plate (non-focus)</th><th>Concentrating (focus)</th></tr></thead>
+        <tbody>
+          <tr><td>Radiation used</td><td>Beam + diffuse</td><td>Beam only (diffuse lost)</td></tr>
+          <tr><td>Tracking</td><td>None</td><td>Required (1- or 2-axis)</td></tr>
+          <tr><td>Temperature</td><td>Low–medium</td><td>High (up to ~3000 °C)</td></tr>
+          <tr><td>Mechanical strength</td><td>High (rigid, stationary)</td><td>Lower (moving parts)</td></tr>
+          <tr><td>Maintenance</td><td>Low</td><td>Higher (trackers)</td></tr>
+          <tr><td>Cloudy/hazy day</td><td>Still works (diffuse)</td><td>Poor (needs direct sun)</td></tr>
+          <tr><td>Concentration ratio</td><td>1 (≈4 with boosters)</td><td>10–3000×</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Solar thermal electric generation:</b> collectors heat a fluid → steam → turbo-generator, exactly like a conventional thermal plant but with a solar boiler. This is the "solar thermal electric power plant" asked for in diagram questions.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Solar Pond</h2><span class="tag">Salinity-gradient collector</span></div>
+    <div class="card full">
+      <p>A <b>solar pond</b> is a large, shallow pool of water (typically 1–2 m deep) that <b>collects and stores solar heat</b> without expensive piping or pumped fluid. It works on a <b>salinity gradient</b>: the bottom layer is made very salty (high concentration), the top is fresh, with a stable gradient between. The salty bottom water is denser, so it does not convect upward and mix — it traps the absorbed heat at the bottom instead of letting it escape to the surface.</p>
+      <p>Sunlight penetrates the clear upper layers and is absorbed by the dark, salty bottom, which can reach <b>70–90 °C</b>. The hot brine is drawn off to run a low-temperature turbine/ORC (organic Rankine cycle) generator, or used directly for process heating, desalination, or drying.</p>
+      <div class="def"><b>Why it matters:</b> a solar pond is a cheap thermal store — it both <i>collects</i> and <i>stores</i> heat for hours/days, smoothing out the day–night cycle. The cost is mostly the pond liner and salt, not precision hardware. Limitations: land area, evaporation, and keeping the gradient stable.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-1.html">Prev: Resources</a>
+    <a class="next" href="m1-3.html">Next: Solar PV Systems</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 1, Page 2 — Solar Thermal Systems (collectors, concentrators).</div>
+    <div><a href="index.html">Home</a> · <a href="m2-1.html">M2</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 · Wind Energy</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html">M1 · Solar Thermal</a>
+      <a href="m1-3.html">M1 · Solar PV</a>
+      <a href="m2-1.html">M2 · OTEC</a>
+      <a href="m2-2.html">M2 · Tidal</a>
+      <a href="m3-1.html" class="active">M3 · Wind</a>
+      <a href="m4-1.html">M4 · Biomass</a>
+      <a href="m5-1.html">M5 · Hydro/Fuel</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 3 · Renewable Energy Systems</span>
+  <h1>Wind Energy</h1>
+  <p class="lede">The kinetic energy of moving air, converted to electricity by a Wind Energy Conversion
+  System (WECS). This page covers the turbine parts, the wind-power equation, the Betz limit, capacity
+  factor, rotors, and site selection.</p>
+  <div class="meta-row">
+    <span class="chip red">WECS</span>
+    <span class="chip">Betz limit</span>
+    <span class="chip">Power equation</span>
+    <span class="chip">Site criteria</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Wind Energy — What &amp; Why</h2><span class="tag">Origin</span></div>
+    <div class="card full">
+      <p>Wind = kinetic energy of air in motion. It is a form of solar energy caused by three concurrent events:</p>
+      <ul>
+        <li>The Sun unevenly heating the atmosphere</li>
+        <li>Irregularities of the Earth's surface</li>
+        <li>The rotation of the Earth</li>
+      </ul>
+      <div class="def">Air flows because the Earth's surface is heated unevenly by radiant solar energy. Capture it with a Wind Energy Conversion System (WECS).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Major Parts of a Horizontal-Axis Wind Turbine</h2><span class="tag">Anatomy</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">T</span>Tower</h3><p>Supports everything and lifts the rotor to safe height + stronger wind. Height depends on power capacity. Must withstand max observed wind speed.</p></div>
+      <div class="card"><h3><span class="idx">N</span>Nacelle</h3><p>Box on top of tower housing generator, power converter, gearbox, controller, cables, yaw drive.</p></div>
+      <div class="card"><h3><span class="idx">B</span>Rotor blades</h3><p>Convert wind → mechanical energy. Must be strong (storms) yet light (smooth rotation). Wind on blades → rotation → shaft.</p></div>
+      <div class="card"><h3><span class="idx">S</span>Shaft</h3><p>Low-speed shaft from hub; coupled to generator directly (low-speed gen) or via gearbox.</p></div>
+      <div class="card"><h3><span class="idx">G</span>Gearbox</h3><p>Speed multiplier. e.g. ratio 1:80, 15 rpm in → 1200 rpm out for the generator.</p></div>
+      <div class="card"><h3><span class="idx">E</span>Generator</h3><p>Mechanical → electrical. Modern turbines use <b>induction generators</b>.</p></div>
+      <div class="card"><h3><span class="idx">P</span>Pitch drive</h3><p>Motors rotate blade angle to capture max wind as speed changes ("pitching").</p></div>
+      <div class="card"><h3><span class="idx">Y</span>Yaw drive</h3><p>Motor rotates the nacelle to face the wind direction for max energy capture.</p></div>
+      <div class="card"><h3><span class="idx">+</span>WECS types</h3><p>Classified by rotor axis (HAWT/VAWT), and by how they react to wind (lift/drag).</p></div>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · Horizontal-axis Wind Turbine</div>
+      <svg viewBox="0 0 560 240" role="img" aria-label="Wind turbine anatomy">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- blades -->
+        <g stroke="#2c3e50" stroke-width="6" fill="none">
+          <line x1="380" y1="80" x2="380" y2="10"/>
+          <line x1="380" y1="80" x2="445" y2="115"/>
+          <line x1="380" y1="80" x2="315" y2="115"/>
+        </g>
+        <circle class="dot" cx="380" cy="80" r="8"/>
+        <!-- nacelle -->
+        <rect class="box" x="360" y="80" width="120" height="34" rx="4"/>
+        <text x="420" y="101" text-anchor="middle" class="lbl">Nacelle</text>
+        <!-- yaw -->
+        <line class="arrow" x1="420" y1="80" x2="420" y2="60"/><text x="426" y="64" class="txtsm">yaw</text>
+        <!-- tower -->
+        <rect class="metal" x="412" y="114" width="16" height="96"/>
+        <text x="396" y="170" class="txtsm">Tower</text>
+        <!-- generator/gearbox arrow -->
+        <line class="arrow" x1="420" y1="114" x2="420" y2="100"/>
+        <!-- ground -->
+        <line x1="20" y1="210" x2="540" y2="210" stroke="#7f8c8d" stroke-width="2"/>
+        <!-- wind -->
+        <g stroke="#5aa9e6" stroke-width="2"><line x1="40" y1="60" x2="120" y2="60"/><line x1="40" y1="90" x2="120" y2="90"/><line x1="40" y1="120" x2="120" y2="120"/></g>
+        <text x="80" y="48" text-anchor="middle" class="txtsm">Wind →</text>
+        <line class="arrow" x1="120" y1="80" x2="345" y2="80"/><text x="200" y="72" class="txtsm">blades (pitch)</text>
+      </svg>
+      <p class="dcap">Wind turns the rotor (pitch-controlled blades) → nacelle houses gearbox + generator → tower supports it; yaw keeps it facing the wind.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Wind Power Equation</h2><span class="tag">Derivation</span></div>
+    <div class="card full">
+      <p>Consider air flowing through an imaginary duct. Mass <code>m</code> passes per second (mass flow rate). Velocity at inlet = <code>V₁</code>, at outlet = <code>V₂</code>; velocity at turbine = average <code>Vₐ</code>.</p>
+      <p>Kinetic energy at inlet = ½·m·V₁² ; at outlet = ½·m·V₂². Change in KE per second = power extracted.</p>
+      <p style="text-align:center;font-size:15px"><code>m = ρ · Vₐ · A</code> &nbsp;→&nbsp; <code>P = ½ · ρ · A · Vₐ · (V₁² − V₂²)</code></p>
+      <p>With <code>Vₐ = (V₁ + V₂)/2</code>, substituting gives the standard form. To maximise P, differentiate w.r.t. V₂ and set to zero → this yields the Betz result below.</p>
+      <div class="def"><b>Worked example (from syllabus):</b> blades 12 m diameter, wind 6 m/s, ρ = 1.2 kg/m³, Cₚ(max) = 0.35. Area A = π(6)² ≈ 113 m². Ideal power P = ½·ρ·A·V³ = ½·1.2·113·216 ≈ 14,635 W. With Cₚ=0.35 → usable ≈ <b>5,122 W (~5.1 kW)</b>.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>The Betz Coefficient (Betz Limit)</h2><span class="tag">Max efficiency</span></div>
+    <div class="card full">
+      <p>Differentiating the power equation shows the <b>theoretical maximum</b> fraction of wind kinetic power that can be extracted is <b>0.5925 (≈59.3%)</b>. This is the <b>Betz Coefficient / Betz limit</b> — no turbine can exceed it.</p>
+      <p>Power coefficient Cₚ = actual power / (½·ρ·A·V³). Real turbines reach Cₚ ≈ 0.35–0.45; the system efficiency overall is ~35–44%.</p>
+      <div class="def">Betz proved it by setting dP/dV₂ = 0; the optimum is when V₂ = ⅓·V₁ (downstream velocity one-third of upstream).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Capacity Factor</h2><span class="tag">How well-sited?</span></div>
+    <div class="card full">
+      <p>Capacity factor = actual output ÷ maximum possible output, over a year (%). It shows how available the source is throughout the year and how well-sited the turbine is. Closer to 100% = better availability.</p>
+      <p>A wind plant may have high nameplate capacity but a modest capacity factor because wind is intermittent.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Classification of WECS &amp; Rotors</h2><span class="tag">Types</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Basis</th><th>Types</th></tr></thead>
+        <tbody>
+          <tr><td>Axis of rotation</td><td>Horizontal-axis (HAWT, common) / Vertical-axis (VAWT, e.g. Darrieus)</td></tr>
+          <tr><td>Rotor / blade reaction</td><td>Lift-type (airfoil blades, efficient) / Drag-type (slower, Savonius)</td></tr>
+          <tr><td>Number of blades</td><td>1, 2, 3 (3-blade most common for balance + low noise)</td></tr>
+          <tr><td>Orientation</td><td>Upwind (rotor in front of tower) / Downwind</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06b</span><h2>Blade Aerodynamics — Aerofoil, Angle of Attack, Tip-Speed Ratio</h2><span class="tag">Why lift-type wins</span></div>
+    <div class="card full">
+      <p>A wind turbine blade is an <b>aerofoil</b> (airfoil) — the same shape as an aircraft wing. As wind flows over the curved upper surface and flatter lower surface, air moves faster on top, lowering pressure there. The pressure difference produces <b>lift</b> perpendicular to the wind, and a smaller <b>drag</b> parallel to it. Lift-type rotors (aerofoil blades) are far more efficient than drag-type (e.g. Savonius) because most of the useful force is lift.</p>
+      <p>The <b>angle of attack</b> is the angle between the blade chord line and the oncoming wind. A small angle gives steady lift; as the angle grows, lift rises until it suddenly collapses at the <b>stall angle</b> (~15°) — the blade "stalls" and loses lift. Pitch control changes the blade angle to keep the angle of attack near the efficient range and to shed power in storms.</p>
+      <p>The <b>tip-speed ratio (TSR, λ)</b> = rotor tip speed ÷ wind speed = (ω·R)/V. It tells how fast the blade tips move relative to the wind. Low TSR → drag-dominated (savonius); high TSR (λ ≈ 6–8 for 3-blade HAWT) → lift-dominated and efficient. There is an optimal TSR that maximises the power coefficient Cₚ; operating off it reduces Cₚ and thus output.</p>
+      <div class="def"><b>Why 3 blades?</b> One/two blades raise TSR but worsen balance and noise; many blades lower TSR toward drag-type. Three blades is the practical optimum for efficiency, balance, and acceptable sound.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Site Selection for Wind Plants</h2><span class="tag">Where to build</span></div>
+    <div class="card full">
+      <ul>
+        <li>High average wind velocity: <b>6–30 m/s</b> year-round.</li>
+        <li>Away from cities/forests (buildings &amp; trees resist wind).</li>
+        <li>Measure wind at several heights — velocity rises with height.</li>
+        <li>Tower must survive the max wind speed observed in recent years.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Advantages &amp; Disadvantages</h2><span class="tag">Balanced</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Advantages</h4><ul>
+        <li>Free, inexhaustible source</li>
+        <li>Clean, non-polluting</li>
+        <li>Low maintenance cost</li>
+        <li>Low generation cost (~₹2.25/kWh)</li>
+      </ul></div>
+      <div class="card"><h4>Disadvantages</h4><ul>
+        <li>High capital cost (~₹3.5 crore/MW)</li>
+        <li>Very fluctuating → needs storage for continuous supply</li>
+        <li>Storms can damage windmills</li>
+        <li>System efficiency only 35–44%</li>
+        <li>Sound pollution (audible km away)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m2-2.html">Prev: Tidal</a>
+    <a class="next" href="m4-1.html">Next: Biomass</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 3 — Wind Energy (EET435).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

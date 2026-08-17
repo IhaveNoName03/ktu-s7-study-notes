@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Personal Protection</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  /* Formula / worked-example utility classes (.eq / .qbox) */
+  .eq{display:block;background:var(--ink);color:#fff;
+      font-family:"SFMono-Regular",Consolas,monospace;font-size:14px;
+      padding:13px 16px;border-radius:var(--r);margin:12px 0;letter-spacing:.2px;overflow-x:auto}
+  .eq b{color:#ff6a60;font-weight:800}
+  .eq .x{color:#ffd479;font-weight:800}
+  .qbox{background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);
+      border-radius:0 var(--r) var(--r) 0;padding:12px 16px;margin:12px 0;
+      font-size:14.5px;color:var(--ink-2);line-height:1.62}
+  .qbox b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Industrial Safety Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Intro</a>
+      <a href="m2-1.html" class="active">M2 · PPE</a>
+      <a href="m3-1.html">M3 · Construction</a>
+      <a href="m4-1.html">M4 · Machines</a>
+      <a href="m5-1.html">M5 · Hazards</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Industrial Safety Engineering</span>
+  <h1>Personal Protection in the Work Environment</h1>
+  <p class="lede">Personal protective equipment — its types (respiratory and non-respiratory), the
+  standards that govern it, the safety-performance rates used to measure an organisation's record,
+  the discipline of housekeeping and 5S, the work-permit system, confined-space entry, and
+  lockout/tagout energy isolation. All content is drawn from the lecture source; nothing is invented.</p>
+  <div class="meta-row">
+    <span class="chip red">PPE</span>
+    <span class="chip">RPE</span>
+    <span class="chip">Safety rates</span>
+    <span class="chip">5S</span>
+    <span class="chip">Permit</span>
+    <span class="chip">LOTO</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Types of PPE</h2><span class="tag">CO2</span></div>
+    <div class="card full">
+      <p>Personal Protective Equipment (PPE) means any device or appliance designed to be worn or held
+      by an individual for protection against one or more health and safety hazards. It includes safety
+      glasses, gloves, face shields, protective clothing or footwear. PPE is the <b>last line of defence</b>:
+      it is considered a last resort because it only protects the individual worker, is prone to failure or
+      misuse (e.g. wearing the wrong RPE for the job), and can give a false sense of security. It does
+      <b>not</b> eliminate the hazard at the source — if the equipment fails, the worker is exposed. Any item
+      of PPE imposes a barrier between the wearer and the environment, which can create strain, impair work
+      and cause discomfort; good ergonomic design minimises these barriers.</p>
+      <p>PPE is split into <b>simple</b> (basic design, protects against lower-risk hazards; the user can
+      see the risk rising and decide to wear it) and <b>complex</b> (technical design, protects against fatal
+      or serious risk where the user cannot identify the hazard in time). About <b>0–40% of total accidents</b>
+      can be prevented or controlled by proper PPE use. It defends against toxic exposure, oxygen deficiency,
+      dust, chemical splashes, steam, water, flying particles, hot substances, radiation, sharp edges,
+      welding/cutting/grinding, glare, falls, falling bodies, noise, scrap cleaning, material handling,
+      pipeline opening, electric shock, burns and firefighting.</p>
+      <div class="def"><b>The need for PPE exists because:</b> (1) engineering controls, materials, process,
+      equipment and safety devices can fail, and PPE then acts as a barrier; (2) some operations or accidents
+      make engineering controls impractical — repair, maintenance, toxic/oxygen-deficient atmospheres, work
+      at height, welding, cutting, grinding, chipping; (3) it avoids contact with dangerous substances, noise,
+      vibration and radiation; (4) it protects from atmospheric contaminants; (5) providing suitable PPE is a
+      legal as well as moral duty.</div>
+    </div>
+
+    <div class="grid cols-2" style="margin-top:16px">
+      <div class="card">
+        <h4>Respiratory Protective Equipment (RPE)</h4>
+        <p>RPE protects the wearer against inhaling hazardous substances. Employers must first attempt to
+        eliminate the hazard at source; RPE is used only after all other reasonably practicable controls.
+        It is divided into:</p>
+        <ul>
+          <li><b>Respirator (filtering device)</b> — uses filters to remove contaminants:
+            <ul>
+              <li><b>Non-powered</b> (relies on wearer's breathing): disposable filtering half mask, half mask, full face mask</li>
+              <li><b>Powered</b> (motor passes air through filter): half mask, full face mask, helmets, hoods, visors</li>
+            </ul>
+          </li>
+          <li><b>Breathing apparatus (BA)</b> — needs breathing-quality air from an independent source (air cylinder or compressor)</li>
+        </ul>
+        <p>Facepieces are <b>tight-fitting</b> (need a good seal — filtering facepieces, half/full-face masks) or
+        <b>loose-fitting</b> (rely on enough clean air; hoods, helmets, visors, blouses, suits — only as powered
+        respirators or BA). <b>WARNING: only BA is suitable for use in oxygen-deficient atmospheres.</b> RPE not
+        worn or selected appropriately is totally ineffective and gives a false sense of protection.</p>
+      </div>
+      <div class="card">
+        <h4>Non-respiratory PPE</h4>
+        <ul>
+          <li><b>Eye protection</b> (e.g. goggles) — against machines, lasers, impacts, heat, tools, flying particles/dust, electrical work, chemical handling</li>
+          <li><b>Head protection</b> (e.g. safety helmets) — industrial safety helmets (falling objects), bump caps (bumping; not for falling objects), firefighter helmets</li>
+          <li><b>Ear protection</b> (e.g. earplugs) — noise over 85 dB causes loss; protection required at 90 dB</li>
+          <li><b>Foot protection</b> (e.g. steel toecap boots) — safety boots/shoes, wellington boots</li>
+          <li><b>Hand &amp; arm protection</b> (e.g. gloves) — gloves, gloves with cuffs, gauntlets/sleeves, arm protection</li>
+          <li><b>Body / skin protection</b> (e.g. high-visibility clothing) — separates, aprons, overalls, high-vis jackets/tops/trousers/vests</li>
+          <li><b>Fall protection</b> (e.g. safety harnesses) — work restraint and work positioning systems</li>
+        </ul>
+        <p><b>Eye protection</b> comes in three types: <i>safety glasses</i> (good for flying objects head-on, not vapours/dust),
+        <i>goggles</i> (protect from all angles, rim contacts face), and <i>face shields/visors</i> (whole-face, worn over prescription glasses).
+        <b>Foot</b> injuries are 5% of disabling workplace injuries; workers not wearing safety shoes account for 75% of occupational foot
+        injuries. <b>Hand/finger</b> injuries are 18% of disabling injuries and ~25% of industrial accidents.</p>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>PPE category</th><th>Real examples from source</th><th>Key note</th></tr></thead>
+        <tbody>
+          <tr><td>Head</td><td>Industrial safety helmet, bump cap, firefighter helmet</td><td>Replace if cracked/perforated/warped, after impact, or on heat/UV/chalk exposure; never drill, paint or label; don't store in a car rear window</td></tr>
+          <tr><td>Ear</td><td>Ear defenders (muffs), ear plugs, canal caps</td><td>Required at 90 dB; canal caps for work where plugs are repeatedly removed</td></tr>
+          <tr><td>Foot / leg</td><td>Safety boots/shoes, wellington boots, leggings, metatarsal guards, toe guards</td><td>ANSI Z41-1991; conductive (anti-static), non-conductive electrical-hazard (600 V dry), foundry shoes</td></tr>
+          <tr><td>Hand / arm</td><td>Gloves, cuffs, gauntlets, sleeves</td><td>Materials: leather/canvas/metal mesh, fabric/coated, chemical-resistant, insulating rubber</td></tr>
+          <tr><td>Skin / body</td><td>Separates, aprons, overalls, coveralls, chemical suits, high-vis vests</td><td>Store worn/contaminated clothing separately; follow breakthrough-time limits</td></tr>
+          <tr><td>Fall</td><td>Work-restraint &amp; work-positioning harnesses</td><td>Positioning systems always need a backup system</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="def"><b>Standards (from source — OSHA 29 CFR):</b> General Industry Subpart I (1910), Maritime
+    1915 Subpart I, Marine Terminals 1917 Subpart E, Longshoring 1918 Subpart J, Construction 1926 Subpart E.
+    Specific: <b>1910.133</b> Eye/Face → ANSI/ISEA Z87.1 (2015); <b>1910.134</b> Respiratory;
+    <b>1910.135</b> Head → ANSI Z89.1 (2014); <b>1910.136</b> Foot → ASTM F-2412-18a &amp; F-2413-18;
+    <b>1910.137</b> Electrical protective equipment; <b>1910.138</b> Hand; <b>1910.140</b> Fall.
+    <b>1910.132</b> general requirements: adequate protection, safe design, reasonably comfortable, fit snugly,
+    durable, disinfectable, easily cleanable, distinctly marked to identify the manufacturer.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Monitoring Safety Performance</h2><span class="tag">Rates</span></div>
+    <p class="card full" style="margin:0 0 16px">Safety performance is measured with four rates. The first three
+    are expressed per million man-hours (10⁶) in the source's worked examples — some literature uses 10⁵; the
+    formulas below follow the source's examples.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Rate</th><th>What it measures</th><th>Formula (per source)</th></tr></thead>
+        <tbody>
+          <tr><td>Frequency rate (FR)</td><td>Number of lost-time (disabling) injuries per million man-hours worked — how <i>often</i> injuries occur</td><td>(Lost-time injuries × 10⁶) ÷ man-hours worked</td></tr>
+          <tr><td>Severity rate (SR)</td><td>Man-days lost per million man-hours worked — how <i>serious</i> injuries are</td><td>(Days lost × 10⁶) ÷ man-hours worked</td></tr>
+          <tr><td>Incidence rate (IR)</td><td>Lost-time injuries per thousand persons employed</td><td>(Lost-time injuries × 1000) ÷ persons employed</td></tr>
+          <tr><td>Activity rate</td><td>Level of safety promotion/awareness activity (training, inspection) relative to workforce and man-hours</td><td>Activities in a year ÷ (employees present &amp; man-hours worked)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <span class="eq"><b>Frequency rate</b> = (No. of lost-time injuries <span class="x">× 10⁶</span>) ÷ man-hours worked</span>
+    <span class="eq"><b>Severity rate</b> = (days lost in year due to accidents <span class="x">× 10⁶</span>) ÷ man-hours worked</span>
+    <span class="eq"><b>Incidence rate</b> = (lost-time injuries <span class="x">× 1000</span>) ÷ persons employed</span>
+
+    <div class="qbox"><b>Worked example — Frequency rate.</b> Workers = 500; disabling injuries/year = 5;
+    average hours/worker/year = 2000. Man-hours = 500 × 2000 = 1,000,000.
+    FR = 5 ÷ 1,000,000 × 1,000,000 = <b>5</b>.</div>
+    <div class="qbox"><b>Worked example — Severity rate.</b> Workers = 2000; days lost = 100; hours/worker/year = 2000.
+    For a cut fingertip, add the standard 35 days → 135. SR = 135 ÷ (2000 × 2000) × 1,000,000 = 135 ÷ 4 = <b>33.75</b>.
+    For a total-disability case add 6000 days → 6100; SR = 6100 ÷ 4 = <b>1525</b>.</div>
+
+    <div class="def"><b>Definitions &amp; the 10⁶ basis.</b> <b>Man-hours worked</b> = total employee-hours by all
+    employees (managerial, supervisory, professional, technical, clerical, contractors), from payroll/time-clock
+    including overtime; if not feasible, estimate man-days × hours/day. <b>Disabling (Lost-Time) Injury</b> = an
+    injury causing disablement beyond the shift on which it occurred. <b>Reportable Disabling Injury</b> = one
+    causing death or disablement to the extent prescribed by statute. <b>Why 1,000,000?</b> 500 workers × 8 h/day
+    × 5 days/week × 50 weeks = 1,000,000 man-hours/year — the reference denominator. <b>Activity rate</b>
+    emphasises the cost of accident-prevention activities against the cost of accidents.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Housekeeping &amp; 5S</h2><span class="tag">Discipline</span></div>
+    <div class="card full">
+      <p>Effective housekeeping controls or eliminates workplace hazards; poor housekeeping frequently
+      contributes to incidents. It is not just cleanliness — it includes keeping work areas neat and orderly,
+      maintaining halls and floors free of slip/trip hazards, and removing waste and fire hazards. It is an
+      <b>ongoing operation</b>, not a one-time "panic" cleanup (which is costly and ineffective).</p>
+      <p><b>Responsibility — management:</b> train employees to recognise hazardous conditions (wet floors,
+      messy floors, equipment left out, improper lifting); prepare and communicate a safety manual at induction;
+      post safety rules; run continuous training; keep a preventive-maintenance programme; include safety
+      inspection in the supervisor's checklist; store toxic chemicals in closed, labelled cupboards; keep
+      waste containers leak-proof; keep fire-exit stairs clear; use signs such as "Wet Floor". <b>Employees:</b>
+      maintain their own area daily and follow the rules.</p>
+      <div class="def"><b>Advantages of good housekeeping:</b> reduced handling / easier material flow; fewer
+      tripping and slipping incidents; decreased fire hazards; lower worker exposure to dusts and vapours;
+      better control of tools/materials and inventory; more efficient cleanup and maintenance; better hygiene
+      and health; more effective use of space; reduced property damage via preventive maintenance; less
+      janitorial work; improved morale; improved productivity (tools easy to find).</div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>S</th><th>Japanese</th><th>Meaning</th><th>What you do</th></tr></thead>
+        <tbody>
+          <tr><td>1S Sort</td><td>Seiri</td><td>Remove what isn't needed</td><td>Go through everything; discard rubbish, archive, keep only daily/weekly items; give away / recycle / store the rest</td></tr>
+          <tr><td>2S Set in order</td><td>Seiton</td><td>Arrange for easy use</td><td>Find the best homes; label, mark, colour-code locations</td></tr>
+          <tr><td>3S Shine</td><td>Seiso</td><td>Clean &amp; inspect</td><td>Wipe and check each item as you place it; fix broken items; thorough clean if very dirty</td></tr>
+          <tr><td>4S Standardize</td><td>Seiketsu</td><td>Make it routine</td><td>New arrangement becomes the standard; photos on display; share ideas in toolbox talks</td></tr>
+          <tr><td>5S Sustain</td><td>Shitsuke</td><td>Discipline to keep it</td><td>Keep it up via simple weekly audits; return items at end of shift; restart at Sort if it slips</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card full" style="margin-top:16px">
+      <p><b>Elements of housekeeping:</b> dust/dirt removal (never use compressed air on people/equipment);
+      employee facilities (water, washrooms, rest rooms); flooring (clean spills immediately, anti-slip mats,
+      replace damaged flooring); lighting (repair/clean fixtures); aisles &amp; stairways (kept clear, railings,
+      mirrors at blind corners); spill control (prevent, drip pans, proper absorbents); waste disposal (collect,
+      recycle, place bins where waste is produced); tools &amp; equipment (inspect before use, return after use);
+      maintenance (fix broken windows/plumbing/floors); storage (clearly marked, hazards in approved containers,
+      nothing blocking aisles/exits/fire gear/eyewashes); clutter control (return items, keep exits clear);
+      individual workspace (keep neat, use a checklist).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Work Permit System</h2><span class="tag">Control</span></div>
+    <div class="card full">
+      <p>The work permit specifies the conditions and procedures for the safe execution of work and allows it
+      to be carried out under controlled-risk conditions. It is a legal document between issuer and executor
+      for commencement of a job in a hazardous area.</p>
+      <div class="def"><b>Objectives:</b> (1) only authorised persons work in a clearly notified hazardous area;
+      (2) the permitted person is aware of the safety issues and knows the necessary precautions have been taken;
+      (3) it is the legal document between issuer and executor; (4) it distributes equal responsibility for the
+      job. In short — <b>don't do anything without a proper work permit.</b></div>
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h4>Hot work permit (Red)</h4>
+          <p>Required for any job involving a source of ignition, spark or fire — welding, drilling, grinding,
+          riveting, cutting, use of internal-combustion engines. Considers flammable/combustible materials and
+          combustible gas in the vicinity. Requires fire-watch, flammable-gas checks and a fire extinguisher.</p>
+        </div>
+        <div class="card">
+          <h4>Cold work permit (Green)</h4>
+          <p>Required for hazardous maintenance work that does <b>not</b> involve ignition, spark or fire. Issued
+          after a risk assessment finds no flammable or explosive risk. Covers non-ignition high-risk work such
+          as confined space, electrical and lifting, specifying isolation, LOTO and competency.</p>
+        </div>
+      </div>
+      <p style="margin-top:14px"><b>Typical industrial methodology:</b> identify the job and its hazards →
+      assess risk → define controls and isolation → authorise (permit issuer + receiver sign-off) →
+      periodic monitoring → close-out and cancellation. Many Indian industries use standardised permit forms
+      with multiple sign-offs; the system assigns clear responsibilities and ensures operating personnel know
+      what is happening, the precautions required, and that the persons executing understand the nature and
+      extent of the hazards.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Entry into Confined Spaces</h2><span class="tag">High risk</span></div>
+    <div class="card full">
+      <p>A confined space is a fully or partially enclosed space that: is <b>not primarily designed for continuous
+      human occupancy</b>; has <b>limited or restricted entrance/exit</b> that can complicate rescue or evacuation;
+      and <b>risks health and safety</b> due to its design, contents, work activities, or mechanical/process/safety
+      hazards. It need not be small — examples include silos, vats, hoppers, tanks, pits, sewers, pipes, boilers,
+      manholes, digesters, rail tank cars and storage bins; ditches/wells/trenches with limited access also count.</p>
+      <div class="def"><b>Hazards:</b> poor air quality (oxygen deficiency below 19.5% — simple asphyxiants such as
+      argon, nitrogen, carbon monoxide — or enrichment above 23%); toxic gases; fire/explosion (flammable
+      liquids/gases, combustible dust); chemical, process, physical (noise, heat/cold, radiation, electrical,
+      lighting), safety (moving parts, engulfment, falls), biological (bacteria, mould) and traffic hazards.</div>
+      <p><b>Procedure before entry:</b></p>
+      <ul>
+        <li>Confirm the confined-space hazard assessment and control programme has been followed; a trained,
+        experienced person identifies and evaluates all existing and potential hazards, inside and outside.</li>
+        <li><b>Air-quality testing</b> from outside, side-to-side and top-to-bottom, by a trained worker with
+        calibrated remote-probe equipment: oxygen within safe limits, no toxic/flammable atmosphere, ventilation
+        operating. Record results on the Entry Permit. Use continuous monitoring where conditions can change.</li>
+        <li><b>Ventilation:</b> natural ventilation is unreliable — mechanical ventilation (blowers/fans) is usually
+        necessary; ensure clean air throughout, watch for trapped pockets, exhaust away from outside workers, and
+        <b>never substitute oxygen for fresh air</b> (it raises fire/explosion risk).</li>
+        <li><b>Energy isolation:</b> all hazardous energy (electrical, mechanical, hydraulic, pneumatic, chemical,
+        thermal) must be de-energised/isolated and locked out; disconnect pipes physically or bolt isolation
+        blanks (closing valves is not enough); use two blocking valves with a bleed between them.</li>
+        <li><b>Fire/explosion control for hot work:</b> remove all flammables first; keep flammable concentration
+        below 10% of the Lower Explosive Limit and oxygen between 19.5% and 23%; clean/shield combustible
+        coatings; spark-resistant, bonded/grounded tools; no fuel containers inside.</li>
+        <li><b>Permit + stand-by attendant + rescue plan;</b> PPE/respirators, hearing protection as needed; beware
+        that PPE can increase heat and reduce mobility.</li>
+      </ul>
+      <div class="def">Never enter a confined space on assumption — determine if it is one, assess hazards, test
+      and ventilate, isolate energy (LOTO), permit, watch and plan rescue.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04b</span><h2>Lockout / Tagout (LOTO) — Energy Isolation</h2><span class="tag">Life-saving control</span></div>
+    <div class="card full">
+      <p><b>Lockout/Tagout (LOTO)</b> is the procedure used to make sure a machine or circuit cannot be energised while someone is servicing it. It is the control referenced whenever a permit says "isolation" — it removes hazardous energy (electrical, mechanical, hydraulic, pneumatic, thermal) and <b>physically prevents re-energisation</b>.</p>
+      <p><b>Lockout</b> = apply a lock (padlock/valve lock) so the energy-isolating device cannot be moved. <b>Tagout</b> = attach a warning tag ("Do not operate") when a lock cannot be applied; the tag alone is a warning, not a physical block, so lockout is preferred where possible.</p>
+      <p>Standard sequence: <b>notify</b> affected workers → <b>shut down</b> normally → <b>isolate</b> each energy source at its disconnect → <b>apply locks/tags</b> (each worker their own) → <b>release stored energy</b> (springs, capacitors, pressure) → <b>verify zero energy</b> (try start, confirm dead) → work → on completion, <b>remove only your own lock</b> and restore in reverse order. Each lock has one key, held by the person who applied it.</p>
+      <div class="def"><b>Why it matters:</b> unplanned re-energisation during maintenance is a leading cause of crush, electrocution, and amputation injuries. LOTO is the single most important control for safe maintenance of guarded machines (see Module 4) and confined-space entry.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-1.html">← Prev: M1 · Intro</a>
+    <a class="next" href="m3-1.html">Next: M3 · Construction →</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 2 — Personal Protection (MCN401).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<button class="backtop" aria-label="Back to top">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

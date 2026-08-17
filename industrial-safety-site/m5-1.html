@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 · Hazard Identification &amp; Analysis</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Industrial Safety Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Intro</a>
+      <a href="m2-1.html">M2 · PPE</a>
+      <a href="m3-1.html">M3 · Construction</a>
+      <a href="m4-1.html">M4 · Machines</a>
+      <a href="m5-1.html" class="active">M5 · Hazards</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 5 · Industrial Safety Engineering</span>
+  <h1>Hazard Identification &amp; Analysis</h1>
+  <p class="lede">Hazard vs risk, fire classes &amp; extinguishers, fire/explosion/toxic release, the structure of
+  hazard identification &amp; risk assessment, the Dow Fire &amp; Explosion Index, PHA, HAZOP methodology,
+  criticality analysis, and chemical hazards / MSDS.</p>
+  <div class="meta-row">
+    <span class="chip red">Fire classes</span>
+    <span class="chip">Dow Index</span>
+    <span class="chip">HAZOP</span>
+    <span class="chip">MSDS</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Hazard, Risk &amp; Types of Hazards</h2><span class="tag">Basics</span></div>
+    <div class="card full">
+      <p><b>Hazard:</b> a source with potential to cause harm. <b>Risk:</b> the likelihood × severity of that harm. You identify hazards, then assess/control risk.</p>
+      <div class="grid cols-2">
+        <div class="card"><h4>Common hazard types</h4><ul>
+          <li>Mechanical, electrical, thermal</li>
+          <li>Chemical, biological</li>
+          <li>Ergonomic, psychological</li>
+          <li>Fire/explosion, radiation, noise</li>
+        </ul></div>
+        <div class="card"><h4>Fire / explosion / toxic release</h4><p>Three major process-safety consequences: unwanted fire, explosion (rapid energy release), and toxic-gas release (exposure/cloud). Each needs specific prevention &amp; mitigation.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Fire Classes &amp; Extinguishers</h2><span class="tag">CO5</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Class</th><th>Fuel</th><th>Extinguisher / method</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Ordinary combustibles (wood, paper, cloth)</td><td>Water, foam, ABC powder</td></tr>
+          <tr><td>B</td><td>Flammable liquids (oil, petrol, solvents)</td><td>Foam, CO₂, ABC/BC powder (never water jet)</td></tr>
+          <tr><td>C</td><td>Flammable gases (LPG, acetylene)</td><td>Dry powder, CO₂ (isolate gas first)</td></tr>
+          <tr><td>D</td><td>Combustible metals (Mg, Na, Al)</td><td>Special dry powder (Class D); water makes it worse</td></tr>
+          <tr><td>E / Electrical</td><td>Energized equipment</td><td>CO₂, dry powder (non-conducting); cut power</td></tr>
+          <tr><td>F / Kitchen</td><td>Cooking oils/fats</td><td>Wet chemical</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Remember:</b> match extinguisher to class. Water on B/D/electrical can spread fire or shock. Selection depends on the fire's fuel type.</div>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · Fire Classes &amp; First Response</div>
+      <svg viewBox="0 0 560 250" role="img" aria-label="Fire classes wheel">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- wheel segments -->
+        <g font-size="13" font-weight="600" text-anchor="middle">
+          <circle cx="230" cy="125" r="90" fill="none" stroke="#1d1f24"/>
+          <path d="M230,125 L230,35 A90,90 0 0,1 308,80 Z" fill="#eaf2fb" stroke="#1d1f24"/>
+          <path d="M230,125 L308,80 A90,90 0 0,1 320,166 Z" fill="#fdeaea" stroke="#1d1f24"/>
+          <path d="M230,125 L320,166 A90,90 0 0,1 231,215 Z" fill="#eafaf1" stroke="#1d1f24"/>
+          <path d="M230,125 L231,215 A90,90 0 0,1 140,166 Z" fill="#fff8e1" stroke="#1d1f24"/>
+          <path d="M230,125 L140,166 A90,90 0 0,1 152,80 Z" fill="#f4ecf7" stroke="#1d1f24"/>
+          <path d="M230,125 L152,80 A90,90 0 0,1 230,35 Z" fill="#fdeef5" stroke="#1d1f24"/>
+          <text x="252" y="70">A solids</text><text x="296" y="118">B liquid</text>
+          <text x="288" y="180">C gas</text><text x="205" y="200">D metal</text>
+          <text x="128" y="150">E elec</text><text x="150" y="92">F cook</text>
+        </g>
+        <!-- response column -->
+        <rect class="box" x="380" y="40" width="160" height="170" rx="4"/>
+        <text x="460" y="62" text-anchor="middle" class="lbl">Match extinguisher</text>
+        <text x="392" y="88" class="txtsm">A → water / foam / ABC</text>
+        <text x="392" y="110" class="txtsm">B → foam / CO₂ / powder</text>
+        <text x="392" y="132" class="txtsm">C → dry powder / CO₂</text>
+        <text x="392" y="154" class="txtsm">D → Class-D powder</text>
+        <text x="392" y="176" class="txtsm">E → CO₂ / powder</text>
+        <text x="392" y="198" class="txtsm">F → wet chemical</text>
+        <line class="arrow" x1="320" y1="125" x2="380" y2="125"/>
+      </svg>
+      <p class="dcap">Six classes by fuel. Pick the extinguisher for the fuel type — never water on metal, liquid, or live-electrical fires.</p>
+    </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Structure of HIRA</h2><span class="tag">Process</span></div>
+    <div class="card full">
+      <p><b>Hazard Identification &amp; Risk Assessment</b> steps:</p>
+      <ol>
+        <li>Identify hazards (inventory, walkthrough, what-if)</li>
+        <li>Analyze consequences &amp; likelihood</li>
+        <li>Estimate risk (rank)</li>
+        <li>Evaluate against tolerability criteria</li>
+        <li>Control (eliminate → substitute → engineer → administrate → PPE)</li>
+        <li>Monitor &amp; review</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Dow Fire &amp; Explosion Hazard Index</h2><span class="tag">Quantitative</span></div>
+    <div class="card full">
+      <p>The <b>Dow Fire &amp; Explosion Hazard Index (F&amp;EI)</b> is a screening tool rating the relative fire/explosion risk of a process plant. It combines:</p>
+      <ul>
+        <li><b>Material factor</b> (energy of the material)</li>
+        <li><b>Process hazard factors</b> (temperature, pressure, oxidation, etc.)</li>
+        <li><b>Special hazard factors</b> (toxicity, nearby units)</li>
+      </ul>
+      <p>The resulting F&amp;EI maps to a <b>radius of exposure</b> and a <b>unit hazard classification</b> (light → extreme), guiding layout, isolation, and mitigation. Used in the design/review of process plants.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Preliminary Hazard Analysis (PHA) &amp; HAZOP</h2><span class="tag">CO5</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>PHA</h4><p>Early, broad study to identify hazards and rank them before detailed design — what could go wrong and its severity.</p></div>
+      <div class="card"><h4>HAZOP (Hazard &amp; Operability Study)</h4><p>Structured team review of a design/process using <b>guide-words</b> applied to parameters to find deviations from intent.</p></div>
+    </div>
+    <h4 style="margin:12px 0 6px;font-size:14.5px">HAZOP methodology</h4>
+    <ul>
+      <li>Break the process into <b>nodes</b> (sections).</li>
+      <li>For each node, take a <b>parameter</b> (flow, pressure, temperature, level…).</li>
+      <li>Apply a <b>guide-word</b> (No / More / Less / Reverse / Part-of / As-well-as / Other-than) to get a <b>deviation</b> (e.g. <i>No flow</i>, <i>More pressure</i>).</li>
+      <li>Ask <b>causes → consequences → existing safeguards → recommendations</b>.</li>
+      <li>Document actions and owners.</li>
+    </ul>
+    <div class="def">Example: node = reactor feed; parameter = flow; guide-word = <i>More</i> → deviation <i>More flow</i> → cause (valve stuck open) → consequence (overfill/reaction runaway) → safeguard (high-flow alarm) → action (add interlock).</div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · HAZOP Node Analysis Flow</div>
+      <svg viewBox="0 0 560 240" role="img" aria-label="HAZOP analysis flow">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <rect class="box" x="40" y="20" width="120" height="34" rx="3"/><text x="100" y="42" text-anchor="middle" class="lbl">Node</text>
+        <rect class="box f" x="40" y="80" width="120" height="34" rx="3"/><text x="100" y="102" text-anchor="middle" class="lbl">Parameter</text>
+        <rect class="box f" x="40" y="140" width="120" height="34" rx="3"/><text x="100" y="162" text-anchor="middle" class="lbl">Guide-word</text>
+        <rect class="box r" x="40" y="200" width="120" height="34" rx="3"/><text x="100" y="222" text-anchor="middle" class="lbl">Deviation</text>
+        <line class="arrow" x1="100" y1="54" x2="100" y2="80"/>
+        <line class="arrow" x1="100" y1="114" x2="100" y2="140"/>
+        <line class="arrow" x1="100" y1="174" x2="100" y2="200"/>
+        <!-- right side: analysis -->
+        <rect class="box g" x="320" y="200" width="200" height="34" rx="3"/>
+        <text x="420" y="222" text-anchor="middle" class="lbl">Causes → Consequences</text>
+        <line class="arrow" x1="160" y1="217" x2="320" y2="217"/>
+        <rect class="box g" x="320" y="140" width="200" height="34" rx="3"/>
+        <text x="420" y="162" text-anchor="middle" class="lbl">Safeguards?</text>
+        <line class="arrow" x1="420" y1="200" x2="420" y2="174"/>
+        <rect class="box g" x="320" y="80" width="200" height="34" rx="3"/>
+        <text x="420" y="102" text-anchor="middle" class="lbl">Recommendations</text>
+        <line class="arrow" x1="420" y1="140" x2="420" y2="114"/>
+        <text x="290" y="120" class="txtsm">→ action + owner</text>
+      </svg>
+      <p class="dcap">For each node: pick a parameter, apply a guide-word → deviation; then work causes → consequences → safeguards → recommendations (with owners).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Criticality Analysis &amp; Chemical Hazards</h2><span class="tag">Control</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Criticality analysis</h4><p>Ranks items/failure modes by severity × likelihood × detectability to prioritise corrective action and follow-up. Drives where to act first.</p></div>
+      <div class="card"><h4>Chemical hazards</h4><p>Flammability, toxicity, reactivity, corrosivity. Control via substitution, containment, ventilation, PPE, and procedure — informed by the MSDS.</p></div>
+    </div>
+    <h4 style="margin:12px 0 6px;font-size:14.5px">Material Safety Data Sheet (MSDS / SDS)</h4>
+    <ul>
+      <li>Identity, hazards, composition</li>
+      <li>First-aid, firefighting, accidental-release measures</li>
+      <li>Handling/storage, exposure limits, PPE</li>
+      <li>Physical/chemical properties, stability/reactivity, toxicology</li>
+      <li>Disposal, transport, regulatory info</li>
+    </ul>
+    <div class="def">MSDS is the authoritative reference for safely handling any chemical — read it before the job, not after an incident.</div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m4-1.html">Prev: Machines</a>
+    <a class="next" href="m-t1.html">Next: Exam Techniques</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 5 — Hazard Identification (MCN401).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

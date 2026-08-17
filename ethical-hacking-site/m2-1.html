@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footprinting, Scanning &amp; Enumeration · Module 2 · Study Notes</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar"><div class="topbar-inner"><div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div><button class="navtoggle" aria-label="Menu">Menu</button><nav class="topnav"><a href="index.html">Home</a><a href="m1-1.html">M1 · Basics</a><a href="m1-2.html">M1 · Hackers</a><a href="m1-3.html">M1 · Pentest</a><a href="m2-1.html" class="active">M2 · Recon</a><a href="m2-2.html">M2 · Attacks</a><a href="m2-3.html">M2 · Social Eng.</a><a href="m3-1.html">M3 · Vuln/Attacks</a><a href="m4-1.html">M4 · Net/Sys</a><a href="m5-1.html">M5 · Tracks</a><a href="m-t1.html">Exam Techniques</a><a href="papers.html">Papers</a></nav></div></header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Page 1 of 3</span>
+  <h1>Footprinting, Scanning &amp; Enumeration</h1>
+  <p class="lede">The reconnaissance phase of any engagement. Before a single packet is sent against a live target, an attacker (or ethical hacker) maps the organisation's attack surface — quietly gathering what is public, then probing what is exposed, then enumerating what is reachable.</p>
+  <div class="meta-row">
+    <span class="chip red">Recon</span>
+    <span class="chip">Passive</span>
+    <span class="chip">Active</span>
+    <span class="chip">Nmap</span>
+    <span class="chip">Exam-ready</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <section class="section">
+    <div class="head">
+      <span class="num">1</span>
+      <h2>Footprinting — Mapping the Attack Surface</h2>
+      <span class="tag">Recon</span>
+    </div>
+    <div class="def">
+      <b>Footprinting</b> is the process of gathering as much information as possible about a target organisation — its infrastructure, employees, technologies and network ranges — to build a profile of its <b>attack surface</b>. It combines <b>passive</b> and <b>active</b> information gathering and is the first step of the classic kill chain / hacking methodology.
+    </div>
+    <p>Footprinting answers the question <i>"what does this target look like from the outside?"</i> The goal is to discover:</p>
+    <ul>
+      <li>Domain names, IP ranges (netblocks) and autonomous systems</li>
+      <li>Publicly reachable hosts, services and open ports</li>
+      <li>Technologies, frameworks and operating systems in use</li>
+      <li>People — names, roles, email formats and social presence</li>
+      <li>Physical locations and third-party providers</li>
+    </ul>
+    <p>The split between <b>passive</b> and <b>active</b> footprinting is the single most important distinction for the exam: passive methods never touch the target directly, so they leave no log trail and are almost impossible to detect; active methods make contact and therefore generate logs and alerts.</p>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">2</span>
+      <h2>Passive Footprinting</h2>
+      <span class="tag">No contact</span>
+    </div>
+    <p>Passive reconnaissance collects data from <b>third-party sources</b> — the target is never queried directly, so the activity cannot be traced back to the attacker. It is the safest and quietest phase.</p>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3><span class="idx">1</span>WHOIS &amp; Registrar Data</h3>
+        <p>Domain and IP <code>whois</code> records reveal registrant details, name servers, creation/expiry dates and the organisation's allocated netblocks. Regional registries (RIRs) expose IP ownership.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>DNS Records</h3>
+        <p>Public DNS (A, AAAA, MX, NS, TXT, CNAME, SOA) shows mail servers, subdomains and sometimes internal host naming conventions. Tools like <code>dig</code> and <code>nslookup</code> query without contacting the target's web server.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">3</span>Search Engines</h3>
+        <p>Google <code>site:</code>, <code>filetype:</code> and <code>intitle:</code> operators surface indexed files, directories and error pages. "Google hacking" / dorking finds exposed admin panels and documents.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">4</span>Web Archives</h3>
+        <p>The Wayback Machine and cached pages reveal retired subdomains, old technologies and content the organisation thought was deleted — useful for finding forgotten, unpatched assets.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">5</span>Social Media &amp; OSINT</h3>
+        <p>LinkedIn, Twitter/X, GitHub and company blogs expose employee names, email patterns, tech stacks and project details that aid phishing and credential attacks later.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">6</span>Job Postings</h3>
+        <p>Vacancies disclose internal software (e.g. "experience with Palo Alto, SAP, Windows Server 2019"), giving a precise picture of the technology footprint to research for exploits.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">3</span>
+      <h2>Active Footprinting</h2>
+      <span class="tag">Direct contact</span>
+    </div>
+    <p>Active reconnaissance involves <b>direct interaction</b> with the target's systems — sending packets, queries or requests. It is far more detectable: every probe can be logged by firewalls, IDS/IPS and SIEMs. It is used once the passive map is drawn and the attacker wants confirmation.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><span class="idx">A</span>Direct Network Probing</h3>
+        <p>Ping sweeps, port scans and banner grabbing are sent straight to the target's IP space. Even "stealth" scans (e.g. SYN half-open scans) are visible to modern monitoring.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">B</span>DNS &amp; Host Interaction</h3>
+        <p>Zone transfers (<code>AXFR</code>) against name servers, direct host resolution and traceroutes reveal internal topology and hostnames that passive lookups could not.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">C</span>Email &amp; Social Contact</h3>
+        <p>Directly emailing or calling staff (pretexting) to elicit information is an active, human form of footprinting that bridges into social engineering.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">D</span>Web Probing</h3>
+        <p>Requesting pages, crawling the site and fuzzing parameters interacts with the live web server and application, generating access logs on the target.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">4</span>
+      <h2>Scanning</h2>
+      <span class="tag">Nmap</span>
+    </div>
+    <div class="def">
+      <b>Scanning</b> follows footprinting: it takes the discovered IP ranges and hosts and actively probes them to identify <b>live systems, open ports, running services, OS families and software versions</b>. The industry-standard tool is <b>Nmap</b> (Network Mapper).
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><span class="idx">1</span>Ping / Host Sweep</h3>
+        <p>ICMP echo (and TCP/UDP sweeping) identifies which hosts in a range are <b>alive</b> before deeper probing, shrinking the target list.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>Port Scanning</h3>
+        <p>Determines which TCP/UDP <b>ports are open, closed or filtered</b>. Nmap scan types: <code>-sS</code> SYN (stealth), <code>-sT</code> connect, <code>-sU</code> UDP, <code>-sN</code>/<code>-sF</code> null/fin.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">3</span>OS Fingerprinting</h3>
+        <p>Infers the <b>operating system</b> from TCP/IP stack quirks (TTL, window size, flags). Nmap <code>-O</code> uses banner and response-analysis techniques.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">4</span>Version Detection</h3>
+        <p><code>-sV</code> probes open ports to read <b>service banners</b> and exact software versions — the data needed to match a service to a known vulnerability.</p>
+      </div>
+    </div>
+    <p>Scanning output feeds directly into vulnerability analysis: an open port running an outdated service version is a candidate for exploitation.</p>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">5</span>
+      <h2>Enumeration</h2>
+      <span class="tag">Extract</span>
+    </div>
+    <div class="def">
+      <b>Enumeration</b> is the step where the attacker extracts <b>active, identifiable resources</b> from a target — valid usernames, shared resources, network shares, policies and service details — by connecting to services that respond to queries. It is the most "loud" phase and often the most rewarding.
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3><span class="idx">1</span>Usernames &amp; Accounts</h3>
+        <p>Harvesting valid login names via LDAP, SMTP <code>VRFY</code>/<code>RCPT</code>, Kerberos and directory services — the raw material for password attacks.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>SMB / Shares</h3>
+        <p>Server Message Block enumeration lists <b>file shares, sessions and null-session</b> access on Windows networks — a classic path to credentials and data.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">3</span>SNMP</h3>
+        <p>Simple Network Management Protocol with default/poor community strings (e.g. <code>public</code>) leaks device configuration, interfaces and topology.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">4</span>SMTP</h3>
+        <p>Mail servers reveal valid recipients and relay behaviour through commands like <code>VRFY</code>, <code>EXPN</code> and <code>RCPT TO</code>.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">5</span>DNS</h3>
+        <p>Zone transfers expose the full internal host map; even without a transfer, brute-forcing subdomains enumerates hidden assets.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">6</span>NFS</h3>
+        <p>Network File System exports can be mounted without authentication if permissions are misconfigured, granting direct file access.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">6</span>
+      <h2>Reconnaissance Tooling</h2>
+      <span class="tag">Tools</span>
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3><span class="idx">M</span>Maltego</h3>
+        <p>Graphical OSINT tool that maps relationships between people, domains, organisations and infrastructure through transforms.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">R</span>Recon-ng</h3>
+        <p>Modular web-recon framework (Python) for automated passive harvesting of hosts, contacts and vulnerabilities from APIs.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">T</span>theHarvester</h3>
+        <p>Collects <b>emails, subdomains, hosts, employee names and virtual hosts</b> from search engines and public sources.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">N</span>Nmap</h3>
+        <p>The default for host discovery, port scanning, OS and version detection, plus the Nmap Scripting Engine (NSE) for deeper enumeration.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">S</span>Shodan</h3>
+        <p>A "search engine for the Internet of Things" — indexes banners of internet-connected devices, exposing open services worldwide.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">+</span>Others</h3>
+        <p><code>dig</code>/<code>nslookup</code> (DNS), <code>whois</code> (registration), <code>traceroute</code> (path), and search-engine dorking round out the toolkit.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">7</span>
+      <h2>Passive vs Active — Comparison</h2>
+      <span class="tag">Exam</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Passive</th><th>Active</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Contact with target</td><td>No direct contact — uses third parties</td><td>Direct packets/queries to target systems</td></tr>
+          <tr><td>Detectability</td><td>Very low — no logs on target</td><td>High — generates firewall/IDS/SIEM logs</td></tr>
+          <tr><td>Risk of discovery</td><td>Minimal</td><td>Significant</td></tr>
+          <tr><td>Typical sources</td><td>WHOIS, DNS, search engines, archives, social media, job posts</td><td>Ping sweeps, port scans, banner grabbing, zone transfers</td></tr>
+          <tr><td>Stage in methodology</td><td>First — quiet mapping</td><td>Later — confirmation &amp; probing</td></tr>
+          <tr><td>Example tools</td><td>theHarvester, Maltego, Recon-ng, Shodan, dig</td><td>Nmap, traceroute, nslookup against live hosts</td></tr>
+          <tr><td>Information gained</td><td>Surface map, ranges, people, tech stack</td><td>Live hosts, open ports, OS, versions, shares</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Footprinting Techniques, Step by Step</h2>
+      <span class="tag">Recon detail</span></div>
+    <div class="card full">
+      <div class="grid cols-3">
+        <div class="card"><h4>WHOIS / DNS</h4><p>Registrar, name servers, admin contacts; <code>dig</code>/<code>nslookup</code> reveal mail &amp; subdomains.</p></div>
+        <div class="card"><h4>OSINT</h4><p>Job posts hint at tech ("we use Palo Alto, AWS"); LinkedIn maps the IT team; GitHub leaks configs.</p></div>
+        <div class="card"><h4>Archives</h4><p>Wayback Machine + paste sites expose old pages, endpoints, keys.</p></div>
+      </div>
+      <div class="def">Passive footprinting leaves no packet on the target's network — it's reconnaissance from a safe distance.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Scanning &amp; Enumeration</h2>
+      <span class="tag">Active recon</span></div>
+    <div class="card full">
+      <p><b>Scanning</b> finds what's alive and open; <b>enumeration</b> pulls detail from those services.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Protocol</th><th>Port</th><th>What enumeration reveals</th></tr></thead>
+          <tbody>
+            <tr><td>SNMP</td><td>161</td><td>Device config, interfaces, community strings</td></tr>
+            <tr><td>SMB</td><td>445</td><td>Shares, users, OS version (Windows)</td></tr>
+            <tr><td>SMTP</td><td>25</td><td>Valid usernames via VRFY/RCPT</td></tr>
+            <tr><td>DNS</td><td>53</td><td>Zone transfer (AXFR) of all records</td></tr>
+            <tr><td>NFS</td><td>2049</td><td>Exported filesystems</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Minimal Nmap sweep</h4>
+      <p><code>nmap -sV -sC -oA scan 10.0.0.0/24</code> — service/version detection + default scripts across a subnet.</p>
+      <div class="def">A clean methodology: <b>discover hosts &rarr; port scan &rarr; fingerprint OS/version &rarr; enumerate services &rarr; note the attack surface</b>.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Footprinting Techniques, Step by Step</h2>
+      <span class="tag">Recon detail</span></div>
+    <div class="card full">
+      <div class="grid cols-3">
+        <div class="card"><h4>WHOIS / DNS</h4><p>Registrar, name servers, admin contacts; <code>dig</code>/<code>nslookup</code> reveal mail &amp; subdomains.</p></div>
+        <div class="card"><h4>OSINT</h4><p>Job posts hint at tech ("we use Palo Alto, AWS"); LinkedIn maps the IT team; GitHub leaks configs.</p></div>
+        <div class="card"><h4>Archives</h4><p>Wayback Machine + paste sites expose old pages, endpoints, keys.</p></div>
+      </div>
+      <div class="def">Passive footprinting leaves no packet on the target's network — it's reconnaissance from a safe distance.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Defensive Footprinting</h2>
+      <span class="tag">From the other side</span></div>
+    <div class="card full">
+      <p>The same techniques, used by defenders, tell you what an attacker can already see. Before you are
+      targeted, you can footprint your own organisation and close what is exposed:</p>
+      <ul>
+        <li><b>Run your own WHOIS and DNS queries</b> — check what registrar data, name servers and records are
+          publicly visible, and what netblocks you own. Anything you didn't know was exposed is a gap.</li>
+        <li><b>Search your own domain with the Google operators on this page</b> — <code>site:</code>, <code>filetype:</code>,
+          and <code>inurl:</code> find exposed PDFs, admin panels and documents you intended to keep off public view.</li>
+        <li><b>Check Shodan / Censys for your own ranges</b> — see which of your hosts and services are indexed
+          and publicly reachable, then decide which should be behind VPN or firewall.</li>
+        <li><b>Review job posts, press releases and GitHub</b> for accidental tech-stack disclosure, then tighten
+          what recruiters and public repos reveal.</li>
+      </ul>
+      <div class="def">Defender takeaway: <b>attack surface starts with information, not with packets.</b> If your
+      own passive footprint already shows admin panels, version banners or employee names, an attacker has those
+      for free before the first scan. Reduce the public surface first; active monitoring comes after.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Passive vs Active — Why Both Matter</h2>
+      <span class="tag">Exam</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Passive</th><th>Active</th></tr></thead>
+        <tbody>
+          <tr><td>Contact with target</td><td>No direct contact — uses third parties</td><td>Direct packets/queries to target systems</td></tr>
+          <tr><td>Detectability</td><td>Very low — no logs on target</td><td>High — generates firewall/IDS/SIEM logs</td></tr>
+          <tr><td>Risk of discovery</td><td>Minimal</td><td>Significant</td></tr>
+          <tr><td>Typical sources</td><td>WHOIS, DNS, search engines, archives, social media, job posts</td><td>Ping sweeps, port scans, banner grabbing, zone transfers</td></tr>
+          <tr><td>Stage in methodology</td><td>First — quiet mapping</td><td>Later — confirmation &amp; probing</td></tr>
+          <tr><td>Example tools</td><td>theHarvester, Maltego, Recon-ng, Shodan, dig</td><td>Nmap, traceroute, nslookup against live hosts</td></tr>
+          <tr><td>Information gained</td><td>Surface map, ranges, people, tech stack</td><td>Live hosts, open ports, OS, versions, shares</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">Both are legitimate parts of a structured engagement. Passive comes first because it is safe and
+    wide; active comes next because it confirms what the passive map suggests and reveals what passive can't see.
+    An ethical hacker does both, in order, and documents each step — so the client sees the evidence behind every
+    finding.</div>
+  </div>
+
+  <nav class="pagenav">
+    <a href="m1-3.html">← Previous: M1 · Pentest</a>
+    <a href="m2-2.html" class="next">Next: M2 · Attacks →</a>
+  </nav>
+
+</div>
+
+<footer class="site"><div class="inner"><div><span class="brand2">Study Notes</span> · <i>Module 2, Page 1 — footprinting, scanning &amp; enumeration.</i></div><div><a href="index.html">Home</a> · <a href="m3-1.html">M3</a></div></div></footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

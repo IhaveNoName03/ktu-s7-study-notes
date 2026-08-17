@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Supervised Learning</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .hero{background:var(--ink);color:#fff;padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .qbox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
+  .qbox p{margin:0}
+  .qbox .eq{text-align:center;font-size:16px;font-weight:700;margin:8px 0;color:var(--accent-ink);font-family:var(--mono),monospace}
+  .qbox .eq span{color:var(--accent)}
+  .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
+  .def b{color:var(--accent-ink)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m2-1.html" class="active">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Classification</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 2 · Supervised Learning · 7 hours</span>
+    <h1>Regression, Logistic Regression, Naive Bayes, Decision Trees</h1>
+    <p class="lede">This module is about <b>learning from labelled data</b> — the heart of supervised learning. We cover the two big families:
+    <b>regression</b> (predicting a continuous number, like a house price or temperature) and <b>classification</b> (predicting a category,
+    like spam/not-spam or disease/no-disease). For each we build intuition, see how the model is learned, and understand where things go wrong —
+    especially <b>overfitting</b> and how <b>Ridge</b> and <b>Lasso</b> keep it in check.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Regression</h2><span class="tag">Predict a number</span></div>
+    <div class="card full">
+      <p>Regression is the supervised-learning task of predicting a <b>continuous</b> output value from input features. Given examples where
+      we know both the input <b>x</b> and the correct output <b>y</b>, the model learns a function <b>h(x) ≈ y</b> so that it can predict <b>y</b> for new
+      <b>x</b> it has never seen. The output is a real number — price, temperature, revenue, demand — not a category.</p>
+      <p>The simplest and most important regression model is <b>linear regression</b>: it assumes the output is (approximately) a weighted sum of the
+      inputs. If that assumption is too simple for the data, we can go to <b>polynomial regression</b>, which still fits a linear model but to transformed
+      (squared, cubed, interaction) features — the fit becomes a curve in the original space.</p>
+
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h3><span class="idx">+</span>Linear Regression — One Variable</h3>
+          <p>The model is a straight line: <b>h(x) = θ₀ + θ₁x</b>. There are two parameters — the intercept <b>θ₀</b> (where the line crosses the y-axis) and
+          the slope <b>θ₁</b> (how steep the line is). We choose the θ's so that the line is as close as possible to all the training points.</p>
+          <p>For one input, the fit is a line. For <b>θ₀ = 0, θ₁ = 1.5</b>, the prediction at <b>x = 2</b> is <b>h(2) = 0 + 1.5·2 = 3.0</b>.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">+</span>Linear Regression — Multiple Variables</h3>
+          <p>With <b>D</b> input features the model becomes <b>h(x) = θ₀ + θ₁x₁ + θ₂x₂ + ... + θ<sub>D</sub>x<sub>D</sub></b>. Each feature gets its own weight, and the fit
+          is now a <b>plane</b> (one feature), a <b>hyperplane</b> (many features), not a line. The learning problem is the same in structure — find θ that
+          minimises the prediction error — but the number of parameters grows with <b>D</b>.</p>
+          <p>For <b>D ≈ 100</b> (around a hundred independent attributes), the closed-form matrix solution becomes expensive, and <b>gradient descent</b> is typically
+          preferred.</p>
+        </div>
+      </div>
+
+      <div class="tablewrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th></th><th>One-variable linear regression</th><th>Multiple-variable linear regression</th></tr></thead>
+          <tbody>
+            <tr><td>Model</td><td>h(x) = θ₀ + θ₁x</td><td>h(x) = θ₀ + Σⱼ θⱼxⱼ</td></tr>
+            <tr><td>Parameters</td><td>2 (θ₀, θ₁)</td><td>D+1 (θ₀, θ₁ … θ_D)</td></tr>
+            <tr><td>Fit shape</td><td>Line</td><td>Plane / hyperplane</td></tr>
+            <tr><td>When to use</td><td>Single predictor, simple relationship</td><td>Many predictors, each contributes linearly</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>What "linear" really means:</b> linear regression is linear in the <i>parameters</i> (the θ's), not necessarily in the inputs. Polynomial
+      regression — h(x) = θ₀ + θ₁x + θ₂x² + θ₃x³ — is still a linear regression because it is a linear combination of parameters; the curve comes from feeding
+      <b>x², x³</b> as extra input features. This is why linear methods are more powerful than they first appear.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>How the Model Is Learned — The Cost Function</h2><span class="tag">Fitting the line</span></div>
+    <div class="card full">
+      <p>To "learn" the model we need a way to score how bad a particular choice of parameters is. The standard score for regression is the <b>mean squared
+      error</b> — the average of the squared differences between the model's prediction and the true value, over all training examples. Smaller error means a
+      better fit.</p>
+      <p class="eq" style="text-align:center;font-size:17px;font-weight:700;margin:14px 0;color:var(--accent-ink)">J(θ₀,θ₁) = (1/2m) · Σ₁<sup>m</sup> ( h(x⁽ⁱ⁾) – y⁽ⁱ⁾ )²</p>
+      <div class="grid cols-2" style="margin-top:4px">
+        <div class="card">
+          <h3><span class="idx">1/2m</span>Why this form</h3>
+          <p>The <b>1/m</b> averages the error over all <b>m</b> examples, so the score does not grow with dataset size. The <b>1/2</b> is a convenience: when we take
+          the derivative to minimise J, the square's factor of 2 cancels the 1/2, leaving clean expressions. It does not change where the minimum is.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Squared</span>Why square the error</h3>
+          <p>Squaring makes every error positive (a prediction above and below the truth do not cancel), and it penalises large errors more heavily. It also gives a
+          smooth, differentiable function that gradient-based methods can optimise easily.</p>
+        </div>
+      </div>
+      <div class="def"><b>Worked numbers:</b> if the training set is {(1,1), (2,2), (3,3)} and we set <b>θ₀ = 0, θ₁ = 1</b>, then h(x)=x exactly matches every point, and
+      <b>J(0,1) = 0</b>. If instead <b>θ₀ = 0, θ₁ = 1.5</b>, the predictions are 1.5, 3.0, 4.5, and the squared errors are (0.5)², (1.0)², (1.5)², so
+      <b>J = (1/6)(0.25+1+2.25) = 3.5/6 ≈ 0.583</b>. Lower J means a better fit; J = 0 means a perfect fit on the training set.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Solution Methods — Gradient Descent &amp; Closed Form</h2><span class="tag">Finding the best θ</span></div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><span class="idx">▼</span>Gradient Descent</h3>
+        <p>An iterative method: start with some θ (often zeros), then repeatedly take a small step in the direction that <b>reduces</b> J the fastest — that is, opposite
+        to the gradient. Repeat until J stops improving. The size of each step is the <b>learning rate α</b>.</p>
+        <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">θⱼ := θⱼ − α · ∂J/∂θⱼ</p>
+        <div class="def" style="margin-top:8px"><b>Intuition:</b> imagine standing on a hill (high J) and wanting to reach the valley (low J). The gradient tells you which way is steepest uphill;
+        step the opposite way, a little at a time. Eventually you reach a low point.</div>
+      </div>
+      <div class="card">
+        <h3><span class="idx">=</span>Closed-Form (Normal Equation)</h3>
+        <p>A direct formula that gives the optimal θ in one step, without iterating. It solves ∂J/∂θ = 0 analytically. The price is computation: it requires inverting a
+        <b>D×D</b> matrix.</p>
+        <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">θ = (X<sup>T</sup>X)<sup>−1</sup> X<sup>T</sup>y</p>
+        <div class="def" style="margin-top:8px"><b>When to prefer which:</b> closed form is exact and simple when <b>D</b> is small. But inverting a D×D matrix costs about O(D³), and with
+        <b>D ≈ 100</b> (around 100 attributes) it gets expensive and may be numerically unstable. <b>Gradient descent</b> handles large D and large datasets more gracefully,
+        and is the workhorse for most real problems.</div>
+      </div>
+    </div>
+    <div class="def"><b>Batch vs online gradient descent:</b> <b>batch</b> gradient descent computes the gradient using the <i>entire</i> training set at each step — stable but slow per step
+    on large data. <b>Online</b> (stochastic) gradient descent updates θ using one example at a time — much faster per step, can escape shallow local minima, and is preferred when data
+    is large or arriving in a stream. The trade-off: batch is smoother and more predictable; online is faster and can track a changing distribution but noisier.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Overfitting in Regression</h2><span class="tag">The core problem</span></div>
+    <div class="card full">
+      <p><b>Overfitting</b> is when a model fits the training data <i>too</i> closely — including its noise and quirks — so that it performs well on the data it was trained on
+      but poorly on new data. In regression, overfitting tends to happen when the model is too flexible for the amount of data: too many parameters, or a polynomial of too high
+      a degree. A 10th-degree polynomial can pass through every training point exactly, but between points it may swing wildly and predict badly.</p>
+      <div class="grid cols-2" style="margin-top:10px">
+        <div class="card">
+          <h3><span class="idx">Underfitting</span></h3>
+          <p>The model is too simple to capture the pattern — high error on both training and test data. A straight line fit to clearly curved data underfits. The model has <b>high
+          bias</b>: its assumptions are wrong for the data.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Overfitting</span></h3>
+          <p>The model is too flexible — near-zero error on training data but high error on test data. A high-degree polynomial through every point overfits. The model has <b>high
+          variance</b>: small changes in the training data produce very different fits.</p>
+        </div>
+      </div>
+      <div class="def"><b>How to spot it:</b> compare training error to test error. If training error is low and test error is much higher, the model is overfitting. If both are high, it is
+      underfitting. The goal is the middle ground — enough flexibility to capture the true pattern, but not so much that noise is memorised. This is the bias–variance trade-off (Module 5).</div>
+      <div class="def"><b>How to reduce overfitting in regression:</b> (1) gather more training data, (2) simplify the model — fewer features or lower polynomial degree, (3) use
+      <b>regularization</b> — Ridge (L2) or Lasso (L1), covered below, (4) use cross-validation to choose the model complexity, (5) stop training early in iterative methods.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Regularization — Ridge (L2) &amp; Lasso (L1)</h2><span class="tag">Keeping the fit honest</span></div>
+    <div class="card full">
+      <p>Regularization is the standard way to prevent overfitting. The idea is simple: when we choose the parameters, we not only care about fitting the data (small J), but also
+      about keeping the parameters <b>small</b>. A model with huge weights is usually overfitting — it is bending sharply to hit individual points. By adding a penalty on the size of θ,
+      we force the model to prefer simpler, smoother fits.</p>
+      <p class="eq" style="text-align:center;font-size:16px;font-weight:700;margin:12px 0;color:var(--accent-ink)">J<sub>regularized</sub> = J(θ) + λ · (penalty on θ)</p>
+      <div class="grid cols-2" style="margin-top:6px">
+        <div class="card">
+          <h3><span class="idx">Ridge</span>L2 regularization</h3>
+          <p>Adds <b>λ Σ θⱼ²</b> — the sum of squared parameters — to the cost. It gently shrinks all weights toward zero but rarely makes them exactly zero. It is the default
+          regularizer for most regression tasks and works well when many features each contribute a little.</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">J = (1/2m)Σ(h−y)² + λ·Σθⱼ²</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Lasso</span>L1 regularization</h3>
+          <p>Adds <b>λ Σ |θⱼ|</b> — the sum of absolute parameter values. Because the penalty is on the absolute value, it tends to drive some weights to <b>exactly zero</b>. This
+          performs <b>feature selection</b>: irrelevant features get zero weight and disappear from the model.</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">J = (1/2m)Σ(h−y)² + λ·Σ|θⱼ|</p>
+        </div>
+      </div>
+      <div class="tablewrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th></th><th>Ridge (L2)</th><th>Lasso (L1)</th></tr></thead>
+          <tbody>
+            <tr><td>Penalty</td><td>λ Σ θⱼ² (squared)</td><td>λ Σ |θⱼ| (absolute)</td></tr>
+            <tr><td>Effect on weights</td><td>Shrinks all toward zero</td><td>Forces some to exactly zero</td></tr>
+            <tr><td>Feature selection</td><td>No — keeps all features</td><td>Yes — zeroes irrelevant ones</td></tr>
+            <tr><td>Best when</td><td>Many features each contribute a little</td><td>Many features, only some matter</td></tr>
+            <tr><td>Geometry</td><td>Smooth quadratic bowl</td><td>Sharp corners → sparse solutions</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>The role of λ:</b> λ controls the strength of regularization. λ = 0 means no regularization (ordinary regression, prone to overfitting). Very large λ crushes the weights
+      toward zero, which can <b>underfit</b> (the model becomes too simple). The right λ is found by cross-validation. The name <b>λ</b> (lambda) is the regularization parameter — the
+      "knob" that balances fit versus simplicity.</div>
+      <div class="def"><b>Why regularization works:</b> it is a formal version of Occam's razor — given two models that fit equally well, prefer the simpler one. By penalising large weights, Ridge and Lasso
+      make the model's predictions change less when the training data changes a little, i.e. they <b>reduce variance</b>. The cost is a small increase in bias, but the net effect is usually better
+      generalisation. This is the bias–variance trade-off made concrete.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Classification — Predicting a Category</h2><span class="tag">Regression's cousin</span></div>
+    <div class="card full">
+      <p>Classification is the supervised-learning task where the output is a <b>category</b> (class label) rather than a number. The input is still a set of features x, but now the target
+      y is discrete — e.g. spam / not-spam, disease / healthy, professor / student / staff. The model learns to draw a boundary (or boundaries) between classes in the feature space, so
+      that new points fall on the correct side.</p>
+      <p>Regression and classification are the two faces of supervised learning. Regression predicts a continuous value; classification predicts a discrete label. Many algorithms exist on both
+      sides — linear regression for continuous outputs, logistic regression for binary classification, Naive Bayes and decision trees for both — but the loss function and the way we evaluate
+      them differ.</p>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Task</th><th>Output type</th><th>Example</th><th>Typical algorithms</th></tr></thead>
+          <tbody>
+            <tr><td>Regression</td><td>Continuous number</td><td>House price, temperature, demand</td><td>Linear / polynomial regression, Ridge, Lasso</td></tr>
+            <tr><td>Binary classification</td><td>Two classes</td><td>Spam vs not-spam, disease vs healthy</td><td>Logistic regression, Naive Bayes, decision trees, SVM</td></tr>
+            <tr><td>Multi-class classification</td><td>Three or more classes</td><td>Professor / student / staff; digit 0–9</td><td>Logistic regression (one-vs-rest), Naive Bayes, decision trees</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Key distinction to remember:</b> <b>Logistic regression</b> is a classification algorithm despite its name — it predicts a probability (between 0 and 1) and then thresholds it to a class.
+      It is called "regression" only because it is built on the same linear form as linear regression; the output is a probability, and the final decision is categorical.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Naïve Bayes — Worked Example (Play-Tennis)</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="card full">
+      <p>The <b>Naïve Bayes</b> classifier is a probability-based classifier built on <b>Bayes' theorem</b> with the "naïve" assumption that features are conditionally independent given the class. For a test instance with attributes a₁…aₙ it picks the class that maximises:</p>
+      <div class="qbox">
+        <h4>Classification rule (ArgMax)</h4>
+        <p class="eq">ŷ = arg max<sub>vⱼ ∈ Y</sub> { P(vⱼ) · ∏<sub>i=1</sub><sup>n</sup> P(aᵢ | vⱼ) }</p>
+      </div>
+      <p>Worked on the classic 14-day <b>Play-Tennis</b> dataset. Class counts: <b>P(Yes)=9/14</b>, <b>P(No)=5/14</b>. Learned likelihoods (counts ÷ class count):</p>
+      <div class="tablewrap" style="margin:10px 0">
+        <table>
+          <thead><tr><th>Feature</th><th>P(·|Yes)</th><th>P(·|No)</th></tr></thead>
+          <tbody>
+            <tr><td>Outlook=Sunny</td><td>2/9</td><td>3/5</td></tr>
+            <tr><td>Outlook=Overcast</td><td>4/9</td><td>0/5</td></tr>
+            <tr><td>Outlook=Rain</td><td>3/9</td><td>2/5</td></tr>
+            <tr><td>Temp=Hot</td><td>2/9</td><td>2/5</td></tr>
+            <tr><td>Temp=Mild</td><td>4/9</td><td>2/5</td></tr>
+            <tr><td>Temp=Cool</td><td>3/9</td><td>1/5</td></tr>
+            <tr><td>Humidity=High</td><td>3/9</td><td>4/5</td></tr>
+            <tr><td>Humidity=Normal</td><td>6/9</td><td>1/5</td></tr>
+            <tr><td>Wind=Weak</td><td>6/9</td><td>2/5</td></tr>
+            <tr><td>Wind=Strong</td><td>3/9</td><td>3/5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qbox">
+        <h4>Test 1 — &lt;Sunny, Cool, High, Strong&gt;</h4>
+        <p class="eq">P(Yes)=9/14·2/9·3/9·3/9·3/9 = 1/189 ≈ 0.0053</p>
+        <p class="eq">P(No)=5/14·3/5·1/5·4/5·3/5 ≈ 0.0206</p>
+        <p>Since P(No) &gt; P(Yes) → predict <b>No</b> (do not play).</p>
+      </div>
+      <div class="qbox">
+        <h4>Test 2 — &lt;Overcast, Mild, Normal, Weak&gt;</h4>
+        <p class="eq">P(Yes)=9/14·4/9·4/9·6/9·6/9 = 32/567 ≈ 0.056</p>
+        <p class="eq">P(No)=5/14·0·2/5·1/5·2/5 = 0</p>
+        <p>Since P(Yes) &gt; P(No) → predict <b>Yes</b> (play). Note P(Overcast|No)=0 zeroes the whole product.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Decision Trees (ID3) — Entropy &amp; Information Gain</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="card full">
+      <p>A <b>decision tree</b> is a non-linear model (uses supervised learning) that splits data at each internal node by the attribute that best separates the classes; leaf nodes hold the predicted class. <b>ID3</b> picks the split using <b>entropy</b> (impurity) and <b>information gain</b>.</p>
+      <div class="qbox">
+        <h4>Entropy of a set S (binary)</h4>
+        <p class="eq">Entropy(S) = −P₊ log₂ P₊ − P₋ log₂ P₋</p>
+      </div>
+      <div class="qbox">
+        <h4>Worked: S has 9 positive, 5 negative (|S|=14)</h4>
+        <p class="eq">P₊=9/14, P₋=5/14</p>
+        <p class="eq">E(S) = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = <b>0.940</b></p>
+      </div>
+      <div class="qbox">
+        <h4>Information Gain of attribute A</h4>
+        <p class="eq">Gain(S,A) = E(S) − Σ<sub>v∈Values(A)</sub> (|Sᵥ| / |S|) · E(Sᵥ)</p>
+      </div>
+      <p>For the Play-Tennis root choice the notes compute (student's numbers): Gain(Outlook)=0.24, Gain(Wind)=0.48, Gain(Temp)=0.032, Gain(Humidity)=0.15. The tree built: root <b>Outlook</b> → Sunny splits on <b>Humidity</b> (high→No, normal→Yes), Overcast→<b>Yes</b>, Rain splits on <b>Wind</b> (strong→No, weak→Yes).</p>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-1.html">← Prev: M1 · Paradigms &amp; Bayesian</a>
+    <a class="next" href="m3-1.html">Next: M3 · Neural Networks &amp; SVM →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

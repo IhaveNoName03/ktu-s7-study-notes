@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 · Biomass Energy</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html">M1 · Solar Thermal</a>
+      <a href="m1-3.html">M1 · Solar PV</a>
+      <a href="m2-1.html">M2 · OTEC</a>
+      <a href="m2-2.html">M2 · Tidal</a>
+      <a href="m3-1.html">M3 · Wind</a>
+      <a href="m4-1.html" class="active">M4 · Biomass</a>
+      <a href="m5-1.html">M5 · Hydro/Fuel</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 4 · Renewable Energy Systems</span>
+  <h1>Biomass Energy</h1>
+  <p class="lede">Energy from organic matter — forests, farms, urban refuse, agro-waste. This page covers
+  biomass resources, the six biofuels, conversion technologies (gasification, ethanol, biogas), the
+  KVIC and Janata plant designs, factors affecting biogas, and India's biomass program.</p>
+  <div class="meta-row">
+    <span class="chip red">Biofuels</span>
+    <span class="chip">Gasification</span>
+    <span class="chip">Biogas</span>
+    <span class="chip">KVIC/Janata</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Biomass Resources &amp; Biofuels</h2><span class="tag">Overview</span></div>
+    <div class="card full">
+      <p>Biomass = organic, carbon-based matter from plants/animals. Dry biomass gives heat by direct combustion; conversion tech turns it into high-quality solid/liquid/gaseous <b>biofuels</b>. Resources come from forests, rural farms, urban refuse, and agro-industry waste.</p>
+      <p><b>Disadvantages of biomass:</b> dispersed &amp; land-intensive; low energy density; labour-intensive collection; capacity tied to availability (not good for varying loads); not feasible everywhere.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Biofuel</th><th>Form / note</th></tr></thead>
+          <tbody>
+            <tr><td>Charcoal</td><td>Smokeless solid, ~75–80% C, ~30 MJ/kg; from carbonization; domestic + industrial</td></tr>
+            <tr><td>Bio-diesel</td><td>Veg oil via trans-esterification (glycerine removed); biodegradable, sulphur-free; CI-engine fuel</td></tr>
+            <tr><td>Fuel pellets/briquettes</td><td>Crop residue/wood pressed to raise density for transport</td></tr>
+            <tr><td>Bio-ethanol</td><td>C₂H₅OH, bp 78 °C, ~26.9 MJ/kg; from sugars/starches/cellulose</td></tr>
+            <tr><td>Biogas</td><td>From anaerobic digestion of dung/waste in a digester</td></tr>
+            <tr><td>Producer gas</td><td>Woody matter → syngas (CO + H₂) via gasification</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Biomass Gasification</h2><span class="tag">Thermo-chemical</span></div>
+    <div class="card full">
+      <p>Thermo-chemical conversion of solid biomass into a combustible gas through <b>partial combustion</b> (restricted oxygen) with no solid carbon residue. Output gas = wood gas / producer gas / syngas — mainly CO + H₂ (+ small CH₄), plus SOₓ/NOₓ depending on feedstock.</p>
+      <p><b>Gasifier types (fixed-bed):</b></p>
+      <div class="grid cols-2">
+        <div class="card"><h4>Updraft</h4><p>Fuel and air move <b>counter-current</b> (opposite directions).</p></div>
+        <div class="card"><h4>Downdraft</h4><p>Fuel and air move <b>co-current</b>. In a typical downdraft gasifier: drying (200 °C) → pyrolysis (200–600 °C, char + acetic acid + methanol + water vapour) → … → combustible gas at bottom.</p></div>
+      </div>
+      <div class="def">Basic reaction zones are the same in both; only flow direction differs.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Ethanol from Biomass</h2><span class="tag">Fermentation/Chemical</span></div>
+    <div class="card full">
+      <p>Ethyl alcohol (C₂H₅OH) — renewable petroleum substitute. Feedstock by category:</p>
+      <ul>
+        <li><b>Sugars:</b> sugarcane, sugar beet, sweet sorghum, grapes, molasses</li>
+        <li><b>Starches:</b> maize, wheat, barley, potato, cassava, rice</li>
+        <li><b>Cellulose:</b> wood, straw, grass stems, bamboo, bagasse</li>
+      </ul>
+      <p>Sugar/starch feedstocks ferment directly; cellulose needs pre-treatment. Ethanol can substitute petrol (blended or pure).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Biogas Production</h2><span class="tag">Anaerobic digestion</span></div>
+    <div class="card full">
+      <p>A biogas plant converts cattle dung + organic matter into inflammable <b>biogas</b> + quality organic manure under <b>anaerobic</b> conditions. Two popular designs:</p>
+      <div class="grid cols-2">
+        <div class="card"><h4>1. Floating-drum (constant pressure)</h4><p><b>KVIC model</b> (standardised 1961): underground cylindrical masonry digester with inlet (dung slurry) + outlet (sludge) pipes; a steel dome floats on the slurry, moving up/down with gas accumulation, guided by a shaft. A partition wall improves circulation for fermentation.</p></div>
+        <div class="card"><h4>2. Fixed-dome (constant volume)</h4><p><b>Janata model</b>: fixed dome; gas collected in a dome, slurry level varies. Lower cost, less moving parts.</p></div>
+      </div>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Factors affecting biogas generation</h4>
+      <ul>
+        <li>Feedstock C:N ratio and organic content</li>
+        <li>Temperature (mesophilic ~30–35 °C optimum)</li>
+        <li>pH (near neutral)</li>
+        <li>Retention time / loading rate</li>
+        <li>Mixing and absence of oxygen (strictly anaerobic)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Urban Waste → Energy &amp; India Program</h2><span class="tag">Context</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Urban waste to energy</h4><p>Municipal/agro waste is a major biomass resource; current commercial use leans on residues collected for other reasons (timber/food processing, urban refuse).</p></div>
+      <div class="card"><h4>Future in India (4 segments)</h4><ul>
+        <li>Process heat in biomass-waste industries</li>
+        <li>Cooking energy (charcoal, briquettes)</li>
+        <li>Electricity generation</li>
+        <li>Transport liquid fuels</li>
+      </ul></div>
+    </div>
+    <div class="def">Biomass program's future lies in modern conversion technologies (gasification, enzymatic ethanol, efficient digesters).</div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m3-1.html">Prev: Wind</a>
+    <a class="next" href="m5-1.html">Next: Hydro &amp; Fuel Cells</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 4 — Biomass Energy (EET435).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

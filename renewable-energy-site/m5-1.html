@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 · Small Hydro, Fuel Cells &amp; Hydrogen</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html">M1 · Solar Thermal</a>
+      <a href="m1-3.html">M1 · Solar PV</a>
+      <a href="m2-1.html">M2 · OTEC</a>
+      <a href="m2-2.html">M2 · Tidal</a>
+      <a href="m3-1.html">M3 · Wind</a>
+      <a href="m4-1.html">M4 · Biomass</a>
+      <a href="m5-1.html" class="active">M5 · Hydro/Fuel</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 5 · Renewable Energy Systems</span>
+  <h1>Small Hydro, Fuel Cells &amp; Hydrogen Energy</h1>
+  <p class="lede">The final module ties together small-scale hydro and the two emerging electrochemical
+  technologies — fuel cells (with their classifications) and hydrogen energy (production, storage,
+  use). Includes the exam diagrams: mini-hydro layout, phosphoric-acid and PEM fuel cells.</p>
+  <div class="meta-row">
+    <span class="chip red">Small hydro</span>
+    <span class="chip">Fuel cells</span>
+    <span class="chip">Hydrogen</span>
+    <span class="chip">Emerging</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Small Hydro Power</h2><span class="tag">Classification</span></div>
+    <div class="card full">
+      <p>Hydro projects classified by capacity:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Class</th><th>Capacity range</th></tr></thead>
+          <tbody>
+            <tr><td>Micro hydro</td><td>up to ~100 kW</td></tr>
+            <tr><td>Mini hydro</td><td>~100 kW – 2 MW (sometimes up to 5 MW)</td></tr>
+            <tr><td>Small hydro</td><td>up to ~25–30 MW (regional definition varies)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Basic concepts &amp; turbines</h4>
+      <ul>
+        <li>Potential energy of stored/flowing water → mechanical (turbine) → electrical (generator).</li>
+        <li><b>Turbine types:</b> impulse (Pelton) for high head/low flow; reaction (Francis, Kaplan) for medium/low head/high flow.</li>
+        <li><b>Selection considerations:</b> head, flow rate, site geology, environmental flow, grid/load proximity.</li>
+      </ul>
+      <div class="def"><b>Mini-hydro layout (exam diagram):</b> intake/weir → desilting chamber → headrace channel → forebay → penstock → turbine → generator → transmission; tailrace returns water to river. Include survival/ecological flow.</div>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · Mini Hydro Project Layout</div>
+      <svg viewBox="0 0 560 240" role="img" aria-label="Mini hydro layout">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- river -->
+        <rect class="water" x="20" y="40" width="520" height="40" rx="3"/>
+        <text x="300" y="65" text-anchor="middle" class="lbl">River (headwater)</text>
+        <!-- intake -->
+        <rect class="box" x="60" y="100" width="60" height="34" rx="3"/><text x="90" y="121" text-anchor="middle" class="lbl">Intake</text>
+        <!-- forebay -->
+        <rect class="box f" x="190" y="100" width="70" height="34" rx="3"/><text x="225" y="121" text-anchor="middle" class="lbl">Forebay</text>
+        <!-- penstock down -->
+        <line class="arrow" x1="225" y1="134" x2="225" y2="180"/>
+        <!-- turbine -->
+        <rect class="box g" x="195" y="180" width="70" height="34" rx="3"/><text x="230" y="201" text-anchor="middle" class="lbl">Turbine</text>
+        <!-- generator -->
+        <rect class="box" x="300" y="180" width="70" height="34" rx="3"/><text x="335" y="201" text-anchor="middle" class="lbl">Generator</text>
+        <line class="arrow" x1="265" y1="197" x2="300" y2="197"/>
+        <!-- transmission -->
+        <line class="arrow" x1="370" y1="197" x2="470" y2="197"/><text x="430" y="188" text-anchor="middle" class="txtsm">transmission</text>
+        <!-- tailrace -->
+        <line class="arrow r" x1="195" y1="214" x2="120" y2="214"/><text x="140" y="234" class="txtsm">tailrace → river</text>
+        <line class="arrow" x1="120" y1="80" x2="120" y2="100"/>
+      </svg>
+      <p class="dcap">Water is diverted at the intake, settles in the forebay, drops through the penstock to spin the turbine, drives the generator, and returns via the tailrace (keep ecological flow).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Fuel Cells — Principle &amp; Classification</h2><span class="tag">Electrochemical</span></div>
+    <div class="card full">
+      <p>A fuel cell is an electrochemical device that converts the chemical energy of a fuel (H₂) and an oxidant (O₂) <b>directly</b> into electricity — like a battery that is continuously fed reactants. No combustion, so high efficiency and low emissions.</p>
+      <p><b>Principle:</b> H₂ → anode (oxidation, electrons to external circuit); O₂ → cathode (reduction); ions move through an electrolyte; product is water + heat. Stacking cells raises voltage/current.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Classification (by electrolyte)</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Type</th><th>Electrolyte</th><th>Operating temp</th></tr></thead>
+          <tbody>
+            <tr><td>PEM / PEMFC (Proton Exchange Membrane)</td><td>Polymer membrane</td><td>~50–100 °C</td></tr>
+            <tr><td>PAFC (Phosphoric Acid)</td><td>Phosphoric acid</td><td>~150–200 °C</td></tr>
+            <tr><td>SOFC (Solid Oxide)</td><td>Ceramic oxide</td><td>~600–1000 °C</td></tr>
+            <tr><td>MCFC (Molten Carbonate)</td><td>Molten carbonate</td><td>~600 °C</td></tr>
+            <tr><td>AFC (Alkaline)</td><td>KOH solution</td><td>~80 °C</td></tr>
+            <tr><td>DMFC (Direct Methanol)</td><td>Polymer + methanol</td><td>~50–100 °C</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>Conversion efficiency &amp; losses:</b> efficiency = useful electrical output ÷ fuel enthalpy. Losses come from activation polarisation, ohmic (IR) losses, concentration/mass-transport losses, and parasitic auxiliaries. Real stacks reach ~40–60% (higher with cogenerated heat).</p>
+      <p><b>Applications:</b> stationary power, vehicles, portable/backup power, space programs.</p>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · PEM Fuel Cell (H₂ + O₂ → H₂O + electricity)</div>
+      <svg viewBox="0 0 560 230" role="img" aria-label="PEM fuel cell schematic">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <!-- anode -->
+        <rect class="box r" x="40" y="70" width="70" height="90" rx="3"/>
+        <text x="75" y="100" text-anchor="middle" class="lbl">Anode</text>
+        <text x="75" y="120" text-anchor="middle" class="txtsm">H₂ in</text>
+        <!-- membrane -->
+        <rect class="box f" x="200" y="70" width="40" height="90" rx="3"/>
+        <text x="220" y="120" text-anchor="middle" class="txtsm">PEM</text>
+        <line class="arrow" x1="110" y1="100" x2="200" y2="100"/><text x="150" y="93" text-anchor="middle" class="txtsm">H⁺</text>
+        <line class="arrow" x1="110" y1="130" x2="40" y2="160"/>
+        <!-- cathode -->
+        <rect class="box g" x="360" y="70" width="70" height="90" rx="3"/>
+        <text x="395" y="100" text-anchor="middle" class="lbl">Cathode</text>
+        <text x="395" y="120" text-anchor="middle" class="txtsm">O₂ in</text>
+        <line class="arrow" x1="240" y1="100" x2="360" y2="100"/><text x="300" y="93" text-anchor="middle" class="txtsm">H⁺</text>
+        <!-- water out -->
+        <line class="arrow" x1="395" y1="160" x2="395" y2="200"/><text x="402" y="190" class="txtsm">H₂O</text>
+        <!-- e- circuit -->
+        <path class="arrow" d="M75,70 L75,30 L485,30 L485,70" fill="none"/>
+        <text x="280" y="22" text-anchor="middle" class="lbl">e⁻ → external load</text>
+      </svg>
+      <p class="dcap">At the anode H₂ → 2H⁺ + 2e⁻; H⁺ crosses the polymer membrane to the cathode; e⁻ power the load; at the cathode O₂ + 2H⁺ + 2e⁻ → H₂O (only product). PAFC is the same idea with a liquid phosphoric-acid electrolyte.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>PAFC &amp; PEM — Exam Diagrams</h2><span class="tag">Worked</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Phosphoric Acid Fuel Cell (PAFC)</h4><p>H₂ + O₂ → electricity + water + heat. H₂ enters anode, splits into H⁺ + e⁻; H⁺ passes through liquid phosphoric-acid electrolyte to cathode; e⁻ travel the external circuit (power); O₂ + H⁺ + e⁻ → H₂O at cathode. Operates ~150–200 °C; mature, used in stationary CHP.</p></div>
+      <div class="card"><h4>PEM Fuel Cell</h4><p>Solid polymer membrane conducts H⁺. H₂ oxidised at anode → H⁺ + e⁻; membrane passes H⁺ to cathode; e⁻ power the load; at cathode O₂ + H⁺ + e⁻ → H₂O. Low-temp (~50–100 °C), fast start, good for vehicles/portables.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Hydrogen Energy</h2><span class="tag">Production · Storage · Use</span></div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">Production methods</h4>
+      <ul>
+        <li><b>Electrolysis:</b> split water (H₂O) into H₂ + O₂ using electricity (clean if power is renewable). 2H₂O → 2H₂ + O₂.</li>
+        <li><b>Thermo-chemical:</b> high-temperature processes — steam methane reforming (CH₄ + H₂O → CO + 3H₂), thermolysis, and other cycles (e.g. sulphur-iodine) that release H₂ from water/feedstock.</li>
+        <li>Also from biomass gasification and partial oxidation.</li>
+      </ul>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Storage &amp; utilization</h4>
+      <ul>
+        <li><b>Storage:</b> compressed gas, liquid H₂ (cryogenic), metal hydrides, chemical carriers.</li>
+        <li><b>Utilization:</b> fuel cells (electricity), combustion/IC engines, industrial feedstock, and as a clean energy carrier.</li>
+      </ul>
+      <div class="def">Hydrogen is an <b>energy carrier</b>, not a primary source — its cleanliness depends on how it is made (green H₂ from renewables vs grey from fossil).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Module 5 — Exam Checklist</h2><span class="tag">What gets asked</span></div>
+    <div class="card full">
+      <ul>
+        <li>Draw the layout of a <b>mini hydro project</b> and explain working (syllabus Q).</li>
+        <li>Explain operation of a <b>phosphoric acid fuel cell</b> with diagram (7m).</li>
+        <li>Describe <b>PEM fuel cell</b> working &amp; constructional features (7m).</li>
+        <li>Methods of <b>hydrogen production &amp; storage</b> (7m).</li>
+        <li>Classify fuel cells; state conversion efficiency &amp; losses.</li>
+      </ul>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m4-1.html">Prev: Biomass</a>
+    <a class="next" href="m-t1.html">Next: Exam Techniques</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 5 — Small Hydro, Fuel Cells &amp; Hydrogen (EET435).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

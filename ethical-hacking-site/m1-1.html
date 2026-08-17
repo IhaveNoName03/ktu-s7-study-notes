@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · Elements of Information Security</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html" class="active">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Page 1 of 3</span>
+  <h1>Elements of Information Security</h1>
+  <p class="lede">Before any attack or defense makes sense, you need the vocabulary. This page covers the
+  properties every control protects — the CIA triad, the AAA model, non-repudiation — plus the
+  challenges and the "defense in depth" mindset.</p>
+  <div class="meta-row">
+    <span class="chip red">CIA triad</span>
+    <span class="chip">AAA</span>
+    <span class="chip">Non-repudiation</span>
+    <span class="chip">Defense in depth</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>The CIA Triad</h2>
+      <span class="tag">Core goals</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">C</span>Confidentiality</h3><p>Only authorized parties can <b>see</b> the data. Enforced by encryption, access control, least-privilege. Broken by disclosure, sniffing, shared creds.</p></div>
+      <div class="card"><h3><span class="idx">I</span>Integrity</h3><p>Data is accurate and unaltered by unauthorized parties. Enforced by hashing, checksums, signatures. Broken by tampering, MITM modification.</p></div>
+      <div class="card"><h3><span class="idx">A</span>Availability</h3><p>Authorized users can <b>access</b> data/systems when needed. Enforced by redundancy, patching, DDoS protection. Broken by DoS, ransomware, hardware failure.</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Property</th><th>Question it answers</th><th>Typical control</th></tr></thead>
+        <tbody>
+          <tr><td>Confidentiality</td><td>Who may read this?</td><td>Encryption, ACLs, VPN</td></tr>
+          <tr><td>Integrity</td><td>Has it been changed?</td><td>Hashing, digital signatures</td></tr>
+          <tr><td>Availability</td><td>Is it reachable now?</td><td>Redundancy, DDoS mitigation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">01b</span><h2>The CIA Triad — Visual</h2><span class="tag">Venn model</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · The CIA Triad</div>
+      <svg viewBox="0 0 560 260" role="img" aria-label="CIA triad venn diagram">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <g fill="none" stroke-width="2.5">
+          <circle cx="210" cy="120" r="90" stroke="#e0241b" fill="#e0241b" fill-opacity="0.10"/>
+          <circle cx="350" cy="120" r="90" stroke="#2c3e50" fill="#2c3e50" fill-opacity="0.10"/>
+          <circle cx="280" cy="180" r="90" stroke="#0a7d8c" fill="#0a7d8c" fill-opacity="0.10"/>
+        </g>
+        <text x="200" y="80" text-anchor="middle" class="lbl" fill="#e0241b" font-weight="800">Confidentiality</text>
+        <text x="360" y="80" text-anchor="middle" class="lbl" fill="#2c3e50" font-weight="800">Integrity</text>
+        <text x="280" y="245" text-anchor="middle" class="lbl" fill="#0a7d8c" font-weight="800">Availability</text>
+      </svg>
+      <p class="dcap">The three goals overlap — real controls usually serve more than one at once (e.g. encryption protects both Confidentiality and Integrity).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>AAA &amp; Other Goals</h2>
+      <span class="tag">Access &amp; accountability</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h3><span class="idx">A</span>Authentication</h3><p>Proving <b>who you are</b> — password, token, biometric, MFA.</p></div>
+      <div class="card"><h3><span class="idx">A</span>Authorization</h3><p>What you are <b>allowed to do</b> once identified — permissions, roles, least privilege.</p></div>
+      <div class="card"><h3><span class="idx">A</span>Accounting</h3><p>Logging/auditing <b>what you did</b> — the basis for event logs (see <a href="m5-1.html">Module 5</a>).</p></div>
+      <div class="card"><h3><span class="idx">N</span>Non-repudiation</h3><p>A party cannot <b>deny</b> an action — achieved with digital signatures and strong audit trails.</p></div>
+    </div>
+    <div class="def">Other stated goals: <b>authenticity</b> (the subject is genuine), <b>possession</b> (control of a token/asset), <b>utility</b> (data is useful in its intended form), and <b>privacy</b> (personal data handled per expectation/law).</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Security Challenges &amp; Attacks</h2>
+      <span class="tag">The reality</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Challenges</h4><ul>
+        <li><b>Complexity</b> — large attack surface, interdependencies.</li>
+        <li><b>People</b> — the weakest link; social engineering.</li>
+        <li><b>Legacy systems</b> — unpatched, unsupported.</li>
+        <li><b>Usability vs security</b> — tighter security often hurts UX.</li>
+      </ul></div>
+      <div class="card"><h4>Common attack types</h4><ul>
+        <li>Phishing / social engineering</li>
+        <li>Malware (virus, worm, ransomware)</li>
+        <li>Denial of Service (DoS/DDoS)</li>
+        <li>Man-in-the-Middle (MITM)</li>
+        <li>Insider threat</li>
+        <li>Credential theft</li>
+      </ul></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Breaks which goal</th><th>Typical vector</th></tr></thead>
+        <tbody>
+          <tr><td>Packet sniffing</td><td>Confidentiality</td><td>Hub / ARP spoof on plaintext traffic</td></tr>
+          <tr><td>MITM modification</td><td>Integrity</td><td>ARP/DNS spoof, SSL strip</td></tr>
+          <tr><td>Ransomware / DDoS</td><td>Availability</td><td>Encrypted files / flood the service</td></tr>
+          <tr><td>Stolen credentials</td><td>Confidentiality + Auth</td><td>Phishing, brute force, replay</td></tr>
+          <tr><td>Log tampering</td><td>Accounting</td><td>Clear/edit event logs (Module 5)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Defense in depth:</b> layer multiple controls (perimeter + host + app + human) so no single failure compromises the whole system.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Threat Modeling &amp; Risk</h2>
+      <span class="tag">Thinking like a defender</span></div>
+    <div class="card full">
+      <p>Security work is about managing <b>risk</b>, not eliminating it. <b>Risk = Likelihood &times; Impact</b>:
+      how probable an attack is, times how bad it would be. You spend effort where the product is highest.</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">STRIDE (threat categories)</h4>
+      <div class="grid cols-3">
+        <div class="card"><h4>Spoofing</h4><p>Impersonating a user/system (fake identity).</p></div>
+        <div class="card"><h4>Tampering</h4><p>Altering data/code (breaks Integrity).</p></div>
+        <div class="card"><h4>Repudiation</h4><p>Denying an action was taken.</p></div>
+        <div class="card"><h4>Info disclosure</h4><p>Leaking data (breaks Confidentiality).</p></div>
+        <div class="card"><h4>Denial of service</h4><p>Breaking Availability.</p></div>
+        <div class="card"><h4>Elevation</h4><p>Gaining higher privileges than allowed.</p></div>
+      </div>
+      <div class="def"><b>Defense in depth in practice:</b> pair controls so one failure doesn't sink you — e.g. MFA (auth) + encryption (confidentiality) + hashing (integrity) + backups/redundancy (availability) + logging (accountability).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Effects of Hacking</h2>
+      <span class="tag">Why it matters</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Individuals</h4><ul>
+        <li>Identity theft, drained bank accounts, ruined credit</li>
+        <li>Loss of private photos/messages, blackmail</li>
+        <li>Device hijacked into a botnet (slow, used for attacks)</li>
+      </ul></div>
+      <div class="card"><h4>Organizations</h4><ul>
+        <li>Financial loss: ransom, fraud, recovery cost</li>
+        <li>Breach of customer data &rarr; fines (GDPR/IT Act), lawsuits</li>
+        <li>Reputation damage, loss of trust, downtime</li>
+        <li>Theft of trade secrets, regulatory penalties</li>
+      </ul></div>
+    </div>
+    <div class="def"><b>Why ethical hacking exists:</b> the same skills used to break in are used, with permission, to find the holes first. An ethical hacker's role is to think like an attacker inside a contract, report findings, and help close gaps before a real breach occurs.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Mapping Controls to CIA</h2>
+      <span class="tag">Worked examples</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Goal</th><th>Concrete control</th><th>How it protects</th></tr></thead>
+        <tbody>
+          <tr><td>Confidentiality</td><td>TLS, disk encryption, RBAC</td><td>Only the right key/role reads it</td></tr>
+          <tr><td>Integrity</td><td>SHA-256 hashes, digital signatures</td><td>Any change is detectable</td></tr>
+          <tr><td>Availability</td><td>Load balancers, offsite backups</td><td>Service survives failure/attack</td></tr>
+          <tr><td>Accountability</td><td>Centralized logging (SIEM)</td><td>Every action is attributable</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="index.html">Prev: Home</a>
+    <a class="next" href="m1-2.html">Next: The Hacker Landscape</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 1, Page 1 — Elements of Information Security (CIA, AAA, non-repudiation).</div>
+    <div><a href="index.html">Home</a> · <a href="m2-1.html">M2</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

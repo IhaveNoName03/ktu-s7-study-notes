@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 · Unsupervised Learning</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .hero{background:var(--ink);color:#fff;padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .qbox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
+  .qbox p{margin:0}
+  .qbox .eq{text-align:center;font-size:16px;font-weight:700;margin:8px 0;color:var(--accent-ink);font-family:var(--mono),monospace}
+  .qbox .eq span{color:var(--accent)}
+  .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
+  .def b{color:var(--accent-ink)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html" class="active">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Classification</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 4 · Unsupervised Learning · 7 hours</span>
+    <h1>Clustering &amp; Dimensionality Reduction</h1>
+    <p class="lede">Unsupervised learning is about <b>finding structure in data without labels</b>. In this module we cover two of its most important techniques:
+    <b>clustering</b> — grouping similar data points together (hierarchical agglomerative clustering, k-means, and the soft-clustering Expectation-Maximisation algorithm) —
+    and <b>dimensionality reduction</b> — compressing many features down to fewer while keeping the important information (Principal Component Analysis).</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Similarity Measures</h2><span class="tag">How "close" is close?</span></div>
+    <div class="card full">
+      <p>Clustering is built on a notion of <b>similarity</b> (or, equivalently, <b>distance</b>) between data points. To decide which points belong together we need a way to measure
+      how alike two feature vectors are. Different tasks call for different measures; picking the right one is part of the job.</p>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">|x − y|<sub>1</sub></span>Manhattan distance</h3>
+          <p>Also called <b>L1 distance</b> or <b>city-block distance</b>. For two points <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b> it is</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">D(a,b) = |x₂ − x₁| + |y₂ − y₁|</p>
+          <p>It measures distance along a grid — like walking city blocks. It is <b>robust to outliers</b> because it does not square the coordinate differences, so a single large
+          coordinate difference does not dominate.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">|x − y|<sub>2</sub></span>Euclidean distance</h3>
+          <p>The straight-line distance — the <b>L2 norm</b>. For <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b>:</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">D(a,b) = √[(x₂−x₁)² + (y₂−y₁)²]</p>
+          <p>This is the most common default. It is sensitive to large differences (because of the square) and to the <b>scale</b> of each feature, so features are often normalised
+          first so that no single feature dominates.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">(Σ |xᵢ − yᵢ|<sup>p</sup>)<sup>1/p</sup></span>Minkowski distance</h3>
+          <p>A family that includes Manhattan (p=1) and Euclidean (p=2) as special cases. For general <b>p</b>:</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">D<sub>p</sub>(a,b) = ( Σ |xᵢ − yᵢ|<sup>p</sup> )<sup>1/p</sup></p>
+          <p>Different <b>p</b> values give different sensitivity to large coordinate differences. p=1 is robust; p=2 is the usual straight-line distance; larger p emphasises the
+          largest single difference.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">cosine similarity</span></h3>
+          <p>Measures the <b>angle</b> between two vectors rather than their absolute distance. For vectors <b>x</b> and <b>y</b>:</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">cos θ = (x·y) / (‖x‖ · ‖y‖)</p>
+          <p>Two vectors pointing the same direction have cosine similarity 1 even if they are far apart in magnitude. This is useful when <b>magnitude is not important</b> — e.g.
+          comparing document term-frequency vectors, where a longer document is not "more similar" just because its counts are larger.</p>
+        </div>
+      </div>
+
+      <div class="def"><b>Which to use for images?</b> For comparing feature vectors of two images, the best choice depends on the features. <b>Euclidean distance</b> is a strong default for
+      dense, normalised feature vectors (e.g. pixel intensities, CNN embeddings) because it captures overall visual similarity. <b>Cosine similarity</b> is preferred when the direction of the
+      feature vector matters more than its scale (e.g. bag-of-visual-words or normalised embeddings). Manhattan distance is a robust alternative when outliers are a concern. The justification
+      is always: "the features are X, so the distance that treats X correctly is Y."</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Clustering — The Big Picture</h2><span class="tag">Groups without labels</span></div>
+    <div class="card full">
+      <p>Clustering partitions a set of unlabelled data points into <b>clusters</b> — groups of points that are more similar to each other than to points in other groups. There is no "correct"
+      answer provided; the algorithm discovers the grouping from the data itself.</p>
+      <p>Two broad families appear in this syllabus:</p>
+      <div class="grid cols-2" style="margin-top:10px">
+        <div class="card">
+          <h3><span class="idx">HAC</span>Hierarchical Agglomerative Clustering</h3>
+          <p>Builds a <b>hierarchy</b> of clusters, bottom-up. Each point starts as its own cluster; the two closest clusters are merged repeatedly until one cluster remains (or until a
+          desired number is reached). The result can be drawn as a <b>dendrogram</b> — a tree showing the merge sequence and at what distance each merge happened.</p>
+          <p class="def" style="margin-top:6px">"Agglomerative" = bottom-up (merge). "Divisive" = top-down (split), less common. HAC does not need the number of clusters <b>k</b> up front — you
+          can cut the dendrogram at any level to get a clustering.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">k-means</span>Partitional (k-means) Clustering</h3>
+          <p>Divides the data into exactly <b>k</b> clusters in <b>one level</b> (no hierarchy). It is iterative: start with k initial centroids, assign each point to the nearest centroid,
+          recompute each centroid as the mean of its assigned points, repeat until stable.</p>
+          <p class="def" style="margin-top:6px">Fast and simple, but you must choose <b>k</b> in advance, the result depends on the initial centroids, and it tends to find <b>spherical</b> clusters
+          of similar size.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Hierarchical Agglomerative Clustering</h2><span class="tag">Bottom-up, dendrogram</span></div>
+    <div class="card full">
+      <p>Agglomerative clustering starts with every point in its own cluster and merges the closest pair of clusters step by step. The key design choice is the <b>linkage</b> — how to measure
+      the distance between two <b>clusters</b> (each of which may contain many points).</p>
+
+      <div class="grid cols-3" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">Single</span>Single linkage</h3>
+          <p>The distance between two clusters is the <b>minimum</b> distance between any point in one and any point in the other.</p>
+          <p class="def" style="margin-top:6px"><b>Strength:</b> can find clusters of <b>arbitrary shape</b> — clusters can be chained together by a thin path of close points.</p>
+          <p class="def" style="margin-top:4px"><b>Weakness:</b> sensitive to noise and outliers (a single stray point can bridge two clusters), and can produce long, straggly clusters.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Complete</span>Complete linkage</h3>
+          <p>The distance between two clusters is the <b>maximum</b> distance between any point in one and any point in the other.</p>
+          <p class="def" style="margin-top:6px"><b>Strength:</b> tends to produce <b>compact, tight</b> clusters — the merge distance is the worst-case distance, so clusters stay close together.</p>
+          <p class="def" style="margin-top:4px"><b>Weakness:</b> can be sensitive to outliers; may split natural large clusters.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Average</span>Average linkage</h3>
+          <p>The distance between two clusters is the <b>average</b> of all pairwise distances between their points.</p>
+          <p class="def" style="margin-top:6px"><b>Strength:</b> a compromise between single and complete — less sensitive to outliers than single, less rigid than complete.</p>
+          <p class="def" style="margin-top:4px"><b>Weakness:</b> more computation than single (all pairwise distances), but generally a robust, balanced choice.</p>
+        </div>
+      </div>
+
+      <div class="def"><b>Worked example — single linkage:</b> given the one-dimensional data (2, 5, 9, 15, 16, 18, 25, 33, 33, 45), start with each value as its own cluster. Find the smallest
+      gap between any two values: 15 and 16 differ by 1 → merge into {15,16}. Next smallest gap: 33 and 33 differ by 0 → merge into {33,33}. Continue merging the closest clusters: 16 and 18
+      differ by 2 → merge {15,16} with {18} → {15,16,18}; 9 and 15 differ by 6 → merge {9} with {15,16,18} → {9,15,16,18}; 5 and 9 differ by 4 → merge {5} with {9,15,16,18}, and so on.
+      The sequence of merges and the distances at which they happen form the dendrogram. The single-linkage distance between two clusters is the smallest distance between any member of one and any
+      member of the other.</div>
+
+      <div class="def"><b>How to read the dendrogram:</b> the vertical axis is the distance at which clusters merge. To get a flat clustering with a chosen number of clusters, cut the dendrogram
+      horizontally at the appropriate height — everything joined below the cut is one cluster. Cutting higher gives fewer, larger clusters; cutting lower gives more, smaller clusters.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>K-Means Clustering</h2><span class="tag">The workhorse</span></div>
+    <div class="card full">
+      <p>K-means is the most widely used clustering algorithm. It partitions the data into exactly <b>k</b> clusters by iteratively refining k <b>centroids</b> (the representative centre of each
+      cluster) and the assignment of points to the nearest centroid.</p>
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">Algorithm</span>The k-means steps</h3>
+          <ol>
+            <li><b>Choose k initial centroids</b> — often by picking k points that are far apart (a better start than random).</li>
+            <li><b>Assign</b> each point to the cluster whose centroid is nearest (by the chosen distance measure).</li>
+            <li><b>Update</b> each centroid to be the <b>mean</b> of the points now assigned to it.</li>
+            <li><b>Repeat</b> steps 2 and 3 until the assignments stop changing (convergence).</li>
+          </ol>
+          <div class="def" style="margin-top:8px"><b>Why it converges:</b> each iteration reduces (or keeps equal) the total within-cluster distance — the sum of distances from each point to its cluster centroid.
+          Since this value can only decrease and is bounded below by zero, the algorithm must eventually stop.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Tip</span>Choosing initial centroids</h3>
+          <p>A poor start can lead to a bad local optimum. A good heuristic: pick the first centroid randomly, then pick each next centroid as the point <b>farthest</b> from the already-chosen
+          centroids. This spreads the initial centres out and usually leads to a better final clustering.</p>
+          <div class="def" style="margin-top:8px"><b>Tip from the syllabus model paper:</b> "Try using initial cluster centers as far apart as possible" — this is exactly the far-apart initialisation heuristic.</div>
+        </div>
+      </div>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th></th><th>Strength</th><th>Weakness</th></tr></thead>
+          <tbody>
+            <tr><td>K-means</td>
+              <td>Simple, fast, scales to large datasets, easy to implement, widely understood</td>
+              <td>Must choose k in advance; result depends on initial centroids (local optimum); assumes roughly spherical, similarly-sized clusters; sensitive to outliers; needs numeric features (uses means)</td>
+            </tr>
+            <tr><td>HAC</td>
+              <td>No need to choose k up front; produces a full hierarchy (dendrogram); flexible linkage choices; can capture non-spherical shapes (with single linkage)</td>
+              <td>More expensive (O(n²) or worse); dendrogram interpretation can be subjective; single linkage sensitive to noise; complete linkage can be inflexible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>Worked k-means example (k=2, far-apart start):</b> data = (2,0), (1,2), (2,2), (3,2), (2,3), (3,3), (2,4), (3,4), (4,4), (3,5). Pick two initial centroids far apart — say
+      (2,0) and (3,5). Assign each point to the nearest centroid (Euclidean), recompute centroids as the mean of assigned points, repeat. After convergence the two clusters settle around their
+      final centroids. The key is: assignments and centroids change together each iteration, moving toward a stable partition.</div>
+      <div class="def"><b>Worked k-means example (k=3, Manhattan distance):</b> points x₁..x₈ grouped initially as C₁={x₁,x₂,x₃}, C₂={x₄,x₅,x₆}, C₃={x₇,x₈}. Using Manhattan distance, assign each point to
+      the nearest cluster centroid, recompute each centroid as the mean, repeat until convergence. The same algorithm works with any distance measure — here Manhattan instead of Euclidean — which
+      changes which cluster a borderline point joins.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Expectation-Maximisation (EM) for Soft Clustering</h2><span class="tag">Probabilistic groups</span></div>
+    <div class="card full">
+      <p>K-means is <b>hard</b> clustering — each point belongs to exactly one cluster. <b>EM (Expectation-Maximisation)</b> is <b>soft</b> (or probabilistic) clustering: each point gets a
+      <b>probability</b> of belonging to each cluster, rather than a firm assignment. EM is most commonly described for <b>Gaussian Mixture Models (GMMs)</b>, where the data is modelled as a
+      mixture of several Gaussian distributions.</p>
+      <p>EM is designed for exactly the situation the syllabus names: "find a maximum likelihood setting of the parameters of a model when some of the data is missing." In clustering, the "missing
+      data" is the <b>cluster membership</b> — we do not know which point came from which component, so we treat the memberships as latent (hidden) variables and estimate them alongside the model
+      parameters.</p>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">E-step</span>Expectation</h3>
+          <p>Given the current guess of the model parameters (the means, covariances, and mixing weights of the Gaussians), compute the <b>probability</b> (responsibility) that each point
+          belongs to each cluster. This is the "expected" cluster membership, given what we currently believe about the model.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">M-step</span>Maximisation</h3>
+          <p>Given the responsibilities from the E-step, <b>re-estimate</b> the model parameters — update the means, covariances, and mixing weights to maximise the likelihood of the data
+          under the current soft assignments. This is the "maximisation" of the expected complete-data log-likelihood.</p>
+        </div>
+      </div>
+
+      <p>The two steps repeat: E uses the current parameters to assign soft memberships; M uses those memberships to update the parameters. Each iteration increases the likelihood — EM is a
+      <b>hill-climbing</b> algorithm that is guaranteed to converge to a (local) maximum of the likelihood.</p>
+
+      <div class="def"><b>Does EM converge?</b> Yes — the likelihood increases (or stays flat) at every iteration and is bounded above, so EM converges to a stationary point. However, it converges to a
+      <b>locally</b> optimal set of parameters, not necessarily global. The result depends on the initial parameters (just as k-means depends on its initial centroids). Multiple random restarts are
+      commonly used to reduce the chance of a poor local optimum.</div>
+      <div class="def"><b>EM vs k-means:</b> k-means is almost a special case of EM for Gaussian mixtures where every cluster has the same spherical (identity) covariance and the assignments are hard
+      (each point's responsibility is 1 for one cluster, 0 for the rest). EM is the generalisation: soft assignments, full covariance matrices, and a proper probabilistic model.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Dimensionality Reduction — Principal Component Analysis (PCA)</h2><span class="tag">Compress without losing the gist</span></div>
+    <div class="card full">
+      <p>Many datasets have dozens or hundreds of features, and many of those features are <b>correlated</b> — they carry overlapping information. <b>Principal Component Analysis (PCA)</b> is a
+      technique that finds a new set of <b>uncorrelated</b> features (the principal components) that are linear combinations of the original features, ordered so that the first few capture most of
+      the variation in the data. We can then keep only the first few components and <b>discard the rest</b>, reducing dimensionality while losing as little information as possible.</p>
+
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">What PCA does</span></h3>
+          <p>PCA finds the directions (principal components) in which the data varies the most, and projects the data onto those directions. The <b>first principal component</b> is the direction of
+          <b>largest variance</b>; the second is the direction of largest variance <b>orthogonal</b> to the first; and so on.</p>
+          <div class="def" style="margin-top:8px"><b>Which eigenvalue indicates the direction of largest variance?</b> The <b>largest</b> eigenvalue. Each principal component has an associated eigenvalue that
+          measures how much variance that component captures. The component with the largest eigenvalue is the first principal component — the direction along which the data is most spread out.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">How to use it</span></h3>
+          <p>(1) Standardise the features (so scale does not dominate). (2) Compute the covariance matrix of the data. (3) Find its <b>eigenvalues and eigenvectors</b>. (4) Sort components by
+          eigenvalue, largest first. (5) Keep the top k components and project the data onto them. The kept components are your reduced-dimension representation.</p>
+          <div class="def" style="margin-top:8px"><b>Why it helps:</b> reduces storage and computation, removes redundant/correlated features, can reduce overfitting, and lets you visualise high-dimensional data
+          in 2 or 3 dimensions. The trade-off is some information loss — but PCA loses the <i>least</i> information for a given number of dimensions.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>PCA in one line:</b> rotate the data to a new coordinate system where the axes are the directions of decreasing variance, then drop the axes with the smallest variance.
+      The new axes (principal components) are <b>uncorrelated</b> by construction, and are ordered by how much of the data's spread they explain. It is an unsupervised method — it does not use class
+      labels, only the structure of the input features.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>K-Means — Worked Centroid Update</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="card full">
+      <p><b>K-Means</b> (partitioning clustering): choose K seeds, assign each point to the nearest centre, then <b>recompute each centre as the mean of its members</b>. Stop when centres stop moving, points stop switching, or SSE stops decreasing.</p>
+      <div class="qbox">
+        <h4>SSE (compactness)</h4>
+        <p class="eq">SSE = Σ<sub>k=1</sub><sup>K</sup> Σ<sub>x∈Cₖ</sub> || x − μₖ ||²</p>
+        <h4>Centroid update</h4>
+        <p class="eq">μₖ = (1/|Cₖ|) · Σ<sub>x∈Cₖ</sub> x</p>
+      </div>
+      <div class="qbox">
+        <h4>Iteration 1 (K=2) — points assigned; recompute centres</h4>
+        <p class="eq">V₁ = ½ ( (1,1.5) + (1,2) ) = <b>(1.25, 1.5)</b></p>
+        <p class="eq">V₂ = ⅕ ( (3,4)+(5,7)+(3,5)+(4,5)+(3.5,4.5) ) = <b>(3.7, 5.5)</b></p>
+        <p>Old centres were (1,1) and (3,4). Since the new centres differ, <b>iterate again</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Hierarchical (Single-Linkage) — Worked Example</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="card full">
+      <p><b>Agglomerative</b> clustering starts with each point as its own cluster and repeatedly merges the two closest clusters. <b>Single linkage</b> defines cluster distance as the <b>minimum</b> distance between any two points in the clusters.</p>
+      <div class="qbox">
+        <h4>Distance matrix (A, B, C, D)</h4>
+        <p class="eq" style="font-size:13px;text-align:left">A–B=10, A–C=12, A–D=20, B–C=5, <b>B–D=3</b>, C–D=4</p>
+      </div>
+      <div class="qbox">
+        <h4>Step 1</h4>
+        <p>Min distance = 3 → merge <b>B &amp; D</b> into {BD}.</p>
+        <p class="eq">d(A,{BD}) = min(d(A,B), d(A,D)) = min(10,20) = 10</p>
+        <p class="eq">d(C,{BD}) = min(d(C,B), d(C,D)) = min(5,4) = 4</p>
+        <p>Reduced matrix: A–{BD}=10, A–C=12, {BD}–C=4. Next merge: C &amp; {BD} (dist 4) or A &amp; C (dist 12).</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m3-1.html">← Prev: M3 · Neural Networks &amp; SVM</a>
+    <a class="next" href="m5-1.html">Next: M5 · Classification &amp; Assessment →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

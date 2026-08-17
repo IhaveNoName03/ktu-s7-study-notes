@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Tidal Energy</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html">M1 · Solar Thermal</a>
+      <a href="m1-3.html">M1 · Solar PV</a>
+      <a href="m2-1.html">M2 · OTEC</a>
+      <a href="m2-2.html" class="active">M2 · Tidal</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Page 2 of 2</span>
+  <h1>Tidal Energy</h1>
+  <p class="lede">Power from the rise and fall of the sea. This page covers the origin of tides (Moon vs
+  Sun), spring/neap, the components of a tidal plant, the four operating modes, single vs double basin,
+  site criteria, and the environmental impacts/limitations.</p>
+  <div class="meta-row">
+    <span class="chip red">Tides</span>
+    <span class="chip">Spring/Neap</span>
+    <span class="chip">Basin types</span>
+    <span class="chip">Site criteria</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Origin of Tides</h2><span class="tag">Gravity</span></div>
+    <div class="card full">
+      <p>Tides are caused by the <b>gravitational pull</b> of the Moon and Sun on the rotating Earth. The Moon is nearer, so its pull is ~<b>2.33× stronger</b> than the Sun's.</p>
+      <ul>
+        <li>Water facing the Moon is pulled toward it → <b>high tide</b> on that side.</li>
+        <li>A corresponding high tide forms on the opposite side (Earth pulled away from the water).</li>
+        <li>The Moon takes 24 h 50 min per rotation → two high tides ~12 h 25 min apart.</li>
+        <li>Sun's effect is the same but ~2.2× weaker and Earth orbits it in 24 h, so solar and lunar tides drift in/out of phase.</li>
+      </ul>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Spring vs Neap tides</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Type</th><th>Alignment</th><th>Tidal height</th><th>Frequency</th></tr></thead>
+          <tbody>
+            <tr><td>Spring</td><td>Sun–Earth–Moon in a line (aligned)</td><td>Maximum (in phase)</td><td>Twice a lunar month</td></tr>
+            <tr><td>Neap</td><td>Sun-Earth ⊥ Moon-Earth (perpendicular)</td><td>Minimum (out of phase)</td><td>Twice a lunar month</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Tidal Energy &amp; Potential</h2><span class="tag">The resource</span></div>
+    <div class="card full">
+      <p>The energy source is the <b>difference in water level</b> between high and low tide (the <b>tidal range</b>, typically 5–15 m). In a plant, a reservoir behind a barrage fills at high tide; stored water flows out through turbines to the sea at low tide, driving generators.</p>
+      <p><b>Potential energy of a basin:</b> for entrapped water of surface area A and tidal range R, a thin layer of height dh at head h has potential energy dE = ρ·g·A·h·dh (ρ = water density, g = gravity). Integrating over the full range gives the storable energy; minimum workable range ≈ <b>5 m</b>.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Components of a Tidal Power Plant</h2><span class="tag">Hardware</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h4>i. Dam / dyke</h4><p>Barrier between sea and basin (and between basins if &gt;1). Holds the head.</p></div>
+      <div class="card"><h4>ii. Sluiceways</h4><p>Gated channels in the dam; let water in at high tide and drain the basin at low tide.</p></div>
+      <div class="card"><h4>iii. Powerhouse</h4><p>Holds turbines + generators + auxiliaries. High-head water runs the turbines → generators produce power.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Modes of Operation</h2><span class="tag">How it generates</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Mode</th><th>When power flows</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Ebb generation</td><td>Basin filled at high tide; water flows out to sea at low tide</td><td>Power during ebb only (intermittent)</td></tr>
+          <tr><td>Flood generation</td><td>Sea flows into basin through turbines at high tide</td><td>Power during high tide only</td></tr>
+          <tr><td>Two-way generation</td><td>Reversible turbines; generate on both filling and emptying</td><td>Power in both directions; brief gap at reversal</td></tr>
+          <tr><td>Pumping &amp; turbining</td><td>Pump fills basin at high tide; turbine generates at low tide</td><td>Pump = motor, turbine = prime mover</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Classification: Basin Systems</h2><span class="tag">Single vs double</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Single basin</h4><p>One basin behind a dam. Turbines in the dam. Sub-types:</p><ul>
+        <li><b>Single ebb:</b> fills via sluice at high tide, generates on ebb (intermittent).</li>
+        <li><b>Single tide:</b> water enters through turbines at high tide; stops as sea falls.</li>
+        <li><b>Double cycle:</b> reversible turbines → generate on both filling and emptying.</li>
+      </ul></div>
+      <div class="card"><h4>Double basin</h4><p>Two basins at different levels, dams between basins and sea. Upper basin kept higher (filled at high tide); lower basin discharges at low tide. Turbines sit between the basins; water flows upper→lower, generating continuously (smoother output than single basin).</p></div>
+      </div>
+
+      <div class="diagram">
+      <div class="dtitle">Fig · Double-basin Tidal Power Plant</div>
+      <svg viewBox="0 0 560 260" role="img" aria-label="Double basin tidal plant layout">
+      <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+      <!-- sea -->
+      <rect class="water" x="20" y="150" width="90" height="80" rx="3"/>
+      <text x="65" y="195" text-anchor="middle" class="lbl">Sea</text>
+      <!-- upper basin -->
+      <rect class="water" x="180" y="40" width="160" height="70" rx="3"/>
+      <text x="260" y="80" text-anchor="middle" class="lbl">Upper basin (high)</text>
+      <!-- lower basin -->
+      <rect class="water" x="180" y="170" width="160" height="70" rx="3"/>
+      <text x="260" y="210" text-anchor="middle" class="lbl">Lower basin (low)</text>
+      <!-- dams -->
+      <rect class="metal" x="120" y="40" width="14" height="200" rx="2"/>
+      <rect class="metal" x="350" y="40" width="14" height="200" rx="2"/>
+      <!-- turbines between basins -->
+      <rect class="box g" x="240" y="110" width="50" height="34" rx="3"/>
+      <text x="265" y="132" text-anchor="middle" class="lbl">Turbine</text>
+      <!-- flows -->
+      <line class="arrow" x1="110" y1="80" x2="180" y2="80"/><text x="120" y="72" class="txtsm">fill ↑ (high tide)</text>
+      <line class="arrow r" x1="300" y1="110" x2="300" y2="170"/><text x="306" y="145" class="txtsm">flow ↓</text>
+      <line class="arrow" x1="364" y1="210" x2="420" y2="210"/><text x="380" y="204" class="txtsm">to sea ↓</text>
+      </svg>
+      <p class="dcap">Sea fills the upper basin at high tide; water flows upper→lower basin through the turbine (generating); the lower basin discharges to the sea at low tide. Two basins give steadier output than one.</p>
+      </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Site Requirements &amp; Feasibility</h2><span class="tag">Where to build</span></div>
+    <div class="card full">
+      <div class="grid cols-2">
+        <div class="card"><h4>Site requirements</h4><ul>
+          <li>High tidal range (≥ 5 m economic)</li>
+          <li>Short dam length for a large basin → narrow estuary/bay inlet</li>
+          <li>Near the load centre</li>
+          <li>Protected from high waves</li>
+          <li>Must not block shipping</li>
+        </ul></div>
+        <div class="card"><h4>Feasibility factors</h4><ul>
+          <li>Tidal range ≥ 5 m</li>
+          <li>Low dam-construction cost for needed storage</li>
+          <li>No interruption to shipping</li>
+          <li>Protected from storm waves</li>
+          <li>Low silt content (avoid sedimentation cost)</li>
+        </ul></div>
+      </div>
+      <div class="def"><b>India sites:</b> Gulf of Kutch, Gulf of Khambhat, Gulf of Cambay (Gujarat), Sundarbans delta &amp; Pitts Creek (West Bengal).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Merits &amp; Limitations</h2><span class="tag">Balanced</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Merits</h4><ul>
+        <li>Pollution-free, inexhaustible</li>
+        <li>Dam at bays — no village uprooting / ecology disruption like large hydro</li>
+        <li>No land submergence; basins usable for fish farming</li>
+        <li>Not weather-dependent (tide cycle is definite, unlike monsoon)</li>
+      </ul></div>
+      <div class="card"><h4>Limitations</h4><ul>
+        <li>Needs natural sites; good ones are far from load → high transmission cost</li>
+        <li>Uneven output (variable head); not continuous (timing of tides)</li>
+        <li>Long construction; costly basin/plant</li>
+        <li>Siltation; corrosion from seawater shortens equipment life</li>
+        <li>Low head → many turbines needed; efficiency varies with range</li>
+        <li>Power varies with lunar cycle</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m2-1.html">Prev: OTEC</a>
+    <a class="next" href="m-t1.html">Next: Exam Techniques</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 2, Page 2 — Tidal Energy.</div>
+    <div><a href="index.html">Home</a> · <a href="m-t1.html">Exam</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · ML Paradigms &amp; Bayesian Formulation</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .hero{background:var(--ink);color:#fff;padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:#cfd6dd;font-size:15px;max-width:700px;line-height:1.55}
+  .hero .meta-row{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+  .hero .chip{display:inline-block;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.22)}
+  .hero .chip.red{background:var(--accent);border-color:var(--accent);color:#fff}
+  @media (max-width:780px){.hero h1{font-size:25px}.hero .lede{font-size:14.5px}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html" class="active">M1 · Paradigms</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Classification</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 1 · Overview of Machine Learning · 7 hours</span>
+    <h1>ML Paradigms &amp; Bayesian Formulation</h1>
+    <p class="lede">Before any algorithm makes sense, you need the map: what kinds of learning exist, when each is
+    used, and how probability — especially Bayes' theorem and parameter estimation — underpins the whole field.
+    This page covers the four ML paradigms, semi-supervised learning, and the Bayesian way of thinking about
+    learning from data under uncertainty.</p>
+    <div class="meta-row">
+      <span class="chip red">Supervised</span>
+      <span class="chip">Unsupervised</span>
+      <span class="chip">Semi-supervised</span>
+      <span class="chip">Reinforcement</span>
+      <span class="chip">Bayes</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What Is Machine Learning?</h2><span class="tag">Definition</span></div>
+    <div class="card full">
+      <p>Machine learning is a branch of artificial intelligence that focuses on developing models and algorithms
+      that let computers <b>learn from data</b> without being explicitly programmed for every task. In simple terms:
+      ML teaches a system to think and understand like a human by learning patterns from examples, rather than
+      following a fixed rule written by a person.</p>
+      <p>That is the core shift: traditional software says <i>"if X then do Y"</i>; machine learning says
+      <i>"here are many examples of X and the correct Y — figure out the rule yourself."</i> The model is the
+      learned rule, and it is <b>trained</b> on data, then used to make predictions or decisions on new, unseen
+      data.</p>
+      <div class="def"><b>Key idea:</b> the system improves with experience (data). The more representative the data,
+      the better the model generalises to situations it has not seen before.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>The Three Core Types of Machine Learning</h2><span class="tag">Paradigms at a glance</span></div>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3><span class="idx">S</span>Supervised Learning</h3>
+        <p>Trains models on <b>labelled</b> data to predict or classify new, unseen data. Each training example
+        comes with the correct answer (the label), so the model learns a mapping from inputs to outputs.</p>
+        <p class="def" style="margin-top:6px">Sub-types: <b>Classification</b> (predict discrete labels/categories) and
+        <b>Regression</b> (predict continuous numerical values).</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">U</span>Unsupervised Learning</h3>
+        <p>Finds patterns or groups in <b>unlabelled</b> data — there is no "correct answer" provided. The model
+        looks for structure on its own, such as clusters of similar items or ways to reduce many features to a
+        smaller set.</p>
+        <p class="def" style="margin-top:6px">Categories: <b>Clustering</b>, <b>Association Rule Mining</b>,
+        <b>Dimensionality Reduction</b>.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">R</span>Reinforcement Learning</h3>
+        <p>Learns through <b>trial and error</b> to maximise a reward. An agent takes actions in an environment,
+        receives feedback in the form of rewards or penalties, and gradually learns which actions lead to the best
+        long-term outcome.</p>
+        <p class="def" style="margin-top:6px">Ideal for <b>decision-making</b> tasks — e.g. game playing, robotics,
+        resource scheduling — where there is no fixed labelled dataset, just interaction and feedback.</p>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>Data used</th><th>Goal</th><th>Typical example</th></tr></thead>
+        <tbody>
+          <tr><td>Supervised</td><td>Labelled (input + correct output)</td><td>Learn input→output mapping</td><td>Predict house price; classify email as spam</td></tr>
+          <tr><td>Unsupervised</td><td>Unlabelled (input only)</td><td>Find hidden structure</td><td>Group customers by behaviour; reduce features</td></tr>
+          <tr><td>Reinforcement</td><td>Rewards from environment</td><td>Learn action policy to maximise reward</td><td>Learn to play a game; robot navigation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Unsupervised Learning — Three Categories</h2><span class="tag">Structure without labels</span></div>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3><span class="idx">C</span>Clustering</h3>
+        <p>Groups similar data points together so that items in the same group (cluster) are more alike than items
+        in other groups. There is no "correct" label — the grouping emerges from the data itself.</p>
+        <p class="def" style="margin-top:6px">Example: grouping customers by purchasing behaviour, or grouping
+        documents by topic. Common algorithms: k-means, hierarchical clustering, EM.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">A</span>Association Rule Mining</h3>
+        <p>Discovers <b>rules</b> that describe how items tend to appear together in data. An association rule says
+        "if X happens, Y tends to happen too" — useful for finding co-occurrence patterns.</p>
+        <p class="def" style="margin-top:6px">Classic example: market-basket analysis — "customers who buy bread
+        often also buy butter." Metrics: support, confidence, lift.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">D</span>Dimensionality Reduction</h3>
+        <p>Reduces the number of features (dimensions) in a dataset while trying to preserve the important
+        information. High-dimensional data is hard to work with and often contains redundant or correlated
+        features.</p>
+        <p class="def" style="margin-top:6px">Helps with visualisation, speed, and avoiding overfitting.
+        Example: Principal Component Analysis (PCA) — covered in detail in Module 4.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Reinforcement Learning — Learning by Reward</h2><span class="tag">Interaction + feedback</span></div>
+    <div class="card full">
+      <p>Reinforcement learning (RL) is different from supervised and unsupervised learning because it learns from
+      <b>interaction</b>. An <b>agent</b> acts in an <b>environment</b>, and after each action it receives a
+      <b>reward</b> (or penalty) — a numerical signal that tells it how good that action was.</p>
+      <p>The agent's goal is not to maximise the immediate reward, but the <b>cumulative</b> reward over time. This
+      makes RL suited to problems where a short-term sacrifice can lead to a better long-term outcome — exactly the
+      kind of sequential decision-making that shows up in games, robotics, and control systems.</p>
+      <div class="def"><b>Contrast with supervised learning:</b> in supervised learning you are given the correct
+      answer for each example. In RL you are given a reward signal that tells you how well you did, but not
+      necessarily the one best action. The agent must <b>explore</b> (try new actions) and <b>exploit</b> (use what
+      it already knows works) to learn the best policy.</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Aspect</th><th>Supervised</th><th>Reinforcement</th></tr></thead>
+          <tbody>
+            <tr><td>Feedback</td><td>Correct label for each example</td><td>Reward signal (not the "right" action)</td></tr>
+            <tr><td>Data source</td><td>Fixed labelled dataset</td><td>Interaction with environment over time</td></tr>
+            <tr><td>Goal</td><td>Predict/classify correctly</td><td>Learn a policy to maximise cumulative reward</td></tr>
+            <tr><td>Typical use</td><td>Classification, regression</td><td>Games, robotics, sequential decisions</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Semi-Supervised Learning</h2><span class="tag">Between the two</span></div>
+    <div class="card full">
+      <p>Semi-supervised learning sits between supervised and unsupervised learning. It uses a <b>mix of labelled
+      and unlabelled data</b> — typically a small amount of labelled data together with a much larger amount of
+      unlabelled data.</p>
+      <p>This is useful precisely because <b>labelling data is costly or limited</b>. Getting labels often requires
+      a human expert (e.g. a doctor labelling medical images, or someone transcribing speech), which is slow and
+      expensive. Meanwhile, raw unlabelled data (images, text, sensor readings) is often abundant and cheap.</p>
+      <div class="def"><b>Why it matters:</b> semi-supervised learning tries to get the benefit of labelled data
+      (the supervision) while also exploiting the structure in the large unlabelled set (the unsupervised part) to
+      improve the model. It is a practical answer to the real-world situation where labels are the bottleneck.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Bayesian Formulation — Thinking in Probabilities</h2><span class="tag">Uncertainty</span></div>
+    <div class="card full">
+      <p>The Bayesian formulation is the probabilistic way of thinking about learning. <b>Bayes' theorem</b>
+      explains how to update the probability of a hypothesis when new evidence is observed. In machine learning,
+      the "hypothesis" is often the model or the model's parameters, and the "evidence" is the data we observe.</p>
+      <p>At its heart, Bayesian learning combines <b>prior knowledge</b> with <b>observed data</b> to make better
+      decisions under uncertainty. Rather than producing a single fixed answer, it works with probabilities — how
+      likely a hypothesis is, given what we knew before and what we have now seen.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>What Bayesian formulation gives</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Handles uncertainty and noisy data effectively</td><td>Real data is rarely perfect; the Bayesian view quantifies rather than ignores uncertainty</td></tr>
+            <tr><td>Supports probabilistic interpretation of predictions</td><td>Instead of just "yes/no," the model can say how confident it is — essential for risk analysis and diagnosis</td></tr>
+            <tr><td>Enables learning even with limited data</td><td>By bringing in a prior (what we believe before seeing the data), useful learning is possible even when data is scarce</td></tr>
+            <tr><td>Key role in risk analysis and diagnosis</td><td>Probabilities are the natural language for "how likely is this diagnosis / failure / risk?"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Simple intuition:</b> Bayes' theorem is the mathematics of "updating your belief." You start
+      with a prior belief, see some evidence, and end with a posterior belief that combines both. In ML, this is the
+      foundation for methods like Bayesian learning and the MAP estimate.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Mathematical Formulation of Bayes' Theorem</h2><span class="tag">The formula</span></div>
+    <div class="card full">
+      <p>Bayes' theorem relates conditional probabilities. In the context of machine learning it is usually written
+      as:</p>
+      <p style="text-align:center;font-size:16px;font-weight:700;margin:14px 0;color:var(--accent-ink)">P(H | D) = P(D | H) · P(H) / P(D)</p>
+      <div class="grid cols-2" style="margin-top:6px">
+        <div class="card">
+          <h3><span class="idx">P(H | D)</span>Posterior</h3>
+          <p>The probability of the hypothesis <b>H</b> after observing the data <b>D</b>. This is what we want to
+          compute — our updated belief after seeing the evidence.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">P(D | H)</span>Likelihood</h3>
+          <p>The probability of observing the data <b>D</b> if the hypothesis <b>H</b> were true. It measures how
+          well the hypothesis explains the data.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">P(H)</span>Prior</h3>
+          <p>The probability of the hypothesis <b>before</b> seeing the data — our initial belief, based on prior
+          knowledge or assumptions.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">P(D)</span>Evidence</h3>
+          <p>The probability of the data overall. It acts as a normalising constant so the posterior sums to 1. In
+          many ML settings it does not depend on the hypothesis and can be treated as a constant.</p>
+        </div>
+      </div>
+      <div class="def"><b>Reading it in words:</b> the posterior (updated belief) is proportional to the likelihood
+      (how well the hypothesis fits the data) times the prior (what we believed before). Bayes' theorem gives the
+      exact way to combine them.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Connecting the Paradigms to Estimation</h2><span class="tag">Why this matters for M2</span></div>
+    <div class="card full">
+      <p>The paradigms on this page are the <b>what</b>; parameter estimation (covered in the next module) is the
+      <b>how</b> for the supervised and Bayesian parts. In particular:</p>
+      <ul>
+        <li><b>Supervised learning</b> needs a way to fit a model to labelled data — that is estimation: given data,
+        find the parameters (weights, probabilities, tree splits) that best explain it.</li>
+        <li><b>Maximum Likelihood Estimation (MLE)</b> asks: which parameter values make the observed data most
+          probable? It is a core, general method for fitting models.</li>
+        <li><b>Maximum A Posteriori (MAP)</b> extends MLE by including a prior — it is the Bayesian version,
+          combining the data (likelihood) with prior belief (prior) to get the most probable parameters.</li>
+        <li><b>The Bayesian formulation</b> is the bigger picture: learning as reasoning about probabilities of
+          hypotheses and parameters given data.</li>
+      </ul>
+      <div class="def"><b>Bridge to Module 2:</b> the next module takes these ideas and works them out concretely —
+      MLE for specific distributions (binomial, Poisson, exponential, normal), MAP with priors, and the point vs.
+      interval estimation distinction. If the paradigms here feel abstract, the worked examples in Module 2 are
+      where they become concrete.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>MLE &amp; MAP — Worked Example (Coin Toss)</h2><span class="tag">From the handwritten notes / CO questions</span></div>
+    <div class="card full">
+      <p><b>MLE</b> finds the parameter values that maximise the probability of the observed data. <b>MAP</b> additionally multiplies by a prior and maximises the posterior.</p>
+      <div class="qbox">
+        <h4>Posterior (Bayes)</h4>
+        <p class="eq">P(θ | D) = P(D | θ) · P(θ) / P(D)</p>
+        <h4>Estimators</h4>
+        <p class="eq">θ̂<sub>MLE</sub> = arg max<sub>θ</sub> P(D|θ) &nbsp;·&nbsp; θ̂<sub>MAP</sub> = arg max<sub>θ</sub> P(θ|D) = arg max<sub>θ</sub> P(D|θ)·P(θ)</p>
+      </div>
+      <div class="qbox">
+        <h4>Worked — coin tossed 100 times, lands heads 62 times</h4>
+        <p>Let θ = P(heads). The data likelihood is binomial: P(D|θ) = C(100,62)·θ⁶²(1−θ)³⁸.</p>
+        <p class="eq">Maximise w.r.t. θ → d/dθ [62·lnθ + 38·ln(1−θ)] = 0 → 62/θ = 38/(1−θ)</p>
+        <p class="eq">θ̂<sub>MLE</sub> = 62/100 = <b>0.62</b> &nbsp; (the observed frequency)</p>
+        <p>With a prior on θ (e.g. a Beta / normal), MAP pulls this estimate toward the prior mean — and as the number of tosses → ∞, MAP converges to the same value as MLE.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="index.html">Prev: Home</a>
+    <a class="next" href="m2-1.html">Next: M2 · Parameter Estimation →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · Solar Photovoltaic Systems</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Renewable Energy Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="m1-1.html">M1 · Resources</a>
+      <a href="m1-2.html">M1 · Solar Thermal</a>
+      <a href="m1-3.html" class="active">M1 · Solar PV</a>
+      <a href="m2-1.html">M2 · OTEC</a>
+      <a href="m2-2.html">M2 · Tidal</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Page 3 of 3</span>
+  <h1>Solar Photovoltaic Systems</h1>
+  <p class="lede">Sunlight straight to electricity. This page covers the photovoltaic effect, solar-cell
+  construction, the I–V characteristic with fill factor and efficiency, the cell→module→panel→array
+  hierarchy, shadowing/hot-spot, and stand-alone vs grid-connected systems.</p>
+  <div class="meta-row">
+    <span class="chip red">PV effect</span>
+    <span class="chip">I–V / Fill factor</span>
+    <span class="chip">Module/Array</span>
+    <span class="chip">Systems</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What Is a Solar PV System?</h2><span class="tag">Overview</span></div>
+    <div class="card full">
+      <p>Converts solar energy <b>directly</b> to electricity via the <b>photovoltaic (PV) cell</b> — a p-n junction current source driven by a flux of radiation. First made in 1954 for space satellites; terrestrial use grew after the 1973 oil crisis.</p>
+      <div class="grid cols-2">
+        <div class="card"><h4>Advantages</h4><ul>
+          <li>No moving parts; direct conversion (no thermal-mechanical link)</li>
+          <li>Reliable, modular, durable, maintenance-free, quiet</li>
+          <li>Responds instantly to sunlight; ~20-year life</li>
+          <li>Located at point of use → minimal distribution network</li>
+        </ul></div>
+        <div class="card"><h4>Disadvantages</h4><ul>
+          <li>High cell cost → not yet competitive with conventional</li>
+          <li>Low efficiency + low radiation density → large area needed</li>
+          <li>Intermittent → needs storage for non-sun hours (adds cost)</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>The Photovoltaic Effect</h2><span class="tag">Principle</span></div>
+    <div class="card full">
+      <p><b>Definition:</b> when light strikes two dissimilar materials in close contact (a p-n junction of silicon/germanium), the photons provide the energy (e.m.f.) to free bound electrons, producing an electrical charge.</p>
+      <p>Sunlight = packets of energy called <b>photons</b> (different wavelengths). A photon absorbed in the depletion zone of a p-n junction dislodges an electron, creating a free <b>electron–hole pair</b>. The electron crosses the junction (assisted by the built-in field), travels through the external load, and the hole migrates to the back contact — restoring neutrality. Current flows as long as light falls on the junction.</p>
+      <div class="def">p-n junction is kept with thin n-type on top (light passes through) over thicker p-type bulk. Generation of current happens in the depletion zone.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Solar Cell Construction</h2><span class="tag">Layer stack</span></div>
+    <div class="card full">
+      <div class="grid cols-2">
+        <div class="card"><h4>Parts</h4><ul>
+          <li>p-type silicon bulk (~100–350 µm)</li>
+          <li>thin n-type layer (~2 µm) diffused on top → p-n junction</li>
+          <li>front metallic grid (negative terminal)</li>
+          <li>opaque back metal contact (positive terminal)</li>
+        </ul></div>
+        <div class="card"><h4>Working</h4><p>Photons free electrons at the junction; electrons flow n→external load→p, holes flow to back contact. The cell is essentially a large-area p-n junction.</p></div>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <div class="dtitle">Fig · Solar Cell — p-n junction &amp; current flow</div>
+      <svg viewBox="0 0 560 260" role="img" aria-label="Solar cell p-n junction diagram">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <rect class="box f" x="80" y="40" width="400" height="60" rx="3"/>
+        <text x="280" y="66" text-anchor="middle" class="lbl">n-type silicon (thin, top)</text>
+        <text x="280" y="84" text-anchor="middle" class="txtsm">front metallic grid = − terminal</text>
+        <rect x="80" y="100" width="400" height="22" fill="#fde9e7" stroke="#c0392b"/>
+        <text x="280" y="115" text-anchor="middle" class="lbl">Depletion zone (p-n junction)</text>
+        <rect class="box" x="80" y="122" width="400" height="60" rx="3"/>
+        <text x="280" y="148" text-anchor="middle" class="lbl">p-type silicon (bulk)</text>
+        <text x="280" y="166" text-anchor="middle" class="txtsm">opaque back metal contact = + terminal</text>
+        <g stroke="#e0a800" stroke-width="2"><line x1="40" y1="20" x2="90" y2="55"/><line x1="70" y1="14" x2="110" y2="52"/></g>
+        <text x="55" y="14" class="txtsm">photons</text>
+        <line class="arrow" x1="480" y1="70" x2="480" y2="200"/>
+        <text x="492" y="140" class="txtsm">e⁻ → load</text>
+        <line class="arrow" x1="80" y1="200" x2="80" y2="70"/>
+        <text x="20" y="150" class="txtsm">← holes</text>
+        <circle class="dot" cx="80" cy="206" r="4"/><circle class="dot" cx="480" cy="206" r="4"/>
+        <text x="80" y="224" text-anchor="middle" class="txtsm">+ (back)</text>
+        <text x="480" y="224" text-anchor="middle" class="txtsm">− (grid)</text>
+      </svg>
+      <p class="dcap">Light creates electron–hole pairs at the junction; electrons exit the n-side through the grid, travel the external load, and return at the p-side back contact.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>I–V Characteristic &amp; Maximum Power</h2><span class="tag">Core graph</span></div>
+    <div class="card full">
+      <p>Output power <b>P = V × I</b>. To get maximum power you operate at the point where the hyperbola P=VI is <i>tangent</i> to the I–V curve — the maximum-power point <b>P<sub>m</sub> (V<sub>m</sub>, I<sub>m</sub>)</b>. Operating anywhere else wastes solar energy as heat.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Fill factor (FF)</h4>
+      <p>Quality metric = how much of the rectangle (V<sub>oc</sub> × I<sub>sc</sub>) is actually used. Ideal FF = 1.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>V<sub>oc</sub></td><td>Open-circuit voltage (no load)</td></tr>
+            <tr><td>I<sub>sc</sub></td><td>Short-circuit current (zero load)</td></tr>
+            <tr><td>V<sub>m</sub>, I<sub>m</sub></td><td>Voltage, current at max power point</td></tr>
+            <tr><td>FF</td><td>FF = (V<sub>m</sub> × I<sub>m</sub>) / (V<sub>oc</sub> × I<sub>sc</sub>); typical 0.5–0.83</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:8px"><b>Improve FF by:</b> (i) increasing photocurrent &amp; decreasing reverse-saturation current; (ii) minimising internal series resistance; (iii) maximising shunt resistance.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Effect of insolation &amp; temperature</h4>
+      <ul>
+        <li><b>Insolation ↑</b> → I<sub>sc</sub> rises (curve shifts up); V<sub>oc</sub> rises slightly → more power.</li>
+        <li><b>Temperature ↑</b> → V<sub>oc</sub> falls (diode leakage) → power &amp; FF drop. So cells perform better when cool.</li>
+      </ul>
+      <div class="def"><b>Efficiency η:</b> η = (max output V<sub>m</sub>·I<sub>m</sub>) / (solar energy incident on cell). Low in practice → large area needed.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Cell → Module → Panel → Array</h2><span class="tag">Hierarchy</span></div>
+    <div class="grid cols-2">
+      <div class="card"><h4>Solar cell</h4><p>Single p-n junction; tiny output; no protection. Needs encapsulation.</p></div>
+      <div class="card"><h4>Solar module</h4><p>32–36 cells in series (to charge a 12 V battery). Cells hermetically sealed; encapsulated in EVA (insulator, transparent, low water absorption), glass front, PVF/tedlar rear. Cells from same batch to minimise mismatch loss.</p></div>
+      <div class="card"><h4>Solar panel</h4><p>Modules wired in series (same current) and parallel (same voltage). Frame mounts them. <b>Bypass diodes</b> across each module (skip a faulty one); <b>blocking diodes</b> in series strings (stop back-feed into a failed string).</p></div>
+      <div class="card"><h4>Solar array</h4><p>Panels installed in a field, stationary or tracked, spaced so no panel shadows its neighbour and maintenance is easy.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Effect of Shadowing (Hot-Spot)</h2><span class="tag">Failure mode</span></div>
+    <div class="card full">
+      <p>Partial shadowing can <b>completely damage a module</b> via the hot-spot effect. In a series string:</p>
+      <ul>
+        <li>A <b>partially</b> shadowed cell stops producing; the lit cells forward-bias it, driving a large circulating current through the small shadowed area → excessive heating.</li>
+        <li>A <b>fully</b> shadowed cell in a short-circuited string: the n lit cells' voltage appears as reverse bias (nV) across it. If peak inverse voltage (PIV) is exceeded, current flows and dissipates large power → damage. Risk grows with string length.</li>
+      </ul>
+      <p><b>Fix:</b> connect a <b>bypass diode</b> across the affected cell for an alternate current path. International practice: one bypass diode per ~18 crystalline-silicon cells → a 34–36-cell module has <b>two</b> bypass diodes in its terminal box. (During healthy operation the diode is reverse-biased and idle, with a small leakage loss.)</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>PV System Types</h2><span class="tag">Architectures</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>How it works</th><th>Storage / grid</th></tr></thead>
+        <tbody>
+          <tr><td>Stand-alone</td><td>At the load centre; meets remote/village load. MPPT tunes the array operating point for max power.</td><td>Battery stores excess; supplies at night. Excess may be dumped to heaters.</td></tr>
+          <tr><td>Grid-interactive</td><td>Meets local load first; exports surplus to grid in sunshine hours.</td><td>No battery needed; grid supplies when sun is low (two-way meter).</td></tr>
+          <tr><td>Hybrid</td><td>PV + another source (wind, fuel cell, diesel) so no PV power is wasted.</td><td>Supplementary source fills gaps.</td></tr>
+          <tr><td>Central station</td><td>Feeds national grid; high daytime peak only; MW-scale (up to ~6 MW).</td><td>Grid-connected; few installed (high capital).</td></tr>
+          <tr><td>Small consumer</td><td>Low-power devices: calculators, watches.</td><td>On-board cell only.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>MPPT</b> (Maximum Power Point Tracker) senses V and I from the array and adjusts the operating point to extract the most power possible under current climate.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Cell Generations</h2><span class="tag">Technology</span></div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="idx">1</span>First gen</h3><p>Wafer-based mono- &amp; multi-crystalline silicon. Dominates the market today.</p></div>
+      <div class="card"><h3><span class="idx">2</span>Second gen</h3><p>Thin-film: amorphous silicon, CIGS, cadmium telluride. Commercially available.</p></div>
+      <div class="card"><h3><span class="idx">3</span>Third gen</h3><p>Different principle: dye-sensitized, organic, quantum-dot. Under development.</p></div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="m1-2.html">Prev: Solar Thermal</a>
+    <a class="next" href="m2-1.html">Next: Module 2 · OTEC</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div><span class="brand2">Study Notes</span> · Module 1, Page 3 — Solar Photovoltaic Systems.</div>
+    <div><a href="index.html">Home</a> · <a href="m2-1.html">M2</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
