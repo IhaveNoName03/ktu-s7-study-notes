@@ -22,7 +22,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   margin:0;
   font-family:"Helvetica Neue",Helvetica,Arial,"Segoe UI",Roboto,sans-serif;
@@ -159,9 +159,9 @@ code{
 }
 
 /* ---------- Tables ---------- */
-.tablewrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:var(--r);
+.tablewrap{overflow-x:auto;max-width:100%;width:100%;margin:16px 0;border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow-sm)}
-table{border-collapse:collapse;width:100%;font-size:14.5px;background:#fff}
+table{border-collapse:collapse;width:100%;max-width:100%;table-layout:fixed;font-size:14.5px;background:#fff;word-break:break-word}
 th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
 thead th{background:var(--ink);color:#fff;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;
   font-weight:700}
