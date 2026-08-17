@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <!-- KTU MODEL QUESTION PAPER (from syllabus) -->
+  
   <div class="qpaper">
     <div class="qhead">
       <h2>KTU — Model Question Paper (CCT 401)</h2>
@@ -77,52 +77,72 @@
     <div class="q"><div class="qn">1</div><div class="qbody">What are the different stages involved in hacking? <span class="marks">[3]</span>
       <span class="qtopic">Kill chain</span><div class="qlink"><a href="m1-2.html">→ M1-2 (Hacker Landscape)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m1">Show answer ▼</button>
-      <div class="ans" id="a-m1" hidden>Five stages: (1) <b>Reconnaissance</b> — gather target info; (2) <b>Scanning &amp; Enumeration</b> — find hosts, ports, services, users; (3) <b>Gaining access</b> — exploit a vuln to get in; (4) <b>Maintaining access</b> — plant backdoor/persistence; (5) <b>Clearing logs</b> — cover tracks. Some lists add privilege escalation between 3 and 4.</div></div></div>
+      <div class="ans" id="a-m1" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Five stages: (1) <b>Reconnaissance</b> — gather target info; (2) <b>Scanning &amp; Enumeration</b> — find hosts, ports, services, users; (3) <b>Gaining access</b> — exploit a vuln to get in; (4) <b>Maintaining access</b> — plant backdoor/persistence; (5) <b>Clearing logs</b> — cover tracks. Some lists add privilege escalation between 3 and 4.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">2</div><div class="qbody">Define the basic elements of information security. <span class="marks">[3]</span>
       <span class="qtopic">CIA</span><div class="qlink"><a href="m1-1.html">→ M1-1 (Elements of InfoSec)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m2">Show answer ▼</button>
-      <div class="ans" id="a-m2" hidden><b>CIA triad:</b> <b>Confidentiality</b> — only authorized parties see the data; <b>Integrity</b> — data is unaltered by unauthorized parties; <b>Availability</b> — authorized users can access it when needed. Extended by <b>AAA</b>: Authentication, Authorization, Accounting.</div></div></div>
+      <div class="ans" id="a-m2" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>CIA triad:</b> <b>Confidentiality</b> — only authorized parties see the data; <b>Integrity</b> — data is unaltered by unauthorized parties; <b>Availability</b> — authorized users can access it when needed. Extended by <b>AAA</b>: Authentication, Authorization, Accounting.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">3</div><div class="qbody">What is foot printing? How is it done? <span class="marks">[3]</span>
       <span class="qtopic">Footprinting</span><div class="qlink"><a href="m2-1.html">→ M2-1 (Footprinting/Scanning)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m3">Show answer ▼</button>
-      <div class="ans" id="a-m3" hidden><b>Footprinting</b> = passive + active info gathering to map the target's attack surface. <b>Passive</b> (no packet touches target): WHOIS, DNS, OSINT, archives. <b>Active</b> (touches target): ping sweeps, port scans, banner grabbing, zone transfers.</div></div></div>
+      <div class="ans" id="a-m3" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Footprinting</b> = passive + active info gathering to map the target's attack surface. <b>Passive</b> (no packet touches target): WHOIS, DNS, OSINT, archives. <b>Active</b> (touches target): ping sweeps, port scans, banner grabbing, zone transfers.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">4</div><div class="qbody">How is Distributed DoS different from DoS? <span class="marks">[3]</span>
       <span class="qtopic">DoS/DDoS</span><div class="qlink"><a href="m3-1.html">→ M3-1 (DoM/DDoS)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m4">Show answer ▼</button>
-      <div class="ans" id="a-m4" hidden><b>DoS</b> floods one target from a single source to exhaust resources. <b>DDoS</b> uses many compromised machines (a botnet) at once — far harder to block by IP and much higher volume.</div></div></div>
+      <div class="ans" id="a-m4" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>DoS</b> floods one target from a single source to exhaust resources. <b>DDoS</b> uses many compromised machines (a botnet) at once — far harder to block by IP and much higher volume.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">5</div><div class="qbody">Explain network sniffing. <span class="marks">[3]</span>
       <span class="qtopic">Sniffing</span><div class="qlink"><a href="m3-1.html">→ M3-1 (Network Sniffing)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m5">Show answer ▼</button>
-      <div class="ans" id="a-m5" hidden><b>Sniffing</b> = capturing packets on a network. On a hub or via ARP spoofing (NIC in promiscuous mode) an attacker reads others' traffic — especially plaintext protocols (Telnet, FTP) — to steal credentials. Defense: switched networks, encryption.</div></div></div>
+      <div class="ans" id="a-m5" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Sniffing</b> = capturing packets on a network. On a hub or via ARP spoofing (NIC in promiscuous mode) an attacker reads others' traffic — especially plaintext protocols (Telnet, FTP) — to steal credentials. Defense: switched networks, encryption.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">6</div><div class="qbody">How is Brute-force attack performed? <span class="marks">[3]</span>
       <span class="qtopic">Brute force</span><div class="qlink"><a href="m3-1.html">→ M3-1 (Brute Force)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m6">Show answer ▼</button>
-      <div class="ans" id="a-m6" hidden>An attacker tries many candidate credentials/keys until one works: exhaustive (all combos), dictionary (wordlist), hybrid, credential stuffing, rainbow tables. Defense: lockout, rate-limiting, 2FA, strong passwords.</div></div></div>
+      <div class="ans" id="a-m6" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v">An attacker tries many candidate credentials/keys until one works: exhaustive (all combos), dictionary (wordlist), hybrid, credential stuffing, rainbow tables. Defense: lockout, rate-limiting, 2FA, strong passwords.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">7</div><div class="qbody">What is SQL injection? How can you find whether the website is affected by SQL injection? <span class="marks">[3]</span>
       <span class="qtopic">SQLi</span><div class="qlink"><a href="m4-1.html">→ M4-1 (SQL Injection)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m7">Show answer ▼</button>
-      <div class="ans" id="a-m7" hidden><b>SQLi</b> inserts malicious SQL into an input to manipulate the backend DB. Test with a single quote <code>'</code> or <code>' OR '1'='1</code> in a parameter — a DB error or a changed page (boolean/UNION) shows the input is executed. Fix: parameterized queries.</div></div></div>
+      <div class="ans" id="a-m7" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>SQLi</b> inserts malicious SQL into an input to manipulate the backend DB. Test with a single quote <code>'</code> or <code>' OR '1'='1</code> in a parameter — a DB error or a changed page (boolean/UNION) shows the input is executed. Fix: parameterized queries.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">8</div><div class="qbody">What is cross-site scripting and what are its different variations? <span class="marks">[3]</span>
       <span class="qtopic">XSS</span><div class="qlink"><a href="m4-1.html">→ M4-1 (XSS)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m8">Show answer ▼</button>
-      <div class="ans" id="a-m8" hidden><b>XSS</b> runs malicious script in a victim's browser. <b>Stored</b> (payload saved on server, hits every viewer); <b>Reflected</b> (payload in request/URL reflected back); <b>DOM-based</b> (client-side DOM change). Defense: output encoding, CSP, HttpOnly cookies.</div></div></div>
+      <div class="ans" id="a-m8" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>XSS</b> runs malicious script in a victim's browser. <b>Stored</b> (payload saved on server, hits every viewer); <b>Reflected</b> (payload in request/URL reflected back); <b>DOM-based</b> (client-side DOM change). Defense: output encoding, CSP, HttpOnly cookies.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">9</div><div class="qbody">List out the challenges in password cracking. <span class="marks">[3]</span>
       <span class="qtopic">Password cracking</span><div class="qlink"><a href="m5-1.html">→ M5-1 (Password Cracking)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m9">Show answer ▼</button>
-      <div class="ans" id="a-m9" hidden>Challenges: large keyspace on strong/long passwords; salting + slow hashes (bcrypt/Argon2); account lockout/rate-limiting blocks online tries; 2FA defeats a stolen password; hard-to-obtain offline hashes.</div></div></div>
+      <div class="ans" id="a-m9" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Challenges: large keyspace on strong/long passwords; salting + slow hashes (bcrypt/Argon2); account lockout/rate-limiting blocks online tries; 2FA defeats a stolen password; hard-to-obtain offline hashes.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">10</div><div class="qbody">Define Event logging. <span class="marks">[3]</span>
       <span class="qtopic">Event logging</span><div class="qlink"><a href="m5-1.html">→ M5-1 (Event Logging)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m10">Show answer ▼</button>
-      <div class="ans" id="a-m10" hidden><b>Event logging</b> records OS/app/device activity (logons, file access, errors) for auditing and forensics. Windows has six default categories: Application, System, Security, Directory Service, DNS Server, File Replication Service.</div></div></div>
+      <div class="ans" id="a-m10" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Event logging</b> records OS/app/device activity (logons, file access, errors) for auditing and forensics. Windows has six default categories: Application, System, Security, Directory Service, DNS Server, File Replication Service.</span></div>
+</div></div></div>
 
     <p style="margin:14px 0 6px;font-weight:700;color:var(--ink)">Part B &mdash; Answer one from each module (14 marks each)</p>
 
@@ -130,178 +150,83 @@
       <span class="qtopic">M1</span><div class="qlink"><a href="m1-1.html">→ M1-1</a> · <a href="m1-3.html">→ M1-3 (Pen Testing)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m11">Show answer ▼</button>
       <div class="ans" id="a-m11" hidden>
-      <p><b>Security challenges (6):</b></p>
-      <ul>
-        <li><b>Complexity</b> — large attack surface, many components, misconfigurations.</li>
-        <li><b>People</b> — the weakest link; social engineering, mistakes, insiders.</li>
-        <li><b>Legacy systems</b> — unpatched, unsupported, hard to secure.</li>
-        <li><b>Usability vs security</b> — strong controls must not block real work.</li>
-        <li><b>Evolving threats</b> — new malware, zero-days, APTs.</li>
-        <li><b>Resource limits</b> — budget, skills, time for monitoring.</li>
-      </ul>
-      <p><b>Penetration testing types (8):</b></p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Type</th><th>Info given</th><th>Use</th></tr></thead>
-        <tbody>
-          <tr><td>Black-box</td><td>None (like an outsider)</td><td>Realistic external view</td></tr>
-          <tr><td>White-box</td><td>Full (docs, creds, code)</td><td>Deep, thorough, fast</td></tr>
-          <tr><td>Grey-box</td><td>Partial</td><td>Balanced realism + coverage</td></tr>
-          <tr><td>Internal vs External</td><td>Position</td><td>Insider vs outside threat</td></tr>
-        </tbody>
-      </table></div>
-      <p>Also: automated (scanner) vs manual (human-led). A pen test is authorized, contract-bound, and reports fixes without causing damage.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Black-box</span><span class="v">None (like an outsider) · Realistic external view</span></div>
+<div class="ansrow"><span class="k">White-box</span><span class="v">Full (docs, creds, code) · Deep, thorough, fast</span></div>
+<div class="ansrow"><span class="k">Grey-box</span><span class="v">Partial · Balanced realism + coverage</span></div>
+<div class="ansrow"><span class="k">Internal vs External</span><span class="v">Position · Insider vs outside threat</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">12</div><div class="qbody">Role of a penetration tester (8) &amp; how vulnerability assessment is done (6). <span class="marks">[14]</span>
       <span class="qtopic">M1</span><div class="qlink"><a href="m1-2.html">→ M1-2</a> · <a href="m1-3.html">→ M1-3</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m12">Show answer ▼</button>
       <div class="ans" id="a-m12" hidden>
-      <p><b>Role of a penetration tester (8):</b> an authorized security professional who thinks like an attacker to find weaknesses, prove business impact, and recommend fixes — without damaging systems. Bound by a <b>rules of engagement</b> contract (scope, timing, methods, what not to do). Works through the kill chain (recon → scan → exploit → maintain → report), documents evidence, and hands over a remediation plan. Distinct from malicious hackers: permission + ethics + reporting.</p>
-      <p><b>Vulnerability assessment (6):</b></p>
-      <ul>
-        <li>Define scope and assets.</li>
-        <li>Run authenticated/unauthenticated scanners (Nessus, OpenVAS).</li>
-        <li>Discover known vulns/CVEs, misconfigurations, weak policies.</li>
-        <li>Rank by severity (CVSS) and exploitability.</li>
-        <li>Produce a remediation report with owners + deadlines.</li>
-        <li>Re-scan to confirm fixes (closure).</li>
-      </ul>
-      <p>Note: a <b>vulnerability assessment</b> finds and lists weaknesses; a <b>penetration test</b> goes further and exploits to prove impact.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Role of a penetration tester (8):</b> an authorized security professional who thinks like an attacker to find weaknesses, prove business impact, and recommend fixes — without damaging systems. Bound by a <b>rules of engagement</b> contract (scope, timing, methods, what not to do). Works through the kill chain (recon → scan → exploit → maintain → report), documents evidence, and hands over a remediation plan. Distinct from malicious hackers: permission + ethics + reporting.</p> <p><b>Vulnerability assessment (6):</b></p> <ul> <li>Define scope and assets.</li> <li>Run authenticated/unauthenticated scanners (Nessus, OpenVAS).</li> <li>Discover known vulns/CVEs, misconfigurations, weak policies.</li> <li>Rank by severity (CVSS) and exploitability.</li> <li>Produce a remediation report with owners + deadlines.</li> <li>Re-scan to confirm fixes (closure).</li> </ul> <p>Note: a <b>vulnerability assessment</b> finds and lists weaknesses; a <b>penetration test</b> goes further and exploits to prove impact.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">13</div><div class="qbody">Dumpster diving social engineering attack (8) &amp; results of foot printing tools (6). <span class="marks">[14]</span>
       <span class="qtopic">M2</span><div class="qlink"><a href="m2-3.html">→ M2-3 (Social Eng.)</a> · <a href="m2-1.html">→ M2-1</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m13">Show answer ▼</button>
       <div class="ans" id="a-m13" hidden>
-      <p><b>Dumpster diving (8):</b> retrieving discarded paper/bin to harvest sensitive data — passwords on sticky notes, org charts, network diagrams, letterheads (for spoofing), source code, calendars. It is low-tech but effective because people throw away confidential material. <b>Defense:</b> shredders, no sensitive printouts, clean-desk policy, secure bins.</p>
-      <p><b>Results of footprinting tools (6):</b> the attacker builds an <b>attack-surface map</b> —</p>
-      <ul>
-        <li>IP ranges, live hosts, domains, subdomains.</li>
-        <li>OS, open ports, running services, versions (banner grabbing).</li>
-        <li>Usernames, emails, employee names (for phishing/targeting).</li>
-        <li>Tech stack and technologies in use (for known exploits).</li>
-        <li>Physical/logical layout clues from job posts and OSINT.</li>
-      </ul>
-      <p>This intelligence drives scanning and the actual attack.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Dumpster diving (8):</b> retrieving discarded paper/bin to harvest sensitive data — passwords on sticky notes, org charts, network diagrams, letterheads (for spoofing), source code, calendars. It is low-tech but effective because people throw away confidential material. <b>Defense:</b> shredders, no sensitive printouts, clean-desk policy, secure bins.</p> <p><b>Results of footprinting tools (6):</b> the attacker builds an <b>attack-surface map</b> —</p> <ul> <li>IP ranges, live hosts, domains, subdomains.</li> <li>OS, open ports, running services, versions (banner grabbing).</li> <li>Usernames, emails, employee names (for phishing/targeting).</li> <li>Tech stack and technologies in use (for known exploits).</li> <li>Physical/logical layout clues from job posts and OSINT.</li> </ul> <p>This intelligence drives scanning and the actual attack.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">14</div><div class="qbody">Social enumeration (6) &amp; working of network sniffers (8). <span class="marks">[14]</span>
       <span class="qtopic">M2/M3</span><div class="qlink"><a href="m2-1.html">→ M2-1 (Enumeration)</a> · <a href="m3-1.html">→ M3-1 (Sniffing)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m14">Show answer ▼</button>
       <div class="ans" id="a-m14" hidden>
-      <p><b>Social enumeration (6):</b> extracting detailed info from people/services — usernames via SMTP <code>VRFY</code>/<code>RCPT</code>, shares via SMB null sessions, config via SNMP (default <code>public</code> community), DNS zone transfers (<code>AXFR</code>), LDAP queries. Gives the exact accounts/services to target.</p>
-      <p><b>Working of network sniffers (8):</b> a sniffer (Wireshark, tcpdump) captures packets on the wire. Normally a switched network delivers frames only to the destination MAC, but the attacker:</p>
-      <ul>
-        <li>puts the NIC in <b>promiscuous mode</b>, and/or</li>
-        <li>performs <b>ARP spoofing</b> to become the MITM, so victim traffic is mirrored to them.</li>
-      </ul>
-      <p>They then filter for plaintext protocols (Telnet, FTP, POP3, HTTP) and recover credentials/session data. <b>Types:</b> software vs hardware tap; passive (observe) vs active (inject); filtered vs unfiltered capture. <b>Defense:</b> switched networks, encryption (SSH/TLS/VPN), static ARP, port security.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Social enumeration (6):</b> extracting detailed info from people/services — usernames via SMTP <code>VRFY</code>/<code>RCPT</code>, shares via SMB null sessions, config via SNMP (default <code>public</code> community), DNS zone transfers (<code>AXFR</code>), LDAP queries. Gives the exact accounts/services to target.</p> <p><b>Working of network sniffers (8):</b> a sniffer (Wireshark, tcpdump) captures packets on the wire. Normally a switched network delivers frames only to the destination MAC, but the attacker:</p> <ul> <li>puts the NIC in <b>promiscuous mode</b>, and/or</li> <li>performs <b>ARP spoofing</b> to become the MITM, so victim traffic is mirrored to them.</li> </ul> <p>They then filter for plaintext protocols (Telnet, FTP, POP3, HTTP) and recover credentials/session data. <b>Types:</b> software vs hardware tap; passive (observe) vs active (inject); filtered vs unfiltered capture. <b>Defense:</b> switched networks, encryption (SSH/TLS/VPN), static ARP, port security.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">15</div><div class="qbody">DNS records manipulated via ARP spoofing (6) &amp; network sniffing types (8). <span class="marks">[14]</span>
       <span class="qtopic">M3</span><div class="qlink"><a href="m3-1.html">→ M3-1 (ARP/DNS Spoofing)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m15">Show answer ▼</button>
       <div class="ans" id="a-m15" hidden>
-      <p><b>ARP → DNS manipulation (6):</b> the attacker sends fake ARP replies so the victim (and often the gateway) believe the attacker's MAC is the DNS server (or gateway). When the victim resolves a name (e.g. <code>bank.com</code>), the attacker answers with a malicious IP — sending the victim to a phishing clone. This is a MITM + DNS poisoning combo.</p>
-      <p><b>Network sniffing types (8):</b></p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Basis</th><th>Types</th></tr></thead>
-        <tbody>
-          <tr><td>Placement</td><td>Software (Wireshark/tcpdump) · Hardware tap</td></tr>
-          <tr><td>Activity</td><td>Passive (observe) · Active (inject/ARP-spoof)</td></tr>
-          <tr><td>Capture scope</td><td>Filtered (BPF) · Unfiltered (all)</td></tr>
-          <tr><td>Protocol</td><td>Wired (Ethernet) · Wireless (monitor mode)</td></tr>
-        </tbody>
-      </table></div>
-      <p>Defense: full encryption, switched LANs, ARP inspection, 802.1X.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Placement</span><span class="v">Software (Wireshark/tcpdump) · Hardware tap</span></div>
+<div class="ansrow"><span class="k">Activity</span><span class="v">Passive (observe) · Active (inject/ARP-spoof)</span></div>
+<div class="ansrow"><span class="k">Capture scope</span><span class="v">Filtered (BPF) · Unfiltered (all)</span></div>
+<div class="ansrow"><span class="k">Protocol</span><span class="v">Wired (Ethernet) · Wireless (monitor mode)</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">16</div><div class="qbody">DHCP Spoofing (6) &amp; how SQL Servers are attacked (8). <span class="marks">[14]</span>
       <span class="qtopic">M3/M4</span><div class="qlink"><a href="m3-1.html">→ M3-1 (DHCP Spoof)</a> · <a href="m4-1.html">→ M4-1 (SQLi)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m16">Show answer ▼</button>
       <div class="ans" id="a-m16" hidden>
-      <p><b>DHCP spoofing (6):</b> a rogue DHCP server on the LAN answers client requests first, handing out an attacker-controlled <b>gateway/DNS</b>. The client then routes all traffic through the attacker → MITM (capture, redirect, DNS poison). <b>Defense:</b> DHCP snooping (trust only the real server port), Dynamic ARP Inspection, 802.1X, VLAN segmentation.</p>
-      <p><b>Attacking SQL Servers (8):</b></p>
-      <ul>
-        <li><b>SQL injection</b> via web/app input → read/dump tables, bypass auth, run <code>xp_cmdshell</code>.</li>
-        <li><b>Weak SA password</b> / default creds brute-forced.</li>
-        <li><b>Unpatched instances</b> (known CVEs).</li>
-        <li><b>Sniffed credentials</b> on plaintext connections.</li>
-        <li><b>Misconfig</b>: public-facing DB, over-privileged service accounts.</li>
-      </ul>
-      <p>Impact: data theft, data deletion, OS-level compromise via the DB engine. Fix: parameterized queries, least-privilege, patching, TLS, network isolation.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>DHCP spoofing (6):</b> a rogue DHCP server on the LAN answers client requests first, handing out an attacker-controlled <b>gateway/DNS</b>. The client then routes all traffic through the attacker → MITM (capture, redirect, DNS poison). <b>Defense:</b> DHCP snooping (trust only the real server port), Dynamic ARP Inspection, 802.1X, VLAN segmentation.</p> <p><b>Attacking SQL Servers (8):</b></p> <ul> <li><b>SQL injection</b> via web/app input → read/dump tables, bypass auth, run <code>xp_cmdshell</code>.</li> <li><b>Weak SA password</b> / default creds brute-forced.</li> <li><b>Unpatched instances</b> (known CVEs).</li> <li><b>Sniffed credentials</b> on plaintext connections.</li> <li><b>Misconfig</b>: public-facing DB, over-privileged service accounts.</li> </ul> <p>Impact: data theft, data deletion, OS-level compromise via the DB engine. Fix: parameterized queries, least-privilege, patching, TLS, network isolation.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">17</div><div class="qbody">Compare Session Hijacking &amp; SQL Injection (8) &amp; Reverse Engineering (6). <span class="marks">[14]</span>
       <span class="qtopic">M4</span><div class="qlink"><a href="m4-1.html">→ M4-1 (Session Hijack / SQLi / RE)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m17">Show answer ▼</button>
       <div class="ans" id="a-m17" hidden>
-      <p><b>Compare (8):</b></p>
-      <div class="tablewrap"><table>
-        <thead><tr><th></th><th>Session Hijacking</th><th>SQL Injection</th></tr></thead>
-        <tbody>
-          <tr><td>Target</td><td>User's session/identity</td><td>Backend database</td></tr>
-          <tr><td>Mechanism</td><td>Steal session token/cookie</td><td>Inject SQL into a query</td></tr>
-          <tr><td>Needs</td><td>Live authenticated session</td><td>Vulnerable input</td></tr>
-          <tr><td>Defense</td><td>HTTPS, HttpOnly, timeouts</td><td>Parameterized queries</td></tr>
-        </tbody>
-      </table></div>
-      <p>Both are fixed by proper input/state handling + encryption.</p>
-      <p><b>Reverse engineering (6):</b> analyzing software to learn its design/function — for vuln discovery, malware analysis, interop. <b>Stages:</b> (1) information gathering, (2) disassembly/decompile, (3) static + dynamic analysis, (4) documentation. <b>Tools:</b> IDA Pro, Ghidra, OllyDbg, radare2.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Target</span><span class="v">User's session/identity · Backend database</span></div>
+<div class="ansrow"><span class="k">Mechanism</span><span class="v">Steal session token/cookie · Inject SQL into a query</span></div>
+<div class="ansrow"><span class="k">Needs</span><span class="v">Live authenticated session · Vulnerable input</span></div>
+<div class="ansrow"><span class="k">Defense</span><span class="v">HTTPS, HttpOnly, timeouts · Parameterized queries</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">18</div><div class="qbody">Bluetooth vs Mobile Phone Hacking (6) &amp; Incident Handling &amp; Response (8). <span class="marks">[14]</span>
       <span class="qtopic">M4</span><div class="qlink"><a href="m4-1.html">→ M4-1 (Bluetooth / Mobile / IR)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m18">Show answer ▼</button>
       <div class="ans" id="a-m18" hidden>
-      <p><b>Bluetooth vs Mobile (6):</b> <b>Bluetooth</b> attacks are short-range radio tricks — Bluesnarfing (steal data), Bluejacking (spam), Bluebugging (take control in discoverable mode), Bluesmacking (DoS). <b>Mobile hacking</b> is harder: sandboxed OS, app signing, few open ports, cellular isolation. Mobile risks are mostly app/phishing/ credential, not raw exploitation.</p>
-      <p><b>Incident response — 7 steps (8):</b></p>
-      <ol>
-        <li><b>Early detection</b> — SIEM/alert.</li>
-        <li><b>Analysis</b> — IoC, triage, scope.</li>
-        <li><b>Prioritization</b> — by severity/business.</li>
-        <li><b>Notification</b> — internal + external/regulators.</li>
-        <li><b>Containment &amp; forensics</b> — isolate, preserve evidence.</li>
-        <li><b>Recovery</b> — eradicate, rebuild, restore, patch.</li>
-        <li><b>Review</b> — lessons learned, close gaps.</li>
-      </ol>
-      <p>Owned by the <b>CSIRT</b>.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Bluetooth vs Mobile (6):</b> <b>Bluetooth</b> attacks are short-range radio tricks — Bluesnarfing (steal data), Bluejacking (spam), Bluebugging (take control in discoverable mode), Bluesmacking (DoS). <b>Mobile hacking</b> is harder: sandboxed OS, app signing, few open ports, cellular isolation. Mobile risks are mostly app/phishing/ credential, not raw exploitation.</p> <p><b>Incident response — 7 steps (8):</b></p> <ol> <li><b>Early detection</b> — SIEM/alert.</li> <li><b>Analysis</b> — IoC, triage, scope.</li> <li><b>Prioritization</b> — by severity/business.</li> <li><b>Notification</b> — internal + external/regulators.</li> <li><b>Containment &amp; forensics</b> — isolate, preserve evidence.</li> <li><b>Recovery</b> — eradicate, rebuild, restore, patch.</li> <li><b>Review</b> — lessons learned, close gaps.</li> </ol> <p>Owned by the <b>CSIRT</b>.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">19</div><div class="qbody">Hide evidence by altering event logs (6) &amp; defenses against log/accounting attacks (8). <span class="marks">[14]</span>
       <span class="qtopic">M5</span><div class="qlink"><a href="m5-1.html">→ M5-1 (Logging / Defenses)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m19">Show answer ▼</button>
       <div class="ans" id="a-m19" hidden>
-      <p><b>Hiding/alter evidence (6):</b> attackers target Windows event logs (anti-forensics, MITRE T1070) to slow response — clearing them (<code>wevtutil cl &lt;log&gt;</code>), editing events to erase their own IOAs, or using rootkits/timestomping to hide files and activity. NTFS Alternate Data Streams hide data; covert channels hide network trails.</p>
-      <p><b>Defenses against log/accounting attacks (8):</b></p>
-      <ul>
-        <li>Enable auditing everywhere; set the right audit policy.</li>
-        <li>Set tight file permissions on log files.</li>
-        <li>Ship logs to a <b>separate, hardened logging server</b> (so local wipe loses nothing).</li>
-        <li>Encrypt logs; make them <b>append-only / write-once</b>.</li>
-        <li>Use file-integrity monitoring + log-tamper alerts.</li>
-        <li>Sync time (NTP) so timelines are trustworthy.</li>
-        <li>Snapshot system state for comparison.</li>
-      </ul>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Hiding/alter evidence (6):</b> attackers target Windows event logs (anti-forensics, MITRE T1070) to slow response — clearing them (<code>wevtutil cl &lt;log&gt;</code>), editing events to erase their own IOAs, or using rootkits/timestomping to hide files and activity. NTFS Alternate Data Streams hide data; covert channels hide network trails.</p> <p><b>Defenses against log/accounting attacks (8):</b></p> <ul> <li>Enable auditing everywhere; set the right audit policy.</li> <li>Set tight file permissions on log files.</li> <li>Ship logs to a <b>separate, hardened logging server</b> (so local wipe loses nothing).</li> <li>Encrypt logs; make them <b>append-only / write-once</b>.</li> <li>Use file-integrity monitoring + log-tamper alerts.</li> <li>Sync time (NTP) so timelines are trustworthy.</li> <li>Snapshot system state for comparison.</li> </ul></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">20</div><div class="qbody">Password cracking for system hacking + one tool (8) &amp; evidence hidden on network (6). <span class="marks">[14]</span>
       <span class="qtopic">M5</span><div class="qlink"><a href="m5-1.html">→ M5-1 (Cracking / PrivEsc / Hiding)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-m20">Show answer ▼</button>
       <div class="ans" id="a-m20" hidden>
-      <p><b>Password cracking in system hacking (8):</b> the kill chain within system hacking is enumerate → crack → escalate → execute → hide → cover. Offline: steal the SAM/<code>/etc/shadow</code> hash and crack with dictionary/brute force or rainbow tables. Online: guess/replay credentials, sniff auth. <b>Tool:</b> <b>John the Ripper</b> (or Hashcat) — offline hash cracker; Cain &amp; Abel for Windows sniffing/replay.</p>
-      <p><b>Evidence hidden on network (6):</b></p>
-      <ul>
-        <li><b>Covert channels</b> — tunnel data in DNS/ICMP (hard to spot; indicator = odd volume).</li>
-        <li><b>Encryption</b> — traffic unreadable without keys.</li>
-        <li><b>Steganography</b> — hide data in images/files.</li>
-        <li>Blend with normal traffic; use non-standard ports.</li>
-      </ul>
-      <p>Defense: DPI, DNS/ICMP volume monitoring, TLS inspection, egress filtering.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Password cracking in system hacking (8):</b> the kill chain within system hacking is enumerate → crack → escalate → execute → hide → cover. Offline: steal the SAM/<code>/etc/shadow</code> hash and crack with dictionary/brute force or rainbow tables. Online: guess/replay credentials, sniff auth. <b>Tool:</b> <b>John the Ripper</b> (or Hashcat) — offline hash cracker; Cain &amp; Abel for Windows sniffing/replay.</p> <p><b>Evidence hidden on network (6):</b></p> <ul> <li><b>Covert channels</b> — tunnel data in DNS/ICMP (hard to spot; indicator = odd volume).</li> <li><b>Encryption</b> — traffic unreadable without keys.</li> <li><b>Steganography</b> — hide data in images/files.</li> <li>Blend with normal traffic; use non-standard ports.</li> </ul> <p>Defense: DPI, DNS/ICMP volume monitoring, TLS inspection, egress filtering.</p></span></div>
+</div></div></div>
   </div>
 
-  <!-- DEC 2023 -->
+  
   <div class="qpaper">
     <div class="qhead">
       <h2>KTU — December 2023</h2>
@@ -314,19 +239,10 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Routers, Firewall)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d1">Show answer ▼</button>
       <div class="ans" id="a-d1" hidden>
-      <p><b>Router:</b> forwards packets between networks using a routing table (control plane = CPU/routing processor; data plane = interfaces). It connects networks, does NAT, ACLs, path selection (OSPF/BGP), QoS, VLAN, DHCP.</p>
-      <p><b>Firewall:</b> filters traffic by policy — the barrier between internal net and internet. <b>Comparison:</b></p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Router</th><th>Firewall</th></tr></thead>
-        <tbody>
-          <tr><td>Routes packets (L3)</td><td>Filters by policy (L3–L7)</td></tr>
-          <tr><td>Connects networks</td><td>Protects a boundary</td></tr>
-          <tr><td>Basic ACLs/NAT</td><td>Stateful, NGFW, IPS</td></tr>
-        </tbody>
-      </table></div>
-      <p><b>Router architecture:</b> input interface → routing processor (CPU, RAM, NVRAM, flash) → output interface.</p>
-      <p><b>Security challenges:</b> default/unpatched IOS (patch), weak/default creds (change admin/admin), open Telnet (use SSH), default SNMP strings (public/private), missing ACLs, route/trust exploitation. Harden: disable unused services, ACLs, logging, secure management.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Routes packets (L3)</span><span class="v">Filters by policy (L3–L7)</span></div>
+<div class="ansrow"><span class="k">Connects networks</span><span class="v">Protects a boundary</span></div>
+<div class="ansrow"><span class="k">Basic ACLs/NAT</span><span class="v">Stateful, NGFW, IPS</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">2</div><div class="qbody">
       Explain the five generations of firewalls. Compare IDS and IPS. <span class="marks">[15]</span>
@@ -334,19 +250,11 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Firewall, IDS/IPS)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d2">Show answer ▼</button>
       <div class="ans" id="a-d2" hidden>
-      <p><b>Five generations:</b> (1) <b>Packet-filtering</b> — stateless, network layer, allow/deny by IP/port; (2) <b>Stateful inspection</b> — tracks connections, smarter; (3) <b>Application/Proxy</b> — inspects app-layer content, breaks the connection; (4) <b>NGFW</b> — app-awareness + IPS + threat intel + DPI; (5) <b>Cloud/Advanced Threat Prevention</b> — sandboxing, anti-bot, ML.</p>
-      <p><b>IDS vs IPS:</b></p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>IDS</th><th>IPS</th></tr></thead>
-        <tbody>
-          <tr><td>Passive (out-of-band)</td><td>Inline (in path)</td></tr>
-          <tr><td>Detects + alerts</td><td>Detects + blocks/drops</td></tr>
-          <tr><td>NIDS/HIDS types</td><td>NIPS/HIPS types</td></tr>
-          <tr><td>Cannot stop in real time</td><td>Stops the packet</td></tr>
-        </tbody>
-      </table></div>
-      <p>Both use signature-based and anomaly-based detection. An NGFW integrates IPS.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Passive (out-of-band)</span><span class="v">Inline (in path)</span></div>
+<div class="ansrow"><span class="k">Detects + alerts</span><span class="v">Detects + blocks/drops</span></div>
+<div class="ansrow"><span class="k">NIDS/HIDS types</span><span class="v">NIPS/HIPS types</span></div>
+<div class="ansrow"><span class="k">Cannot stop in real time</span><span class="v">Stops the packet</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">3</div><div class="qbody">
       Describe the working of a web server. What is XSS? Differentiate between reflected and stored XSS. <span class="marks">[15]</span>
@@ -354,18 +262,10 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Web server, XSS)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d3">Show answer ▼</button>
       <div class="ans" id="a-d3" hidden>
-      <p><b>Web server:</b> software (Apache/IIS/Nginx/Lighttpd) that serves content over HTTP/HTTPS (80/443). Flow: URL → DNS resolves → client sends HTTP request → server returns response (static file or dynamic output from app+DB). Supports server-side scripting (PHP/ASP) and SMTP/FTP.</p>
-      <p><b>XSS:</b> injecting script that executes in the victim's browser, enabling session theft, defacement, drive-by downloads.</p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Reflected</th><th>Stored</th></tr></thead>
-        <tbody>
-          <tr><td>Payload in request/URL, reflected back to one user</td><td>Payload saved on server (comment, post), hits every viewer</td></tr>
-          <tr><td>Needs the victim to click the link</td><td>No click needed after posting</td></tr>
-          <tr><td>Often phishing-delivered</td><td>More dangerous, spreads itself</td></tr>
-        </tbody>
-      </table></div>
-      <p>(DOM-based is a third type — client-side DOM manipulation.) Defense: output encoding, input validation, CSP, HttpOnly cookies.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Payload in request/URL, reflected back to one user</span><span class="v">Payload saved on server (comment, post), hits every viewer</span></div>
+<div class="ansrow"><span class="k">Needs the victim to click the link</span><span class="v">No click needed after posting</span></div>
+<div class="ansrow"><span class="k">Often phishing-delivered</span><span class="v">More dangerous, spreads itself</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">4</div><div class="qbody">
       What is session hijacking? List techniques and defenses. Explain Bluetooth hacking and its types. <span class="marks">[15]</span>
@@ -373,9 +273,8 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Session hijacking, Bluetooth)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d4">Show answer ▼</button>
       <div class="ans" id="a-d4" hidden>
-      <p><b>Session hijacking:</b> stealing a valid session token/cookie to impersonate a logged-in user (no password). <b>Techniques:</b> sniffing (plaintext), predictable/session ID guessing, MITM, XSS cookie theft. <b>Defenses:</b> HTTPS everywhere, HttpOnly + Secure flags, short idle/absolute timeouts, regenerate session ID on login/privilege change, bind to IP/user-agent, HSTS.</p>
-      <p><b>Bluetooth hacking types:</b> <b>Bluesnarfing</b> (steal data — contacts/SMS), <b>Bluejacking</b> (unsolicited messages), <b>Bluebugging</b> (take calls/SMS/control in discoverable mode), <b>Bluesmacking</b> (L2CAP DoS). <b>Prevention:</b> keep non-discoverable, off when unused, reject unknown pairing, update firmware, unpair after use, 2FA, VPN.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Session hijacking:</b> stealing a valid session token/cookie to impersonate a logged-in user (no password). <b>Techniques:</b> sniffing (plaintext), predictable/session ID guessing, MITM, XSS cookie theft. <b>Defenses:</b> HTTPS everywhere, HttpOnly + Secure flags, short idle/absolute timeouts, regenerate session ID on login/privilege change, bind to IP/user-agent, HSTS.</p> <p><b>Bluetooth hacking types:</b> <b>Bluesnarfing</b> (steal data — contacts/SMS), <b>Bluejacking</b> (unsolicited messages), <b>Bluebugging</b> (take calls/SMS/control in discoverable mode), <b>Bluesmacking</b> (L2CAP DoS). <b>Prevention:</b> keep non-discoverable, off when unused, reject unknown pairing, update firmware, unpair after use, 2FA, VPN.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">5</div><div class="qbody">
       Explain why mobile phone hacking is cumbersome. List preventive measures for mobile hacking. <span class="marks">[15]</span>
@@ -383,9 +282,8 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Mobile phone hacking)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d5">Show answer ▼</button>
       <div class="ans" id="a-d5" hidden>
-      <p><b>Why cumbersome:</b> sandboxed OS (apps isolated), app signing/store review, permission model, few open ports, cellular isolation (no shared broadcast like Wi-Fi), encryption by default, secure boot. This raises the bar versus a PC.</p>
-      <p><b>Preventive measures:</b> keep OS/apps updated; avoid unknown/side-loaded apps; permission hygiene; cautious rooting/jailbreaking; strong passcode + password manager; 2FA (avoid SMS/email 2FA — SIM swap); no public Wi-Fi without VPN; lost-device tracking/wipe; clear history; review account activity for signs (fast battery drain, slowness, odd calls).</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Why cumbersome:</b> sandboxed OS (apps isolated), app signing/store review, permission model, few open ports, cellular isolation (no shared broadcast like Wi-Fi), encryption by default, secure boot. This raises the bar versus a PC.</p> <p><b>Preventive measures:</b> keep OS/apps updated; avoid unknown/side-loaded apps; permission hygiene; cautious rooting/jailbreaking; strong passcode + password manager; 2FA (avoid SMS/email 2FA — SIM swap); no public Wi-Fi without VPN; lost-device tracking/wipe; clear history; review account activity for signs (fast battery drain, slowness, odd calls).</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">6</div><div class="qbody">
       Write short notes on: (a) Exploit writing (b) Reverse engineering. <span class="marks">[15]</span>
@@ -393,9 +291,8 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Exploit writing, Reverse engineering)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d6">Show answer ▼</button>
       <div class="ans" id="a-d6" hidden>
-      <p><b>(a) Exploit writing:</b> crafting code that leverages a vulnerability for unauthorized access. Steps: (1) identify the vuln; (2) attach a debugger; (3) try to overwrite the return address; (4) automate with Perl/Python; (5) find a DLL address to inject shellcode. Goal: arbitrary code execution / privilege gain. Defenses: bounds checking, safe functions, ASLR, DEP, stack canaries.</p>
-      <p><b>(b) Reverse engineering:</b> analyzing software/hardware to understand its design and function — for vuln discovery, malware analysis, interop. <b>Stages (security view):</b> (1) information gathering, (2) disassembly/decompilation, (3) static + dynamic analysis, (4) documentation. <b>Tools:</b> debuggers (IDA Pro, OllyDbg, gdb, Immunity, WinDbg), disassemblers (IDA, radare2), decompilers, fault-injection tools.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>(a) Exploit writing:</b> crafting code that leverages a vulnerability for unauthorized access. Steps: (1) identify the vuln; (2) attach a debugger; (3) try to overwrite the return address; (4) automate with Perl/Python; (5) find a DLL address to inject shellcode. Goal: arbitrary code execution / privilege gain. Defenses: bounds checking, safe functions, ASLR, DEP, stack canaries.</p> <p><b>(b) Reverse engineering:</b> analyzing software/hardware to understand its design and function — for vuln discovery, malware analysis, interop. <b>Stages (security view):</b> (1) information gathering, (2) disassembly/decompilation, (3) static + dynamic analysis, (4) documentation. <b>Tools:</b> debuggers (IDA Pro, OllyDbg, gdb, Immunity, WinDbg), disassemblers (IDA, radare2), decompilers, fault-injection tools.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">7</div><div class="qbody">
       Explain brute force attack and its types. Describe the steps of incident response. <span class="marks">[15]</span>
@@ -403,9 +300,8 @@
       <div class="qlink"><a href="m3-1.html">→ M3 (Brute force)</a> · <a href="m4-1.html">→ M4 (Incident response)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d7">Show answer ▼</button>
       <div class="ans" id="a-d7" hidden>
-      <p><b>Brute force:</b> trying many credentials/keys until correct. <b>Types:</b> exhaustive (all combos), dictionary (wordlist), hybrid (dict + mutations), credential stuffing (reused creds), rainbow tables (precomputed hashes). <b>Defense:</b> lockout, rate-limiting, 2FA, CAPTCHA, strong unique passwords, slow hashes.</p>
-      <p><b>Incident response — 7 steps:</b> (1) Early detection (SIEM), (2) Analysis (IoC/triage), (3) Prioritization, (4) Notification (internal + external), (5) Containment &amp; forensics, (6) Recovery (eradicate, rebuild, restore, patch), (7) Review. Owned by the CSIRT.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Brute force:</b> trying many credentials/keys until correct. <b>Types:</b> exhaustive (all combos), dictionary (wordlist), hybrid (dict + mutations), credential stuffing (reused creds), rainbow tables (precomputed hashes). <b>Defense:</b> lockout, rate-limiting, 2FA, CAPTCHA, strong unique passwords, slow hashes.</p> <p><b>Incident response — 7 steps:</b> (1) Early detection (SIEM), (2) Analysis (IoC/triage), (3) Prioritization, (4) Notification (internal + external), (5) Containment &amp; forensics, (6) Recovery (eradicate, rebuild, restore, patch), (7) Review. Owned by the CSIRT.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">8</div><div class="qbody">
       List the six default event-log categories in Windows. Explain defenses against log &amp; accounting-file attacks. <span class="marks">[15]</span>
@@ -413,9 +309,8 @@
       <div class="qlink"><a href="m5-1.html">→ Module 5 (Event logging, Defenses)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d8">Show answer ▼</button>
       <div class="ans" id="a-d8" hidden>
-      <p><b>Six default categories:</b> (1) Application, (2) System, (3) Security, (4) Directory Service (domain controllers), (5) DNS Server (DNS servers), (6) File Replication Service (DCs). The <b>Security</b> log records logon, object access and policy change per the audit policy.</p>
-      <p><b>Defenses against log/accounting attacks:</b> enable auditing + correct policy; set file permissions; send logs to a separate, hardened logging server (local wipe loses nothing); encrypt logs and make them append-only/write-once; file-integrity monitoring + tamper alerts; NTP time sync; snapshot state for comparison. This defeats wevtutil cl / log editing / rootkit hiding.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Six default categories:</b> (1) Application, (2) System, (3) Security, (4) Directory Service (domain controllers), (5) DNS Server (DNS servers), (6) File Replication Service (DCs). The <b>Security</b> log records logon, object access and policy change per the audit policy.</p> <p><b>Defenses against log/accounting attacks:</b> enable auditing + correct policy; set file permissions; send logs to a separate, hardened logging server (local wipe loses nothing); encrypt logs and make them append-only/write-once; file-integrity monitoring + tamper alerts; NTP time sync; snapshot state for comparison. This defeats wevtutil cl / log editing / rootkit hiding.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">9</div><div class="qbody">
       Explain different methods to hide files (on host/network). How do attackers examine encrypted files? <span class="marks">[15]</span>
@@ -423,10 +318,8 @@
       <div class="qlink"><a href="m5-1.html">→ Module 5 (Hiding evidence, Encrypted files)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d9">Show answer ▼</button>
       <div class="ans" id="a-d9" hidden>
-      <p><b>On host:</b> hidden attribute, NTFS Alternate Data Streams (<code>type secret.txt &gt; file.exe:hidden.txt</code>), rename to mimic system files, archive/encrypt, rootkits (hide processes/files), timestomping (fake MAC times).</p>
-      <p><b>On network:</b> covert channels (tunnel in DNS/ICMP), steganography, encryption, blend with normal traffic.</p>
-      <p><b>Encrypted files:</b> without the key they are unreadable; examine via decryption (key escrow/recovery), or password cracking (needs expert + compute and is slow), else only metadata (name, size, timestamps) is visible. Strong crypto (AES) is effectively unbreakable by brute force — so responders rely on key recovery, not decryption.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>On host:</b> hidden attribute, NTFS Alternate Data Streams (<code>type secret.txt &gt; file.exe:hidden.txt</code>), rename to mimic system files, archive/encrypt, rootkits (hide processes/files), timestomping (fake MAC times).</p> <p><b>On network:</b> covert channels (tunnel in DNS/ICMP), steganography, encryption, blend with normal traffic.</p> <p><b>Encrypted files:</b> without the key they are unreadable; examine via decryption (key escrow/recovery), or password cracking (needs expert + compute and is slow), else only metadata (name, size, timestamps) is visible. Strong crypto (AES) is effectively unbreakable by brute force — so responders rely on key recovery, not decryption.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">10</div><div class="qbody">
       Explain password sniffing. Differentiate horizontal and vertical privilege escalation. <span class="marks">[15]</span>
@@ -434,20 +327,13 @@
       <div class="qlink"><a href="m5-1.html">→ Module 5 (Password sniffing, Privilege escalation)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-d10">Show answer ▼</button>
       <div class="ans" id="a-d10" hidden>
-      <p><b>Password sniffing:</b> on a shared/flat network (hub or via ARP spoof) the attacker captures packets and filters for plaintext auth (Telnet/FTP/POP3/HTTP basic) to recover credentials. Defense: encrypted protocols (SSH/HTTPS/TLS), VPN, switched LANs, port security.</p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Horizontal PrivEsc</th><th>Vertical PrivEsc</th></tr></thead>
-        <tbody>
-          <tr><td>Move to another account at the SAME level (lateral)</td><td>Gain HIGHER rights (user → admin/root)</td></tr>
-          <tr><td>e.g. one user's files → another user</td><td>e.g. standard user → SYSTEM</td></tr>
-          <tr><td>Account takeover / lateral movement</td><td>Full system compromise</td></tr>
-        </tbody>
-      </table></div>
-      <p><b>Vertical paths:</b> sudo misconfig, SUID binaries, unquoted service paths, DLL hijack, token theft, kernel exploit, UAC bypass.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Move to another account at the SAME level (lateral)</span><span class="v">Gain HIGHER rights (user → admin/root)</span></div>
+<div class="ansrow"><span class="k">e.g. one user's files → another user</span><span class="v">e.g. standard user → SYSTEM</span></div>
+<div class="ansrow"><span class="k">Account takeover / lateral movement</span><span class="v">Full system compromise</span></div>
+</div></div></div>
   </div>
 
-  <!-- MAY 2024 -->
+  
   <div class="qpaper">
     <div class="qhead">
       <h2>KTU — May 2024</h2>
@@ -461,17 +347,10 @@
       <div class="qlink"><a href="m3-1.html">→ Module 3 (Vulnerability resources, Exploit DBs)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y1">Show answer ▼</button>
       <div class="ans" id="a-y1" hidden>
-      <p><b>Vulnerability databases:</b> <b>NVD</b> (US national vuln DB, CVSS scores), <b>CVE</b> (common ID system so everyone names the same bug), <b>CWE</b> (weakness types, not instances), <b>Exploit-DB</b> (offensive PoCs/exploits), vendor advisories (MSRC, Cisco PSIRT), <b>CERT/CC</b> (coordination), <b>ISACs</b> (sector sharing), <b>OVAL</b> (machine-readable checks).</p>
-      <p><b>Exploit:</b> code/technique that uses a vulnerability to gain unauthorized access or privilege.</p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Known exploit</th><th>Zero-day exploit</th></tr></thead>
-        <tbody>
-          <tr><td>Public CVE, patch available</td><td>Unknown to vendor, no patch yet</td></tr>
-          <tr><td>Patch fast to be safe</td><td>High risk; detect via behavior/EDR</td></tr>
-          <tr><td>Often automated attacks</td><td>Targeted/APT</td></tr>
-        </tbody>
-      </table></div>
-      </div></div></div>
+<div class="ansrow"><span class="k">Public CVE, patch available</span><span class="v">Unknown to vendor, no patch yet</span></div>
+<div class="ansrow"><span class="k">Patch fast to be safe</span><span class="v">High risk; detect via behavior/EDR</span></div>
+<div class="ansrow"><span class="k">Often automated attacks</span><span class="v">Targeted/APT</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">2</div><div class="qbody">
       Explain network sniffing and the types of network sniffers. How does a man-in-the-middle attack work?
@@ -480,10 +359,8 @@
       <div class="qlink"><a href="m3-1.html">→ Module 3 (Sniffing, MITM)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y2">Show answer ▼</button>
       <div class="ans" id="a-y2" hidden>
-      <p><b>Sniffing:</b> capturing packets on a network (Wireshark, tcpdump). <b>Sniffer types:</b> software vs hardware tap; passive (observe) vs active (inject/ARP-spoof); filtered vs unfiltered; wired vs wireless (monitor mode).</p>
-      <p><b>MITM working:</b> the attacker positions themselves between two parties (relay/alters comms). Classic method: <b>ARP spoofing</b> — send fake ARP replies so both victim and gateway think the attacker is the other, mirroring all traffic through the attacker. They can read (sniff), alter (inject), or drop packets.</p>
-      <p><b>MITM types:</b> ARP spoofing, DNS spoofing/poisoning, SSL stripping, session hijacking, evil-twin/rogue AP, email MITM. <b>Defense:</b> HTTPS/HSTS, static ARP/DAI, cert pinning, VPN, 802.1X.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Sniffing:</b> capturing packets on a network (Wireshark, tcpdump). <b>Sniffer types:</b> software vs hardware tap; passive (observe) vs active (inject/ARP-spoof); filtered vs unfiltered; wired vs wireless (monitor mode).</p> <p><b>MITM working:</b> the attacker positions themselves between two parties (relay/alters comms). Classic method: <b>ARP spoofing</b> — send fake ARP replies so both victim and gateway think the attacker is the other, mirroring all traffic through the attacker. They can read (sniff), alter (inject), or drop packets.</p> <p><b>MITM types:</b> ARP spoofing, DNS spoofing/poisoning, SSL stripping, session hijacking, evil-twin/rogue AP, email MITM. <b>Defense:</b> HTTPS/HSTS, static ARP/DAI, cert pinning, VPN, 802.1X.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">3</div><div class="qbody">
       Differentiate DoS and DDoS. Explain remote attacks and their mitigation. <span class="marks">[15]</span>
@@ -491,16 +368,10 @@
       <div class="qlink"><a href="m3-1.html">→ Module 3 (DoS/DDoS, Remote attacks)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y3">Show answer ▼</button>
       <div class="ans" id="a-y3" hidden>
-      <div class="tablewrap"><table>
-        <thead><tr><th>DoS</th><th>DDoS</th></tr></thead>
-        <tbody>
-          <tr><td>Single source</td><td>Many botnet sources</td></tr>
-          <tr><td>Blockable by IP</td><td>Hard to block by IP</td></tr>
-          <tr><td>Lower volume</td><td>Very high volume</td></tr>
-        </tbody>
-      </table></div>
-      <p><b>Remote attacks:</b> exploit a service over the network without local access — RDP/SSH brute force, unpatched service RCE, SMB/NetBIOS abuse, null-session enumeration. <b>Mitigation:</b> patch, firewall/ACLs, rate-limit + lockout, 2FA, segmentation, DDoS scrubbing/CDN, disable unused services, monitor.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Single source</span><span class="v">Many botnet sources</span></div>
+<div class="ansrow"><span class="k">Blockable by IP</span><span class="v">Hard to block by IP</span></div>
+<div class="ansrow"><span class="k">Lower volume</span><span class="v">Very high volume</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">4</div><div class="qbody">
       Explain SQL injection and its categories (In-band, Inferential/Blind, Out-of-band). Describe an SQL
@@ -509,19 +380,12 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (SQL Injection)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y4">Show answer ▼</button>
       <div class="ans" id="a-y4" hidden>
-      <p><b>SQLi</b> = malicious SQL in an input that the app concatenates into a query, manipulating the backend DB.</p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Category</th><th>How</th></tr></thead>
-        <tbody>
-          <tr><td>In-band (Error-based)</td><td>DB errors reveal structure</td></tr>
-          <tr><td>In-band (Union-based)</td><td>UNION SELECT joins extra data</td></tr>
-          <tr><td>Inferential / Blind (Boolean)</td><td>True/false responses infer data</td></tr>
-          <tr><td>Inferential / Blind (Time-based)</td><td>sleep() timing infers data</td></tr>
-          <tr><td>Out-of-band</td><td>DNS/HTTP exfiltrates data</td></tr>
-        </tbody>
-      </table></div>
-      <p><b>SQL Server attack:</b> inject <code>admin'--</code> to bypass auth, <code>' OR 1=1 --</code> to dump all rows, <code>UNION SELECT</code> to read other tables, enable <code>xp_cmdshell</code> for OS command execution. Fix: parameterized queries, least-privilege DB account, input validation, WAF.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">In-band (Error-based)</span><span class="v">DB errors reveal structure</span></div>
+<div class="ansrow"><span class="k">In-band (Union-based)</span><span class="v">UNION SELECT joins extra data</span></div>
+<div class="ansrow"><span class="k">Inferential / Blind (Boolean)</span><span class="v">True/false responses infer data</span></div>
+<div class="ansrow"><span class="k">Inferential / Blind (Time-based)</span><span class="v">sleep() timing infers data</span></div>
+<div class="ansrow"><span class="k">Out-of-band</span><span class="v">DNS/HTTP exfiltrates data</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">5</div><div class="qbody">
       What is a honeypot? Explain production vs research, and high- vs low-interaction honeypots. List benefits
@@ -530,16 +394,9 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Honeypots)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y5">Show answer ▼</button>
       <div class="ans" id="a-y5" hidden>
-      <p><b>Honeypot:</b> a decoy system that looks like a high-value asset to attract/study/deflect attackers. Placement: DMZ or outside the firewall.</p>
-      <div class="tablewrap"><table>
-        <thead><tr><th>Production vs Research</th><th>High vs Low interaction</th></tr></thead>
-        <tbody>
-          <tr><td>Production = defense, in-band</td><td>High = real OS, full interaction, root access, rich data, riskier</td></tr>
-          <tr><td>Research = study TTPs</td><td>Low = simulates common services (Honeyd), safe, detects bots</td></tr>
-        </tbody>
-      </table></div>
-      <p><b>Benefits:</b> real attacker data, fewer false positives, cost-effective, can circumvent encryption (attacker acts in clear). <b>Disadvantages:</b> limited coverage, can be distinguished from real assets, may risk production if misplaced, isolated view.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Production = defense, in-band</span><span class="v">High = real OS, full interaction, root access, rich data, riskier</span></div>
+<div class="ansrow"><span class="k">Research = study TTPs</span><span class="v">Low = simulates common services (Honeyd), safe, detects bots</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">6</div><div class="qbody">
       Explain email hacking and its techniques (phishing, spoofing, MITM, session hijacking, brute force). <span class="marks">[15]</span>
@@ -547,17 +404,8 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Email hacking)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y6">Show answer ▼</button>
       <div class="ans" id="a-y6" hidden>
-      <p><b>Email hacking:</b> unauthorized access/manipulation of email. <b>Techniques:</b></p>
-      <ul>
-        <li><b>Phishing</b> — fake login page steals creds.</li>
-        <li><b>Spoofing</b> — forged sender (SPF/DKIM/DMARC gap) for fraud.</li>
-        <li><b>MITM</b> — intercept mail flow (no TLS).</li>
-        <li><b>Session hijacking</b> — stolen webmail cookie.</li>
-        <li><b>Brute force</b> — guess password; credential stuffing.</li>
-        <li><b>Malware</b> — keylogger / mail rule redirect.</li>
-      </ul>
-      <p><b>Defense:</b> enforce TLS, SPF+DKM+DMARC, 2FA, phishing training, alert on forwarding rules, monitor login anomalies.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Email hacking:</b> unauthorized access/manipulation of email. <b>Techniques:</b></p> <ul> <li><b>Phishing</b> — fake login page steals creds.</li> <li><b>Spoofing</b> — forged sender (SPF/DKIM/DMARC gap) for fraud.</li> <li><b>MITM</b> — intercept mail flow (no TLS).</li> <li><b>Session hijacking</b> — stolen webmail cookie.</li> <li><b>Brute force</b> — guess password; credential stuffing.</li> <li><b>Malware</b> — keylogger / mail rule redirect.</li> </ul> <p><b>Defense:</b> enforce TLS, SPF+DKM+DMARC, 2FA, phishing training, alert on forwarding rules, monitor login anomalies.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">7</div><div class="qbody">
       What is covering tracks? Explain how attackers hide malicious processes and use covert channels. <span class="marks">[15]</span>
@@ -565,10 +413,8 @@
       <div class="qlink"><a href="m5-1.html">→ Module 5 (Covering tracks)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y7">Show answer ▼</button>
       <div class="ans" id="a-y7" hidden>
-      <p><b>Covering tracks (anti-forensics):</b> after access, disable auditing, clear/modify logs, delete created files, timestomp, so responders can't see what happened.</p>
-      <p><b>Hiding malicious processes:</b> run under names of genuine OS processes (svchost.exe, lsass.exe) — looks normal in Task Manager but shows odd CPU/parent; use rootkits to hide from the process list entirely; load as a service/DLL.</p>
-      <p><b>Covert channels:</b> tunnel data in overlooked protocols — <b>DNS</b> (lookup exfil), <b>ICMP</b> (ping payloads) — to bypass firewalls/data-loss controls. Indicator: unusual DNS/ICMP volume or encoded queries. Defense: DPI, egress filtering, DNS/ICMP monitoring.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Covering tracks (anti-forensics):</b> after access, disable auditing, clear/modify logs, delete created files, timestomp, so responders can't see what happened.</p> <p><b>Hiding malicious processes:</b> run under names of genuine OS processes (svchost.exe, lsass.exe) — looks normal in Task Manager but shows odd CPU/parent; use rootkits to hide from the process list entirely; load as a service/DLL.</p> <p><b>Covert channels:</b> tunnel data in overlooked protocols — <b>DNS</b> (lookup exfil), <b>ICMP</b> (ping payloads) — to bypass firewalls/data-loss controls. Indicator: unusual DNS/ICMP volume or encoded queries. Defense: DPI, egress filtering, DNS/ICMP monitoring.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">8</div><div class="qbody">
       Describe the system-hacking cycle. Explain manual password cracking steps and administrator password guessing. <span class="marks">[15]</span>
@@ -576,10 +422,8 @@
       <div class="qlink"><a href="m5-1.html">→ Module 5 (System hacking, Password cracking)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y8">Show answer ▼</button>
       <div class="ans" id="a-y8" hidden>
-      <p><b>System-hacking cycle (6 steps):</b> (1) Enumeration, (2) Cracking passwords, (3) Escalating privileges, (4) Executing applications, (5) Hiding files, (6) Covering tracks.</p>
-      <p><b>Manual password cracking steps:</b> (1) find a valid user (Administrator/Guest); (2) make a list of likely passwords (default, dictionary, guessed); (3) try high-priority first; (4) repeat; (5) if cracked, use it to log in / escalate.</p>
-      <p><b>Administrator password guessing:</b> if NetBIOS TCP/139 is open, connect to the hidden Admin$/C$ shares; try default/blank/weak passwords; or sniff the SMB session and replay the hash (pass-the-hash). Defense: disable NetBIOS where unneeded, strong admin passwords, 2FA, SMB signing, network segmentation.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>System-hacking cycle (6 steps):</b> (1) Enumeration, (2) Cracking passwords, (3) Escalating privileges, (4) Executing applications, (5) Hiding files, (6) Covering tracks.</p> <p><b>Manual password cracking steps:</b> (1) find a valid user (Administrator/Guest); (2) make a list of likely passwords (default, dictionary, guessed); (3) try high-priority first; (4) repeat; (5) if cracked, use it to log in / escalate.</p> <p><b>Administrator password guessing:</b> if NetBIOS TCP/139 is open, connect to the hidden Admin$/C$ shares; try default/blank/weak passwords; or sniff the SMB session and replay the hash (pass-the-hash). Defense: disable NetBIOS where unneeded, strong admin passwords, 2FA, SMB signing, network segmentation.</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">9</div><div class="qbody">
       Explain the stages of reverse engineering and list reverse-engineering tools. <span class="marks">[15]</span>
@@ -587,10 +431,8 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Reverse engineering)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y9">Show answer ▼</button>
       <div class="ans" id="a-y9" hidden>
-      <p><b>Stages (security view):</b> (1) <b>Information gathering</b> — strings, imports, packer ID; (2) <b>Disassembly/decompilation</b> — turn binary to asm/VP code; (3) <b>Static analysis</b> (read code, no run) + <b>Dynamic analysis</b> (run in sandbox, watch behavior); (4) <b>Documentation</b> — map logic, find vulns/IoCs.</p>
-      <p><b>Tools:</b> debuggers (IDA Pro, OllyDbg, gdb, Immunity, WinDbg — user/kernel mode), disassemblers (IDA, radare2), decompilers (Ghidra, Jadx), fault-injection tools. Used for malware analysis and vuln discovery.</p>
-      <p>(Note: the PDF's "3 scan stages" — scanning/point processing/geometric model — describe a different, physical 3-D scanning workflow; the security RE view above is what the exam expects.)</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Stages (security view):</b> (1) <b>Information gathering</b> — strings, imports, packer ID; (2) <b>Disassembly/decompilation</b> — turn binary to asm/VP code; (3) <b>Static analysis</b> (read code, no run) + <b>Dynamic analysis</b> (run in sandbox, watch behavior); (4) <b>Documentation</b> — map logic, find vulns/IoCs.</p> <p><b>Tools:</b> debuggers (IDA Pro, OllyDbg, gdb, Immunity, WinDbg — user/kernel mode), disassemblers (IDA, radare2), decompilers (Ghidra, Jadx), fault-injection tools. Used for malware analysis and vuln discovery.</p> <p>(Note: the PDF's "3 scan stages" — scanning/point processing/geometric model — describe a different, physical 3-D scanning workflow; the security RE view above is what the exam expects.)</p></span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">10</div><div class="qbody">
       Explain web filtering — allow/block lists, DNS/URL/content filtering — and why organizations use it. <span class="marks">[15]</span>
@@ -598,19 +440,11 @@
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Web filtering)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-y10">Show answer ▼</button>
       <div class="ans" id="a-y10" hidden>
-      <p><b>Web filtering</b> controls which sites/users may reach.</p>
-      <ul>
-        <li><b>Allow-list</b> — only permitted sites (strict); <b>Block-list</b> — ban known-bad.</li>
-        <li><b>DNS filtering</b> — block at name resolution (refuse bad domains).</li>
-        <li><b>URL filtering</b> — by address/category.</li>
-        <li><b>Content filtering</b> — by page content/keywords.</li>
-        <li><b>Server-side</b> (gateway/proxy) vs <b>client-side</b> (endpoint agent).</li>
-      </ul>
-      <p><b>Why organizations use it:</b> block malware/phishing, protect data (stop exfil/unsafe sites), meet compliance, enforce acceptable-use policy, save bandwidth. Pair with DLP and TLS inspection for depth.</p>
-      </div></div></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><p><b>Web filtering</b> controls which sites/users may reach.</p> <ul> <li><b>Allow-list</b> — only permitted sites (strict); <b>Block-list</b> — ban known-bad.</li> <li><b>DNS filtering</b> — block at name resolution (refuse bad domains).</li> <li><b>URL filtering</b> — by address/category.</li> <li><b>Content filtering</b> — by page content/keywords.</li> <li><b>Server-side</b> (gateway/proxy) vs <b>client-side</b> (endpoint agent).</li> </ul> <p><b>Why organizations use it:</b> block malware/phishing, protect data (stop exfil/unsafe sites), meet compliance, enforce acceptable-use policy, save bandwidth. Pair with DLP and TLS inspection for depth.</p></span></div>
+</div></div></div>
   </div>
 
-  <!-- INTERNAL SERIES 1 -->
+  
   <div class="qpaper">
     <div class="qhead">
       <h2>Internal Series — First Series (College of Engineering Kallooppara)</h2>
@@ -622,38 +456,48 @@
       <span class="qtopic">Footprinting</span>
       <div class="qlink"><a href="m2-1.html">→ Module 2 (Footprinting, Scanning &amp; Enumeration)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s1q1">Show answer ▼</button>
-      <div class="ans" id="a-s1q1" hidden><b>Footprinting</b> = passive + active info gathering to map the target. <b>Scanning</b> = finding live hosts, open ports, OS/version (active). <b>Passive</b> leaves no packet on target (WHOIS, OSINT, archives); <b>Active</b> touches the target (ping/port scans, banner grab) and is detectable. Passive is stealthier; active is faster and richer.</div></div></div>
+      <div class="ans" id="a-s1q1" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Footprinting</b> = passive + active info gathering to map the target. <b>Scanning</b> = finding live hosts, open ports, OS/version (active). <b>Passive</b> leaves no packet on target (WHOIS, OSINT, archives); <b>Active</b> touches the target (ping/port scans, banner grab) and is detectable. Passive is stealthier; active is faster and richer.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       Classify malware with examples (virus, worm, Trojan, ransomware, rootkit, logic bomb). <span class="marks">[8]</span>
       <span class="qtopic">Malware</span>
       <div class="qlink"><a href="m2-2.html">→ Module 2 (Malware &amp; Network Attacks)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s1q2">Show answer ▼</button>
-      <div class="ans" id="a-s1q2" hidden><b>Virus</b> — needs a host file, spreads when run. <b>Worm</b> — self-propagates, no host. <b>Trojan</b> — disguised legit software. <b>Ransomware</b> — encrypts files for ransom. <b>Rootkit</b> — hides presence/tools. <b>Logic bomb</b> — triggers on a condition (date/event). Others: keylogger, spyware, botnet, backdoor. Distinction: needs-host / spreads / goal.</div></div></div>
+      <div class="ans" id="a-s1q2" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Virus</b> — needs a host file, spreads when run. <b>Worm</b> — self-propagates, no host. <b>Trojan</b> — disguised legit software. <b>Ransomware</b> — encrypts files for ransom. <b>Rootkit</b> — hides presence/tools. <b>Logic bomb</b> — triggers on a condition (date/event). Others: keylogger, spyware, botnet, backdoor. Distinction: needs-host / spreads / goal.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       List social-engineering techniques and the concept of a "human firewall". <span class="marks">[8]</span>
       <span class="qtopic">Social engineering</span>
       <div class="qlink"><a href="m2-3.html">→ Module 2 (Social Engineering)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s1q3">Show answer ▼</button>
-      <div class="ans" id="a-s1q3" hidden><b>Techniques:</b> phishing, spear-phishing, whaling, vishing, smishing, pretexting, baiting, quid pro quo, tailgating, impersonation, shoulder surfing, dumpster diving. <b>Human firewall:</b> trained people who spot and report tries, verify out-of-band for money/access, and follow policy — the last line of defense. Tech fails; aware users catch what filters miss.</div></div></div>
+      <div class="ans" id="a-s1q3" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Techniques:</b> phishing, spear-phishing, whaling, vishing, smishing, pretexting, baiting, quid pro quo, tailgating, impersonation, shoulder surfing, dumpster diving. <b>Human firewall:</b> trained people who spot and report tries, verify out-of-band for money/access, and follow policy — the last line of defense. Tech fails; aware users catch what filters miss.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       Explain the CIA triad and the AAA model. <span class="marks">[8]</span>
       <span class="qtopic">CIA · AAA</span>
       <div class="qlink"><a href="m1-1.html">→ Module 1 (Elements of InfoSec)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s1q4">Show answer ▼</button>
-      <div class="ans" id="a-s1q4" hidden><b>CIA:</b> Confidentiality (only authorized see it), Integrity (unaltered), Availability (reachable when needed). <b>AAA:</b> Authentication (who you are — password/MFA), Authorization (what you may do — roles/least privilege), Accounting (what you did — logs/audit). CIA is the goal; AAA are the controls that achieve it.</div></div></div>
+      <div class="ans" id="a-s1q4" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>CIA:</b> Confidentiality (only authorized see it), Integrity (unaltered), Availability (reachable when needed). <b>AAA:</b> Authentication (who you are — password/MFA), Authorization (what you may do — roles/least privilege), Accounting (what you did — logs/audit). CIA is the goal; AAA are the controls that achieve it.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       Differentiate white-box, black-box and grey-box penetration testing. Mention OWASP Top 10. <span class="marks">[8]</span>
       <span class="qtopic">Pentest · OWASP</span>
       <div class="qlink"><a href="m1-3.html">→ Module 1 (Penetration Testing &amp; Frameworks)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s1q5">Show answer ▼</button>
-      <div class="ans" id="a-s1q5" hidden><b>White-box</b> = full info (docs/creds); <b>Black-box</b> = no info (true outsider); <b>Grey-box</b> = partial. <b>OWASP Top 10:</b> A01 Broken Access Control, A02 Cryptographic Failures, A03 Injection, A04 Insecure Design, A05 Security Misconfiguration, A06 Vulnerable &amp; Outdated Components, A07 Identification &amp; Authentication Failures, A08 Software &amp; Data Integrity Failures, A09 Security Logging Failures, A10 SSRF. Plus frameworks: OSSTMM, NIST SP 800-115.</div></div></div>
+      <div class="ans" id="a-s1q5" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>White-box</b> = full info (docs/creds); <b>Black-box</b> = no info (true outsider); <b>Grey-box</b> = partial. <b>OWASP Top 10:</b> A01 Broken Access Control, A02 Cryptographic Failures, A03 Injection, A04 Insecure Design, A05 Security Misconfiguration, A06 Vulnerable &amp; Outdated Components, A07 Identification &amp; Authentication Failures, A08 Software &amp; Data Integrity Failures, A09 Security Logging Failures, A10 SSRF. Plus frameworks: OSSTMM, NIST SP 800-115.</span></div>
+</div></div></div>
   </div>
 
-  <!-- INTERNAL SERIES 2 -->
+  
   <div class="qpaper">
     <div class="qhead">
       <h2>Internal Series — Second Series (College of Engineering Kallooppara)</h2>
@@ -665,35 +509,45 @@
       <span class="qtopic">Kill chain · Hackers</span>
       <div class="qlink"><a href="m1-2.html">→ Module 1 (The Hacker Landscape)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s2q1">Show answer ▼</button>
-      <div class="ans" id="a-s2q1" hidden><b>Phases:</b> Reconnaissance → Scanning/Enumeration → Gaining access → Maintaining access → Clearing logs. <b>Classes:</b> White hat (authorized/ethical), Black hat (malicious), Grey hat (no permission, no ill intent), hacktivist (political), script kiddie (uses others' tools), state-sponsored, insider. Motivation: money, ideology, challenge, espionage.</div></div></div>
+      <div class="ans" id="a-s2q1" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Phases:</b> Reconnaissance → Scanning/Enumeration → Gaining access → Maintaining access → Clearing logs. <b>Classes:</b> White hat (authorized/ethical), Black hat (malicious), Grey hat (no permission, no ill intent), hacktivist (political), script kiddie (uses others' tools), state-sponsored, insider. Motivation: money, ideology, challenge, espionage.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       Explain buffer overflow and its consequences. How is it exploited? <span class="marks">[8]</span>
       <span class="qtopic">Buffer overflow</span>
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Buffer overflow)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s2q2">Show answer ▼</button>
-      <div class="ans" id="a-s2q2" hidden><b>Buffer overflow:</b> data exceeding a buffer's capacity overwrites adjacent memory. <b>Consequences:</b> crash, loss of access control, further exploit. <b>Exploited by:</b> overwriting the return address so execution jumps to attacker shellcode → arbitrary code execution / privilege gain. Defenses: bounds checking, safe functions (strncpy), ASLR, DEP, stack canaries, memory-safe languages.</div></div></div>
+      <div class="ans" id="a-s2q2" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Buffer overflow:</b> data exceeding a buffer's capacity overwrites adjacent memory. <b>Consequences:</b> crash, loss of access control, further exploit. <b>Exploited by:</b> overwriting the return address so execution jumps to attacker shellcode → arbitrary code execution / privilege gain. Defenses: bounds checking, safe functions (strncpy), ASLR, DEP, stack canaries, memory-safe languages.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       List the sources of vulnerability data (NVD, CVE, CERT, ISACs, OVAL). What is OVAL used for? <span class="marks">[8]</span>
       <span class="qtopic">Vuln DBs</span>
       <div class="qlink"><a href="m3-1.html">→ Module 3 (Vulnerability resources)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s2q3">Show answer ▼</button>
-      <div class="ans" id="a-s2q3" hidden><b>Sources:</b> NVD (US database), CVE (common ID), CERT/CC (coordination), ISACs (sector sharing), OVAL (machine-readable vuln info). <b>OVAL</b> (Open Vulnerability and Assessment Language) standardizes vulnerability/configuration checks so scanners test systems consistently and automatically — turning "is this patch missing?" into a portable, comparable test.</div></div></div>
+      <div class="ans" id="a-s2q3" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Sources:</b> NVD (US database), CVE (common ID), CERT/CC (coordination), ISACs (sector sharing), OVAL (machine-readable vuln info). <b>OVAL</b> (Open Vulnerability and Assessment Language) standardizes vulnerability/configuration checks so scanners test systems consistently and automatically — turning "is this patch missing?" into a portable, comparable test.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       Explain SMTP abuse as an attack vector and mitigation. <span class="marks">[8]</span>
       <span class="qtopic">SMTP</span>
       <div class="qlink"><a href="m3-1.html">→ Module 3 (Brute force &amp; Protocol Attacks)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s2q4">Show answer ▼</button>
-      <div class="ans" id="a-s2q4" hidden><b>SMTP abuse:</b> open relays let attackers send spoofed/phishing spam; VRFY/EXPN enumerate users; weak SMTP auth is brute-forced; credentials sniffed in plaintext. <b>Mitigation:</b> disable open relay, require auth + TLS, restrict VRFY/EXPN, filter spam, monitor mail logs, DKIM/DMARC on outbound.</div></div></div>
+      <div class="ans" id="a-s2q4" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>SMTP abuse:</b> open relays let attackers send spoofed/phishing spam; VRFY/EXPN enumerate users; weak SMTP auth is brute-forced; credentials sniffed in plaintext. <b>Mitigation:</b> disable open relay, require auth + TLS, restrict VRFY/EXPN, filter spam, monitor mail logs, DKIM/DMARC on outbound.</span></div>
+</div></div></div>
 
     <div class="q"><div class="qn">Q</div><div class="qbody">
       Describe the seven steps of incident response. <span class="marks">[8]</span>
       <span class="qtopic">Incident response</span>
       <div class="qlink"><a href="m4-1.html">→ Module 4 (Incident response)</a></div>
       <button class="ans-toggle" aria-expanded="false" aria-controls="a-s2q5">Show answer ▼</button>
-      <div class="ans" id="a-s2q5" hidden>Seven steps: (1) Early detection (SIEM alert); (2) Analysis (IoC, triage); (3) Prioritization; (4) Notification (internal + external); (5) Containment &amp; forensics; (6) Recovery (eradicate, rebuild, restore, patch); (7) Incident review (lessons learned). Run by the CSIRT. Goal: minimize damage, recover fast, prevent recurrence.</div></div></div>
+      <div class="ans" id="a-s2q5" hidden>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Seven steps: (1) Early detection (SIEM alert); (2) Analysis (IoC, triage); (3) Prioritization; (4) Notification (internal + external); (5) Containment &amp; forensics; (6) Recovery (eradicate, rebuild, restore, patch); (7) Incident review (lessons learned). Run by the CSIRT. Goal: minimize damage, recover fast, prevent recurrence.</span></div>
+</div></div></div>
   </div>
 
   <nav class="pagenav">
