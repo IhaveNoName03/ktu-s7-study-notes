@@ -272,20 +272,9 @@
       });
     });
 
-    // Clear any stale page-transition state when returning via back/forward (bfcache)
-    window.addEventListener('pageshow', function () { document.body.classList.remove('page-out'); });
-    document.addEventListener('DOMContentLoaded', function () { document.body.classList.remove('page-out'); });
-    // Subtle page-transition fade on internal .html navigation
-    document.querySelectorAll('a[href$=".html"]').forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-        var href = link.getAttribute("href");
-        if (!href || href.charAt(0) === "#") return;
-        e.preventDefault();
-        document.body.classList.add("page-out");
-        setTimeout(function () { window.location.href = link.href; }, 170);
-      });
-    });
+    // Removed: page-transition fade broke the back button.
+    // (DOM modifications before navigation prevent bfcache restore.)
+    // Links navigate immediately — fast, reliable, back-button-safe.
   })();
 
   /* ---------- Math typesetting (KaTeX, vendored locally — offline, no CDN) ---------- */

@@ -273,25 +273,9 @@
     // Clear any stale page-transition state when returning via back/forward (bfcache)
     window.addEventListener('pageshow', function () { document.body.classList.remove('page-out'); });
     document.addEventListener('DOMContentLoaded', function () { document.body.classList.remove('page-out'); });
-    // Subtle page-transition fade on internal .html navigation
-    // Uses a brief overlay instead of body opacity — keeps pages bfcache-restorable
-    // (setting body opacity:0 then navigating away breaks back-button restore in some browsers)
-    document.querySelectorAll('a[href$=".html"]').forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-        var href = link.getAttribute("href");
-        if (!href || href.charAt(0) === "#") return;
-        e.preventDefault();
-        // Show a white overlay (not body opacity) so the DOM stays at opacity 1 for bfcache
-        var ov = document.createElement("div");
-        ov.className = "page-fade";
-        document.body.appendChild(ov);
-        // force reflow so transition runs
-        void ov.offsetWidth;
-        ov.classList.add("in");
-        setTimeout(function () { window.location.href = link.href; }, 160);
-      });
-    });
+    // Removed: page-transition fade broke the back button.
+    // (DOM modifications before navigation prevent bfcache restore.)
+    // Links navigate immediately — fast, reliable, back-button-safe.
   })();
 
   })();
