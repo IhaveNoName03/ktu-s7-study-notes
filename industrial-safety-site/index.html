@@ -28,6 +28,19 @@
   .seclabel .line{flex:1;height:0;border-top:1px solid var(--line)}
   #grid{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .mcard{display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:start;text-decoration:none;color:inherit;padding:24px 18px;margin:0 -18px;border-top:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:background .2s ease,box-shadow .2s ease,transform .15s ease,padding-left .2s ease}
+/* ─── Card warp effect (pointer-driven refraction) ─── */
+.mcard{transform:translate3d(0,0,0);transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s ease,background .25s ease,padding-left .25s ease;will-change:transform}
+.mcard.warp{background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.14),0 2px 8px rgba(0,0,0,.06)}
+.mcard .idx,.mcard .main h3{transition:transform .35s cubic-bezier(.2,.7,.3,1),text-shadow .2s ease;will-change:transform,text-shadow}
+.mcard.warp .idx,.mcard.warp .main h3{transform:translate3d(calc(var(--mx) * 6px - 3px),calc(var(--my) * 4px - 2px),0)}
+.mcard.warp .main h3{text-shadow:calc(var(--mx) * -3px) calc(var(--my) * 2px) 0 rgba(0,200,255,.45),calc(var(--mx) * 3px) calc(var(--my) * -2px) 0 rgba(255,0,200,.35)}
+.mcard .go{transition:transform .35s cubic-bezier(.2,.7,.3,1)}
+.mcard.warp .go{transform:translateX(calc(var(--mx) * 8px - 4px))}
+@media (prefers-reduced-motion: reduce){
+  .mcard,.mcard .idx,.mcard .main h3,.mcard .go{transition:none!important}
+  .mcard.warp .idx,.mcard.warp .main h3,.mcard.warp .go{transform:none!important}
+}
+
   .mcard:last-child{border-bottom:1px solid var(--line)}
    .mcard:hover{background:#fff;text-decoration:none;padding-left:14px;box-shadow:var(--shadow-md);transform:translateY(-1px)}
   .mcard .idx{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--accent);line-height:1;padding-top:2px}

@@ -20,6 +20,13 @@
   top.setAttribute("aria-label", "Back to top");
   top.innerHTML = "&#8593;";
   document.body.appendChild(top);
+  /* ─── Pointer position tracker ─── */
+  var pointer = { x: 0, y: 0 };
+  window.addEventListener('pointermove', function (e) {
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+  });
+
 
   /* ---------- Scroll handler (rAF-throttled) ---------- */
   var ticking = false;
@@ -311,5 +318,35 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", loadMath);
     else loadMath();
   })();
+
+  /* ─── Card pointer-warp effect ─── */
+  document.querySelectorAll('.mcard').forEach(function (card) {
+    var raf = 0;
+    function update() {
+      var rect = card.getBoundingClientRect();
+      var mx = (pointer.x - rect.left) / rect.width - 0.5;
+      var my = (pointer.y - rect.top) / rect.height - 0.5;
+      card.style.setProperty('--mx', mx.toFixed(3));
+      card.style.setProperty('--my', my.toFixed(3));
+      raf = 0;
+    }
+    function onEnter() {
+      card.classList.add('warp');
+      if (!raf) raf = requestAnimationFrame(update);
+    }
+    function onLeave() {
+      card.classList.remove('warp');
+      card.style.setProperty('--mx','0');
+      card.style.setProperty('--my','0');
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    }
+    function onMove() {
+      if (card.classList.contains('warp') && !raf) raf = requestAnimationFrame(update);
+    }
+    card.addEventListener('pointerenter', onEnter);
+    card.addEventListener('pointerleave', onLeave);
+    card.addEventListener('pointermove', onMove);
+  });
 
 })();
