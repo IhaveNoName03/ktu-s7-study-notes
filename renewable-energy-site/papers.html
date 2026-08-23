@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Question Bank · EET435</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}html[data-theme="amoled"]{background:#000000}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}html[data-theme="amoled"] body{background:#000000}</style>
+<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light"||t==="amoled")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -272,6 +272,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

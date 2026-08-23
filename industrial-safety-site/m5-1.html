@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 5 · Hazard Identification &amp; Analysis</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -82,16 +82,16 @@
     <div class="diagram">
       <div class="dtitle">Fig · Fire Classes &amp; First Response</div>
       <svg viewBox="0 0 560 250" role="img" aria-label="Fire classes wheel">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <!-- wheel segments -->
         <g font-size="13" font-weight="600" text-anchor="middle">
-          <circle cx="230" cy="125" r="90" fill="none" stroke="#1d1f24"/>
-          <path d="M230,125 L230,35 A90,90 0 0,1 308,80 Z" fill="#eaf2fb" stroke="#1d1f24"/>
-          <path d="M230,125 L308,80 A90,90 0 0,1 320,166 Z" fill="#fdeaea" stroke="#1d1f24"/>
-          <path d="M230,125 L320,166 A90,90 0 0,1 231,215 Z" fill="#eafaf1" stroke="#1d1f24"/>
-          <path d="M230,125 L231,215 A90,90 0 0,1 140,166 Z" fill="#fff8e1" stroke="#1d1f24"/>
-          <path d="M230,125 L140,166 A90,90 0 0,1 152,80 Z" fill="#f4ecf7" stroke="#1d1f24"/>
-          <path d="M230,125 L152,80 A90,90 0 0,1 230,35 Z" fill="#fdeef5" stroke="#1d1f24"/>
+          <circle cx="230" cy="125" r="90" fill="none" stroke="currentColor"/>
+          <path d="M230,125 L230,35 A90,90 0 0,1 308,80 Z" fill="var(--accent-soft)" stroke="currentColor"/>
+          <path d="M230,125 L308,80 A90,90 0 0,1 320,166 Z" fill="var(--accent-soft)" stroke="currentColor"/>
+          <path d="M230,125 L320,166 A90,90 0 0,1 231,215 Z" fill="var(--accent-soft)" stroke="currentColor"/>
+          <path d="M230,125 L231,215 A90,90 0 0,1 140,166 Z" fill="var(--paper)8e1" stroke="currentColor"/>
+          <path d="M230,125 L140,166 A90,90 0 0,1 152,80 Z" fill="var(--accent-soft)" stroke="currentColor"/>
+          <path d="M230,125 L152,80 A90,90 0 0,1 230,35 Z" fill="var(--accent-soft)" stroke="currentColor"/>
           <text x="252" y="70">A solids</text><text x="296" y="118">B liquid</text>
           <text x="288" y="180">C gas</text><text x="205" y="200">D metal</text>
           <text x="128" y="150">E elec</text><text x="150" y="92">F cook</text>
@@ -157,7 +157,7 @@
     <div class="diagram">
       <div class="dtitle">Fig · HAZOP Node Analysis Flow</div>
       <svg viewBox="0 0 560 240" role="img" aria-label="HAZOP analysis flow">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <rect class="box" x="40" y="20" width="120" height="34" rx="3"/><text x="100" y="42" text-anchor="middle" class="lbl">Node</text>
         <rect class="box f" x="40" y="80" width="120" height="34" rx="3"/><text x="100" y="102" text-anchor="middle" class="lbl">Parameter</text>
         <rect class="box f" x="40" y="140" width="120" height="34" rx="3"/><text x="100" y="162" text-anchor="middle" class="lbl">Guide-word</text>
@@ -212,6 +212,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

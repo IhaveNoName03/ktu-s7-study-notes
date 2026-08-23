@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · Penetration Testing &amp; Frameworks</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -139,7 +139,7 @@
     <div class="diagram">
       <div class="dtitle">Fig · Penetration Test Lifecycle</div>
       <svg viewBox="0 0 720 150" role="img" aria-label="Phases of ethical hacking flow">
-        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="currentColor"/></marker></defs>
         <g font-family="inherit" font-size="12.5" font-weight="700" text-anchor="middle">
           <rect class="box" x="10" y="50" width="120" height="44" rx="6"/><text x="70" y="77" class="lbl">1 · Plan &amp; Scope</text>
           <line class="arrow" x1="130" y1="72" x2="158" y2="72"/>
@@ -151,7 +151,7 @@
           <line class="arrow" x1="580" y1="72" x2="608" y2="72"/>
           <rect class="box" x="610" y="50" width="100" height="44" rx="6"/><text x="660" y="77" class="lbl">5 · Report</text>
         </g>
-        <g font-family="inherit" font-size="11" fill="#7f8c8d" text-anchor="middle">
+        <g font-family="inherit" font-size="11" fill="var(--muted)" text-anchor="middle">
           <text x="70" y="112">rules of engagement</text>
           <text x="220" y="112">passive + active</text>
           <text x="370" y="112">enumerate</text>
@@ -210,6 +210,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

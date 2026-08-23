@@ -187,48 +187,7 @@
     });
   });
 
-  /* ---------- Theme toggle (light → dark → amoled → light) ---------- */
-  (function () {
-    var root = document.documentElement;
-    var order = ["light", "dark", "amoled"];
-    var icons = { light: "☀", dark: "☾", amoled: "⬤" };
-    var labels = { light: "Light", dark: "Dark", amoled: "Amoled" };
-    function read() {
-      try { var c = document.cookie.match(/(^|; )theme=(dark|light|amoled)(;|$)/); if (c) return c[2]; } catch (e) {}
-      try { var ls = localStorage.getItem("theme"); if (ls === "dark" || ls === "light" || ls === "amoled") return ls; } catch (e) {}
-      return null;
-    }
-    function write(v) {
-      try { document.cookie = "theme=" + v + ";path=/;max-age=31536000;samesite=lax"; } catch (e) {}
-      try { localStorage.setItem("theme", v); } catch (e) {}
-    }
-    var saved = read();
-    if (saved) root.setAttribute("data-theme", saved);
-    function makeBtn() {
-      var bar = document.querySelector(".topbar-inner") || document.querySelector(".topbar");
-      if (!bar) return;
-      var btn = document.createElement("button");
-      btn.className = "theme-toggle";
-      btn.type = "button";
-      btn.setAttribute("aria-label", "Toggle theme (light/dark/amoled)");
-      function paint() {
-        var cur = root.getAttribute("data-theme") || "light";
-        btn.innerHTML = '<span class="ic">' + icons[cur] + '</span> <span class="lbl">' + labels[cur] + "</span>";
-      }
-      btn.addEventListener("click", function () {
-        var cur = root.getAttribute("data-theme") || "light";
-        var idx = order.indexOf(cur);
-        var next = order[(idx + 1) % order.length];
-        root.setAttribute("data-theme", next);
-        write(next);
-        paint();
-      });
-      paint();
-      bar.appendChild(btn);
-    }
-    makeBtn();
-  })();
-
+  
 
   /* ---------- Restructure brand into mark + name + subject (no HTML edits needed) ---------- */
   (function () {

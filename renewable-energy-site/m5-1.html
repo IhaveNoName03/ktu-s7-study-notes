@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 5 · Small Hydro, Fuel Cells &amp; Hydrogen</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -73,7 +73,7 @@
     <div class="diagram">
       <div class="dtitle">Fig · Mini Hydro Project Layout</div>
       <svg viewBox="0 0 560 240" role="img" aria-label="Mini hydro layout">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <!-- river -->
         <rect class="water" x="20" y="40" width="520" height="40" rx="3"/>
         <text x="300" y="65" text-anchor="middle" class="lbl">River (headwater)</text>
@@ -124,7 +124,7 @@
     <div class="diagram">
       <div class="dtitle">Fig · PEM Fuel Cell (H₂ + O₂ → H₂O + electricity)</div>
       <svg viewBox="0 0 560 230" role="img" aria-label="PEM fuel cell schematic">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <!-- anode -->
         <rect class="box r" x="40" y="70" width="70" height="90" rx="3"/>
         <text x="75" y="100" text-anchor="middle" class="lbl">Anode</text>
@@ -202,6 +202,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

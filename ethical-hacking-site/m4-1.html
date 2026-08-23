@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 4 · Network &amp; System Defense — Ethical Hacking Notes</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -82,17 +82,17 @@
     <div class="diagram">
       <div class="dtitle">Fig · Internet → Firewall → Internal Network</div>
       <svg viewBox="0 0 720 230" role="img" aria-label="Network perimeter with firewall and DMZ">
-        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="currentColor"/></marker></defs>
         <!-- internet -->
         <rect class="box" x="20" y="85" width="110" height="56" rx="6"/><text x="75" y="118" text-anchor="middle" class="lbl">Internet</text>
         <line class="arrow" x1="130" y1="113" x2="178" y2="113"/>
         <!-- firewall -->
-        <rect x="180" y="60" width="120" height="106" rx="8" fill="#fdecea" stroke="#e0241b" stroke-width="2.5"/>
-        <text x="240" y="108" text-anchor="middle" class="lbl" fill="#e0241b" font-weight="800">FIREWALL</text>
-        <text x="240" y="128" text-anchor="middle" font-size="10.5" fill="#7f8c8d">filters / ACLs</text>
+        <rect x="180" y="60" width="120" height="106" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
+        <text x="240" y="108" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">FIREWALL</text>
+        <text x="240" y="128" text-anchor="middle" font-size="10.5" fill="var(--muted)">filters / ACLs</text>
         <!-- DMZ -->
         <rect class="box" x="330" y="20" width="120" height="50" rx="6"/><text x="390" y="50" text-anchor="middle" class="lbl">Web / Mail</text>
-        <text x="390" y="66" text-anchor="middle" font-size="10.5" fill="#7f8c8d">DMZ</text>
+        <text x="390" y="66" text-anchor="middle" font-size="10.5" fill="var(--muted)">DMZ</text>
         <!-- internal -->
         <rect class="box" x="330" y="120" width="120" height="50" rx="6"/><text x="390" y="150" text-anchor="middle" class="lbl">Internal LAN</text>
         <!-- router -->
@@ -101,7 +101,7 @@
         <line class="arrow" x1="300" y1="85" x2="328" y2="55"/>
         <line class="arrow" x1="300" y1="141" x2="328" y2="145"/>
         <line class="arrow" x1="450" y1="145" x2="498" y2="145"/>
-        <text x="240" y="200" text-anchor="middle" font-size="11" fill="#7f8c8d">Untrusted zone → trusted zone; public servers sit in the DMZ, shielded from the internal LAN.</text>
+        <text x="240" y="200" text-anchor="middle" font-size="11" fill="var(--muted)">Untrusted zone → trusted zone; public servers sit in the DMZ, shielded from the internal LAN.</text>
       </svg>
       <p class="dcap">The firewall is the choke point between untrusted and trusted networks. Public-facing servers live in a <b>DMZ</b> (demilitarized zone) so a breach there does not directly expose the internal LAN; the router/NAT handles addressing and segmentation behind it.</p>
     </div>
@@ -561,6 +561,8 @@
 
 <footer class="site"><div class="inner"><div><span class="brand2">Study Notes</span> · Module 4 — Routers, Firewall, Honeypots, IDS/IPS, Web, SQLi, XSS, RE, Email, IR, Bluetooth, Mobile.</div><div><a href="index.html">Home</a> · <a href="m5-1.html">M5</a></div></div></footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

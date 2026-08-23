@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · Elements of Information Security</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -73,15 +73,15 @@
     <div class="diagram">
       <div class="dtitle">Fig · The CIA Triad</div>
       <svg viewBox="0 0 560 260" role="img" aria-label="CIA triad venn diagram">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <g fill="none" stroke-width="2.5">
-          <circle cx="210" cy="120" r="90" stroke="#e0241b" fill="#e0241b" fill-opacity="0.10"/>
-          <circle cx="350" cy="120" r="90" stroke="#2c3e50" fill="#2c3e50" fill-opacity="0.10"/>
-          <circle cx="280" cy="180" r="90" stroke="#0a7d8c" fill="#0a7d8c" fill-opacity="0.10"/>
+          <circle cx="210" cy="120" r="90" stroke="var(--accent)" fill="var(--accent)" fill-opacity="0.10"/>
+          <circle cx="350" cy="120" r="90" stroke="var(--ink)" fill="var(--ink)" fill-opacity="0.10"/>
+          <circle cx="280" cy="180" r="90" stroke="var(--accent)" fill="var(--accent)" fill-opacity="0.10"/>
         </g>
-        <text x="200" y="80" text-anchor="middle" class="lbl" fill="#e0241b" font-weight="800">Confidentiality</text>
-        <text x="360" y="80" text-anchor="middle" class="lbl" fill="#2c3e50" font-weight="800">Integrity</text>
-        <text x="280" y="245" text-anchor="middle" class="lbl" fill="#0a7d8c" font-weight="800">Availability</text>
+        <text x="200" y="80" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">Confidentiality</text>
+        <text x="360" y="80" text-anchor="middle" class="lbl" fill="var(--ink)" font-weight="800">Integrity</text>
+        <text x="280" y="245" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">Availability</text>
       </svg>
       <p class="dcap">The three goals overlap — real controls usually serve more than one at once (e.g. encryption protects both Confidentiality and Integrity).</p>
     </div>
@@ -201,6 +201,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

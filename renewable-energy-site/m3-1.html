@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 3 · Wind Energy</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -77,9 +77,9 @@
     <div class="diagram">
       <div class="dtitle">Fig · Horizontal-axis Wind Turbine</div>
       <svg viewBox="0 0 560 240" role="img" aria-label="Wind turbine anatomy">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d1f24"/></marker></defs>
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <!-- blades -->
-        <g stroke="#2c3e50" stroke-width="6" fill="none">
+        <g stroke="var(--ink)" stroke-width="6" fill="none">
           <line x1="380" y1="80" x2="380" y2="10"/>
           <line x1="380" y1="80" x2="445" y2="115"/>
           <line x1="380" y1="80" x2="315" y2="115"/>
@@ -96,9 +96,9 @@
         <!-- generator/gearbox arrow -->
         <line class="arrow" x1="420" y1="114" x2="420" y2="100"/>
         <!-- ground -->
-        <line x1="20" y1="210" x2="540" y2="210" stroke="#7f8c8d" stroke-width="2"/>
+        <line x1="20" y1="210" x2="540" y2="210" stroke="var(--muted)" stroke-width="2"/>
         <!-- wind -->
-        <g stroke="#5aa9e6" stroke-width="2"><line x1="40" y1="60" x2="120" y2="60"/><line x1="40" y1="90" x2="120" y2="90"/><line x1="40" y1="120" x2="120" y2="120"/></g>
+        <g stroke="var(--blue)" stroke-width="2"><line x1="40" y1="60" x2="120" y2="60"/><line x1="40" y1="90" x2="120" y2="90"/><line x1="40" y1="120" x2="120" y2="120"/></g>
         <text x="80" y="48" text-anchor="middle" class="txtsm">Wind →</text>
         <line class="arrow" x1="120" y1="80" x2="345" y2="80"/><text x="200" y="72" class="txtsm">blades (pitch)</text>
       </svg>
@@ -204,6 +204,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

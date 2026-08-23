@@ -6,16 +6,16 @@
 <title>Module 1 · ML Paradigms &amp; Bayesian Formulation</title>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  .hero{background:var(--ink);color:#fff;padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+  .hero{background:var(--ink);color:var(--paper);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
   .hero .inner{max-width:980px;margin:0 auto}
   .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
   .hero .lede{color:#cfd6dd;font-size:15px;max-width:700px;line-height:1.55}
   .hero .meta-row{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
-  .hero .chip{display:inline-block;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.22)}
-  .hero .chip.red{background:var(--accent);border-color:var(--accent);color:#fff}
+  .hero .chip{display:inline-block;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:rgba(255,255,255,.10);color:var(--paper);border:1px solid rgba(255,255,255,.22)}
+  .hero .chip.red{background:var(--accent);border-color:var(--accent);color:var(--paper)}
   @media (max-width:780px){.hero h1{font-size:25px}.hero .lede{font-size:14.5px}}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
@@ -286,6 +286,8 @@
 </div>
 
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
