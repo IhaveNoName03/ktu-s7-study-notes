@@ -37,7 +37,7 @@ body{
 }
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
 a:hover{text-decoration:none}
-::selection{background:var(--accent);color:#fff}
+::selection{background:var(--accent);color:#fff;text-shadow:-1px 0 #00ffff,1px 0 #ff00ff}
 
 /* ---------- Top bar ---------- */
 .topbar{
@@ -627,7 +627,7 @@ body{
 }
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
 a:hover{text-decoration:none}
-::selection{background:var(--accent);color:#fff}
+::selection{background:var(--accent);color:#fff;text-shadow:-1px 0 #00ffff,1px 0 #ff00ff}
 
 /* ---------- Top bar ---------- */
 .topbar{
