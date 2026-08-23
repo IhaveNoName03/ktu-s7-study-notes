@@ -3,127 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Notes · All Subjects</title>
+<title>Study Notes · A KTU S7 Companion</title>
 <link rel="stylesheet" href="ethical-hacking-site/assets/styles.css">
 <style>
-  /* ---- Landing page only (kept self-contained, no CDN) ---- */
-  .landing{ --maxw:1180px; }
+  /* ---- Editorial landing (print-inspired, no CDN) ---- */
+  .landing{ --maxw:1440px; --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  *{box-sizing:border-box}
+  body.landing{font-family:var(--sans);line-height:1.6;color:var(--ink);background:#fff}
 
-  /* Hero */
-  .home-hero{
-    position:relative; overflow:hidden;
-    background:
-      radial-gradient(1200px 500px at 85% -10%, rgba(224,36,27,.20), transparent 60%),
-      radial-gradient(900px 400px at 5% 110%, rgba(11,95,214,.12), transparent 55%),
-      linear-gradient(180deg,#0d0f12 0%, #111418 60%, #16191e 100%);
-    color:#fff; padding:74px 20px 60px; border-bottom:3px solid var(--accent);
-  }
-  .home-hero .inner{max-width:var(--maxw); margin:0 auto; position:relative; z-index:2}
-  .home-hero .badge{
-    display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700;
-    letter-spacing:1.4px; text-transform:uppercase; color:#ffd9d6;
-    background:rgba(224,36,27,.16); border:1px solid rgba(224,36,27,.4);
-    padding:6px 12px; border-radius:999px; margin-bottom:18px;
-  }
-  .home-hero .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(224,36,27,.25)}
-  .home-hero h1{
-    font-size:clamp(34px,6vw,60px); line-height:1.04; margin:0 0 14px; font-weight:800; letter-spacing:-1px;
-  }
-  .home-hero h1 .accent{color:var(--accent)}
-  .home-hero .sub{font-size:clamp(15px,2.2vw,19px); color:#c7cdd4; max-width:680px; line-height:1.55; margin:0 0 26px}
-  .home-hero .cta{display:flex; gap:12px; flex-wrap:wrap}
-  .home-hero .cta a{
-    font-weight:700; font-size:14.5px; padding:12px 20px; border-radius:10px; transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .home-hero .cta .primary{background:var(--accent); color:#fff}
-  .home-hero .cta .primary:hover{transform:translateY(-2px); box-shadow:0 8px 22px rgba(224,36,27,.4); text-decoration:none}
-  .home-hero .cta .ghost{border:1px solid rgba(255,255,255,.25); color:#fff}
-  .home-hero .cta .ghost:hover{background:rgba(255,255,255,.08); text-decoration:none}
+  /* Masthead */
+  .masthead{max-width:var(--maxw);margin:0 auto;padding:30px 24px 0;text-align:center}
+  .masthead .kicker{font-family:var(--sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .masthead h1{font-family:var(--serif);font-weight:700;font-size:clamp(40px,8vw,74px);line-height:.96;letter-spacing:-1.5px;margin:10px 0 6px}
+  .masthead .rule{height:0;border-top:1.5px solid var(--ink);margin:14px 0 8px}
+  .masthead .rule.thin{border-top:1px solid var(--line)}
+  .masthead .colophon{font-family:var(--sans);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  .masthead .colophon b{color:var(--ink-2);font-weight:700}
 
-  /* Stats ribbon */
-  .stats{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px}
-  .stat{
-    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);
-    border-radius:12px; padding:14px 18px; min-width:120px; backdrop-filter:blur(4px);
-  }
-  .stat .n{font-size:30px; font-weight:800; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-1px}
-  .stat .l{font-size:12px; color:#9aa2ab; letter-spacing:.6px; text-transform:uppercase; margin-top:2px}
+  /* Hero lead (editorial) */
+  .lead{max-width:760px;margin:30px auto 0;padding:0 24px;text-align:center}
+  .lead p{font-family:var(--serif);font-size:clamp(18px,2.6vw,23px);line-height:1.5;color:var(--ink-2);font-style:italic}
 
   /* Search */
-  .searchwrap{max-width:var(--maxw); margin:-30px auto 0; padding:0 20px; position:relative; z-index:5}
-  .searchbox{
-    display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line);
-    border-radius:12px; padding:12px 16px; box-shadow:var(--shadow-lg);
-  }
-  .searchbox svg{flex:none; opacity:.5}
-  .searchbox input{
-    border:none; outline:none; width:100%; font-size:16px; color:var(--ink); background:transparent;
-    font-family:inherit;
-  }
+  .searchwrap{max-width:640px;margin:30px auto 0;padding:0 24px}
+  .searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:0;padding:13px 16px;box-shadow:var(--shadow-lg)}
+  .searchbox svg{flex:none;opacity:.5}
+  .searchbox input{border:none;outline:none;width:100%;font-size:16px;color:var(--ink);background:transparent;font-family:var(--serif)}
+  .searchbox input::placeholder{color:var(--muted);font-style:italic}
 
-  /* Subject grid */
-  .grid{max-width:var(--maxw); margin:34px auto 10px; padding:0 20px;
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px}
-  .scard{
-    background:var(--paper); border:1px solid var(--line); border-radius:14px; overflow:hidden;
-    box-shadow:var(--shadow-sm); text-decoration:none; color:inherit; display:flex; flex-direction:column;
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; opacity:0; transform:translateY(14px);
+  /* Section label */
+  .seclabel{max-width:var(--maxw);margin:46px auto 0;padding:0 24px;display:flex;align-items:baseline;gap:14px}
+  .seclabel .no{font-family:var(--serif);font-size:14px;color:var(--accent);font-weight:700}
+  .seclabel .txt{font-family:var(--sans);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .seclabel .line{flex:1;height:0;border-top:1px solid var(--line)}
+
+  /* Editorial subject list */
+  #grid{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .scard{display:grid;grid-template-columns:74px 1fr auto;gap:22px;align-items:start;
+    text-decoration:none;color:inherit;padding:26px 0;border-top:1px solid var(--line);
+    transition:background .2s ease, padding-left .2s ease; position:relative}
+  .scard:last-child{border-bottom:1px solid var(--line)}
+  .scard:hover{background:#faf7f4;text-decoration:none;padding-left:14px}
+  .scard .idx{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--accent);line-height:1;padding-top:2px}
+  .scard .main .code{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .scard .main h3{font-family:var(--serif);font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.4px;margin:4px 0 8px;line-height:1.05;color:var(--accent)}
+  .scard .main .desc{font-family:var(--serif);font-size:16px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;max-width:640px}
+  .scard .mods{display:flex;flex-wrap:wrap;gap:6px}
+  .scard .mods span{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--bg);border:1px solid var(--line);padding:3px 9px;border-radius:3px}
+  .scard .go{font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;color:var(--accent);white-space:nowrap;align-self:center}
+  .scard .go .arr{transition:transform .18s ease}
+  .scard:hover .go .arr{transform:translateX(5px)}
+  .scard .go .pages{display:block;font-weight:500;font-size:11px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;margin-top:3px}
+  @media (max-width:680px){
+    .scard{grid-template-columns:48px 1fr;gap:14px}
+    .scard .go{grid-column:1 / -1;justify-content:flex-start;margin-top:4px}
+    .scard .idx{font-size:26px}
   }
-  .scard.in{opacity:1; transform:none}
-  .scard:hover{transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:rgba(224,36,27,.4); text-decoration:none}
-  .scard .top{padding:18px 18px 14px; border-bottom:1px solid var(--line); position:relative}
-  .scard .code{font-size:11.5px; font-weight:700; letter-spacing:.8px; color:var(--accent); text-transform:uppercase}
-  .scard h3{margin:6px 0 4px; font-size:21px; font-weight:800; letter-spacing:-.3px}
-  .scard .bar{position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent)}
-  .scard .body{padding:14px 18px 18px; flex:1}
-  .scard .desc{font-size:13.8px; color:var(--ink-2); line-height:1.5; margin:0 0 12px}
-  .scard .mods{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px}
-  .scard .mods span{font-size:11.5px; font-weight:600; color:var(--ink-2); background:var(--bg);
-    border:1px solid var(--line); padding:3px 8px; border-radius:6px}
-  .scard .go{display:inline-flex; align-items:center; gap:7px; font-weight:800; font-size:13.5px; color:var(--accent)}
-  .scard .go .arr{transition:transform .15s ease}
-  .scard:hover .go .arr{transform:translateX(4px)}
-  .scard .meta{font-size:12px; color:var(--muted); border-top:1px solid var(--line); padding:10px 18px; background:#fafbfc}
 
   /* Quick jump */
-  .quick{max-width:var(--maxw); margin:26px auto 0; padding:0 20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-  .quick .lab{font-size:12px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--muted)}
-  .quick a{font-size:13px; font-weight:600; color:var(--ink-2); background:var(--paper); border:1px solid var(--line);
-    padding:7px 13px; border-radius:8px; transition:all .15s ease}
-  .quick a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+  .quick{max-width:var(--maxw);margin:30px auto 0;padding:0 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .quick .lab{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  .quick a{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);padding:7px 13px;border-radius:2px;transition:all .15s ease}
+  .quick a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 
-  /* Footer note */
-  .foot{max-width:var(--maxw); margin:40px auto 0; padding:20px 20px 60px; color:var(--muted); font-size:13px;
-    border-top:1px solid var(--line); display:flex; gap:14px; flex-wrap:wrap; align-items:center}
-  .foot b{color:var(--ink-2)}
-  .empty{max-width:var(--maxw); margin:24px auto; padding:0 20px; color:var(--muted); display:none}
-  @media (max-width:640px){ .stats .stat{flex:1 1 40%} .home-hero{padding:54px 16px 48px} }
+  /* Stats ribbon */
+  .stats{max-width:var(--maxw);margin:40px auto 0;padding:22px 24px;border-top:1.5px solid var(--ink);border-bottom:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:40px;justify-content:center}
+  .stat{text-align:center}
+  .stat .n{font-family:var(--serif);font-size:40px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .stat .l{font-family:var(--sans);font-size:11px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase;margin-top:6px}
 
-  /* ---- DARK THEME (toggle via [data-theme="dark"]) ---- */
-  html[data-theme="dark"] body{background:#0E0F12;color:#EDEFF2}
-  html[data-theme="dark"] .scard{background:#16191F;border-color:#2a2f37;box-shadow:none}
-  html[data-theme="dark"] .scard .top{border-bottom-color:#2a2f37}
-  html[data-theme="dark"] .scard .desc{color:#B7BEC7}
-  html[data-theme="dark"] .scard .mods span{color:#B7BEC7;background:#1b1f26;border-color:#2a2f37}
-  html[data-theme="dark"] .scard .meta{color:#8A929C;background:#12151a;border-top-color:#2a2f37}
+  /* Footer / colophon */
+  .foot{max-width:var(--maxw);margin:0 auto;padding:30px 24px 70px;color:var(--muted);font-family:var(--serif);font-size:14px;font-style:italic;text-align:center}
+  .foot b{color:var(--ink-2);font-style:normal}
+  .empty{max-width:var(--maxw);margin:20px auto;padding:0 24px;color:var(--muted);font-family:var(--serif);font-style:italic;display:none}
+
+  /* Motion layer (reduced-motion safe) */
+  .motion .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1);transition-delay:var(--rv-delay,0ms)}
+  .motion .rv-in{opacity:1;transform:none}
+  .motion body{transition:opacity .18s ease}
+  .motion body.page-out{opacity:0}
+  .motion .cta a{position:relative;overflow:hidden}
+  .motion .cta a .ripple{position:absolute;border-radius:50%;background:rgba(224,36,27,.25);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
+  @keyframes ripple{to{transform:scale(2.6);opacity:0}}
+
+  /* ---- DARK THEME ---- */
+  html[data-theme="dark"] body.landing{background:#0E0F12;color:#EDEFF2}
+  html[data-theme="dark"] .masthead .rule{border-top-color:#EDEFF2}
+  html[data-theme="dark"] .masthead .rule.thin{border-top-color:#2a2f37}
+  html[data-theme="dark"] .masthead .colophon b{color:#B7BEC7}
+  html[data-theme="dark"] .lead p{color:#B7BEC7}
   html[data-theme="dark"] .searchbox{background:#16191F;border-color:#2a2f37;box-shadow:none}
   html[data-theme="dark"] .searchbox input{color:#EDEFF2}
   html[data-theme="dark"] .searchbox input::placeholder{color:#8A929C}
+  html[data-theme="dark"] .seclabel .line{border-top-color:#2a2f37}
+  html[data-theme="dark"] .scard{border-top-color:#2a2f37}
+  html[data-theme="dark"] .scard:last-child{border-bottom-color:#2a2f37}
+  html[data-theme="dark"] .scard:hover{background:#16191F}
+  html[data-theme="dark"] .scard .main .desc{color:#B7BEC7}
+  html[data-theme="dark"] .scard .mods span{color:#B7BEC7;background:#1b1f26;border-color:#2a2f37}
+  html[data-theme="dark"] .scard .go .pages{color:#8A929C}
   html[data-theme="dark"] .quick a{color:#B7BEC7;background:#16191F;border-color:#2a2f37}
   html[data-theme="dark"] .quick a:hover{border-color:var(--accent);color:var(--accent)}
-  html[data-theme="dark"] .foot{color:#8A929C;border-top-color:#2a2f37}
+  html[data-theme="dark"] .stats{border-top-color:#EDEFF2;border-bottom-color:#2a2f37}
+  html[data-theme="dark"] .stat .n{color:#EDEFF2}
+  html[data-theme="dark"] .stat .l{color:#8A929C}
+  html[data-theme="dark"] .foot{color:#8A929C}
   html[data-theme="dark"] .foot b{color:#B7BEC7}
   html[data-theme="dark"] .empty{color:#8A929C}
-  html[data-theme="dark"] h2{color:#8A929C}
-  html[data-theme="dark"] .theme-toggle{color:#8A929C;border-color:#2a2f37}
-  html[data-theme="dark"] .theme-toggle:hover{color:#EDEFF2;border-color:var(--accent)}
   .theme-toggle{margin-left:14px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
     font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;
     border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:color .15s ease,border-color .15s ease}
   .theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
   .theme-toggle .ic{font-size:13px;line-height:1}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#fff}html[data-theme="dark"]{background:#0E0F12}body{background:#fff}html[data-theme="dark"] body{background:#0E0F12}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body class="landing">
@@ -134,74 +128,75 @@
   </div>
 </header>
 
-<section class="home-hero">
-  <div class="inner">
-    <div class="badge"><span class="dot"></span> KTU · S7 Study Companion</div>
-    <h1>All your subjects,<br><span class="accent">one tap away.</span></h1>
-    <p class="sub">A complete, offline textbook across four KTU subjects — modules, exam techniques, and a
-    question bank for each. No internet, no login. Open it on your laptop or phone and study anywhere.</p>
-    <div class="cta">
-      <a class="primary" href="ethical-hacking-site/index.html">Start with Ethical Hacking →</a>
-      <a class="ghost" href="#subjects">Browse all subjects</a>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="n" data-count="4">0</div><div class="l">Subjects</div></div>
-      <div class="stat"><div class="n" data-count="20">0</div><div class="l">Modules</div></div>
-      <div class="stat"><div class="n" data-count="40">0</div><div class="l">Pages</div></div>
-      <div class="stat"><div class="n"><span data-count="100">0</span>%</div><div class="l">Offline</div></div>
-    </div>
-  </div>
+<section class="masthead">
+  <div class="kicker">KTU · Semester VII</div>
+  <h1>Study Notes</h1>
+  <div class="rule"></div>
+  <div class="colophon"><b>Vol. VII</b> &nbsp;·&nbsp; Four Subjects &nbsp;·&nbsp; Twenty Modules &nbsp;·&nbsp; Forty Pages &nbsp;·&nbsp; <b>Works Offline</b></div>
+  <div class="rule thin"></div>
 </section>
+
+<div class="lead">
+  <p>A complete, offline textbook for your final-semester core subjects — every module, exam technique, and question paper in one place. No internet, no login. Open it on a laptop or phone and read anywhere.</p>
+</div>
 
 <div class="searchwrap">
   <div class="searchbox">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input id="q" type="text" placeholder="Search subjects, modules, topics… (e.g. Naive Bayes, fire, scaffold)" autocomplete="off">
+    <input id="q" type="text" placeholder="Search subjects, modules, topics… (Naive Bayes, fire, scaffold)" autocomplete="off">
   </div>
 </div>
 
-<h2 id="subjects" style="max-width:var(--maxw);margin:34px auto 0;padding:0 20px;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)">Subjects</h2>
+<div class="seclabel">
+  <span class="no">§</span>
+  <span class="txt">The Subjects</span>
+  <span class="line"></span>
+</div>
 
-<div class="grid" id="grid">
+<div id="grid">
 
   <a class="scard" href="ethical-hacking-site/index.html" data-keywords="ethical hacking cct401 footprinting reconnaissance malware sniffing system hacking session hijacking web attacks cryptography tracking pentest">
-    <div class="top"><span class="bar"></span><div class="code">CCT 401 · KTU</div><h3>Ethical Hacking</h3></div>
-    <div class="body">
+    <div class="idx">01</div>
+    <div class="main">
+      <div class="code">CCT 401 · KTU</div>
+      <h3>Ethical Hacking</h3>
       <p class="desc">Footprinting &amp; reconnaissance, malware, sniffing, system hacking, session hijacking, web attacks, cryptography, and tracking.</p>
       <div class="mods"><span>M1 Basics</span><span>M2 Recon</span><span>M3 Attacks</span><span>M4 Net/Sys</span><span>M5 Crypto</span></div>
-      <span class="go">Open subject <span class="arr">→</span></span>
     </div>
-    <div class="meta">12 pages · modules + exam + papers</div>
+    <span class="go">Open <span class="arr">→</span><span class="pages">12 pages</span></span>
   </a>
 
   <a class="scard" href="renewable-energy-site/index.html" data-keywords="renewable energy eet435 solar otec tidal wind biomass hydro fuel cell hydrogen energy classification photovoltaic">
-    <div class="top"><span class="bar"></span><div class="code">EET 435 · KTU</div><h3>Renewable Energy Systems</h3></div>
-    <div class="body">
+    <div class="idx">02</div>
+    <div class="main">
+      <div class="code">EET 435 · KTU</div>
+      <h3>Renewable Energy Systems</h3>
       <p class="desc">Energy classification and solar (M1), OTEC and tidal (M2), wind (M3), biomass (M4), small hydro / fuel cells / hydrogen (M5).</p>
       <div class="mods"><span>M1 Solar</span><span>M2 OTEC</span><span>M3 Wind</span><span>M4 Biomass</span><span>M5 Hydro</span></div>
-      <span class="go">Open subject <span class="arr">→</span></span>
     </div>
-    <div class="meta">11 pages · modules + exam + papers</div>
+    <span class="go">Open <span class="arr">→</span><span class="pages">11 pages</span></span>
   </a>
 
   <a class="scard" href="industrial-safety-site/index.html" data-keywords="industrial safety mcn401 accident theory domino ppe construction machine guarding hazard fire hazop msds">
-    <div class="top"><span class="bar"></span><div class="code">MCN 401 · KTU</div><h3>Industrial Safety Engineering</h3></div>
-    <div class="body">
+    <div class="idx">03</div>
+    <div class="main">
+      <div class="code">MCN 401 · KTU</div>
+      <h3>Industrial Safety Engineering</h3>
       <p class="desc">Safety fundamentals and accident theories (M1), personal protection (M2), construction safety (M3), machine guarding (M4), hazard identification (M5).</p>
       <div class="mods"><span>M1 Intro</span><span>M2 PPE</span><span>M3 Construction</span><span>M4 Machines</span><span>M5 Hazards</span></div>
-      <span class="go">Open subject <span class="arr">→</span></span>
     </div>
-    <div class="meta">8 pages · modules + exam + papers</div>
+    <span class="go">Open <span class="arr">→</span><span class="pages">8 pages</span></span>
   </a>
 
   <a class="scard" href="machine-learning-site/index.html" data-keywords="machine learning cst413 paradigms bayesian regression naive bayes tree neural network svm clustering pca assessment roc ensemble">
-    <div class="top"><span class="bar"></span><div class="code">CST 413 · KTU</div><h3>Machine Learning</h3></div>
-    <div class="body">
+    <div class="idx">04</div>
+    <div class="main">
+      <div class="code">CST 413 · KTU</div>
+      <h3>Machine Learning</h3>
       <p class="desc">ML paradigms and Bayesian estimation (M1), supervised learning — regression, Naive Bayes, trees (M2), neural networks and SVMs (M3), unsupervised learning — clustering and PCA (M4), classification assessment, ROC, ensembles (M5).</p>
       <div class="mods"><span>M1 Paradigms</span><span>M2 Supervised</span><span>M3 NN/SVM</span><span>M4 Unsupervised</span><span>M5 Assessment</span></div>
-      <span class="go">Open subject <span class="arr">→</span></span>
     </div>
-    <div class="meta">8 pages · modules + exam + papers</div>
+    <span class="go">Open <span class="arr">→</span><span class="pages">13 pages</span></span>
   </a>
 
 </div>
@@ -218,12 +213,15 @@
   <a href="industrial-safety-site/m5-1.html">ISE Hazards</a>
 </div>
 
+<div class="stats">
+  <div class="stat"><div class="n" data-count="4">0</div><div class="l">Subjects</div></div>
+  <div class="stat"><div class="n" data-count="20">0</div><div class="l">Modules</div></div>
+  <div class="stat"><div class="n" data-count="40">0</div><div class="l">Pages</div></div>
+  <div class="stat"><div class="n"><span data-count="100">0</span>%</div><div class="l">Offline</div></div>
+</div>
+
 <div class="foot">
-  <span><b>4 subjects</b> · 40 pages · 20 modules</span>
-  <span>·</span>
-  <span>Swiss typographic study style</span>
-  <span>·</span>
-  <span>Works fully offline — just open the file</span>
+  <span><b>4 subjects</b> · 40 pages · 20 modules</span> &nbsp;—&nbsp; <span>An editorial study companion, set in serif &amp; set to work fully offline.</span>
 </div>
 
 <script>
@@ -269,7 +267,7 @@
     }
   })();
 
-  // Restructure brand into mark + name + subject (no HTML edits needed)
+  // Restructure brand into mark + name + subject
   (function(){
     var b=document.querySelector(".brand");
     if(b && !b.querySelector(".mark")){
@@ -277,6 +275,31 @@
       var name=parts[0]||"Study Notes", subj=parts.slice(1).join(" / ");
       b.innerHTML='<span class="mark"></span><span class="name">'+name+'</span>'+(subj?'<span class="sep">/</span><span class="subj">'+subj+'</span>':'');
     }
+  })();
+
+  // Motion layer — reduced-motion safe
+  (function(){
+    var root=document.documentElement;
+    var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(reduce) return;
+    root.classList.add("motion");
+    var els=[].slice.call(document.querySelectorAll(".scard,.stat,.lead,.seclabel,.masthead"));
+    if("IntersectionObserver" in window && els.length){
+      els.forEach(function(el,i){el.style.setProperty("--rv-delay",(Math.min(i,10)*35)+"ms");el.classList.add("rv");});
+      var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("rv-in");io.unobserve(e.target);}});},{rootMargin:"0px 0px -8% 0px",threshold:0.06});
+      els.forEach(function(el){io.observe(el);});
+    }
+    document.querySelectorAll(".go").forEach(function(btn){
+      btn.addEventListener("click",function(e){ if(typeof e.clientX!=="number")return; });
+    });
+    document.querySelectorAll('a[href$=".html"]').forEach(function(link){
+      link.addEventListener("click",function(e){
+        if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;
+        var href=link.getAttribute("href"); if(!href||href.charAt(0)==="#")return;
+        e.preventDefault(); document.body.classList.add("page-out");
+        setTimeout(function(){window.location.href=link.href;},170);
+      });
+    });
   })();
 </script>
 </body>

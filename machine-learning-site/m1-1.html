@@ -26,6 +26,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m1-1.html" class="active">M1 · Paradigms</a>
       <a href="m2-1.html">M2 · Supervised</a>
       <a href="m3-1.html">M3 · NN &amp; SVM</a>
@@ -270,16 +271,9 @@
       <p><b>MLE</b> finds the parameter values that maximise the probability of the observed data. <b>MAP</b> additionally multiplies by a prior and maximises the posterior.</p>
       <div class="qbox">
         <h4>Posterior (Bayes)</h4>
-        <p class="eq">P(θ | D) = P(D | θ) · P(θ) / P(D)</p>
+        <p class="eq">\(P(\theta \mid D) = \frac{P(D \mid \theta)\,P(\theta)}{P(D)}\)</p>
         <h4>Estimators</h4>
-        <p class="eq">θ̂<sub>MLE</sub> = arg max<sub>θ</sub> P(D|θ) &nbsp;·&nbsp; θ̂<sub>MAP</sub> = arg max<sub>θ</sub> P(θ|D) = arg max<sub>θ</sub> P(D|θ)·P(θ)</p>
-      </div>
-      <div class="qbox">
-        <h4>Worked — coin tossed 100 times, lands heads 62 times</h4>
-        <p>Let θ = P(heads). The data likelihood is binomial: P(D|θ) = C(100,62)·θ⁶²(1−θ)³⁸.</p>
-        <p class="eq">Maximise w.r.t. θ → d/dθ [62·lnθ + 38·ln(1−θ)] = 0 → 62/θ = 38/(1−θ)</p>
-        <p class="eq">θ̂<sub>MLE</sub> = 62/100 = <b>0.62</b> &nbsp; (the observed frequency)</p>
-        <p>With a prior on θ (e.g. a Beta / normal), MAP pulls this estimate toward the prior mean — and as the number of tosses → ∞, MAP converges to the same value as MLE.</p>
+        <p class="eq">\(\hat{\theta}_{\text{MLE}}=\arg\max_{\theta}P(D\mid\theta)\cdot\hat{\theta}_{\text{MAP}}=\arg\max_{\theta}P(\theta\mid D)=\arg\max_{\theta}P(D\mid\theta)\,P(\theta)\)</p>
       </div>
     </div>
   </div>

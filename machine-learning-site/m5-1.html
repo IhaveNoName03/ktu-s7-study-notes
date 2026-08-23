@@ -29,6 +29,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m1-1.html">M1 · Paradigms</a>
       <a href="m2-1.html">M2 · Supervised</a>
       <a href="m3-1.html">M3 · NN &amp; SVM</a>
@@ -145,10 +146,7 @@
         </div>
       </div>
 
-      <div class="def"><b>Worked example — three classifiers:</b> suppose A=(0,1), B=(1,1), C=(1,0.5) in (FPR, TPR) space. <b>A</b> is at (0,1) — perfect: it catches all true positives with zero false
-      positives. <b>B</b> is at (1,1) — always says YES: perfect recall but zero precision. <b>C</b> is at (1,0.5) — always says YES on half the positives but flags everything, so many false alarms.
-      Classifier A is the only perfect one. B is useless in practice despite TPR=1 (everything is a false alarm). C is worse than A and B on both dimensions. The lesson: a single raw number like TPR
-      or FPR can be misleading; the ROC point (both together) tells the truth.</div>
+      
     </div>
   </div>
 
@@ -157,10 +155,7 @@
     <div class="card full">
       <p>Two classifiers can have very different behaviour on training data versus unseen test data. The key question is always: <b>how well does it generalise?</b></p>
 
-      <div class="def"><b>Worked example:</b> Classifier A gets 100% accuracy on the training set but only 70% on the test set. Classifier B gets 70% on training and 75% on test. <b>B is the better
-      classifier.</b> A is clearly overfitting — it memorised the training data perfectly but the knowledge does not transfer (test accuracy is much lower). B's small gap between train and test
-      (70% vs 75%, with test slightly higher — possibly due to sampling) shows reasonable generalisation. A's huge gap (100% → 70%) is the hallmark of overfitting. The test accuracy is what counts,
-      and B wins: 75% > 70%.</div>
+      
 
       <div class="def"><b>The rule to remember:</b> a model that is perfect on training data is suspicious. The point of machine learning is not to fit the training set — it is to perform well on data the
       model has <b>never seen</b>. A large gap between training and test performance is the clearest sign of overfitting. A small gap and decent test performance is what we want.</div>
@@ -256,79 +251,6 @@
       This is the bias–variance trade-off. It is the theoretical reason that regularisation (Ridge, Lasso), ensembles, and cross validation all work: they all shift this balance toward better
       generalisation.</div>
 
-      <div class="def"><b>Worked example — high bias, low variance:</b> a model with high bias and low variance is <b>consistently wrong</b> but <b>stable</b> — it makes roughly the same errors regardless of
-      which training sample it saw. A very simple model (a straight line fit to a clearly curved relationship) has high bias (the line cannot capture the curve) and low variance (any training sample gives
-      roughly the same line). The predictions don't change much with the data, but they are systematically off. This is underfitting. The fix is to increase model complexity (more features, higher-degree
-      polynomial, a richer model class) to reduce bias — while watching that variance does not grow too much.</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">07</span><h2>Case Study — Face Detection</h2><span class="tag">A classifier in the real world</span></div>
-    <div class="card full">
-      <p>Face detection is the task of deciding, for each region of an image, whether it contains a face or not. It is a concrete, well-studied example of a classification pipeline that brings together many
-      of the ideas from this course.</p>
-
-      <div class="def"><b>The pipeline (typical approach):</b>
-      <ol style="margin:8px 0 0 18px;padding:0">
-        <li><b>Candidate generation:</b> propose many image regions (windows) that might contain a face — at different positions, scales, and aspect ratios. A face can appear anywhere and at any size.</li>
-        <li><b>Feature extraction:</b> for each candidate window, compute a feature vector that captures the appearance of the region — e.g. Haar-like features (simple rectangular intensity comparisons),
-        or histogram of oriented gradients (HOG), or features from a trained model. The features should be <b>discriminative</b> — they should differ systematically between face and non-face regions.</li>
-        <li><b>Classifier training:</b> train a binary classifier (face vs not-face) on a large, labelled dataset of face and non-face windows. This is where the supervised-learning machinery applies — the
-          classifier learns to separate the two classes in feature space.</li>
-        <li><b>Sliding-window evaluation:</b> run the trained classifier over every candidate window in a new image. Windows classified as "face" with sufficient confidence are reported as detections.</li>
-        <li><b>Post-processing:</b> handle multiple detections of the same face (non-maximum suppression), filter by confidence threshold, and possibly use context (e.g. faces are usually upright, on a person).</li>
-      </ol>
-      </div>
-
-      <div class="def"><b>Key challenges that make face detection a good case study:</b>
-      <ul style="margin:8px 0 0 18px;padding:0">
-        <li><b>Scale and position variation:</b> a face can be anywhere and any size, so the classifier must be evaluated at many windows — this is computationally heavy and motivates efficient feature
-        representations and cascade architectures (quickly discard obvious non-faces, focus computation on promising windows).</li>
-        <li><b>Class imbalance:</b> most candidate windows are <b>not</b> faces, so the negative class vastly outnumbers the positive. This is a classic imbalanced-classification problem — accuracy is
-        misleading, and precision/recall and ROC/AUC become essential.</li>
-        <li><b>Hard negatives:</b> some non-face windows look face-like (patterns of light and shadow, windows on a building, a round fruit). A good detector must be trained on these "hard negative" examples
-        to avoid false positives — often by iteratively mining the false positives and adding them to the training set.</li>
-        <li><b>Appearance variation:</b> faces vary in pose, expression, lighting, occlusion, accessories (glasses, hats), and ethnicity. A robust classifier must generalise across all of these — a direct
-        illustration of the bias–variance and generalisation themes of this course.</li>
-      </ul>
-      </div>
-
-      <div class="def"><b>Why this case study matters for the exam:</b> it ties the abstract pieces together — feature design, binary classification, evaluation under imbalance (precision/recall/ROC), the
-      need for large and representative training data, and the practical reality that a classifier is only one part of a larger system. It also shows how a model with good theoretical properties still needs
-      careful data collection (hard negatives, diverse examples) and sensible evaluation to be useful in practice.</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">08</span><h2>Confusion-Matrix Metrics — Worked Examples</h2><span class="tag">From the handwritten notes</span></div>
-    <div class="card full">
-      <p>From a confusion matrix — TP (true positive), TN, FP, FN — we derive the standard metrics:</p>
-      <div class="qbox">
-        <h4>Definitions</h4>
-        <p class="eq" style="font-size:14px">Accuracy = (TP+TN)/N &nbsp;·&nbsp; Precision = TP/(TP+FP) &nbsp;·&nbsp; Recall = TP/(TP+FN)</p>
-        <p class="eq" style="font-size:14px">F1 = 2·Precision·Recall / (Precision+Recall) = 2 / (1/Precision + 1/Recall)</p>
-      </div>
-      <div class="qbox">
-        <h4>Worked 1 — F1 from given precision &amp; recall</h4>
-        <p>Precision = 2/7, Recall = 1/2.</p>
-        <p class="eq">F1 = 2 / (7/2 + 2) = 2 / (11/2) = <b>4/11</b></p>
-      </div>
-      <div class="qbox">
-        <h4>Worked 2 — Database search (80 records, 55 relevant, 50 retrieved, 40 of retrieved relevant)</h4>
-        <p>TP=40, FN=15, FP=10, TN=15.</p>
-        <p class="eq">Precision = 40/(40+10) = <b>0.80</b></p>
-        <p class="eq">Recall = 40/(40+15) = <b>8/11 ≈ 0.727</b></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">09</span><h2>Bayesian Decision Theory</h2><span class="tag">Optimal classifier</span></div>
-    <div class="card full">
-      <p>The theoretically <b>optimal</b> classifier (minimum error) is the Bayes classifier: assign x to the class Cₖ that maximizes the posterior P(Cₖ|x). Using Bayes' rule this becomes:</p>
-      <div class="eq">decide Cₖ if &nbsp; p(x|Cₖ)·P(Cₖ) &nbsp; is largest &nbsp; (the denominator p(x) is the same for every class, so it can be dropped)</div>
-      <p>Equivalently, compare <b>discriminant functions</b> gₖ(x) = log p(x|Cₖ) + log P(Cₖ); pick the largest. For Gaussian classes with equal covariance, the boundary is linear; with unequal covariance it is quadratic. This is the bridge from M1's Bayes/MLE ideas to building an actual classifier — and a reason generative classifiers (Naive Bayes, LDA) and discriminative ones (logistic regression, SVM) both exist.</p>
       <div class="def"><b>Why it matters:</b> the Bayes classifier is the accuracy ceiling — no method can beat it on average. Practical models (incl. ensembles) are trying to approximate this optimum from data.</div>
     </div>
   </div>

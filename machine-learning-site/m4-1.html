@@ -29,6 +29,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m1-1.html">M1 · Paradigms</a>
       <a href="m2-1.html">M2 · Supervised</a>
       <a href="m3-1.html">M3 · NN &amp; SVM</a>
@@ -62,14 +63,14 @@
         <div class="card">
           <h3><span class="idx">|x − y|<sub>1</sub></span>Manhattan distance</h3>
           <p>Also called <b>L1 distance</b> or <b>city-block distance</b>. For two points <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b> it is</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">D(a,b) = |x₂ − x₁| + |y₂ − y₁|</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(D(a,b) = |x_2-x_1| + |y_2-y_1|\)</p>
           <p>It measures distance along a grid — like walking city blocks. It is <b>robust to outliers</b> because it does not square the coordinate differences, so a single large
           coordinate difference does not dominate.</p>
         </div>
         <div class="card">
           <h3><span class="idx">|x − y|<sub>2</sub></span>Euclidean distance</h3>
           <p>The straight-line distance — the <b>L2 norm</b>. For <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b>:</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">D(a,b) = √[(x₂−x₁)² + (y₂−y₁)²]</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(D(a,b) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}\)</p>
           <p>This is the most common default. It is sensitive to large differences (because of the square) and to the <b>scale</b> of each feature, so features are often normalised
           first so that no single feature dominates.</p>
         </div>
@@ -79,14 +80,12 @@
         <div class="card">
           <h3><span class="idx">(Σ |xᵢ − yᵢ|<sup>p</sup>)<sup>1/p</sup></span>Minkowski distance</h3>
           <p>A family that includes Manhattan (p=1) and Euclidean (p=2) as special cases. For general <b>p</b>:</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">D<sub>p</sub>(a,b) = ( Σ |xᵢ − yᵢ|<sup>p</sup> )<sup>1/p</sup></p>
-          <p>Different <b>p</b> values give different sensitivity to large coordinate differences. p=1 is robust; p=2 is the usual straight-line distance; larger p emphasises the
-          largest single difference.</p>
+          <p class="eq">\(D_p(a,b)=\Bigl(\sum_i|x_i-y_i|^{p}\Bigr)^{1/p}\)</p>
         </div>
         <div class="card">
           <h3><span class="idx">cosine similarity</span></h3>
           <p>Measures the <b>angle</b> between two vectors rather than their absolute distance. For vectors <b>x</b> and <b>y</b>:</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">cos θ = (x·y) / (‖x‖ · ‖y‖)</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(\cos\theta = \frac{x\cdot y}{\lVert x\rVert\cdot\lVert y\rVert}\)</p>
           <p>Two vectors pointing the same direction have cosine similarity 1 even if they are far apart in magnitude. This is useful when <b>magnitude is not important</b> — e.g.
           comparing document term-frequency vectors, where a longer document is not "more similar" just because its counts are larger.</p>
         </div>
@@ -151,12 +150,6 @@
         </div>
       </div>
 
-      <div class="def"><b>Worked example — single linkage:</b> given the one-dimensional data (2, 5, 9, 15, 16, 18, 25, 33, 33, 45), start with each value as its own cluster. Find the smallest
-      gap between any two values: 15 and 16 differ by 1 → merge into {15,16}. Next smallest gap: 33 and 33 differ by 0 → merge into {33,33}. Continue merging the closest clusters: 16 and 18
-      differ by 2 → merge {15,16} with {18} → {15,16,18}; 9 and 15 differ by 6 → merge {9} with {15,16,18} → {9,15,16,18}; 5 and 9 differ by 4 → merge {5} with {9,15,16,18}, and so on.
-      The sequence of merges and the distances at which they happen form the dendrogram. The single-linkage distance between two clusters is the smallest distance between any member of one and any
-      member of the other.</div>
-
       <div class="def"><b>How to read the dendrogram:</b> the vertical axis is the distance at which clusters merge. To get a flat clustering with a chosen number of clusters, cut the dendrogram
       horizontally at the appropriate height — everything joined below the cut is one cluster. Cutting higher gives fewer, larger clusters; cutting lower gives more, smaller clusters.</div>
     </div>
@@ -203,12 +196,6 @@
         </table>
       </div>
 
-      <div class="def"><b>Worked k-means example (k=2, far-apart start):</b> data = (2,0), (1,2), (2,2), (3,2), (2,3), (3,3), (2,4), (3,4), (4,4), (3,5). Pick two initial centroids far apart — say
-      (2,0) and (3,5). Assign each point to the nearest centroid (Euclidean), recompute centroids as the mean of assigned points, repeat. After convergence the two clusters settle around their
-      final centroids. The key is: assignments and centroids change together each iteration, moving toward a stable partition.</div>
-      <div class="def"><b>Worked k-means example (k=3, Manhattan distance):</b> points x₁..x₈ grouped initially as C₁={x₁,x₂,x₃}, C₂={x₄,x₅,x₆}, C₃={x₇,x₈}. Using Manhattan distance, assign each point to
-      the nearest cluster centroid, recompute each centroid as the mean, repeat until convergence. The same algorithm works with any distance measure — here Manhattan instead of Euclidean — which
-      changes which cluster a borderline point joins.</div>
     </div>
   </div>
 
@@ -276,44 +263,7 @@
     </div>
   </div>
 
-  <div class="section">
-    <div class="head"><span class="num">07</span><h2>K-Means — Worked Centroid Update</h2><span class="tag">From the handwritten notes</span></div>
-    <div class="card full">
-      <p><b>K-Means</b> (partitioning clustering): choose K seeds, assign each point to the nearest centre, then <b>recompute each centre as the mean of its members</b>. Stop when centres stop moving, points stop switching, or SSE stops decreasing.</p>
-      <div class="qbox">
-        <h4>SSE (compactness)</h4>
-        <p class="eq">SSE = Σ<sub>k=1</sub><sup>K</sup> Σ<sub>x∈Cₖ</sub> || x − μₖ ||²</p>
-        <h4>Centroid update</h4>
-        <p class="eq">μₖ = (1/|Cₖ|) · Σ<sub>x∈Cₖ</sub> x</p>
-      </div>
-      <div class="qbox">
-        <h4>Iteration 1 (K=2) — points assigned; recompute centres</h4>
-        <p class="eq">V₁ = ½ ( (1,1.5) + (1,2) ) = <b>(1.25, 1.5)</b></p>
-        <p class="eq">V₂ = ⅕ ( (3,4)+(5,7)+(3,5)+(4,5)+(3.5,4.5) ) = <b>(3.7, 5.5)</b></p>
-        <p>Old centres were (1,1) and (3,4). Since the new centres differ, <b>iterate again</b>.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">08</span><h2>Hierarchical (Single-Linkage) — Worked Example</h2><span class="tag">From the handwritten notes</span></div>
-    <div class="card full">
-      <p><b>Agglomerative</b> clustering starts with each point as its own cluster and repeatedly merges the two closest clusters. <b>Single linkage</b> defines cluster distance as the <b>minimum</b> distance between any two points in the clusters.</p>
-      <div class="qbox">
-        <h4>Distance matrix (A, B, C, D)</h4>
-        <p class="eq" style="font-size:13px;text-align:left">A–B=10, A–C=12, A–D=20, B–C=5, <b>B–D=3</b>, C–D=4</p>
-      </div>
-      <div class="qbox">
-        <h4>Step 1</h4>
-        <p>Min distance = 3 → merge <b>B &amp; D</b> into {BD}.</p>
-        <p class="eq">d(A,{BD}) = min(d(A,B), d(A,D)) = min(10,20) = 10</p>
-        <p class="eq">d(C,{BD}) = min(d(C,B), d(C,D)) = min(5,4) = 4</p>
-        <p>Reduced matrix: A–{BD}=10, A–C=12, {BD}–C=4. Next merge: C &amp; {BD} (dist 4) or A &amp; C (dist 12).</p>
-      </div>
-    </div>
-  </div>
-
-  <nav class="pagenav">
+<nav class="pagenav">
     <a class="prev" href="m4-2.html">← Prev: M4.2 · PCA &amp; Dimensionality</a>
     <a class="next" href="m5-1.html">Next: M5 · Classification &amp; Assessment →</a>
   </nav>

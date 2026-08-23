@@ -16,6 +16,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m2-1.html">M2 · Regression</a>
       <a href="m2-2.html" class="active">M2 · NB &amp; Trees</a>
       <a href="m3-1.html">M3 · NN/SVM</a>
@@ -46,42 +47,12 @@
     <div class="head"><span class="num">01</span><h2>Naive Bayes — the Idea</h2><span class="tag">Classifier</span></div>
     <div class="card full">
       <p>For a class C and feature vector x = (x₁,…,xₙ), Bayes' theorem gives the posterior:</p>
-      <div class="eq">P(C | x) = P(x | C) · P(C) / P(x)</div>
+      <div class="eq">\(P(C\mid x) = \frac{P(x\mid C)\,P(C)}{P(x)}\)</div>
       <p>The <b>naive</b> assumption: features are conditionally independent given the class, so
       P(x|C) = Π<sub>i</sub> P(x<sub>i</sub> | C). The classifier picks the class with the largest posterior:</p>
-      <div class="eq">Ĉ = argmax<sub>C</sub> [ P(C) · Π<sub>i</sub> P(x<sub>i</sub> | C) ]</div>
+      <div class="eq">\(\hat{C}=\arg\max_{C}\Bigl[P(C)\cdot\prod_i P(x_i\mid C)\Bigr]\)</div>
       <div class="def"><b>Why "naive"?</b> Real features are rarely independent, yet the method works surprisingly well —
       it is fast, needs little data, and is a strong baseline for text/spam classification.</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">02</span><h2>Worked Example — Play Tennis</h2><span class="tag">Worked</span></div>
-    <div class="card full">
-      <p>Training data (14 days): features Outlook, Temp, Humidity, Wind; label Play = Yes/No. Class priors:</p>
-      <div class="eq">P(Yes) = 9/14 &nbsp;&nbsp; P(No) = 5/14</div>
-      <p>Likelihoods from the table (counts / class total):</p>
-      <div class="tablewrap">
-        <table>
-          <thead><tr><th>Feature=value</th><th>P(·|Yes)</th><th>P(·|No)</th></tr></thead>
-          <tbody>
-            <tr><td>Outlook=Sunny</td><td>2/9</td><td>3/5</td></tr>
-            <tr><td>Outlook=Overcast</td><td>4/9</td><td>0/5</td></tr>
-            <tr><td>Outlook=Rain</td><td>3/9</td><td>2/5</td></tr>
-            <tr><td>Humidity=High</td><td>3/9</td><td>4/5</td></tr>
-            <tr><td>Humidity=Normal</td><td>6/9</td><td>1/5</td></tr>
-            <tr><td>Wind=Strong</td><td>3/9</td><td>3/5</td></tr>
-            <tr><td>Wind=Weak</td><td>6/9</td><td>2/5</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p><b>Test 1:</b> &lt;Sunny, Cool, High, Strong&gt;</p>
-      <div class="eq">P(Yes)·Π = (9/14)·(2/9)·P(Cool|Yes)·(3/9)·(3/9) ≈ 0.0053</div>
-      <div class="eq">P(No)·Π = (5/14)·(3/5)·P(Cool|No)·(4/5)·(3/5) ≈ 0.0206</div>
-      <p>Since 0.0206 &gt; 0.0053 → predict <b>No</b>.</p>
-      <p><b>Test 2:</b> &lt;Overcast, Mild, Normal, Weak&gt;</p>
-      <div class="eq">P(Yes)·Π = (9/14)·(4/9)·(6/9)·(6/9) ≈ 0.0278 &nbsp; (largest) → predict <b>Yes</b>.</div>
-      <div class="def"><b>Takeaway:</b> multiply the prior by every matching feature-likelihood, then compare classes. Zero-likelihood features are handled with smoothing (Laplace) in practice.</div>
     </div>
   </div>
 
@@ -90,17 +61,11 @@
     <div class="card full">
       <p>A decision tree asks a feature question at each node to split the data. <b>ID3</b> picks the question
       that most reduces <b>entropy</b> ( disorder / impurity ). Entropy of a set with class proportions p<sub>i</sub>:</p>
-      <div class="eq">H(S) = − Σ<sub>i</sub> p<sub>i</sub> log<sub>2</sub> p<sub>i</sub></div>
-      <div class="def"><b>Formal definition (entropy):</b> at a node reached by N instances, let N<sub>i</sub> of them belong to class C<sub>i</sub>, with
-      Σ<sub>i</sub> N<sub>i</sub> = N. The estimated class probability is p<sub>i</sub> = N<sub>i</sub> ⁄ N (Alpaydın eq. 9.2). The node is <b>pure</b> when every p<sub>i</sub> is
-      0 or 1 — all instances share one class, so no further split is needed. Entropy is 0 for a pure node and reaches its maximum
-      log<sub>2</sub> K when the K classes are equally likely (p<sub>i</sub> = 1/K). In information-theory terms it is the minimum number of bits
-      needed to encode the class of an instance.</div>
-      <p><b>Worked:</b> the 14 tennis examples have 9 Yes, 5 No:</p>
-      <div class="eq">H(S) = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = 0.940 bits</div>
+      <div class="eq">\(H(S)=-\sum_i p_i\log_2 p_i\)</div>
+      
       <p>Information gain of splitting on feature A is the drop in impurity after the split — the parent entropy minus the
       weighted average entropy of the child branches:</p>
-      <div class="eq">IG(S, A) = H(S) − Σ<sub>v∈Values(A)</sub> (|S<sub>v</sub>| / |S|) · H(S<sub>v</sub>)</div>
+      <div class="eq">\(\text{IG}(S,A)=H(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot H(S_v)\)</div>
       <div class="def"><b>Formal definition (information gain):</b> if after splitting on A the data partitions into branches v, with |S<sub>v</sub>|
       instances taking branch v, the total impurity after the split is the weighted sum
       I′(S,A) = − Σ<sub>v</sub> (|S<sub>v</sub>| ⁄ |S|) Σ<sub>i</sub> p<sub>i,v</sub> log<sub>2</sub> p<sub>i,v</sub> (Alpaydın eq. 9.8). Information gain is then
@@ -108,8 +73,8 @@
       that minimizes this post-split impurity (equivalently, maximizes the gain).</div>
       <p>Entropy is not the only impurity measure. For a two-class problem (p, 1−p), any nonnegative φ(p,1−p) that is maximal at
       p = ½ and zero at p = 0 or 1 works; the textbook lists three, with little practical difference between them:</p>
-      <div class="eq">Entropy: &nbsp; φ = −p log₂p − (1−p) log₂(1−p)</div>
-      <div class="eq">Gini index: &nbsp; φ = 2p(1−p) &nbsp;&nbsp; Misclassification error: &nbsp; φ = 1 − max(p, 1−p)</div>
+      <div class="eq">Entropy: &nbsp; \(\phi = -p\log_2 p - (1-p)\log_2(1-p)\)</div>
+      <div class="eq">Gini index: &nbsp; \(\phi = 2p(1-p) \qquad\text{Gini index}\) &nbsp;&nbsp; Misclassification error: &nbsp; \(\phi = 1 - \max(p,1-p) \qquad\text{Misclassification error}\)</div>
       <p>The feature with the highest gain is chosen as the root, and the process repeats on each child. (For the
       tennis set the gains work out roughly: Outlook ≈ 0.24, Wind ≈ 0.48, Humidity ≈ 0.15, Temp ≈ 0.03 —
       so Wind then Humidity are the strongest splitters after Outlook.)</p>

@@ -29,6 +29,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m1-1.html">M1 · Paradigms</a>
       <a href="m2-1.html" class="active">M2 · Supervised</a>
       <a href="m3-1.html">M3 · NN &amp; SVM</a>
@@ -65,13 +66,13 @@
 
       <div class="grid cols-2" style="margin-top:14px">
         <div class="card">
-          <h3><span class="idx">+</span>Linear Regression — One Variable</h3>
+          <h3><span class="sym">+</span>Linear Regression — One Variable</h3>
           <p>The model is a straight line: <b>h(x) = θ₀ + θ₁x</b>. There are two parameters — the intercept <b>θ₀</b> (where the line crosses the y-axis) and
           the slope <b>θ₁</b> (how steep the line is). We choose the θ's so that the line is as close as possible to all the training points.</p>
           <p>For one input, the fit is a line. For <b>θ₀ = 0, θ₁ = 1.5</b>, the prediction at <b>x = 2</b> is <b>h(2) = 0 + 1.5·2 = 3.0</b>.</p>
         </div>
         <div class="card">
-          <h3><span class="idx">+</span>Linear Regression — Multiple Variables</h3>
+          <h3><span class="sym">+</span>Linear Regression — Multiple Variables</h3>
           <p>With <b>D</b> input features the model becomes <b>h(x) = θ₀ + θ₁x₁ + θ₂x₂ + ... + θ<sub>D</sub>x<sub>D</sub></b>. Each feature gets its own weight, and the fit
           is now a <b>plane</b> (one feature), a <b>hyperplane</b> (many features), not a line. The learning problem is the same in structure — find θ that
           minimises the prediction error — but the number of parameters grows with <b>D</b>.</p>
@@ -104,10 +105,9 @@
       <p>To "learn" the model we need a way to score how bad a particular choice of parameters is. The standard score for regression is the <b>mean squared
       error</b> — the average of the squared differences between the model's prediction and the true value, over all training examples. Smaller error means a
       better fit.</p>
-      <p class="eq" style="text-align:center;font-size:17px;font-weight:700;margin:14px 0;color:var(--accent-ink)">J(θ₀,θ₁) = (1/2m) · Σ₁<sup>m</sup> ( h(x⁽ⁱ⁾) – y⁽ⁱ⁾ )²</p>
-      <div class="grid cols-2" style="margin-top:4px">
-        <div class="card">
-          <h3><span class="idx">1/2m</span>Why this form</h3>
+      <p class="eq" style="text-align:center;font-size:17px;font-weight:700;margin:14px 0;color:var(--accent-ink)">\(J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr)^{2}\)</p>
+      <div class="card">
+        <h3>Why this form</h3>
           <p>The <b>1/m</b> averages the error over all <b>m</b> examples, so the score does not grow with dataset size. The <b>1/2</b> is a convenience: when we take
           the derivative to minimise J, the square's factor of 2 cancels the 1/2, leaving clean expressions. It does not change where the minimum is.</p>
         </div>
@@ -117,9 +117,7 @@
           smooth, differentiable function that gradient-based methods can optimise easily.</p>
         </div>
       </div>
-      <div class="def"><b>Worked numbers:</b> if the training set is {(1,1), (2,2), (3,3)} and we set <b>θ₀ = 0, θ₁ = 1</b>, then h(x)=x exactly matches every point, and
-      <b>J(0,1) = 0</b>. If instead <b>θ₀ = 0, θ₁ = 1.5</b>, the predictions are 1.5, 3.0, 4.5, and the squared errors are (0.5)², (1.0)², (1.5)², so
-      <b>J = (1/6)(0.25+1+2.25) = 3.5/6 ≈ 0.583</b>. Lower J means a better fit; J = 0 means a perfect fit on the training set.</div>
+      
     </div>
   </div>
 
@@ -127,34 +125,18 @@
     <div class="head"><span class="num">03</span><h2>Solution Methods — Gradient Descent &amp; Closed Form</h2><span class="tag">Finding the best θ</span></div>
     <div class="grid cols-2">
       <div class="card">
-        <h3><span class="idx">▼</span>Gradient Descent</h3>
+        <h3><span class="sym">▼</span>Gradient Descent</h3>
         <p>An iterative method: start with some θ (often zeros), then repeatedly take a small step in the direction that <b>reduces</b> J the fastest — that is, opposite
         to the gradient. Repeat until J stops improving. The size of each step is the <b>learning rate α</b>.</p>
-        <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">θⱼ := θⱼ − α · ∂J/∂θⱼ</p>
+        <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(\theta_j := \theta_j - \alpha\,\frac{\partial J}{\partial\theta_j}\)</p>
         <div class="def" style="margin-top:8px"><b>Intuition:</b> imagine standing on a hill (high J) and wanting to reach the valley (low J). The gradient tells you which way is steepest uphill;
         step the opposite way, a little at a time. Eventually you reach a low point.</div>
       </div>
       <div class="card">
-        <h3><span class="idx">=</span>Closed-Form (Normal Equation)</h3>
+        <h3><span class="sym">=</span>Closed-Form (Normal Equation)</h3>
         <p>A direct formula that gives the optimal θ in one step, without iterating. It solves ∂J/∂θ = 0 analytically. The price is computation: it requires inverting a
         <b>D×D</b> matrix.</p>
-        <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">θ = (X<sup>T</sup>X)<sup>−1</sup> X<sup>T</sup>y</p>
-        <div class="def" style="margin-top:8px"><b>When to prefer which:</b> closed form is exact and simple when <b>D</b> is small. But inverting a D×D matrix costs about O(D³), and with
-        <b>D ≈ 100</b> (around 100 attributes) it gets expensive and may be numerically unstable. <b>Gradient descent</b> handles large D and large datasets more gracefully,
-        and is the workhorse for most real problems.</div>
-      </div>
-    </div>
-    <div class="def"><b>Batch vs online gradient descent:</b> <b>batch</b> gradient descent computes the gradient using the <i>entire</i> training set at each step — stable but slow per step
-    on large data. <b>Online</b> (stochastic) gradient descent updates θ using one example at a time — much faster per step, can escape shallow local minima, and is preferred when data
-    is large or arriving in a stream. The trade-off: batch is smoother and more predictable; online is faster and can track a changing distribution but noisier.</div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">04</span><h2>Overfitting in Regression</h2><span class="tag">The core problem</span></div>
-    <div class="card full">
-      <p><b>Overfitting</b> is when a model fits the training data <i>too</i> closely — including its noise and quirks — so that it performs well on the data it was trained on
-      but poorly on new data. In regression, overfitting tends to happen when the model is too flexible for the amount of data: too many parameters, or a polynomial of too high
-      a degree. A 10th-degree polynomial can pass through every training point exactly, but between points it may swing wildly and predict badly.</p>
+        <p class="eq">\(\theta=(X^{T}X)^{-1}X^{T}y\)</p>
       <div class="grid cols-2" style="margin-top:10px">
         <div class="card">
           <h3><span class="idx">Underfitting</span></h3>
@@ -180,19 +162,19 @@
       <p>Regularization is the standard way to prevent overfitting. The idea is simple: when we choose the parameters, we not only care about fitting the data (small J), but also
       about keeping the parameters <b>small</b>. A model with huge weights is usually overfitting — it is bending sharply to hit individual points. By adding a penalty on the size of θ,
       we force the model to prefer simpler, smoother fits.</p>
-      <p class="eq" style="text-align:center;font-size:16px;font-weight:700;margin:12px 0;color:var(--accent-ink)">J<sub>regularized</sub> = J(θ) + λ · (penalty on θ)</p>
+      <p class="eq" style="text-align:center;font-size:16px;font-weight:700;margin:12px 0;color:var(--accent-ink)">J<sub>regularized</sub> =\(J_{\text{reg}}=J(\theta)+\lambda\cdot(\text{penalty on }\theta)\)) + λ · (penalty on θ)</p>
       <div class="grid cols-2" style="margin-top:6px">
         <div class="card">
           <h3><span class="idx">Ridge</span>L2 regularization</h3>
           <p>Adds <b>λ Σ θⱼ²</b> — the sum of squared parameters — to the cost. It gently shrinks all weights toward zero but rarely makes them exactly zero. It is the default
           regularizer for most regression tasks and works well when many features each contribute a little.</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">J = (1/2m)Σ(h−y)² + λ·Σθⱼ²</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum\theta_j^{2}\)</p>
         </div>
         <div class="card">
           <h3><span class="idx">Lasso</span>L1 regularization</h3>
           <p>Adds <b>λ Σ |θⱼ|</b> — the sum of absolute parameter values. Because the penalty is on the absolute value, it tends to drive some weights to <b>exactly zero</b>. This
           performs <b>feature selection</b>: irrelevant features get zero weight and disappear from the model.</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">J = (1/2m)Σ(h−y)² + λ·Σ|θⱼ|</p>
+          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum|\theta_j|\)</p>
         </div>
       </div>
       <div class="tablewrap" style="margin-top:10px">
@@ -247,17 +229,17 @@
       <p>Despite the name, <b>logistic regression</b> is a classification method. It keeps the same linear form as linear
       regression, <b>wᵀx</b>, but passes it through a <b>sigmoid</b> so the output is a probability in (0,1). The textbook
       (Alpaydın, logistic discrimination, §10.7 / §11.3) writes the two-class model as:</p>
-      <div class="eq">yₜ = sigmoid(wᵀxₜ) &nbsp;&nbsp; ( P(C₁|xₜ) = yₜ ; &nbsp; rₜ = 1 if xₜ∈C₁, &nbsp; 0 if xₜ∈C₂ )</div>
+      <div class="eq">\(y_t = \sigma(w^{T}x_t) \qquad \bigl(P(C_1\mid x_t)=y_t;\; r_t=1\text{ if }x_t\in C_1,\;0\text{ if }x_t\in C_2\bigr)\) &nbsp;&nbsp; ( P(C₁|xₜ) = yₜ ; &nbsp; rₜ = 1 if xₜ∈C₁, &nbsp; 0 if xₜ∈C₂ )</div>
       <p>Inverting the sigmoid shows the model is <b>linear in the log-odds (the logit)</b>:</p>
-      <div class="eq">log( yₜ / (1 − yₜ) ) = wᵀxₜ</div>
+      <div class="eq">\(\log\!\left(\frac{y_t}{1-y_t}\right) = w^{T}x_t\)</div>
       <div class="def"><b>Odds &amp; logit:</b> the <i>odds</i> of class C₁ are yₜ ⁄ (1 − yₜ); the <i>logit</i> is their logarithm. Logistic
       regression therefore models the log-odds as a linear combination of the inputs. A one-unit increase in feature xⱼ multiplies the
       odds by e<sup>wⱼ</sup> — this is exactly why the method is called <i>logistic</i>.</div>
       <p>The parameters are learned by <b>maximum likelihood</b>: maximize the Bernoulli log-likelihood, equivalently minimize its
       negative — the <b>cross-entropy</b>:</p>
-      <div class="eq">L(r|X) = Σ<sub>t</sub> [ rₜ log yₜ + (1 − rₜ) log(1 − yₜ) ]</div>
+      <div class="eq">\(L(r\mid X)=\sum_t\bigl[r_t\log y_t+(1-r_t)\log(1-y_t)\bigr]\)</div>
       <p>This is minimized with <b>gradient descent</b>. For a single training instance the online (stochastic) update is:</p>
-      <div class="eq">Δw<sup>t</sup><sub>j</sub> = η (rₜ − yₜ) x<sub>tⱼ</sub> &nbsp;&nbsp; ( j = 0, …, d )</div>
+      <div class="eq">\(\Delta w_{tj}=\eta\,(r_t-y_t)\,x_{tj}\qquad(j=0,\dots,d)\)</div>
       <div class="def"><b>Update rule:</b> η is the learning factor. The batch version sums the correction (rₜ − yₜ)x<sub>tⱼ</sub> over <i>all</i>
       instances before updating; the online version updates after each pattern. Both share the same shape —
       <b>Update = learning-factor × (desired − actual) × input</b> — the perceptron learning rule applied to the cross-entropy error.</div>
@@ -265,43 +247,28 @@
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">08</span><h2>Naïve Bayes — Worked Example (Play-Tennis)</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="head"><span class="num">07</span><h2>Naïve Bayes — the intuition (read this first)</h2><span class="tag">Plain-language lesson</span></div>
     <div class="card full">
-      <p>The <b>Naïve Bayes</b> classifier is a probability-based classifier built on <b>Bayes' theorem</b> with the "naïve" assumption that features are conditionally independent given the class. For a test instance with attributes a₁…aₙ it picks the class that maximises:</p>
+      <p>Naïve Bayes is the classifier you reach for when you want a <b>sensible prediction, fast, from very little data</b>. Underneath the formula it is one idea you already use every day:</p>
+      <div class="def"><b>Start with your best guess. Then let the evidence shift it.</b> That is Bayes' theorem in plain English. Your "guess before evidence" is the <b>prior</b>; "how strongly this evidence points at each answer" is the <b>likelihood</b>; your "updated guess after evidence" is the <b>posterior</b>.</div>
+      <p><b>An example you already do.</b> You wake up and guess "probably not raining" — it's usually dry (that's your prior). You look outside and see <b>dark clouds</b> (evidence). Dark clouds are far more common on rainy days than dry days, so the evidence <b>shifts</b> your belief toward "it will rain" (posterior). Naïve Bayes just does this counting-and-shifting maths formally, for any number of features at once.</p>
+
+      <h3>Why "naïve"?</h3>
+      <p>It assumes each feature is <b>independent</b> of the others <i>once you know the class</i> — e.g. "given that an email is spam, the words 'free' and 'click' don't influence each other." That is usually <b>false</b> in real life (words do correlate). But the naïve shortcut works surprisingly well and needs <b>much less data</b>, because it estimates each feature on its own instead of every possible combination. That trade-off is the entire reason the method exists.</p>
+
+      <h3>Bayes' theorem, slowly</h3>
       <div class="qbox">
-        <h4>Classification rule (ArgMax)</h4>
-        <p class="eq">ŷ = arg max<sub>vⱼ ∈ Y</sub> { P(vⱼ) · ∏<sub>i=1</sub><sup>n</sup> P(aᵢ | vⱼ) }</p>
+        <h4>Bayes' theorem</h4>
+        <p class="eq">\(P(\text{class} \mid \text{evidence}) = \dfrac{P(\text{evidence} \mid \text{class}) \cdot P(\text{class})}{P(\text{evidence})}\)</p>
       </div>
-      <p>Worked on the classic 14-day <b>Play-Tennis</b> dataset. Class counts: <b>P(Yes)=9/14</b>, <b>P(No)=5/14</b>. Learned likelihoods (counts ÷ class count):</p>
-      <div class="tablewrap" style="margin:10px 0">
-        <table>
-          <thead><tr><th>Feature</th><th>P(·|Yes)</th><th>P(·|No)</th></tr></thead>
-          <tbody>
-            <tr><td>Outlook=Sunny</td><td>2/9</td><td>3/5</td></tr>
-            <tr><td>Outlook=Overcast</td><td>4/9</td><td>0/5</td></tr>
-            <tr><td>Outlook=Rain</td><td>3/9</td><td>2/5</td></tr>
-            <tr><td>Temp=Hot</td><td>2/9</td><td>2/5</td></tr>
-            <tr><td>Temp=Mild</td><td>4/9</td><td>2/5</td></tr>
-            <tr><td>Temp=Cool</td><td>3/9</td><td>1/5</td></tr>
-            <tr><td>Humidity=High</td><td>3/9</td><td>4/5</td></tr>
-            <tr><td>Humidity=Normal</td><td>6/9</td><td>1/5</td></tr>
-            <tr><td>Wind=Weak</td><td>6/9</td><td>2/5</td></tr>
-            <tr><td>Wind=Strong</td><td>3/9</td><td>3/5</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p>Left to right: <b>how likely is the class given this evidence</b> = <b>how likely is this evidence if the class is true</b> × <b>how common the class is</b> ÷ <b>how common the evidence is overall</b>. When we <i>compare</i> two classes, the bottom term P(evidence) is identical for both — so we drop it and just compare the top:</p>
       <div class="qbox">
-        <h4>Test 1 — &lt;Sunny, Cool, High, Strong&gt;</h4>
-        <p class="eq">P(Yes)=9/14·2/9·3/9·3/9·3/9 = 1/189 ≈ 0.0053</p>
-        <p class="eq">P(No)=5/14·3/5·1/5·4/5·3/5 ≈ 0.0206</p>
-        <p>Since P(No) &gt; P(Yes) → predict <b>No</b> (do not play).</p>
+        <h4>What we actually compute</h4>
+        <p class="eq">\(\hat{y} = \arg\max_{v_j} \bigl\{ P(v_j) \cdot \prod_i P(a_i \mid v_j) \bigr\}\)</p>
       </div>
-      <div class="qbox">
-        <h4>Test 2 — &lt;Overcast, Mild, Normal, Weak&gt;</h4>
-        <p class="eq">P(Yes)=9/14·4/9·4/9·6/9·6/9 = 32/567 ≈ 0.056</p>
-        <p class="eq">P(No)=5/14·0·2/5·1/5·2/5 = 0</p>
-        <p>Since P(Yes) &gt; P(No) → predict <b>Yes</b> (play). Note P(Overcast|No)=0 zeroes the whole product.</p>
-      </div>
+      <p><b>P(vⱼ)</b> = how often class vⱼ appears in training (the prior). <b>P(aᵢ | vⱼ)</b> = for that class, how often feature aᵢ shows up (the likelihood). We multiply them all, repeat for every class, and pick the biggest. That is the whole algorithm — no training loop, no gradient, just counting.</p>
+
+      <div class="def"><b>When it shines:</b> small datasets, text/spam classification, medical screening — many weak features, little data. <b>When it struggles:</b> features that are strongly correlated (the naïve assumption breaks badly); or a feature value that never appeared in training for a class — a single zero likelihood multiplies the whole product to 0. That is fixed with <b>Laplace smoothing</b>: add 1 to every count so nothing is ever exactly zero.</div>
     </div>
   </div>
 
@@ -311,16 +278,11 @@
       <p>A <b>decision tree</b> is a non-linear model (uses supervised learning) that splits data at each internal node by the attribute that best separates the classes; leaf nodes hold the predicted class. <b>ID3</b> picks the split using <b>entropy</b> (impurity) and <b>information gain</b>.</p>
       <div class="qbox">
         <h4>Entropy of a set S (binary)</h4>
-        <p class="eq">Entropy(S) = −P₊ log₂ P₊ − P₋ log₂ P₋</p>
-      </div>
-      <div class="qbox">
-        <h4>Worked: S has 9 positive, 5 negative (|S|=14)</h4>
-        <p class="eq">P₊=9/14, P₋=5/14</p>
-        <p class="eq">E(S) = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = <b>0.940</b></p>
+        <p class="eq">\(\text{Entropy}(S) = -P_{+}\log_2 P_{+} - P_{-}\log_2 P_{-}\)</p>
       </div>
       <div class="qbox">
         <h4>Information Gain of attribute A</h4>
-        <p class="eq">Gain(S,A) = E(S) − Σ<sub>v∈Values(A)</sub> (|Sᵥ| / |S|) · E(Sᵥ)</p>
+        <p class="eq">\(\text{Gain}(S,A)=E(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot E(S_v)\)</p>
       </div>
       <p>For the Play-Tennis root choice the notes compute (student's numbers): Gain(Outlook)=0.24, Gain(Wind)=0.48, Gain(Temp)=0.032, Gain(Humidity)=0.15. The tree built: root <b>Outlook</b> → Sunny splits on <b>Humidity</b> (high→No, normal→Yes), Overcast→<b>Yes</b>, Rain splits on <b>Wind</b> (strong→No, weak→Yes).</p>
     </div>

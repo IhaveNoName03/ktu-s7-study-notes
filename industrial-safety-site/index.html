@@ -3,57 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Industrial Safety Engineering · MCN 401 · Modules 1–5</title>
+<title>Industrial Safety Engineering · MCN 401 · KTU · Modules 1–5</title>
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  .subj-hero{position:relative;overflow:hidden;background:
-    radial-gradient(1100px 460px at 88% -10%, rgba(224,36,27,.22), transparent 60%),
-    linear-gradient(180deg,#0d0f12 0%, #111418 62%, #16191e 100%);
-    color:#fff;padding:64px 20px 52px;border-bottom:3px solid var(--accent)}
-  .subj-hero .inner{max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
-  .subj-hero .badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#ffd9d6;background:rgba(224,36,27,.16);border:1px solid rgba(224,36,27,.4);padding:6px 12px;border-radius:999px;margin-bottom:16px}
-  .subj-hero h1{font-size:clamp(30px,5.4vw,52px);line-height:1.05;margin:0 0 12px;font-weight:800;letter-spacing:-1px}
-  .subj-hero h1 .accent{color:var(--accent)}
-  .subj-hero .sub{font-size:clamp(14px,2.1vw,18px);color:#c7cdd4;max-width:680px;line-height:1.55;margin:0 0 22px}
-  .subj-hero .stats{display:flex;flex-wrap:wrap;gap:12px}
-  .subj-hero .stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:12px 16px;min-width:104px}
-  .subj-hero .stat .n{font-size:26px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-1px}
-  .subj-hero .stat .l{font-size:11.5px;color:#9aa2ab;letter-spacing:.6px;text-transform:uppercase;margin-top:2px}
-  .searchwrap{max-width:var(--maxw);margin:-26px auto 0;padding:0 20px;position:relative;z-index:5}
-  .searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 16px;box-shadow:var(--shadow-lg)}
+  .subj{ --maxw:1400px; --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  body.subj{font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.6}
+  .masthead{max-width:var(--maxw);margin:0 auto;padding:34px 24px 0;text-align:center}
+  .masthead .kicker{font-family:var(--sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .masthead h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,6vw,58px);line-height:.98;letter-spacing:-1.2px;margin:10px 0 6px}
+  .masthead .rule{height:0;border-top:1.5px solid var(--ink);margin:14px 0 8px}
+  .masthead .rule.thin{border-top:1px solid var(--line)}
+  .masthead .colophon{font-family:var(--sans);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  .masthead .colophon b{color:var(--ink-2);font-weight:700}
+  .lead{max-width:720px;margin:28px auto 0;padding:0 24px;text-align:center}
+  .lead p{font-family:var(--serif);font-size:clamp(17px,2.3vw,21px);line-height:1.55;color:var(--ink-2);font-style:italic}
+  .searchwrap{max-width:600px;margin:28px auto 0;padding:0 24px}
+  .searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:0;padding:13px 16px;box-shadow:var(--shadow-lg)}
   .searchbox svg{flex:none;opacity:.5}
-  .searchbox input{border:none;outline:none;width:100%;font-size:16px;color:var(--ink);background:transparent;font-family:inherit}
-  .grid{max-width:var(--maxw);margin:30px auto 8px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
-  .mcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;opacity:0;transform:translateY(14px)}
-  .mcard.in{opacity:1;transform:none}
-  .mcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(224,36,27,.4);text-decoration:none}
-  .mcard .top{padding:16px 16px 12px;border-bottom:1px solid var(--line);position:relative}
-  .mcard .top .bar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
-  .mcard .top .num{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.5px}
-  .mcard .top h3{margin:5px 0 3px;font-size:18px;font-weight:800;letter-spacing:-.2px}
-  .mcard .body{padding:12px 16px 16px;flex:1}
-  .mcard .desc{font-size:13.2px;color:var(--ink-2);line-height:1.5;margin:0 0 12px}
-  .mcard ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-  .mcard ul a{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink-2);background:var(--bg);border:1px solid var(--line);padding:7px 10px;border-radius:8px;transition:all .15s ease}
-  .mcard ul a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-  .mcard ul a .mi{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:800}
-  .mcard ul a .ar{margin-left:auto;color:var(--muted)}
-  .practice{background:linear-gradient(180deg,#111418,#16191e);color:#fff;border-color:transparent}
-  .practice .top{border-bottom:1px solid rgba(255,255,255,.12)}
-  .practice .top .num{color:#ffd9d6}
-  .practice .top h3{color:#fff}
-  .practice ul a{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#dfe3e8}
-  .practice ul a:hover{border-color:var(--accent);color:#fff}
-  .practice ul a .mi{color:#ffd9d6}
-  .empty{max-width:var(--maxw);margin:20px auto;padding:0 20px;color:var(--muted);display:none}
-  .foot{max-width:var(--maxw);margin:36px auto 0;padding:18px 20px 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .foot b{color:var(--ink-2)}
-  @media (max-width:640px){.subj-hero{padding:46px 16px 44px}.subj-hero .stat{flex:1 1 40%}}
+  .searchbox input{border:none;outline:none;width:100%;font-size:16px;color:var(--ink);background:transparent;font-family:var(--serif)}
+  .searchbox input::placeholder{color:var(--muted);font-style:italic}
+  .seclabel{max-width:var(--maxw);margin:44px auto 0;padding:0 24px;display:flex;align-items:baseline;gap:14px}
+  .seclabel .no{font-family:var(--serif);font-size:14px;color:var(--accent);font-weight:700}
+  .seclabel .txt{font-family:var(--sans);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .seclabel .line{flex:1;height:0;border-top:1px solid var(--line)}
+  #grid{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mcard{display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:start;text-decoration:none;color:inherit;padding:24px 18px;margin:0 -18px;border-top:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:background .2s ease,box-shadow .2s ease,transform .15s ease,padding-left .2s ease}
+  .mcard:last-child{border-bottom:1px solid var(--line)}
+   .mcard:hover{background:#fff;text-decoration:none;padding-left:14px;box-shadow:var(--shadow-md);transform:translateY(-1px)}
+  .mcard .idx{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--accent);line-height:1;padding-top:2px}
+  .mcard .main .code{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .mcard .main h3{font-family:var(--serif);font-size:clamp(21px,3vw,28px);font-weight:700;letter-spacing:-.3px;margin:4px 0 7px;line-height:1.08;color:var(--accent)}
+  .mcard .main .desc{font-family:var(--serif);font-size:15.5px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;max-width:620px}
+  .mcard .mods{display:flex;flex-wrap:wrap;gap:6px}
+  .mcard .mods span{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--bg);border:1px solid var(--line);padding:3px 9px;border-radius:3px}
+  .mcard .go{font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;color:var(--accent);white-space:nowrap;align-self:center}
+  .mcard .go .arr{transition:transform .18s ease}
+  .mcard:hover .go .arr{transform:translateX(5px)}
+  .mcard.practice .idx{color:var(--muted)}
+  .mcard.practice{background:linear-gradient(180deg,#fbfbfc,#f4f5f7)}
+  .empty{max-width:var(--maxw);margin:20px auto;padding:0 24px;color:var(--muted);font-family:var(--serif);font-style:italic;display:none}
+  .foot{max-width:var(--maxw);margin:38px auto 0;padding:22px 24px 64px;color:var(--muted);font-family:var(--serif);font-size:14px;font-style:italic;text-align:center;border-top:1px solid var(--line)}
+  .foot b{color:var(--ink-2);font-style:normal}
+  .foot a{color:var(--accent);text-decoration:none}
+  @media (max-width:680px){ .mcard{grid-template-columns:42px 1fr;gap:12px} .mcard .go{grid-column:1/-1;justify-content:flex-start;margin-top:4px} .mcard .idx{font-size:24px} }
+  @media (min-width:900px){#grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}.mcard:last-child{border-bottom:1px solid var(--line)}}
+  html[data-theme="dark"] body.subj{background:#0E0F12;color:#EDEFF2}
+  html[data-theme="dark"] .masthead .rule{border-top-color:#EDEFF2}
+  html[data-theme="dark"] .masthead .rule.thin{border-top-color:#2a2f37}
+  html[data-theme="dark"] .masthead .colophon b{color:#B7BEC7}
+  html[data-theme="dark"] .lead p{color:#B7BEC7}
+  html[data-theme="dark"] .searchbox{background:#16191F;border-color:#2a2f37;box-shadow:none}
+  html[data-theme="dark"] .searchbox input{color:#EDEFF2}
+  html[data-theme="dark"] .searchbox input::placeholder{color:#8A929C}
+  html[data-theme="dark"] .seclabel .line{border-top-color:#2a2f37}
+  html[data-theme="dark"] .mcard{border-top-color:#2a2f37}
+  html[data-theme="dark"] .mcard:last-child{border-bottom-color:#2a2f37}
+  html[data-theme="dark"] .mcard:hover{background:#16191F}
+  html[data-theme="dark"] .mcard .main .desc{color:#B7BEC7}
+  html[data-theme="dark"] .mcard .mods span{color:#B7BEC7;background:#1b1f26;border-color:#2a2f37}
+  html[data-theme="dark"] .mcard.practice{background:linear-gradient(180deg,#16191f,#12151a)}
+  html[data-theme="dark"] .foot{color:#8A929C;border-top-color:#2a2f37}
+  html[data-theme="dark"] .foot b{color:#B7BEC7}
+  html[data-theme="dark"] .empty{color:#8A929C}
+  .theme-toggle{margin-left:14px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:color .15s ease,border-color .15s ease}
+  .theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
+  .refbox{max-width:var(--maxw);margin:18px auto 0;padding:16px 20px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 var(--r) var(--r) 0;background:var(--accent-soft);color:var(--ink-2);font-size:14.5px;line-height:1.6}
+  .refbox .rtitle{font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .refbox .rbook{margin:0 0 6px;color:var(--ink)}
+  .refbox .rbook i,.refbox .rmeta i{color:var(--ink)}
+  .refbox .rmeta{margin:0;font-size:13px;opacity:.85}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}</style>
+<style>html{background:#fff}html[data-theme="dark"]{background:#0E0F12}body{background:#fff}html[data-theme="dark"] body{background:#0E0F12}</style>
 <script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
-<body>
+<body class="subj">
 
 <header class="topbar">
   <div class="topbar-inner">
@@ -67,95 +90,91 @@
   </div>
 </header>
 
-<section class="subj-hero">
-  <div class="inner">
-    <div class="badge">MCN 401 · KTU</div>
-    <h1>Industrial Safety Engineering</h1>
-    <p class="sub">Exam-ready study site for the KTU MCN401 Industrial Safety course, built from the syllabus and Ktunotes. Covers safety management, PPE, construction safety, machine guarding, material handling, and hazard identification (HAZOP, Dow index, MSDS). Modules 1 and 2 are the richest.</p>
-    <div class="stats">
-      <div class="stat"><div class="n">5</div><div class="l">Modules</div></div>
-      <div class="stat"><div class="n">8</div><div class="l">Pages</div></div>
-      <div class="stat"><div class="n">100%</div><div class="l">Offline</div></div>
-    </div>
-  </div>
+<section class="masthead">
+  <div class="kicker">MCN 401 · KTU</div>
+  <h1>Industrial Safety Engineering</h1>
+  <div class="rule"></div>
+  <div class="colophon"><b>Semester VII</b> &nbsp;·&nbsp; Five Modules &nbsp;·&nbsp; Offline Textbook</div>
+  <div class="rule thin"></div>
 </section>
+
+<div class="lead">
+  <p>Exam-ready study site for the KTU MCN401 Industrial Safety course, built from the syllabus and Ktunotes, with detail drawn from the prescribed textbook <i>Safety Management System and Documentation Training Programme Handbook</i> (SV Paul, CBS). Covers safety management, PPE, construction safety, machine guarding, material handling, and hazard identification (HAZOP, Dow index, MSDS). Modules 1 and 2 are the richest.</p>
+</div>
+
+<div class="refbox">
+  <div class="rtitle">Prescribed Textbook (KTU MCN401)</div>
+  <p class="rbook">SV Paul — <i>Safety Management System and Documentation Training Programme Handbook</i>. CBS Publishers &amp; Distributors, 2013. ISBN 978-81-239-2344-4.</p>
+  <p class="rmeta">Also in the official KTU text list: R. K. Jain, <i>Industrial Safety, Health and Environment Management Systems</i> (Khanna, 2000); N. V. Krishnan, <i>Safety Management in Industry</i> (Jaico, 1997).</p>
+</div>
 
 <div class="searchwrap">
   <div class="searchbox">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input id="q" type="text" placeholder="Search modules &amp; topics… (e.g. PPE, scaffold, HAZOP, fire)" autocomplete="off">
+    <input id="q" type="text" placeholder="Search modules &amp; topics…" autocomplete="off">
   </div>
 </div>
 
+<div class="seclabel">
+  <span class="no">§</span>
+  <span class="txt">Modules</span>
+  <span class="line"></span>
+</div>
+
 <div class="grid" id="grid">
-
-  <div class="mcard" data-k="m1 safety introduction accident theory domino heinrich definitions unsafe act condition organization officer committee">
-    <div class="top"><span class="bar"></span><div class="num">M1</div><h3>Safety Introduction</h3></div>
-    <div class="body">
+  <a class="mcard" href="m1-1.html" data-k="m1 safety introduction accident theory domino heinrich definitions unsafe act condition organization officer committee">
+    <div class="idx">M1</div>
+    <div class="main"><div class="code">Module 1</div><h3>Safety Introduction</h3>
       <p class="desc">Need for safety, definitions (accident, injury, unsafe act/condition), accident-causation theories, safety organization, safety officer &amp; committee.</p>
-      <ul>
-        <li><a href="m1-1.html"><span class="mi">1.1</span><span class="lk">Safety fundamentals &amp; accident theories</span><span class="ar">→</span></a></li>
-      </ul>
-    </div>
-  </div>
+      <div class="mods"><span>1.1 Safety fundamentals &amp; accident theories</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
 
-  <div class="mcard" data-k="m2 ppe personal protection rpe standards monitoring frequency severity incidence rate 5s housekeeping work permit confined space loto">
-    <div class="top"><span class="bar"></span><div class="num">M2</div><h3>Personal Protection</h3></div>
-    <div class="body">
+  <a class="mcard" href="m2-1.html" data-k="m2 ppe personal protection rpe standards monitoring frequency severity incidence rate 5s housekeeping work permit confined space loto">
+    <div class="idx">M2</div>
+    <div class="main"><div class="code">Module 2</div><h3>Personal Protection</h3>
       <p class="desc">PPE types &amp; standards, safety-performance indicators, housekeeping (5S), work-permit system, confined spaces.</p>
-      <ul>
-        <li><a href="m2-1.html"><span class="mi">2.1</span><span class="lk">PPE, safety performance &amp; permits</span><span class="ar">→</span></a></li>
-      </ul>
-    </div>
-  </div>
+      <div class="mods"><span>2.1 PPE, safety performance &amp; permits</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
 
-  <div class="mcard" data-k="m3 construction safety hazards excavation shoring ladder scaffold tunnel blasting demolition confined space ergonomics">
-    <div class="top"><span class="bar"></span><div class="num">M3</div><h3>Construction Safety</h3></div>
-    <div class="body">
+  <a class="mcard" href="m3-1.html" data-k="m3 construction safety hazards excavation shoring ladder scaffold tunnel tunneling blasting demolition confined space underwater ergonomics indian standard national building code nbc">
+    <div class="idx">M3</div>
+    <div class="main"><div class="code">Module 3</div><h3>Construction Safety</h3>
       <p class="desc">Construction hazards, excavation/shoring, ladders/scaffolds, tunneling, blasting, demolition, confined space, NBC provisions, ergonomics.</p>
-      <ul>
-        <li><a href="m3-1.html"><span class="mi">3.1</span><span class="lk">Construction safety</span><span class="ar">→</span></a></li>
-      </ul>
-    </div>
-  </div>
+      <div class="mods"><span>3.1 Construction safety</span><span>3.2 Ops &amp; codes</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
 
-  <div class="mcard" data-k="m4 machine guarding material handling point of operation guards devices turning grinding welding hearing conservation">
-    <div class="top"><span class="bar"></span><div class="num">M4</div><h3>Machine &amp; Material Safety</h3></div>
-    <div class="body">
+  <a class="mcard" href="m4-1.html" data-k="m4 machine guarding material handling point of operation guards devices turning grinding welding hearing conservation">
+    <div class="idx">M4</div>
+    <div class="main"><div class="code">Module 4</div><h3>Machine &amp; Material Safety</h3>
       <p class="desc">Machine safeguarding (point-of-operation, guards/devices), turning/grinding safety, welding precautions, material handling, hearing conservation.</p>
-      <ul>
-        <li><a href="m4-1.html"><span class="mi">4.1</span><span class="lk">Machine guarding &amp; material handling</span><span class="ar">→</span></a></li>
-      </ul>
-    </div>
-  </div>
+      <div class="mods"><span>4.1 Machine guarding &amp; material handling</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
 
-  <div class="mcard" data-k="m5 hazard risk identification fire class extinguisher dow index pha hazop msds chemical criticality">
-    <div class="top"><span class="bar"></span><div class="num">M5</div><h3>Hazard Identification</h3></div>
-    <div class="body">
+  <a class="mcard" href="m5-1.html" data-k="m5 hazard risk identification fire class extinguisher dow index pha hazop msds chemical criticality">
+    <div class="idx">M5</div>
+    <div class="main"><div class="code">Module 5</div><h3>Hazard Identification</h3>
       <p class="desc">Hazard &amp; risk, fire classes &amp; extinguishers, Dow index, PHA, HAZOP methodology, criticality analysis, chemical hazards, MSDS.</p>
-      <ul>
-        <li><a href="m5-1.html"><span class="mi">5.1</span><span class="lk">Hazard identification &amp; analysis</span><span class="ar">→</span></a></li>
-      </ul>
-    </div>
-  </div>
+      <div class="mods"><span>5.1 Hazard identification &amp; analysis</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
 
-  <div class="mcard practice" data-k="practice exam techniques question bank papers">
-    <div class="top"><span class="bar"></span><div class="num">·</div><h3>Practice</h3></div>
-    <div class="body">
+  <a class="mcard practice" href="m-t1.html" data-k="practice exam techniques question bank papers">
+    <div class="idx">·</div>
+    <div class="main"><div class="code">Practice</div><h3>Exam Techniques &amp; Papers</h3>
       <p class="desc">Exam techniques and the marks-scaled question bank.</p>
-      <ul>
-        <li><a href="m-t1.html"><span class="mi">·</span><span class="lk">Exam techniques</span><span class="ar">→</span></a></li>
-        <li><a href="papers.html"><span class="mi">·</span><span class="lk">Question bank (KTU model-paper problems)</span><span class="ar">→</span></a></li>
-      </ul>
-    </div>
-  </div>
-
+      <div class="mods"><span>m-t1 Exam techniques</span><span>papers.html Question bank</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
 </div>
 
 <div class="empty" id="empty">No modules match your search — try a broader term.</div>
 
 <div class="foot">
-  <span><b>Industrial Safety Engineering (MCN 401, KTU)</b></span><span>·</span><span>8 pages</span><span>·</span><span><a href="../index.html">All subjects →</a></span>
+  <span><b>Industrial Safety Engineering (MCN 401 · KTU, KTU)</b></span> &nbsp;·&nbsp; <span>8 pages</span> &nbsp;·&nbsp; <span><a href="../index.html">All subjects →</a></span>
 </div>
 
 <script>

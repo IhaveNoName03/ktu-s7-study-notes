@@ -16,6 +16,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m1-1.html">M1 · Paradigms</a>
       <a href="m1-2.html" class="active">M1 · MLE/MAP</a>
       <a href="m2-1.html">M2 · Supervised</a>
@@ -50,22 +51,11 @@
     <div class="card full">
       <p>Given i.i.d. samples x₁…xₙ from a distribution with parameter θ, the <b>likelihood</b> is the joint density
       viewed as a function of θ:</p>
-      <div class="eq">L(θ) = P(D | θ) = Π<sub>i=1</sub><sup>n</sup> p(x<sub>i</sub> | θ)</div>
+      <div class="eq">\(L(\theta)=P(D\mid\theta)=\prod_{i=1}^{n}p(x_i\mid\theta)\)</div>
       <p>The <b>MLE</b> maximizes it; in practice we maximize the easier log-likelihood:</p>
-      <div class="eq">ℓ(θ) = Σ<sub>i</sub> ln p(x<sub>i</sub> | θ), &nbsp; θ̂<sub>MLE</sub> = argmax<sub>θ</sub> ℓ(θ)</div>
+      <div class="eq">\(\ell(\theta)=\sum_i\ln p(x_i\mid\theta),\quad\hat{\theta}_{\text{MLE}}=\arg\max_{\theta}\ell(\theta)\)</div>
       <div class="def"><b>Recipe (every derivation below):</b> ① write p(x|θ); ② take ln; ③ differentiate w.r.t. θ;
       ④ set = 0; ⑤ solve. Derivatives of sums turn products into clean linear equations.</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">02</span><h2>Bernoulli / Binomial (coin toss)</h2><span class="tag">Worked</span></div>
-    <div class="card full">
-      <p>Single trial success prob θ; n trials, h successes. Likelihood:</p>
-      <div class="eq">L(θ) = θ<sup>h</sup> (1−θ)<sup>n−h</sup> &nbsp; ⟹ &nbsp; ℓ(θ) = h·ln θ + (n−h)·ln(1−θ)</div>
-      <p>dℓ/dθ = h/θ − (n−h)/(1−θ) = 0 &nbsp;⟹&nbsp; <b>θ̂ = h/n</b>.</p>
-      <p><b>Worked:</b> 100 tosses, 62 heads → θ̂ = 62/100 = 0.62 (the empirical frequency). This is why MLE is intuitive.</p>
-      <div class="def"><b>Binomial:</b> with k successes out of n, the MLE of θ is the same, k/n. The Bernoulli case is just n=1.</div>
     </div>
   </div>
 
@@ -73,7 +63,7 @@
     <div class="head"><span class="num">03</span><h2>Poisson (count data)</h2><span class="tag">Derivation</span></div>
     <div class="card full">
       <p>For counts with rate λ &gt; 0, p(x|λ) = e<sup>−λ</sup> λ<sup>x</sup> / x!. Log-likelihood:</p>
-      <div class="eq">ℓ(λ) = Σ [ −λ + x<sub>i</sub> ln λ − ln(x<sub>i</sub>!) ] = −nλ + (Σx<sub>i</sub>) ln λ + const</div>
+      <div class="eq">\(\ell(\lambda)=\sum\bigl[-\lambda+x_i\ln\lambda-\ln(x_i!)\bigr]=-n\lambda+\bigl(\sum x_i\bigr)\ln\lambda+\text{const}\)</div>
       <p>dℓ/dλ = −n + (Σx<sub>i</sub>)/λ = 0 &nbsp;⟹&nbsp; <b>λ̂ = (1/n) Σ x<sub>i</sub> = x̄</b>.</p>
       <p><b>Worked:</b> events per hour observed as 3, 5, 4, 6, 2 → x̄ = 20/5 = 4 → λ̂ = 4 events/hour.</p>
     </div>
@@ -83,7 +73,7 @@
     <div class="head"><span class="num">04</span><h2>Exponential (waiting times)</h2><span class="tag">Derivation</span></div>
     <div class="card full">
       <p>For positive waiting times with rate λ &gt; 0, p(x|λ) = λ e<sup>−λx</sup>. Log-likelihood:</p>
-      <div class="eq">ℓ(λ) = n ln λ − λ Σ x<sub>i</sub></div>
+      <div class="eq">\(\ell(\lambda)=n\ln\lambda-\lambda\sum x_i\)</div>
       <p>dℓ/dλ = n/λ − Σx<sub>i</sub> = 0 &nbsp;⟹&nbsp; <b>λ̂ = n / Σ x<sub>i</sub> = 1 / x̄</b>.</p>
       <p><b>Worked:</b> mean waiting time x̄ = 5 min → λ̂ = 1/5 = 0.2 per minute. (Note: for exponential, the MLE of λ
       is the reciprocal of the sample mean — the opposite of Poisson.)</p>
@@ -94,10 +84,10 @@
     <div class="head"><span class="num">05</span><h2>Gaussian / Normal (two parameters)</h2><span class="tag">Derivation</span></div>
     <div class="card full">
       <p>For N(μ, σ²), p(x) = (1/√(2πσ²)) e<sup>−(x−μ)²/(2σ²)</sup>. Log-likelihood (dropping constants):</p>
-      <div class="eq">ℓ(μ,σ²) = −(n/2) ln σ² − (1/2σ²) Σ (x<sub>i</sub> − μ)²</div>
+      <div class="eq">\(\ell(\mu,\sigma^{2})=-\frac{n}{2}\ln\sigma^{2}-\frac{1}{2\sigma^{2}}\sum(x_i-\mu)^{2}\)</div>
       <p>Differentiate w.r.t. μ, then w.r.t. σ²:</p>
-      <div class="eq">∂ℓ/∂μ = (1/σ²) Σ (x<sub>i</sub> − μ) = 0 &nbsp;⟹&nbsp; <b>μ̂ = x̄ = (1/n) Σ x<sub>i</sub></b></div>
-      <div class="eq">∂ℓ/∂σ² = −n/(2σ²) + (1/2σ⁴) Σ (x<sub>i</sub> − μ)² = 0 &nbsp;⟹&nbsp; <b>σ̂² = (1/n) Σ (x<sub>i</sub> − x̄)²</b></div>
+      <div class="eq">\(\frac{\partial\ell}{\partial\mu}=\frac{1}{\sigma^{2}}\sum(x_i-\mu)=0\;\Longrightarrow\;\hat{\mu}=\bar{x}=\frac{1}{n}\sum x_i\)</div>
+      <div class="eq">\(\frac{\partial\ell}{\partial\sigma^{2}}=-\frac{n}{2\sigma^{2}}+\frac{1}{2\sigma^{4}}\sum(x_i-\mu)^{2}=0\;\Longrightarrow\;\hat{\sigma}^{2}=\frac{1}{n}\sum(x_i-\bar{x})^{2}\)</div>
       <p><b>Worked:</b> samples 2, 4, 6, 8 → x̄ = 5; σ̂² = [(−3)²+(−1)²+1²+3²]/4 = 20/4 = 5. So the MLE is the
       <b>sample mean</b> and the <b>sample variance (dividing by n)</b>.</p>
       <div class="def"><b>MLE vs unbiased variance:</b> the MLE uses 1/n (biased); the usual "unbiased" estimator uses
@@ -109,10 +99,10 @@
     <div class="head"><span class="num">06</span><h2>MAP — Adding a Prior</h2><span class="tag">Contrast</span></div>
     <div class="card full">
       <p>MAP maximizes the posterior instead of just the likelihood:</p>
-      <div class="eq">θ̂<sub>MAP</sub> = argmax<sub>θ</sub> [ ℓ(θ) + ln P(θ) ]</div>
+      <div class="eq">\(\hat{\theta}_{\text{MAP}}=\arg\max_{\theta}\bigl[\ell(\theta)+\ln P(\theta)\bigr]\)</div>
       <p>The prior P(θ) acts as a regularizer. With a <b>Gaussian prior</b> on μ, N(μ₀, τ²), the MAP mean becomes a
       shrinkage estimate:</p>
-      <div class="eq">μ̂<sub>MAP</sub> = ( Σx<sub>i</sub>/σ² + μ₀/τ² ) / ( n/σ² + 1/τ² )</div>
+      <div class="eq">\(\hat{\mu}_{\text{MAP}}=\frac{\sum x_i/\sigma^{2}+\mu_{0}/\tau^{2}}{n/\sigma^{2}+1/\tau^{2}}\)</div>
       <p>As the prior tightens (τ²→0) μ̂→μ₀; as data grows (n→∞) μ̂→x̄ — the prior loses influence. This is exactly the
       role of regularization in regression (M2).</p>
       <div class="tablewrap">

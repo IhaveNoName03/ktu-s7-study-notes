@@ -75,6 +75,7 @@
     }).join("");
     nav.innerHTML='<span class="navhead">Browse</span>'+
       '<a href="index.html" class="home'+(activeHref==="index.html"?' active':'')+'">Home</a>'+
+      '<a href="../index.html" class="allsubj">All subjects</a>'+
       '<div class="moddd"><button class="moddd-btn'+(activeHref!=="index.html"?' active':'')+'" type="button" aria-haspopup="true" aria-expanded="false">Modules <span class="caret">&#9662;</span></button><div class="moddd-panel">'+modLinks+'</div></div>';
   }
   buildNav();
@@ -232,6 +233,96 @@
       b.innerHTML = '<span class="mark"></span><span class="name">' + name + '</span>' +
         (subj ? '<span class="sep">/</span><span class="subj">' + subj + '</span>' : '');
     }
+  })();
+
+  /* ---------- Motion layer (tasteful micro-animations, Trend 6) ---------- */
+  (function () {
+    var root = document.documentElement;
+    if (prefersReduced) return;            // reduced-motion: keep everything static
+    root.classList.add("motion");
+
+    // Scroll-reveal: fade + rise once when scrolled into view
+    var revealEls = [].slice.call(document.querySelectorAll(".section,.card,.scard,.stat,.qbox,.def,.tablewrap"));
+    if ("IntersectionObserver" in window && revealEls.length) {
+      revealEls.forEach(function (el, i) {
+        el.style.setProperty("--rv-delay", (Math.min(i, 10) * 35) + "ms");
+        el.classList.add("rv");
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("rv-in"); io.unobserve(en.target); }
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    }
+
+    // Click ripple on primary CTA buttons
+    document.querySelectorAll(".cta a").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        if (typeof e.clientX !== "number") return;
+        var r = btn.getBoundingClientRect();
+        var d = Math.max(r.width, r.height);
+        var s = document.createElement("span");
+        s.className = "ripple";
+        s.style.width = s.style.height = d + "px";
+        s.style.left = (e.clientX - r.left - d / 2) + "px";
+        s.style.top = (e.clientY - r.top - d / 2) + "px";
+        btn.appendChild(s);
+        setTimeout(function () { s.remove(); }, 650);
+      });
+    });
+
+    // Clear any stale page-transition state when returning via back/forward (bfcache)
+    window.addEventListener('pageshow', function () { document.body.classList.remove('page-out'); });
+    document.addEventListener('DOMContentLoaded', function () { document.body.classList.remove('page-out'); });
+    // Subtle page-transition fade on internal .html navigation
+    document.querySelectorAll('a[href$=".html"]').forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        var href = link.getAttribute("href");
+        if (!href || href.charAt(0) === "#") return;
+        e.preventDefault();
+        document.body.classList.add("page-out");
+        setTimeout(function () { window.location.href = link.href; }, 170);
+      });
+    });
+  })();
+
+  /* ---------- Math typesetting (KaTeX, vendored locally — offline, no CDN) ---------- */
+  (function () {
+    function loadMath() {
+      if (window.katex && window.renderMathInElement) {
+        try {
+          renderMathInElement(document.body, {
+            delimiters: [
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["no-katex"],
+            throwOnError: false
+          });
+        } catch (e) {}
+        return true;
+      }
+      return false;
+    }
+    function ensureKatex(cb) {
+      if (window.katex) return cb();
+      var css = document.createElement("link");
+      css.rel = "stylesheet"; css.href = "assets/vendor/katex/dist/katex.min.css";
+      document.head.appendChild(css);
+      var s = document.createElement("script");
+      s.src = "assets/vendor/katex/dist/katex.min.js";
+      s.onload = function () {
+        var r = document.createElement("script");
+        r.src = "assets/vendor/katex/dist/contrib/auto-render.min.js";
+        r.onload = cb; document.head.appendChild(r);
+      };
+      document.head.appendChild(s);
+    }
+    ensureKatex(function () { loadMath(); });
+    // Re-scan after fonts/layout settle (covers late-injected content)
+    window.addEventListener("load", function () { loadMath(); });
   })();
 
 })();

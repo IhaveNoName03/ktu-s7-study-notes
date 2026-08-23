@@ -11,15 +11,16 @@
   --line:#e3e6ea;       /* hairlines */
   --paper:#ffffff;
   --bg:#f4f5f7;         /* page background */
+  --footer-bg:#111418;     /* footer band (dark in both themes) */
   --accent:#e0241b;     /* Swiss red */
   --accent-ink:#b01a13;
   --accent-soft:#fdecea;/* faint red tint for hovers */
   --blue:#0b5fd6;       /* link blue */
   --maxw:1180px;
   --r:8px;
-  --shadow-sm:0 1px 2px rgba(17,20,24,.06), 0 1px 3px rgba(17,20,24,.08);
-  --shadow-md:0 4px 14px rgba(17,20,24,.10);
-  --shadow-lg:0 10px 30px rgba(17,20,24,.14);
+  --shadow-sm:0 1px 2px rgba(17,20,24,.08), 0 2px 6px rgba(17,20,24,.10);
+  --shadow-md:0 6px 16px rgba(17,20,24,.14);
+  --shadow-lg:0 14px 38px rgba(17,20,24,.18);
 }
 
 *{box-sizing:border-box}
@@ -35,7 +36,7 @@ body{
   text-rendering:optimizeLegibility;
 }
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
-a:hover{text-decoration:underline}
+a:hover{text-decoration:none}
 ::selection{background:var(--accent);color:#fff}
 
 /* ---------- Top bar ---------- */
@@ -191,6 +192,28 @@ a:hover{text-decoration:underline}
   color:var(--ink-2);font-size:15px;line-height:1.65;
 }
 .def b{color:var(--ink)}
+
+/* ---------- Equations (KaTeX) — breathing room ---------- */
+.eq,.qbox{
+  display:block;
+  background:var(--accent-soft);
+  border-left:4px solid var(--accent);
+  border-radius:0 var(--r) var(--r) 0;
+  padding:18px 22px;
+  margin:20px 0;
+  overflow-x:auto;
+  color:var(--ink);
+  font-size:16px;
+  line-height:2;
+  text-align:center;
+  letter-spacing:.2px;
+  -webkit-overflow-scrolling:touch;
+}
+.eq .katex,.qbox .katex{ font-size:1.12em; }
+.katex{ line-height:1.7; }
+.katex-display{ margin:.4em 0; }
+.eq::-webkit-scrollbar,.qbox::-webkit-scrollbar{height:6px}
+.eq::-webkit-scrollbar-thumb,.qbox::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 code{
   background:#eceef1;padding:1px 6px;border-radius:4px;font-size:13px;
   font-family:"SFMono-Regular",Consolas,monospace;color:var(--accent-ink);
@@ -223,7 +246,7 @@ td:first-child,th:first-child{font-weight:600}
 .pagenav .next{margin-left:auto}
 
 /* ---------- Footer ---------- */
-.site{background:var(--ink);color:#aeb4bc;padding:24px 20px;font-size:13px;
+.site{background:var(--footer-bg);color:#aeb4bc;padding:24px 20px;font-size:13px;
   border-top:3px solid var(--accent)}
 .site .inner{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;
   gap:14px;flex-wrap:wrap}
@@ -471,6 +494,7 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
 /* ===================== DARK THEME (toggle via [data-theme="dark"]) ===================== */
 :root[data-theme="dark"]{
   --ink:#EDEFF2; --ink-2:#B7BEC7; --muted:#8A929C; --line:#2a2f37;
+  --footer-bg:#0E0F12;
   --paper:#16191F; --bg:#0E0F12; --accent:#E0241B; --accent-ink:#ff8a82; --accent-soft:#2a1413;
   --shadow-sm:0 1px 3px rgba(0,0,0,.5);
 }
@@ -529,3 +553,19 @@ html[data-theme="dark"] .topbar{background:rgba(12,14,18,.86)}
 .theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
 .theme-toggle .ic{font-size:13px;line-height:1}
 
+/* ===== Motion layer (2026 Trend: tasteful micro-animations) ===== */
+/* Only active when <html class="motion"> — reduced-motion users get static content. */
+.motion .rv{opacity:0;transform:translateY(16px);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1);
+  transition-delay:var(--rv-delay,0ms)}
+.motion .rv-in{opacity:1;transform:none}
+.motion body{transition:opacity .2s ease}
+.motion .cta a{position:relative;overflow:hidden}
+.motion .cta a .ripple{position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.3);transform:scale(0);
+  animation:ripple .6s ease-out;pointer-events:none}
+@keyframes ripple{to{transform:scale(2.6);opacity:0}}
+
+/* Page-transition overlay (instead of body opacity — keeps bfcache intact for back button) */
+.page-fade{position:fixed;inset:0;background:var(--bg);opacity:0;pointer-events:none;z-index:9999;transition:opacity .16s ease;}
+.page-fade.in{opacity:1;}

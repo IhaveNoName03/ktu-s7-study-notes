@@ -16,6 +16,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m4-1.html">M4 · Clustering</a>
       <a href="m4-2.html" class="active">M4 · PCA</a>
       <a href="m5-1.html">M5 · Assessment</a>
@@ -46,7 +47,7 @@
       <p>Given d-dimensional data, PCA finds d orthogonal directions (principal components) ordered by how much
       variance they capture. Project onto the first k components to get a k-dimensional representation that keeps
       as much variance as possible.</p>
-      <div class="eq">Z = W<sup>T</sup> X</div>
+      <div class="eq">\(Z=W^{T}X\)</div>
       <p>where the columns of W are the top-k eigenvectors of the data's covariance matrix, and Z is the reduced data.</p>
       <div class="def"><b>Why reduce?</b> fewer features → faster training, less overfitting, and you can plot 2-D/3-D to see structure. PCA is unsupervised — it only looks at variance, not labels.</div>
     </div>
@@ -63,22 +64,8 @@
         <li>Sort eigenvectors by eigenvalue Λ (variance along that component), keep the top k.</li>
         <li>Project: Z = V<sub>k</sub><sup>T</sup> X.</li>
       </ol>
-      <div class="eq">variance along component j = λ<sub>j</sub> &nbsp; (fraction kept = Σ<sub>j≤k</sub> λ<sub>j</sub> / Σ<sub>all</sub> λ<sub>j</sub>)</div>
+      <div class="eq">\(\text{variance along component }j=\lambda_j\quad\Bigl(\text{fraction kept}=\frac{\sum_{j\le k}\lambda_j}{\sum_{\text{all}}\lambda_j}\Bigr)\)</div>
       <div class="def"><b>Choosing k:</b> keep enough components to retain, say, 95% of total variance. A scree plot (eigenvalue vs index) shows the "elbow" where extra components add little.</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="head"><span class="num">03</span><h2>Worked — 2-D to 1-D</h2><span class="tag">Worked</span></div>
-    <div class="card full">
-      <p>Centered 2-D points roughly lie along a tilted line. The covariance matrix has eigenvectors v₁ (the long
-      direction, large λ₁) and v₂ (the short direction, small λ₂). Projecting onto v₁ keeps most of the spread:</p>
-      <div class="eq">fraction kept = λ₁ / (λ₁ + λ₂)</div>
-      <p>If λ₁ = 9 and λ₂ = 1, one component already retains <b>90%</b> of the variance — so dropping v₂ (the
-      near-zero-variance axis) barely loses information. This is why PCA can compress 100 correlated features down
-      to 10–20 without hurting model accuracy.</p>
-      <div class="def"><b>Rotation view:</b> PCA is just a rotation of the axes so the new x-axis points where the data
-      is widest. The short axis is mostly noise and can be dropped.</div>
     </div>
   </div>
 

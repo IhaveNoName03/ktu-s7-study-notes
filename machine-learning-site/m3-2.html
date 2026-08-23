@@ -16,6 +16,7 @@
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
       <a href="m3-1.html">M3 · Perceptron</a>
       <a href="m3-2.html" class="active">M3 · SVM</a>
       <a href="m4-1.html">M4 · Unsupervised</a>
@@ -46,7 +47,7 @@
     <div class="card full">
       <p>For linearly separable data, the decision boundary is a hyperplane w·x + b = 0. The margin is the distance
       from the boundary to the nearest point; SVM maximizes it. In the <b>hard-margin</b> case:</p>
-      <div class="eq">minimize ½ ‖w‖² &nbsp; subject to &nbsp; y<sub>i</sub>(w·x<sub>i</sub> + b) ≥ 1 &nbsp; ∀i</div>
+      <div class="eq">\(\text{minimize}\ \tfrac{1}{2}\,\lVert w\rVert^{2}\ \text{subject to}\ y_i(w\cdot x_i+b)\ge 1\ \forall i\) &nbsp; subject to &nbsp; y<sub>i</sub>(w·x<sub>i</sub> + b) ≥ 1 &nbsp; ∀i</div>
       <p>Minimizing ½‖w‖² maximizes the margin (margin = 2/‖w‖). The constraints force every point to be at least
       1 unit from the boundary in scaled space.</p>
       <div class="def"><b>Support vectors:</b> only the points that sit exactly on the margin (the active constraints)
@@ -59,9 +60,9 @@
     <div class="card full">
       <p>Real data isn't perfectly separable, so we allow small violations ξ<sub>i</sub> (slack) and trade them off
       against margin width with a penalty C:</p>
-      <div class="eq">minimize ½ ‖w‖² + C Σ ξ<sub>i</sub> &nbsp; s.t. &nbsp; y<sub>i</sub>(w·x<sub>i</sub> + b) ≥ 1 − ξ<sub>i</sub>, ξ<sub>i</sub> ≥ 0</div>
+      <div class="eq">\(\text{minimize}\ \tfrac{1}{2}\lVert w\rVert^{2}+C\sum_i\xi_i\ \text{s.t.}\ y_i(w\cdot x_i+b)\ge 1-\xi_i,\ \xi_i\ge 0\)</div>
       <p>The <b>dual form</b> (via Lagrange multipliers α<sub>i</sub>) reveals the kernel trick:</p>
-      <div class="eq">maximize Σ α<sub>i</sub> − ½ ΣΣ α<sub>i</sub>α<sub>j</sub> y<sub>i</sub>y<sub>j</sub> K(x<sub>i</sub>, x<sub>j</sub>) &nbsp; s.t. &nbsp; 0 ≤ α<sub>i</sub> ≤ C, Σ α<sub>i</sub>y<sub>i</sub> = 0</div>
+      <div class="eq">\(\text{maximize}\ \sum_i\alpha_i-\tfrac{1}{2}\sum_i\sum_j\alpha_i\alpha_j y_i y_j\,K(x_i,x_j)\ \text{s.t.}\ 0\le\alpha_i\le C,\ \sum_i\alpha_i y_i=0\)</div>
       <p>The classifier becomes f(x) = sign( Σ<sub>SV</sub> α<sub>i</sub> y<sub>i</sub> K(x<sub>i</sub>, x) + b ).</p>
       <div class="def"><b>C controls bias–variance:</b> large C → few violations, narrow margin, risk of overfitting;
       small C → wider margin, more tolerance, smoother boundary.</div>
@@ -88,19 +89,7 @@
     </div>
   </div>
 
-  <div class="section">
-    <div class="head"><span class="num">04</span><h2>Worked — Polynomial Kernel Similarity</h2><span class="tag">Worked</span></div>
-    <div class="card full">
-      <p>Let x = (1, 2), x′ = (0, 1), polynomial kernel with d = 2, c = 0:</p>
-      <div class="eq">K = (x·x′)² = (1·0 + 2·1)² = (2)² = 4</div>
-      <p>Compare with the explicit lift φ((a,b)) = (a², √2ab, b²): φ(x) = (1, 2√2, 4), φ(x′) = (0, 0, 1),
-      and φ(x)·φ(x′) = 0 + 0 + 4 = 4 — same result, but the kernel needed no 3-D computation for higher d.</p>
-      <div class="def"><b>Why it matters:</b> with d = 3 the lifted space has 10 dimensions; the kernel still costs one
-      dot product. That efficiency is the whole point of the kernel trick.</div>
-    </div>
-  </div>
-
-  <nav class="pagenav">
+<nav class="pagenav">
     <a class="prev" href="m3-1.html">← Prev: M3 · Perceptron</a>
     <a class="next" href="m4-1.html">Next: M4 · Unsupervised →</a>
   </nav>

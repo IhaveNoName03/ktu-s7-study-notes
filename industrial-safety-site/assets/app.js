@@ -75,6 +75,7 @@
     }).join("");
     nav.innerHTML='<span class="navhead">Browse</span>'+
       '<a href="index.html" class="home'+(activeHref==="index.html"?' active':'')+'">Home</a>'+
+      '<a href="../index.html" class="allsubj">All subjects</a>'+
       '<div class="moddd"><button class="moddd-btn'+(activeHref!=="index.html"?' active':'')+'" type="button" aria-haspopup="true" aria-expanded="false">Modules <span class="caret">&#9662;</span></button><div class="moddd-panel">'+modLinks+'</div></div>';
   }
   buildNav();
@@ -232,6 +233,102 @@
       b.innerHTML = '<span class="mark"></span><span class="name">' + name + '</span>' +
         (subj ? '<span class="sep">/</span><span class="subj">' + subj + '</span>' : '');
     }
+  /* ---------- Motion layer (tasteful micro-animations, Trend 6) ---------- */
+  (function () {
+    var root = document.documentElement;
+    if (prefersReduced) return;            // reduced-motion: keep everything static
+    root.classList.add("motion");
+
+    // Scroll-reveal: fade + rise once when scrolled into view
+    var revealEls = [].slice.call(document.querySelectorAll(".section,.card,.scard,.stat,.qbox,.def,.tablewrap"));
+    if ("IntersectionObserver" in window && revealEls.length) {
+      revealEls.forEach(function (el, i) {
+        el.style.setProperty("--rv-delay", (Math.min(i, 10) * 35) + "ms");
+        el.classList.add("rv");
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("rv-in"); io.unobserve(en.target); }
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    }
+
+    // Click ripple on primary CTA buttons
+    document.querySelectorAll(".cta a").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        if (typeof e.clientX !== "number") return;
+        var r = btn.getBoundingClientRect();
+        var d = Math.max(r.width, r.height);
+        var s = document.createElement("span");
+        s.className = "ripple";
+        s.style.width = s.style.height = d + "px";
+        s.style.left = (e.clientX - r.left - d / 2) + "px";
+        s.style.top = (e.clientY - r.top - d / 2) + "px";
+        btn.appendChild(s);
+        setTimeout(function () { s.remove(); }, 650);
+      });
+    });
+
+    // Clear any stale page-transition state when returning via back/forward (bfcache)
+    window.addEventListener('pageshow', function () { document.body.classList.remove('page-out'); });
+    document.addEventListener('DOMContentLoaded', function () { document.body.classList.remove('page-out'); });
+    // Subtle page-transition fade on internal .html navigation
+    // Uses a brief overlay instead of body opacity — keeps pages bfcache-restorable
+    // (setting body opacity:0 then navigating away breaks back-button restore in some browsers)
+    document.querySelectorAll('a[href$=".html"]').forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        var href = link.getAttribute("href");
+        if (!href || href.charAt(0) === "#") return;
+        e.preventDefault();
+        // Show a white overlay (not body opacity) so the DOM stays at opacity 1 for bfcache
+        var ov = document.createElement("div");
+        ov.className = "page-fade";
+        document.body.appendChild(ov);
+        // force reflow so transition runs
+        void ov.offsetWidth;
+        ov.classList.add("in");
+        setTimeout(function () { window.location.href = link.href; }, 160);
+      });
+    });
+  })();
+
+  })();
+
+  /* ---------- Math typesetting (KaTeX, vendored locally — offline, no CDN) ---------- */
+  (function () {
+    function loadMath() {
+      if (window.katex && window.renderMathInElement) {
+        window.renderMathInElement(document.body, {
+          delimiters: [
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+          ],
+          throwOnError: false
+        });
+        return;
+      }
+      var css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href = "assets/vendor/katex/dist/katex.min.css";
+      document.head.appendChild(css);
+      var s = document.createElement("script");
+      s.src = "assets/vendor/katex/dist/katex.min.js";
+      s.onload = function () {
+        var r = document.createElement("script");
+        r.src = "assets/vendor/katex/dist/contrib/auto-render.min.js";
+        r.onload = function () { window.renderMathInElement(document.body, {
+          delimiters: [
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+          ], throwOnError: false }); };
+        document.head.appendChild(r);
+      };
+      document.head.appendChild(s);
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", loadMath);
+    else loadMath();
   })();
 
 })();
