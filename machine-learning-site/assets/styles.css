@@ -37,7 +37,7 @@ body{
 }
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
 a:hover{text-decoration:none}
-::selection{background:var(--accent);color:#fff;text-shadow:-1px 0 #00ffff,1px 0 #ff00ff}
+::selection{background:var(--accent);color:#fff;text-shadow:-2px 0 #00ffff,2px 0 #ff00ff,0 -1px #ff00ff,0 2px #00ffff}
 
 /* ---------- Top bar ---------- */
 .topbar{
@@ -627,7 +627,7 @@ body{
 }
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
 a:hover{text-decoration:none}
-::selection{background:var(--accent);color:#fff;text-shadow:-1px 0 #00ffff,1px 0 #ff00ff}
+::selection{background:var(--accent);color:#fff;text-shadow:-2px 0 #00ffff,2px 0 #ff00ff,0 -1px #ff00ff,0 2px #00ffff}
 
 /* ---------- Top bar ---------- */
 .topbar{
