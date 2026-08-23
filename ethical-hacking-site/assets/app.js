@@ -187,15 +187,15 @@
     });
   });
 
-  /* ---------- Theme toggle (light/dark) — persists across pages & sites ---------- */
+  /* ---------- Theme toggle (light → dark → amoled → light) ---------- */
   (function () {
     var root = document.documentElement;
+    var order = ["light", "dark", "amoled"];
+    var icons = { light: "☀", dark: "☾", amoled: "⬤" };
+    var labels = { light: "Light", dark: "Dark", amoled: "Amoled" };
     function read() {
-      try {
-        var c = document.cookie.match(/(^|; )theme=(dark|light)(;|$)/);
-        if (c) return c[2];
-      } catch (e) {}
-      try { var ls = localStorage.getItem("theme"); if (ls === "dark" || ls === "light") return ls; } catch (e) {}
+      try { var c = document.cookie.match(/(^|; )theme=(dark|light|amoled)(;|$)/); if (c) return c[2]; } catch (e) {}
+      try { var ls = localStorage.getItem("theme"); if (ls === "dark" || ls === "light" || ls === "amoled") return ls; } catch (e) {}
       return null;
     }
     function write(v) {
@@ -210,14 +210,15 @@
       var btn = document.createElement("button");
       btn.className = "theme-toggle";
       btn.type = "button";
-      btn.setAttribute("aria-label", "Toggle dark theme");
+      btn.setAttribute("aria-label", "Toggle theme (light/dark/amoled)");
       function paint() {
-        var dark = root.getAttribute("data-theme") === "dark";
-        btn.innerHTML = '<span class="ic">' + (dark ? "\u263E" : "\u2600") + '</span> ' + '<span class="lbl">' + (dark ? "Dark" : "Light") + "</span>";
+        var cur = root.getAttribute("data-theme") || "light";
+        btn.innerHTML = '<span class="ic">' + icons[cur] + '</span> <span class="lbl">' + labels[cur] + "</span>";
       }
       btn.addEventListener("click", function () {
-        var dark = root.getAttribute("data-theme") === "dark";
-        var next = dark ? "light" : "dark";
+        var cur = root.getAttribute("data-theme") || "light";
+        var idx = order.indexOf(cur);
+        var next = order[(idx + 1) % order.length];
         root.setAttribute("data-theme", next);
         write(next);
         paint();

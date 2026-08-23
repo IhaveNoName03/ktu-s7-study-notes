@@ -44,6 +44,11 @@
     transition:background .2s ease, padding-left .2s ease; position:relative}
   .scard:last-child{border-bottom:1px solid var(--line)}
   .scard:hover{background:#faf7f4;text-decoration:none;padding-left:14px}
+  .scard{transform:translate3d(0,0,0);will-change:transform}
+  .scard.warp{box-shadow:0 8px 30px rgba(0,0,0,.14),0 2px 8px rgba(0,0,0,.06)}
+  .scard.warp .idx,.scard.warp h3{transform:translate3d(calc(var(--mx) * 8px - 4px),calc(var(--my) * 5px - 2.5px),0)}
+  .scard.warp h3{text-shadow:calc(var(--mx) * -3px) calc(var(--my) * 2px) 0 rgba(0,200,255,.45),calc(var(--mx) * 3px) calc(var(--my) * -2px) 0 rgba(255,0,200,.35)}
+  @media (prefers-reduced-motion: reduce){.scard,.scard .idx,.scard h3{transition:none!important}.scard.warp .idx,.scard.warp h3{transform:none!important}}
   .scard .idx{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--accent);line-height:1;padding-top:2px}
   .scard .main .code{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
   .scard .main h3{font-family:var(--serif);font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.4px;margin:4px 0 8px;line-height:1.05;color:var(--accent)}
@@ -247,21 +252,37 @@
     var target=+el.getAttribute('data-count'), cur=0, step=Math.max(1,Math.round(target/28));
     var t=setInterval(function(){ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=cur; },22);
   });
+  // Pointer tracker
+  var pointer={x:0,y:0};
+  window.addEventListener('pointermove',function(e){pointer.x=e.clientX;pointer.y=e.clientY;});
+  // Scard pointer-warp effect
+  document.querySelectorAll('.scard').forEach(function(card){
+    var raf=0;
+    function update(){ var rect=card.getBoundingClientRect(); var mx=(pointer.x-rect.left)/rect.width-0.5; var my=(pointer.y-rect.top)/rect.height-0.5;
+      card.style.setProperty('--mx',mx.toFixed(3)); card.style.setProperty('--my',my.toFixed(3)); raf=0; }
+    card.addEventListener('pointerenter',function(){card.classList.add('warp'); if(!raf)raf=requestAnimationFrame(update);});
+    card.addEventListener('pointerleave',function(){card.classList.remove('warp'); card.style.setProperty('--mx','0'); card.style.setProperty('--my','0'); if(raf)cancelAnimationFrame(raf); raf=0;});
+    card.addEventListener('pointermove',function(){if(card.classList.contains('warp')&&!raf)raf=requestAnimationFrame(update);});
+  });
 
-  // Theme toggle (light/dark) — persists across pages & sites via cookie + localStorage
+  // Theme toggle (light → dark → amoled → light) — persists across pages & sites
   (function(){
     var root=document.documentElement;
-    function read(){ try{var c=document.cookie.match(/(^|; )theme=(dark|light)(;|$)/); if(c) return c[2];}catch(e){}
-      try{var ls=localStorage.getItem("theme"); if(ls==="dark"||ls==="light") return ls;}catch(e){} return null; }
+    var order=["light","dark","amoled"];
+    var icons={light:"☀︎",dark:"☾",amoled:"⬤"};
+    var labels={light:"Light",dark:"Dark",amoled:"Amoled"};
+    function read(){ try{var c=document.cookie.match(/(^|; )theme=(dark|light|amoled)(;|$)/); if(c) return c[2];}catch(e){}
+      try{var ls=localStorage.getItem("theme"); if(ls==="dark"||ls==="light"||ls==="amoled") return ls;}catch(e){} return null; }
     function write(v){ try{document.cookie="theme="+v+";path=/;max-age=31536000;samesite=lax";}catch(e){}
       try{localStorage.setItem("theme",v);}catch(e){} }
     var saved=read(); if(saved) root.setAttribute("data-theme",saved);
     var bar=document.querySelector(".topbar-inner"); if(bar){
       var btn=document.createElement("button"); btn.className="theme-toggle"; btn.type="button";
-      btn.setAttribute("aria-label","Toggle dark theme");
-      function paint(){ var d=root.getAttribute("data-theme")==="dark";
-        btn.innerHTML='<span class="ic">'+(d?"☾":"☀︎")+'</span> <span class="lbl">'+(d?"Dark":"Light")+'</span>'; }
-      btn.addEventListener("click",function(){ var d=root.getAttribute("data-theme")==="dark"; var n=d?"light":"dark";
+      btn.setAttribute("aria-label","Toggle theme (light/dark/amoled)");
+      function paint(){ var cur=root.getAttribute("data-theme")||"light";
+        btn.innerHTML='<span class="ic">'+icons[cur]+'</span> <span class="lbl">'+labels[cur]+'</span>'; }
+      btn.addEventListener("click",function(){ var cur=root.getAttribute("data-theme")||"light";
+        var idx=order.indexOf(cur); var n=order[(idx+1)%order.length];
         root.setAttribute("data-theme",n); write(n); paint(); });
       paint(); bar.appendChild(btn);
     }

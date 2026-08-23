@@ -1136,3 +1136,48 @@ html[data-theme="dark"] .topbar{background:rgba(12,14,18,.86)}
 /* Page-transition overlay (instead of body opacity — keeps bfcache intact for back button) */
 .page-fade{position:fixed;inset:0;background:var(--bg);opacity:0;pointer-events:none;z-index:9999;transition:opacity .16s ease;}
 .page-fade.in{opacity:1;}
+/* ─── AMOLED theme (pure black) ─── */
+:root[data-theme="amoled"]{
+  --bg:#000000;
+  --paper:#0a0a0a;
+  --ink:#e8e8e8;
+  --ink-2:#b0b0b0;
+  --muted:#7a7a7a;
+  --line:#1a1a1a;
+  --accent:#ff3b30;
+  --accent-ink:#ff8a80;
+  --accent-soft:#1a0808;
+  --blue:#4da6ff;
+  --footer-bg:#000000;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.6);
+  --shadow-md:0 4px 14px rgba(0,0,0,.7);
+  --shadow-lg:0 10px 30px rgba(0,0,0,.8);
+}
+:root[data-theme="amoled"] body{background:var(--bg);color:var(--ink)}
+:root[data-theme="amoled"] .topbar{background:#000000;border-bottom-color:#1a1a1a}
+:root[data-theme="amoled"] .card,.scard,.mcard{background:#0a0a0a;border-color:#1a1a1a}
+:root[data-theme="amoled"] .card:hover,.scard:hover,.mcard:hover{background:#111111}
+:root[data-theme="amoled"] .hero{background:linear-gradient(180deg,#000000,#0a0a0a)}
+:root[data-theme="amoled"] a{color:var(--accent-ink)}
+:root[data-theme="amoled"] .topnav a{color:var(--ink-2)}
+:root[data-theme="amoled"] .topnav a:hover{color:var(--ink)}
+:root[data-theme="amoled"] .topnav a.active{background:var(--accent);color:#fff}
+:root[data-theme="amoled"] .qsearch{background:#0a0a0a;color:var(--ink);border-color:#1a1a1a}
+:root[data-theme="amoled"] thead th{background:#111111;color:var(--ink)}
+:root[data-theme="amoled"] tbody tr:nth-child(even){background:#0a0a0a}
+:root[data-theme="amoled"] tbody tr:hover{background:#1a1a1a}
+:root[data-theme="amoled"] .ans-toggle,.ansbtn{background:#111111;border-color:#1a1a1a;color:var(--accent-ink)}
+:root[data-theme="amoled"] .ans-toggle[aria-expanded="true"],.ansbtn:hover{background:var(--accent);color:#fff}
+:root[data-theme="amoled"] .eq,.def,.qbox,.note,.ex{background:#0a0a0a;border-color:#1a1a1a}
+:root[data-theme="amoled"] .site{background:#000000;color:#aeb4bc}
+:root[data-theme="amoled"] .site a{color:#aeb6c0}
+:root[data-theme="amoled"] .site a:hover{color:#fff}
+:root[data-theme="amoled"] .pagenav a:hover{background:#111111;color:#fff}
+:root[data-theme="amoled"] .qsearch-clear{background:#0a0a0a;color:var(--ink-2);border-color:#1a1a1a}
+:root[data-theme="amoled"] .qsearch-clear:hover{background:#111111;color:#fff}
+:root[data-theme="amoled"] .moddd-panel a.active{background:var(--accent);color:#fff}
+:root[data-theme="amoled"] .moddd-btn.active{background:var(--accent);color:#fff}
+:root[data-theme="amoled"] .moddd.open .moddd-btn{background:var(--accent);color:#fff}
+:root[data-theme="amoled"] .topnav a.active{background:var(--accent);color:#fff}
+:root[data-theme="amoled"] .backtop{background:#111111;color:var(--ink)}
+:root[data-theme="amoled"] .backtop:hover{background:var(--accent);color:#fff}
