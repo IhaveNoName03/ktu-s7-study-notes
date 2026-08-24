@@ -121,7 +121,6 @@ phone.
 ```
 s7/
 ├── index.html                  # hub: links to all four subjects, with search
-├── index-alt.html              # experimental alternate hub (not live)
 ├── README.md
 ├── sw.js                       # service worker: full offline caching
 ├── manifest.json               # installable web app (icons, name, shortcuts)
