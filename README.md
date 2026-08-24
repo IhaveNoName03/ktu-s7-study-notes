@@ -2,23 +2,15 @@
 
 > ### 🤖 This entire project is AI-generated. Vibecoded, start to finish.
 >
-> Every line of HTML, CSS and JavaScript here was written by an AI agent. So was every
-> page of study content — derived from the student's own source material (syllabus PDFs,
-> class notes, handwritten scans, past papers, owned textbooks), but **written by a
-> machine, not by a human subject expert.**
+> Every line of code and every page of study content was written by an AI agent from the
+> student's own source material. **No human wrote this code. No human proofread every
+> equation.**
 >
-> No human wrote this code. No human proofread every equation. The layout, the six
-> colour themes, the animations, the question banks, the derivations — all of it came
-> out of prompt-and-iterate sessions with an LLM.
->
-> **What that means for you:**
 > - Treat it as a **revision aid**, never as an authority.
-> - AI produces confident, well-formatted, plausible-sounding errors. This document is
->   not exempt.
 > - Anything exam-critical — a formula, a numeric answer, a statutory clause, a date —
->   **check against the official KTU syllabus, your textbook, or your lecturer.**
-> - Highest-risk content is anything transcribed from handwritten scans by a vision
->   model, and any worked numeric result.
+>   **check it against the official KTU syllabus, your textbook, or your lecturer.**
+> - AI produces fluent, confident, plausible-sounding errors. This project has already
+>   produced several; see [Content trust & limitations](#content-trust--limitations).
 > - Not an official KTU publication. The student who gathered the sources is not the
 >   author and is not responsible for errors.
 
@@ -58,65 +50,30 @@ an exam-technique page (`m-t1`), a question bank (`papers.html`), and its own `a
 | **Maths** | 55 equation blocks in true KaTeX display style |
 | **Mobile** | Verified 375–768 px, zero overflow; installable to the home screen |
 | **Print** | Dedicated stylesheet — chrome stripped, answers expanded, no mid-equation breaks |
-| **Revision** | Mark pages as revised; per-subject tick and count |
+| **Revision** | Mark pages as revised; per-subject tick and count (per-device, no sync) |
 
 **No dependencies, no network calls.** No CDN, no remote fonts, no analytics, no
-telemetry. KaTeX is vendored locally for maths. Double-click `index.html` and it runs
-straight off the disk.
+telemetry. KaTeX is vendored locally. Double-click `index.html` and it runs off the disk.
 
-**Six themes × three modes.** Swiss Red, Catppuccin, Gruvbox, Tokyo Night, Nord and
-Solarized, each in light / dark / **AMOLED** (true black). Chosen from one dropdown in
-the header.
+**Themes.** Swiss Red, Catppuccin, Gruvbox, Tokyo Night, Nord, Solarized — each in
+light / dark / AMOLED, from one dropdown. The choice follows you across pages *and*
+subjects, persisted through a three-tier store (`localStorage` + cookie + a URL-fragment
+bridge) because Chrome isolates storage per file on `file://`. Applied before first
+paint, so there is no flash of the wrong colour. The radial switch animation uses the
+View Transitions API: Chromium-only, and it falls back to an instant switch elsewhere
+and for `prefers-reduced-motion`.
 
-**Theme choice follows you everywhere** — across pages and across all four subjects.
-Persisted through a three-tier store (`localStorage` + cookie + a URL-fragment bridge),
-which is what makes it survive `file://` browsing, where Chrome isolates storage per
-file. Applied *before first paint*, so there is no flash of the wrong colour.
+**Layout.** Each section keeps its number, title and label in a sticky left rail while
+the prose holds a full-width measure beside it; the rail doubles as a position marker as
+you scroll. Header, nav and footer are identical across all 41 content pages — verified
+by comparing computed geometry, not by eye.
 
-**Animated theme switching.** A radial reveal built on the View Transitions API — the
-palette changes *as* the circle expands from the button, not before it. Chromium-only;
-elsewhere it falls back to an instant switch, as it does for `prefers-reduced-motion`.
+**Question banks.** Live filtering with expandable "Show answer" panels, laid out as
+label/content rows that stack on a phone.
 
-**Editorial rail layout.** Each section carries its number, title and label in a sticky
-left rail while the prose keeps a full-width measure beside it — the rail doubles as a
-live position marker as you scroll.
-
-**Identical furniture on every page.** Header, navigation and footer are the same across
-all 41 content pages (verified by comparing computed geometry, not by eye).
-
-**Searchable question banks.** Live filtering plus expandable "Show answer" panels, with
-answers laid out as label/content rows that stack on a phone.
-
-**Real display maths.** All 55 equation blocks render in KaTeX display style — full-size
-stacked fractions, sums and products with limits above and below.
-
-**Phone-first, not phone-tolerated.** Verified across five viewports from 375 px to
-768 px: zero horizontal overflow, the rail collapses to an inline heading, wide tables
-and formulas scroll inside their own block.
-
-**Truly offline on a phone too.** A service worker precaches all 46 pages, both
-stylesheets, the theme scripts and the KaTeX fonts on first visit, so the site keeps
-working with no signal — not just when opened from a local folder. HTML is
-network-first (fresh when online), assets are cache-first.
-
-**Print / PDF ready.** A dedicated print stylesheet drops the nav, rail, footer and
-theme control, forces black-on-white, expands every collapsed answer, repeats table
-headers across pages and avoids breaking a card or equation mid-block.
-
-**Cross-subject search.** The hub searches a generated index of **261 sections across
-all 41 pages**, not just the four subject cards — so "naive bayes" or "hazop" jumps
-straight to the right page, with the matched terms highlighted. Needs to be *served*
-(GitHub Pages, or `python3 -m http.server`); opened by double-clicking a file the
-browser blocks the index fetch and only the four subject cards are filtered.
-
-**Installable.** A web manifest plus icons means you can "Add to Home Screen" on a
-phone and it opens fullscreen with no address bar, like an app. The mobile browser bar
-also recolours to match whichever theme is active.
-
-**Mark as revised.** Every module page has a toggle at the end; ticked pages show a
-badge on the subject index along with a "3 of 12 revised" count. Stored locally per
-device — there is no backend, so progress does **not** sync between your laptop and
-phone.
+**Cross-subject search** needs to be *served* (GitHub Pages, or `python3 -m
+http.server`). Opened by double-clicking a file, the browser blocks the index fetch and
+only the four subject cards are filtered.
 
 ---
 
@@ -156,38 +113,36 @@ folder on purpose, so a single subject can be copied onto a USB stick and still 
 
 ---
 
-## How it was built
+## Where the content came from
 
-1. **Sources gathered** by the student — KTU syllabus PDFs, clean and handwritten class
-   notes, past papers (one arrived as a WhatsApp photo), and owned textbooks.
-2. **Text extracted** — clean PDFs with PyMuPDF; handwritten scans rendered to PNG and
-   read with a vision model.
-3. **Content written by the AI agent**, mapped to the official KTU module list and
-   grounded strictly in the supplied material.
-4. **Iterated by conversation.** The design went through several rejected directions —
-   neomorphism, a bento grid, a full-width stack — before settling on the editorial rail.
-   Much of the work was fixing what earlier passes got wrong.
-5. **Verified by automation, not by vibes.** Headless browser sweeps for contrast,
-   overflow, duplicate IDs, dead links, JS exceptions and theme correctness across every
-   page × 18 theme/mode combinations, plus vision checks on rendered screenshots.
+The student supplied everything: KTU syllabus PDFs, clean and handwritten class notes,
+past papers (one arrived as a WhatsApp photo), and owned textbooks. Clean PDFs were read
+with PyMuPDF; handwritten scans were rendered to PNG and read with a vision model. The
+AI then wrote every page from that material, mapped to the official KTU module list.
 
-That verification caught real bugs an eyeball pass had missed: white slabs in dark mode
-from surfaces filled with the *light* ink colour, four answer buttons that silently did
-nothing because a panel shared its `id` with its wrapper, equations rendering in cramped
-inline style, a theme setting that never persisted on `file://`, and — notably — an index
-card advertising a **cryptography module that does not exist in CCT 401**.
-
-That last one is the clearest illustration of why the warning at the top of this file
-matters: the AI confidently described content it had never written.
+Verification was automated rather than eyeballed: headless-browser sweeps for contrast,
+overflow, duplicate IDs, dead links and JS exceptions across every page × 18 theme/mode
+combinations, plus vision checks on rendered screenshots.
 
 ---
 
 ## Content trust & limitations
 
+**Read this before relying on any page.**
+
 - **Handwritten-scan transcriptions are the weakest link.** Vision OCR misreads symbols
   and digits. Re-derive any numeric result before trusting it.
-- **AI authorship means fluent, confident errors are possible** — and have already been
-  found and fixed here. Assume more remain.
+- **Fluent, confident errors are the characteristic AI failure** — and this project has
+  already produced them. The clearest case: the Ethical Hacking index advertised a
+  *"Module 5 — Cryptography & Tracking"* with ciphers, RSA, AES, hashing and PKI. The
+  actual source PDF is titled *"Covering tracks and hiding"* and contains **zero**
+  mentions of any of those; cryptography is not a module in CCT 401 at all. The AI had
+  confidently described content it never wrote. Assume more such errors remain.
+- **Other bugs automation caught that a read-through missed:** white slabs in dark mode
+  from surfaces filled with the *light* ink colour, four "Show answer" buttons that
+  silently did nothing, and every equation rendering in cramped inline style.
+- **"Mark as revised" is per-device.** There is no backend, so progress does not sync
+  between your laptop and your phone, and clearing site data resets it.
 - **Syllabus drift.** Matches the S7 version supplied; a KTU revision could date a page.
 - **Fonts** are local-only with system fallbacks, so the exact typeface varies by device.
 - **The animated theme reveal is Chromium-only.** Firefox and Safari switch instantly.
