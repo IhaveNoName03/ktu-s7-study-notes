@@ -14,7 +14,7 @@
    Bump VERSION on every deploy or clients keep the old bundle forever.
    =========================================================================== */
 
-const VERSION = "s7-v2";
+const VERSION = "s7-v3";
 const CORE = VERSION + "-core";
 
 /* Everything needed to read any page with no network.

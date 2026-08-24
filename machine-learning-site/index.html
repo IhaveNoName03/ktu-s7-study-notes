@@ -133,6 +133,23 @@ html.theme-vt .theme-panel{display:none !important}
 }
 .chip.readcount{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--ink)}
 @media print{.readtick,.readcount{display:none !important}}
+
+/* ── AI disclosure ── */
+.ai-note{display:flex;align-items:flex-start;gap:10px;max-width:var(--maxw);
+  margin:0 auto 14px;padding:11px 14px;
+  border:1px solid color-mix(in srgb,var(--accent) 32%,var(--line));
+  border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+  background:color-mix(in srgb,var(--accent) 6%,transparent);
+  font-family:var(--sans);font-size:12.5px;line-height:1.55;
+  color:var(--ink-2);text-align:left}
+.ai-badge{flex:none;display:inline-flex;align-items:center;justify-content:center;
+  min-width:26px;height:18px;padding:0 6px;border-radius:4px;
+  background:var(--accent);color:var(--on-accent,#fff);
+  font-size:9.5px;font-weight:800;letter-spacing:1.1px}
+@media (max-width:560px){.ai-note{font-size:11.5px;padding:10px 12px;gap:8px}}
+@media print{.ai-note{border:1px solid #000 !important;border-left:3px solid #000 !important;
+  background:none !important;color:#000 !important}
+  .ai-badge{background:#000 !important;color:#fff !important}}
 </style>
 </head>
 <body class="subj">
@@ -224,8 +241,9 @@ html.theme-vt .theme-panel{display:none !important}
   </a>
 </div><div class="empty" id="empty">No modules match your search — try a broader term.</div>
 
+<div class="ai-note"><span class="ai-badge">AI</span>Every page on this site was written by an AI agent from the student's own notes and syllabus. Treat it as a revision aid, not an authority — verify anything exam-critical.</div>
 <div class="foot">
-  <span><b>Machine Learning (CST 413 · KTU, KTU)</b></span> &nbsp;·&nbsp; <span>12 pages</span> &nbsp;·&nbsp; <span><a href="../index.html">All subjects →</a></span>
+  <span><b>Machine Learning (CST 413 · KTU)</b></span> &nbsp;·&nbsp; <span>12 pages</span> &nbsp;·&nbsp; <span><a href="../index.html">All subjects →</a></span>
 </div>
 
 <script>
