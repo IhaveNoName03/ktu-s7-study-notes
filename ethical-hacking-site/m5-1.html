@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 5 · Covering Tracks, Logging &amp; Privilege Escalation</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -56,7 +55,7 @@
     <div class="card full">
       <p>After gaining access, an attacker erases evidence — disables auditing, clears logs, modifies
       logs/registry, removes created files/folders. This extends the "maintaining access" phase.</p>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>Hiding malicious processes</h4><p>Run under genuine OS process names; Task Manager shows disproportionate resource use. <b>Covert channels</b> tunnel traffic in overlooked protocols (DNS/ICMP) — indicator = large ICMP/DNS volumes, zone transfers.</p></div>
         <div class="card"><h4>Why it matters</h4><p>Anti-forensics slows incident response and lets the attacker keep access. Defenders rely on logging integrity (see §04).</p></div>
       </div>
@@ -91,7 +90,7 @@
   <div class="section">
     <div class="head"><span class="num">03</span><h2>Defenses Against Log &amp; Accounting Attacks</h2>
       <span class="tag">Hardening</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Activate logging</h4><p>Turn on auditing so events are actually captured.</p></div>
       <div class="card"><h4>Proper permissions</h4><p>Restrict who can read/modify logs.</p></div>
       <div class="card"><h4>Separate logging server</h4><p>Ship logs off-box (SIEM) so local tampering loses the copy.</p></div>
@@ -108,7 +107,7 @@
     <div class="card full">
       <p>A <b>covert channel</b> hides data while it moves. <b>Data-hiding techniques:</b> hidden partitions,
       file extensions, hidden attribute, bit-shifting, encryption, password protection.</p>
-      <div class="grid cols-3">
+      <div class="stack">
         <div class="card"><h4>File manipulation</h4><p>Names/extensions/hidden attribute (e.g. common with FAT systems; place sensitive info on free space).</p></div>
         <div class="card"><h4>Disk manipulation</h4><p>Hidden partitions; mark a good cluster bad using Norton Disk Edit — type <code>B</code> in the FAT entry for that cluster.</p></div>
         <div class="card"><h4>Bit-shifting</h4><p>Old technique: shift bit patterns to alter byte values so files look like binary executable code. Tool: Hex Workshop.</p></div>
@@ -166,7 +165,7 @@
       <p>Gaining elevated rights beyond what's assigned — via a bug, misconfiguration, or weak access
       control. <b>Five primary methods:</b> Credential exploitation · Vulnerabilities &amp; exploits ·
       Misconfigurations · Malware · Social engineering.</p>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h3><span class="idx">H</span>Horizontal</h3><p>Access rights of another account with <b>similar</b> privileges ("account takeover"). Lower-level accounts broaden the attacker's sphere — basic lateral movement.</p></div>
         <div class="card"><h3><span class="idx">V</span>Vertical</h3><p>Move from low to <b>higher</b> privilege (e.g. via a buffer overflow) to gain admin/root. Also called a privilege-elevation attack.</p></div>
       </div>
@@ -178,7 +177,7 @@
     <div class="head"><span class="num">07</span><h2>Hiding &amp; Anti-Forensics in Practice</h2>
       <span class="tag">Techniques</span></div>
     <div class="card full">
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>NTFS Alternate Data Streams</h4><p><code>type secret.txt &gt; legit.exe:hidden.txt</code> hides data in a file's stream — invisible in normal dir listings.</p></div>
         <div class="card"><h4>Timestomping</h4><p>Altering file MAC times to match legit files and dodge "recently changed" filters.</p></div>
         <div class="card"><h4>Hiding evidence by altering event logs</h4><p>Attackers target Windows event logs (anti-forensic, MITRE T1070) to slow response — clearing them (<code>wevtutil cl &lt;log&gt;</code>) or editing events to erase their own IOAs. This is the syllabus's "hiding evidence by altering event log."</p></div>
@@ -191,7 +190,7 @@
   <div class="section">
     <div class="head"><span class="num">08</span><h2>Privilege Escalation — Concrete Paths</h2>
       <span class="tag">Linux / Windows</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Linux</h4><ul>
         <li>Misconfigured <code>sudo</code> (NOPASSWD on shells)</li>
         <li>SUID binaries (<code>find / -perm -4000</code>)</li>
@@ -222,6 +221,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

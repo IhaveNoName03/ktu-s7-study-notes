@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 3 · Neural Networks &amp; Support Vector Machines</title>
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
 <style>
-  .hero{background:var(--ink);color:var(--paper);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
   .hero .inner{max-width:980px;margin:0 auto}
   .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
-  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
   .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
   .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
   .qbox p{margin:0}
@@ -20,8 +21,6 @@
   .eqdraw svg{display:block;margin:6px auto 4px;max-width:100%;height:auto}
   .eqdraw p{margin:0 0 10px;font-size:12.5px;color:var(--muted)}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -63,7 +62,7 @@
       firing (output 1) or not (output 0) depending on whether that sum crosses a threshold. It is the historical starting point of neural-network research and
       the building block from which multilayer networks are made.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">Structure</span></h3>
           <p>A perceptron has <b>n</b> inputs <b>x₁ … xₙ</b>, each with a weight <b>w₁ … wₙ</b>, a <b>bias</b> <b>b</b>, and an output. The net input is</p>
@@ -97,7 +96,7 @@
     <div class="card full">
       <p>A <b>multilayer feedforward network</b> (also called a multilayer perceptron, MLP) is a network of perceptrons arranged in <b>layers</b>: an input layer, one or more <b>hidden</b> layers, and an output layer. Information flows forward — from input, through the hidden layers, to the output. Unlike a single perceptron, a multilayer network can learn <b>non-linear</b> decision boundaries, because the hidden layers combine several linear splits.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">Architecture</span></h3>
           <p>Each neuron in a hidden or output layer receives inputs from <b>all</b> neurons in the previous layer. A network with <b>L</b> layers has weights connecting each layer to the next. The first layer holds the raw inputs; the last layer produces the output (one neuron per class for classification, one or more for regression).</p>
@@ -187,7 +186,7 @@
         <p style="text-align:center;color:var(--muted);font-size:12.5px;margin:0">Sigmoid (red, 0→1), tanh (blue, −1→1, zero-centred), ReLU (green, 0 for z&lt;0, then linear). The dashed line marks z=0.</p>
       </div>
 
-      <div class="grid cols-2" style="margin-top:8px">
+      <div class="stack" style="margin-top:8px">
         <div class="card">
           <h3><span class="idx">Sigmoid</span></h3>
           <p>Smooth and differentiable everywhere — nice for gradient-based learning. But it <b>saturates</b>: for large positive z it approaches 1, for large negative z it approaches 0, and in both cases the gradient is near zero. This <b>vanishing gradient</b> slows learning deep in a network.</p>
@@ -197,7 +196,7 @@
           <p>Like sigmoid but <b>zero-centred</b> (mean of outputs near 0), so the 다음 layer receives inputs centred around zero — this tends to make optimisation easier than with sigmoid, whose outputs are all positive. Still saturates at the extremes.</p>
         </div>
       </div>
-      <div class="grid cols-2" style="margin-top:10px">
+      <div class="stack" style="margin-top:10px">
         <div class="card">
           <h3><span class="idx">ReLU</span></h3>
           <p>The most popular activation today. For z &gt; 0 it is just the identity (f(z)=z), so the gradient is 1 — no vanishing gradient for positive signals. It is <b>sparse</b> (many neurons output exactly 0), and very cheap to compute.</p>
@@ -247,7 +246,7 @@
     <div class="card full">
       <p>A <b>Support Vector Machine</b> (SVM) is a powerful classifier that works on a simple but deep principle: among all the lines (or planes, hyperplanes) that separate two classes, pick the one that leaves the <b>widest possible gap</b> — the <b>maximum margin</b> — between the classes. The points that sit right on the edge of that gap are the <b>support vectors</b>; they are the only points that matter for defining the boundary.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">Maximum margin</span></h3>
           <p>Imagine two clouds of points, one labelled +1, one labelled −1, separated by a gap. A line right down the middle of the gap is the <b>maximum-margin hyperplane</b>. The margin is the perpendicular distance from the hyperplane to the nearest point of either class. Maximising this margin gives the classifier the best chance of handling new, unseen points correctly.</p>
@@ -359,6 +358,14 @@
 </div>
 
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/theme-bridge.js"></script>
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

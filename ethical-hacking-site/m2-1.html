@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Footprinting, Scanning &amp; Enumeration · Module 2 · Study Notes</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -54,7 +53,7 @@
       <span class="tag">No contact</span>
     </div>
     <p>Passive reconnaissance collects data from <b>third-party sources</b> — the target is never queried directly, so the activity cannot be traced back to the attacker. It is the safest and quietest phase.</p>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">1</span>WHOIS &amp; Registrar Data</h3>
         <p>Domain and IP <code>whois</code> records reveal registrant details, name servers, creation/expiry dates and the organisation's allocated netblocks. Regional registries (RIRs) expose IP ownership.</p>
@@ -89,7 +88,7 @@
       <span class="tag">Direct contact</span>
     </div>
     <p>Active reconnaissance involves <b>direct interaction</b> with the target's systems — sending packets, queries or requests. It is far more detectable: every probe can be logged by firewalls, IDS/IPS and SIEMs. It is used once the passive map is drawn and the attacker wants confirmation.</p>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">A</span>Direct Network Probing</h3>
         <p>Ping sweeps, port scans and banner grabbing are sent straight to the target's IP space. Even "stealth" scans (e.g. SYN half-open scans) are visible to modern monitoring.</p>
@@ -118,7 +117,7 @@
     <div class="def">
       <b>Scanning</b> follows footprinting: it takes the discovered IP ranges and hosts and actively probes them to identify <b>live systems, open ports, running services, OS families and software versions</b>. The industry-standard tool is <b>Nmap</b> (Network Mapper).
     </div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">1</span>Ping / Host Sweep</h3>
         <p>ICMP echo (and TCP/UDP sweeping) identifies which hosts in a range are <b>alive</b> before deeper probing, shrinking the target list.</p>
@@ -148,7 +147,7 @@
     <div class="def">
       <b>Enumeration</b> is the step where the attacker extracts <b>active, identifiable resources</b> from a target — valid usernames, shared resources, network shares, policies and service details — by connecting to services that respond to queries. It is the most "loud" phase and often the most rewarding.
     </div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">1</span>Usernames &amp; Accounts</h3>
         <p>Harvesting valid login names via LDAP, SMTP <code>VRFY</code>/<code>RCPT</code>, Kerberos and directory services — the raw material for password attacks.</p>
@@ -182,7 +181,7 @@
       <h2>Reconnaissance Tooling</h2>
       <span class="tag">Tools</span>
     </div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">M</span>Maltego</h3>
         <p>Graphical OSINT tool that maps relationships between people, domains, organisations and infrastructure through transforms.</p>
@@ -238,7 +237,7 @@
     <div class="head"><span class="num">04</span><h2>Footprinting Techniques, Step by Step</h2>
       <span class="tag">Recon detail</span></div>
     <div class="card full">
-      <div class="grid cols-3">
+      <div class="stack">
         <div class="card"><h4>WHOIS / DNS</h4><p>Registrar, name servers, admin contacts; <code>dig</code>/<code>nslookup</code> reveal mail &amp; subdomains.</p></div>
         <div class="card"><h4>OSINT</h4><p>Job posts hint at tech ("we use Palo Alto, AWS"); LinkedIn maps the IT team; GitHub leaks configs.</p></div>
         <div class="card"><h4>Archives</h4><p>Wayback Machine + paste sites expose old pages, endpoints, keys.</p></div>
@@ -274,7 +273,7 @@
     <div class="head"><span class="num">06</span><h2>Footprinting Techniques, Step by Step</h2>
       <span class="tag">Recon detail</span></div>
     <div class="card full">
-      <div class="grid cols-3">
+      <div class="stack">
         <div class="card"><h4>WHOIS / DNS</h4><p>Registrar, name servers, admin contacts; <code>dig</code>/<code>nslookup</code> reveal mail &amp; subdomains.</p></div>
         <div class="card"><h4>OSINT</h4><p>Job posts hint at tech ("we use Palo Alto, AWS"); LinkedIn maps the IT team; GitHub leaks configs.</p></div>
         <div class="card"><h4>Archives</h4><p>Wayback Machine + paste sites expose old pages, endpoints, keys.</p></div>
@@ -337,6 +336,8 @@
 
 <footer class="site"><div class="inner"><div><span class="brand2">Study Notes</span> · <i>Module 2, Page 1 — footprinting, scanning &amp; enumeration.</i></div><div><a href="index.html">Home</a> · <a href="m3-1.html">M3</a></div></div></footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

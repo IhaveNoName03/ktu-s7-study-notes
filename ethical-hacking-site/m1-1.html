@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · Elements of Information Security</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 </head>
 <body>
 
@@ -35,9 +38,7 @@
 <section class="hero">
   <span class="kicker">Module 1 · Page 1 of 3</span>
   <h1>Elements of Information Security</h1>
-  <p class="lede">Before any attack or defense makes sense, you need the vocabulary. This page covers the
-  properties every control protects — the CIA triad, the AAA model, non-repudiation — plus the
-  challenges and the "defense in depth" mindset.</p>
+  <p class="lede">Before any attack or defense makes sense, you need the vocabulary. This page covers the properties every control protects — the CIA triad, the AAA model, non-repudiation — plus the challenges and the "defense in depth" mindset.</p>
   <div class="meta-row">
     <span class="chip red">CIA triad</span>
     <span class="chip">AAA</span>
@@ -49,12 +50,11 @@
 <div class="wrap">
 
   <div class="section">
-    <div class="head"><span class="num">01</span><h2>The CIA Triad</h2>
-      <span class="tag">Core goals</span></div>
-    <div class="grid cols-3">
-      <div class="card"><h3><span class="idx">C</span>Confidentiality</h3><p>Only authorized parties can <b>see</b> the data. Enforced by encryption, access control, least-privilege. Broken by disclosure, sniffing, shared creds.</p></div>
-      <div class="card"><h3><span class="idx">I</span>Integrity</h3><p>Data is accurate and unaltered by unauthorized parties. Enforced by hashing, checksums, signatures. Broken by tampering, MITM modification.</p></div>
-      <div class="card"><h3><span class="idx">A</span>Availability</h3><p>Authorized users can <b>access</b> data/systems when needed. Enforced by redundancy, patching, DDoS protection. Broken by DoS, ransomware, hardware failure.</p></div>
+    <div class="head"><span class="num">01</span><h2>The CIA Triad</h2><span class="tag">Core goals</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">C</span> Confidentiality</h3><p>Only authorized parties can <b>see</b> the data. Enforced by encryption, access control, least-privilege. Broken by disclosure, sniffing, shared creds.</p></div>
+      <div class="card"><h3><span class="idx">I</span> Integrity</h3><p>Data is accurate and unaltered by unauthorized parties. Enforced by hashing, checksums, signatures. Broken by tampering, MITM modification.</p></div>
+      <div class="card"><h3><span class="idx">A</span> Availability</h3><p>Authorized users can <b>access</b> data/systems when needed. Enforced by redundancy, patching, DDoS protection. Broken by DoS, ransomware, hardware failure.</p></div>
     </div>
     <div class="tablewrap">
       <table>
@@ -73,7 +73,6 @@
     <div class="diagram">
       <div class="dtitle">Fig · The CIA Triad</div>
       <svg viewBox="0 0 560 260" role="img" aria-label="CIA triad venn diagram">
-        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
         <g fill="none" stroke-width="2.5">
           <circle cx="210" cy="120" r="90" stroke="var(--accent)" fill="var(--accent)" fill-opacity="0.10"/>
           <circle cx="350" cy="120" r="90" stroke="var(--ink)" fill="var(--ink)" fill-opacity="0.10"/>
@@ -88,21 +87,19 @@
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">02</span><h2>AAA &amp; Other Goals</h2>
-      <span class="tag">Access &amp; accountability</span></div>
-    <div class="grid cols-2">
-      <div class="card"><h3><span class="idx">A</span>Authentication</h3><p>Proving <b>who you are</b> — password, token, biometric, MFA.</p></div>
-      <div class="card"><h3><span class="idx">A</span>Authorization</h3><p>What you are <b>allowed to do</b> once identified — permissions, roles, least privilege.</p></div>
-      <div class="card"><h3><span class="idx">A</span>Accounting</h3><p>Logging/auditing <b>what you did</b> — the basis for event logs (see <a href="m5-1.html">Module 5</a>).</p></div>
-      <div class="card"><h3><span class="idx">N</span>Non-repudiation</h3><p>A party cannot <b>deny</b> an action — achieved with digital signatures and strong audit trails.</p></div>
+    <div class="head"><span class="num">02</span><h2>AAA &amp; Other Goals</h2><span class="tag">Access &amp; accountability</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">A</span> Authentication</h3><p>Proving <b>who you are</b> — password, token, biometric, MFA.</p></div>
+      <div class="card"><h3><span class="idx">A</span> Authorization</h3><p>What you are <b>allowed to do</b> once identified — permissions, roles, least privilege.</p></div>
+      <div class="card"><h3><span class="idx">A</span> Accounting</h3><p>Logging/auditing <b>what you did</b> — the basis for event logs (see <a href="m5-1.html">Module 5</a>).</p></div>
+      <div class="card"><h3><span class="idx">N</span> Non-repudiation</h3><p>A party cannot <b>deny</b> an action — achieved with digital signatures and strong audit trails.</p></div>
     </div>
     <div class="def">Other stated goals: <b>authenticity</b> (the subject is genuine), <b>possession</b> (control of a token/asset), <b>utility</b> (data is useful in its intended form), and <b>privacy</b> (personal data handled per expectation/law).</div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">03</span><h2>Security Challenges &amp; Attacks</h2>
-      <span class="tag">The reality</span></div>
-    <div class="grid cols-2">
+    <div class="head"><span class="num">03</span><h2>Security Challenges &amp; Attacks</h2><span class="tag">The reality</span></div>
+    <div class="stack">
       <div class="card"><h4>Challenges</h4><ul>
         <li><b>Complexity</b> — large attack surface, interdependencies.</li>
         <li><b>People</b> — the weakest link; social engineering.</li>
@@ -134,28 +131,22 @@
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">04</span><h2>Threat Modeling &amp; Risk</h2>
-      <span class="tag">Thinking like a defender</span></div>
-    <div class="card full">
-      <p>Security work is about managing <b>risk</b>, not eliminating it. <b>Risk = Likelihood &times; Impact</b>:
-      how probable an attack is, times how bad it would be. You spend effort where the product is highest.</p>
-      <h4 style="margin:12px 0 6px;font-size:14.5px">STRIDE (threat categories)</h4>
-      <div class="grid cols-3">
-        <div class="card"><h4>Spoofing</h4><p>Impersonating a user/system (fake identity).</p></div>
-        <div class="card"><h4>Tampering</h4><p>Altering data/code (breaks Integrity).</p></div>
-        <div class="card"><h4>Repudiation</h4><p>Denying an action was taken.</p></div>
-        <div class="card"><h4>Info disclosure</h4><p>Leaking data (breaks Confidentiality).</p></div>
-        <div class="card"><h4>Denial of service</h4><p>Breaking Availability.</p></div>
-        <div class="card"><h4>Elevation</h4><p>Gaining higher privileges than allowed.</p></div>
-      </div>
-      <div class="def"><b>Defense in depth in practice:</b> pair controls so one failure doesn't sink you — e.g. MFA (auth) + encryption (confidentiality) + hashing (integrity) + backups/redundancy (availability) + logging (accountability).</div>
+    <div class="head"><span class="num">04</span><h2>Threat Modeling &amp; Risk</h2><span class="tag">Thinking like a defender</span></div>
+    <div class="stack">
+      <div class="card"><p>Security work is about managing <b>risk</b>, not eliminating it. <b>Risk = Likelihood &times; Impact</b>: how probable an attack is, times how bad it would be. You spend effort where the product is highest.</p></div>
+      <div class="card"><h4>Spoofing</h4><p>Impersonating a user/system (fake identity).</p></div>
+      <div class="card"><h4>Tampering</h4><p>Altering data/code (breaks Integrity).</p></div>
+      <div class="card"><h4>Repudiation</h4><p>Denying an action was taken.</p></div>
+      <div class="card"><h4>Info disclosure</h4><p>Leaking data (breaks Confidentiality).</p></div>
+      <div class="card"><h4>Denial of service</h4><p>Breaking Availability.</p></div>
+      <div class="card"><h4>Elevation</h4><p>Gaining higher privileges than allowed.</p></div>
     </div>
+    <div class="def"><b>Defense in depth in practice:</b> pair controls so one failure doesn't sink the ship — firewall + IDS + patching + training.</div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">05</span><h2>Effects of Hacking</h2>
-      <span class="tag">Why it matters</span></div>
-    <div class="grid cols-2">
+    <div class="head"><span class="num">05</span><h2>Effects of Hacking</h2><span class="tag">Why it matters</span></div>
+    <div class="stack">
       <div class="card"><h4>Individuals</h4><ul>
         <li>Identity theft, drained bank accounts, ruined credit</li>
         <li>Loss of private photos/messages, blackmail</li>
@@ -168,41 +159,38 @@
         <li>Theft of trade secrets, regulatory penalties</li>
       </ul></div>
     </div>
-    <div class="def"><b>Why ethical hacking exists:</b> the same skills used to break in are used, with permission, to find the holes first. An ethical hacker's role is to think like an attacker inside a contract, report findings, and help close gaps before a real breach occurs.</div>
+    <div class="def"><b>Why ethical hacking exists:</b> the same skills used to break in are used, with permission, to find and fix the gaps before criminals do.</div>
   </div>
 
   <div class="section">
-    <div class="head"><span class="num">06</span><h2>Mapping Controls to CIA</h2>
-      <span class="tag">Worked examples</span></div>
+    <div class="head"><span class="num">06</span><h2>Mapping Controls to CIA</h2><span class="tag">Worked examples</span></div>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Goal</th><th>Concrete control</th><th>How it protects</th></tr></thead>
         <tbody>
-          <tr><td>Confidentiality</td><td>TLS, disk encryption, RBAC</td><td>Only the right key/role reads it</td></tr>
-          <tr><td>Integrity</td><td>SHA-256 hashes, digital signatures</td><td>Any change is detectable</td></tr>
-          <tr><td>Availability</td><td>Load balancers, offsite backups</td><td>Service survives failure/attack</td></tr>
-          <tr><td>Accountability</td><td>Centralized logging (SIEM)</td><td>Every action is attributable</td></tr>
+          <tr><td>Confidentiality</td><td>TLS, disk encryption, RBAC</td><td>Only the right key/role reads the data</td></tr>
+          <tr><td>Integrity</td><td>SHA-256 hashes, digital signatures</td><td>Any change is detectable and provable</td></tr>
+          <tr><td>Availability</td><td>Load balancers, offsite backups</td><td>Service survives failure or spike</td></tr>
+          <tr><td>Accountability</td><td>Centralized logging (SIEM)</td><td>Every action is attributable to a user</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <nav class="pagenav">
-    <a class="prev" href="index.html">Prev: Home</a>
-    <a class="next" href="m1-2.html">Next: The Hacker Landscape</a>
+    <a class="prev" href="index.html">&larr; Home</a>
+    <a class="next" href="m1-2.html">The Hacker Landscape &rarr;</a>
   </nav>
 
 </div>
 
 <footer class="site">
   <div class="inner">
-    <div><span class="brand2">Study Notes</span> · Module 1, Page 1 — Elements of Information Security (CIA, AAA, non-repudiation).</div>
+    <div><span class="brand2">Study Notes</span> · Module 1, Page 1 — Elements of Information Security</div>
     <div><a href="index.html">Home</a> · <a href="m2-1.html">M2</a></div>
   </div>
 </footer>
 
-<script src="assets/theme-config.js"></script>
-<script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

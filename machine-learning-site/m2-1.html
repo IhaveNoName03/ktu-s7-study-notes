@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 2 · Supervised Learning</title>
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
 <style>
-  .hero{background:var(--ink);color:var(--paper);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
   .hero .inner{max-width:980px;margin:0 auto}
   .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
-  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
   .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
   .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
   .qbox p{margin:0}
@@ -18,8 +19,6 @@
   .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
   .def b{color:var(--accent-ink)}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -64,7 +63,7 @@
       inputs. If that assumption is too simple for the data, we can go to <b>polynomial regression</b>, which still fits a linear model but to transformed
       (squared, cubed, interaction) features — the fit becomes a curve in the original space.</p>
 
-      <div class="grid cols-2" style="margin-top:14px">
+      <div class="stack" style="margin-top:14px">
         <div class="card">
           <h3><span class="sym">+</span>Linear Regression — One Variable</h3>
           <p>The model is a straight line: <b>h(x) = θ₀ + θ₁x</b>. There are two parameters — the intercept <b>θ₀</b> (where the line crosses the y-axis) and
@@ -123,7 +122,7 @@
 
   <div class="section">
     <div class="head"><span class="num">03</span><h2>Solution Methods — Gradient Descent &amp; Closed Form</h2><span class="tag">Finding the best θ</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card">
         <h3><span class="sym">▼</span>Gradient Descent</h3>
         <p>An iterative method: start with some θ (often zeros), then repeatedly take a small step in the direction that <b>reduces</b> J the fastest — that is, opposite
@@ -137,7 +136,7 @@
         <p>A direct formula that gives the optimal θ in one step, without iterating. It solves ∂J/∂θ = 0 analytically. The price is computation: it requires inverting a
         <b>D×D</b> matrix.</p>
         <p class="eq">\(\theta=(X^{T}X)^{-1}X^{T}y\)</p>
-      <div class="grid cols-2" style="margin-top:10px">
+      <div class="stack" style="margin-top:10px">
         <div class="card">
           <h3><span class="idx">Underfitting</span></h3>
           <p>The model is too simple to capture the pattern — high error on both training and test data. A straight line fit to clearly curved data underfits. The model has <b>high
@@ -163,7 +162,7 @@
       about keeping the parameters <b>small</b>. A model with huge weights is usually overfitting — it is bending sharply to hit individual points. By adding a penalty on the size of θ,
       we force the model to prefer simpler, smoother fits.</p>
       <p class="eq" style="text-align:center;font-size:16px;font-weight:700;margin:12px 0;color:var(--accent-ink)">J<sub>regularized</sub> =\(J_{\text{reg}}=J(\theta)+\lambda\cdot(\text{penalty on }\theta)\)) + λ · (penalty on θ)</p>
-      <div class="grid cols-2" style="margin-top:6px">
+      <div class="stack" style="margin-top:6px">
         <div class="card">
           <h3><span class="idx">Ridge</span>L2 regularization</h3>
           <p>Adds <b>λ Σ θⱼ²</b> — the sum of squared parameters — to the cost. It gently shrinks all weights toward zero but rarely makes them exactly zero. It is the default
@@ -296,6 +295,14 @@
 </div>
 
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/theme-bridge.js"></script>
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

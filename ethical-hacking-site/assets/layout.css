@@ -1,0 +1,393 @@
+/* ===========================================================================
+   Editorial layout — full-width reading column (NO bento grid)
+
+   Content cards span the FULL width of the reading column and stack
+   vertically. Nothing is squeezed into narrow side-by-side columns.
+
+   Also carries the SHARED CHROME (header / top nav / footer) so every
+   non-index page renders identical furniture.
+   =========================================================================== */
+
+:root{
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+}
+
+/* ── Editorial hero ───────────────────────────────────────────────────── */
+.hero{
+  padding:60px 20px 44px;
+  background:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb,var(--accent) 12%,transparent), transparent 42%),
+    var(--bg-alt);
+  color:var(--ink);
+  border-bottom:1px solid var(--line);
+}
+.hero > *{max-width:var(--maxw);margin-left:auto;margin-right:auto}
+.hero .kicker{
+  display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:800;
+  text-transform:uppercase;letter-spacing:2.2px;color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);
+  background:color-mix(in srgb,var(--accent) 9%,transparent);
+  padding:5px 11px;border-radius:999px;margin-bottom:16px;
+}
+.hero h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(30px,4.6vw,48px);line-height:1.06;letter-spacing:-1px;
+  margin:0 0 18px;color:var(--ink);max-width:24ch;
+}
+.hero .lede{
+  font-family:var(--serif);font-size:clamp(16.5px,2vw,19.5px);line-height:1.6;
+  color:var(--ink-2);max-width:70ch;margin:0 0 22px;
+}
+.hero .meta-row{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.2px;
+  color:var(--ink-2);background:var(--paper);border:1px solid var(--line);
+  padding:5px 11px;border-radius:999px;
+}
+.chip.red{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}
+
+/* ── Numbered editorial section header ────────────────────────────────── */
+.section{margin:0 0 52px;padding:0;border:none;background:none}
+.section .head{
+  display:flex;align-items:baseline;gap:14px;
+  padding:0 0 12px;margin:0 0 22px;
+  border-bottom:2px solid var(--ink);
+}
+.section .num{
+  font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;
+  color:var(--accent);
+}
+.section h2{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(21px,2.7vw,27px);line-height:1.12;letter-spacing:-.3px;
+  margin:0;color:var(--ink);
+}
+.section .tag{
+  font-family:var(--sans);font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.2px;color:var(--muted);margin-left:auto;white-space:nowrap;
+  align-self:center;
+}
+
+/* ── Stacked full-width cards (replaces the bento grid) ───────────────── */
+.stack{display:block;margin:0 0 18px}
+.stack > .card,
+.card{
+  display:block;width:100%;box-sizing:border-box;
+  background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:22px 26px;margin:0 0 16px;
+}
+.stack > .card:last-child{margin-bottom:0}
+.stack > .card:hover,
+.card:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.stack > .card h3,.stack > .card h4,
+.card h3,.card h4{
+  font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:-.1px;
+  margin:0 0 9px;color:var(--ink);display:flex;align-items:center;gap:9px;
+}
+.stack > .card p,.card p{margin:0 0 10px;font-size:15px;line-height:1.68;color:var(--ink-2)}
+.stack > .card ul,.card ul{margin:6px 0 10px;padding-left:20px}
+.stack > .card li,.card li{font-size:14.6px;line-height:1.66;color:var(--ink-2);margin:0 0 6px}
+.stack > .card > :last-child,.card > :last-child{margin-bottom:0}
+
+/* index badge inside a card */
+.card .idx{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;flex:none;border-radius:6px;
+  background:var(--accent);color:var(--on-accent,#fff);
+  font-family:var(--sans);font-size:11.5px;font-weight:800;line-height:1;
+}
+
+/* ── Card separation in dark / amoled ─────────────────────────────────── */
+:root[data-mode="dark"] .card,:root[data-mode="amoled"] .card,
+:root[data-mode="dark"] .qbox,:root[data-mode="amoled"] .qbox,
+:root[data-mode="dark"] .diagram,:root[data-mode="amoled"] .diagram{
+  background:color-mix(in srgb, var(--ink) 7%, var(--paper));
+  border-color:color-mix(in srgb, var(--ink) 22%, var(--paper));
+}
+
+/* ── Tables: readable in every mode ──────────────────────────────────── */
+tbody tr{border-bottom:1px solid var(--line)}
+tbody td{color:var(--ink)}
+thead th{
+  background:color-mix(in srgb, var(--ink) 14%, var(--paper));
+  color:var(--ink);
+  border-bottom:2px solid var(--accent);
+}
+:root[data-mode="dark"] tbody tr:nth-child(even),
+:root[data-mode="amoled"] tbody tr:nth-child(even){
+  background:color-mix(in srgb, var(--ink) 12%, var(--paper));
+}
+:root[data-mode="light"] tbody tr:nth-child(even){
+  background:color-mix(in srgb, var(--ink) 5%, var(--paper));
+}
+tbody tr:hover{background:color-mix(in srgb, var(--accent) 12%, var(--paper))}
+
+/* ── Equation / callout blocks ───────────────────────────────────────── */
+.eq,.qbox{
+  background:color-mix(in srgb, var(--ink) 5%, var(--paper));
+  border-left:4px solid var(--accent);
+  color:var(--ink);
+}
+:root[data-mode="dark"] .eq,:root[data-mode="amoled"] .eq,
+:root[data-mode="dark"] .qbox,:root[data-mode="amoled"] .qbox{
+  background:color-mix(in srgb, var(--ink) 10%, var(--paper));
+}
+.eq,.eq .katex,.eq .katex *,
+.qbox .katex,.qbox .katex *{color:var(--ink)}
+.katex,.katex .mord,.katex .mop,.katex .mbin,.katex .mrel{color:var(--ink)}
+
+/* ── Badges / pills: readable on every palette ───────────────────────── */
+.q .qbody .marks,.q .marks,span.marks{
+  background:var(--accent);color:var(--on-accent,#fff);
+  display:inline-block;font-size:11px;font-weight:800;
+  border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle;
+}
+.topnav a.active,.moddd-btn.active,.moddd.open .moddd-btn,
+.moddd-panel a.active,.theme-mode-btn.active,.idx,
+.ans-toggle[aria-expanded="true"],.ansbtn[aria-expanded="true"],
+.backtop:hover{color:var(--on-accent,#fff)}
+.brand .mark{color:transparent;font-size:0}
+
+/* ── Surfaces that must never invert to a light slab ─────────────────── */
+.backtop{
+  background:color-mix(in srgb, var(--ink) 14%, var(--paper));
+  color:var(--ink);border:1px solid var(--line);
+}
+.backtop:hover{background:var(--accent);border-color:var(--accent)}
+
+/* ── Shared chrome: identical header / nav / footer on every page ─────── */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--topbar-bg);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);backdrop-filter:saturate(140%) blur(10px);
+  color:var(--ink);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--accent) 50%,transparent);
+}
+.topbar-inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;align-items:center;gap:14px;
+  padding:0 20px;min-height:60px;
+}
+.topnav{
+  display:flex;gap:6px;flex-wrap:nowrap;align-items:center;
+  justify-content:flex-end;margin-left:auto;
+}
+.theme-dd{flex:none}
+.theme-toggle{white-space:nowrap;flex:none;line-height:1.2}
+.site{
+  background:var(--footer-bg);color:var(--muted);
+  padding:26px 20px;font-size:13px;border-top:3px solid var(--accent);
+}
+.site .wrap,.site > div{max-width:var(--maxw);margin:0 auto}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width:900px){
+  .stack > .card,.card{padding:18px 18px}
+}
+@media (max-width:560px){
+  .hero{padding:44px 18px 34px}
+  .section .head{gap:10px}
+  .section .num{font-size:24px}
+  .section .tag{display:none}
+  .topnav{flex-wrap:wrap}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   EDITORIAL × SWISS MANUAL  (Sketch A — widened)
+   A left rail carries the section number, title and label; the prose keeps
+   a generous full-width measure beside it.
+
+   The page shell is widened to 1360px (module pages used to be 1180px, so
+   the rail is paid for by the extra width, NOT out of the reading column).
+   The rail is sticky, so it acts as a live position marker while you read.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.wrap{max-width:1360px}
+
+.section{
+  display:grid;
+  grid-template-columns:150px minmax(0,1fr);
+  column-gap:40px;
+  align-items:start;
+  margin:0 0 56px;
+}
+
+/* ── Rail ── */
+.section .head{
+  display:block;grid-column:1;
+  border:none;padding:0;margin:0;
+  position:sticky;top:78px;
+}
+.section .head .num{
+  display:block;font-family:var(--sans);font-size:11px;font-weight:800;
+  letter-spacing:1.7px;color:var(--accent);margin:0 0 8px;
+}
+.section .head h2{
+  font-family:var(--serif);font-size:19.5px;font-weight:600;line-height:1.22;
+  letter-spacing:-.2px;margin:0 0 11px;color:var(--ink);
+}
+.section .head .tag{
+  display:inline-block;margin:0;font-size:9.5px;font-weight:800;
+  text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:3px 9px;
+  white-space:nowrap;
+}
+
+/* ── Body: hairline spine, no card chrome ──
+   EVERY direct child of .section other than the rail must land in column 2 —
+   pages variously use .card, .stack, .tablewrap, .def, .diagram or .qbox as
+   the section body, and any one left out would fall under the rail. */
+.section > *:not(.head){grid-column:2}
+.section > .card,
+.section > .card.full,
+.section > .stack,
+.section > .tablewrap,
+.section > .diagram{
+  border:none;background:none;border-radius:0;padding:0;margin:0;
+  border-left:1px solid var(--line);padding-left:28px;
+}
+.section > .card:hover,
+.section > .card.full:hover{
+  border-left-color:color-mix(in srgb,var(--accent) 45%,var(--line));
+  background:none;
+}
+/* a .def or .qbox used directly as the body keeps its own accent edge */
+.section > .def,
+.section > .qbox{margin-left:0}
+/* consecutive bodies in one section shouldn't collapse together */
+.section > *:not(.head) + *:not(.head){margin-top:16px}
+/* nested .section (10 in the corpus) must not re-enter the grid */
+.section > .section{grid-column:2;display:block;border-left:1px solid var(--line);padding-left:28px}
+.section > .section > *{grid-column:auto}
+.stack{display:block}
+.stack > .card{
+  border:none;background:none;border-radius:0;
+  padding:0;margin:0 0 16px;
+}
+.stack > .card:last-child{margin-bottom:0}
+
+/* nested cards stay visible as sub-blocks */
+.card .card{
+  border:1px solid var(--line);background:var(--paper);
+  border-radius:10px;padding:16px 18px;margin:14px 0;
+}
+
+/* ── Margin notes: quiet asides, not filled boxes ── */
+.def{
+  background:none;border:none;border-left:2px solid var(--accent);
+  border-radius:0;
+  padding:2px 0 2px 15px;margin:17px 0;
+  font-size:14.4px;line-height:1.64;color:var(--ink-2);
+}
+.def b,.def strong{color:var(--ink)}
+
+/* equations keep a faint surface so formulas stand apart from prose */
+.eq{
+  border-left:2px solid var(--accent);border-radius:0;
+  background:color-mix(in srgb, var(--ink) 4%, var(--paper));
+  color:var(--ink);
+}
+:root[data-mode="dark"] .eq,
+:root[data-mode="amoled"] .eq{
+  background:color-mix(in srgb, var(--ink) 9%, var(--paper));
+}
+.qbox{border-left:2px solid var(--accent);border-radius:0}
+
+/* ── Nested sections: no second rail ──
+   10 sections in the corpus contain another .section. The inner one must not
+   re-enter the two-column grid (it already sits inside column 2), so it is
+   flattened: its .head becomes an inline sub-heading instead of a rail. */
+.section > .section > .head{
+  position:static;display:flex;align-items:baseline;gap:11px;
+  margin:0 0 12px;
+}
+.section > .section > .head .num{
+  display:inline;margin:0;font-size:10.5px;
+}
+.section > .section > .head h2{
+  font-size:17px;margin:0;
+}
+.section > .section > .head .tag{margin-left:auto}
+.section > .section > *:not(.head){
+  border-left:none;padding-left:0;margin-top:0;
+}
+
+/* ── Narrow screens: collapse the rail, and un-do the desktop chrome ──
+   Selectors here must out-specify the nested-section rules above
+   (.section > .section > .head is 0,3,0), hence the doubled prefixes. */
+@media (max-width:1000px){
+  /* single column, rail becomes an inline heading */
+  .wrap{max-width:100%}
+  .section,
+  .section > .section{display:block;grid-template-columns:none}
+  .section > .head,
+  .section > .section > .head{
+    position:static;display:flex;align-items:baseline;flex-wrap:wrap;
+    gap:9px;margin:0 0 12px;
+  }
+  .section > .head .num,
+  .section > .section > .head .num{display:inline;margin:0;font-size:10.5px}
+  .section > .head h2,
+  .section > .section > .head h2{margin:0;font-size:19px}
+  .section > .head .tag,
+  .section > .section > .head .tag{margin-left:auto}
+  /* drop the spine so text uses the full screen width */
+  .section > *:not(.head),
+  .section > .section,
+  .section > .section > *:not(.head){
+    border-left:none;padding-left:0;margin-left:0;
+  }
+  .section > *:not(.head) + *:not(.head){margin-top:14px}
+
+  /* ── Header: the desktop nowrap rule overflows a phone ── */
+  .topbar-inner{flex-wrap:wrap;gap:8px;padding:8px 14px;min-height:0}
+  .topnav{flex-wrap:wrap;justify-content:flex-start;margin-left:0;width:100%;gap:5px}
+  .theme-dd{margin-left:auto}
+  .brand{font-size:13.5px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+
+  /* keep long tables and formulas scrollable instead of breaking the page */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:520px}
+  .eq,.katex-display{overflow-x:auto;max-width:100%}
+  /* answer rows: fixed label column doesn't fit a phone -> stack it */
+  .ansrow{grid-template-columns:1fr !important;gap:2px 0;min-width:0}
+  .ansrow .k{font-size:12.5px;letter-spacing:.3px;color:var(--accent)}
+  .ansrow .v,.ansrow .k{min-width:0;overflow-wrap:anywhere}
+  .q,.qbody,.qtext,.ans,.ans-collapsible-inner{min-width:0}
+
+}
+
+@media (max-width:560px){
+  .wrap{padding-left:14px;padding-right:14px}
+  .section > .head .tag,
+  .section > .section > .head .tag{display:none}
+  .hero{padding:34px 14px 26px}
+  .backtop{right:12px;bottom:12px}
+}
+
+/* ── Theme reveal: View Transitions pseudo-element choreography ──────────
+   The clip-path animation in theme-handler.js is the ONLY motion we want.
+
+   `group(root)` MUST be neutralised too: its default 250ms animation ends
+   before our 520ms clip finishes, tearing the snapshot down mid-reveal so
+   the new theme "pops" in early. Pinning all three pseudo-elements to
+   animation:none keeps the snapshot alive for the whole clip.              */
+::view-transition-group(root),
+::view-transition-image-pair(root),
+::view-transition-old(root),
+::view-transition-new(root){
+  animation:none !important;
+  mix-blend-mode:normal;
+}
+/* Getting LIGHTER: the new (lighter) snapshot grows on top. */
+:root[data-vt="lighter"]::view-transition-old(root){z-index:1}
+:root[data-vt="lighter"]::view-transition-new(root){z-index:9999;clip-path:circle(0px)}
+/* Getting DARKER: the old (lighter) snapshot shrinks away on top. */
+:root[data-vt="darker"]::view-transition-new(root){z-index:1}
+:root[data-vt="darker"]::view-transition-old(root){z-index:9999}
+
+/* Freeze every CSS transition while the reveal runs, so the page underneath
+   does not animate its own colours a second time and drift out of sync. */
+html.theme-vt,html.theme-vt *{transition:none !important}
+html.theme-vt .theme-panel{display:none !important}

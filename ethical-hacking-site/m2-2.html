@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 2 · Malware &amp; Network Attacks</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -49,7 +48,7 @@
   <div class="section">
     <div class="head"><span class="num">01</span><h2>Malware Types</h2>
       <span class="tag">Families</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">V</span>Virus</h3><p>Attaches to a host file; needs user action / a host to spread.</p></div>
       <div class="card"><h3><span class="idx">W</span>Worm</h3><p>Self-propagates across networks with no host program needed.</p></div>
       <div class="card"><h3><span class="idx">T</span>Trojan</h3><p>Disguised as legitimate software; hidden malicious function.</p></div>
@@ -126,7 +125,7 @@
   <div class="section">
     <div class="head"><span class="num">02</span><h2>Network Attacks</h2>
       <span class="tag">Layer 3–7</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">D</span>DoS / DDoS</h3><p>Overwhelm a target to deny service. Full detail (floods, Smurf, mitigation) on <a href="m3-1.html">Module 3</a>.</p></div>
       <div class="card"><h3><span class="idx">S</span>Session hijacking</h3><p>Steal a valid session token/cookie to impersonate the user. See <a href="m4-1.html">M4</a> (defenses: HTTPS, HttpOnly, regen).</p></div>
       <div class="card"><h3><span class="idx">N</span>Sniffing</h3><p>Packet capture on a shared/flat network. Full detail + types on <a href="m3-1.html">Module 3</a>.</p></div>
@@ -170,7 +169,7 @@
   <div class="section">
     <div class="head"><span class="num">04</span><h2>Defending the Endpoint &amp; Network</h2>
       <span class="tag">Controls</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Endpoint</h4><ul>
         <li>EDR / next-gen antivirus with behavior analysis</li>
         <li>Patch management, app allow-listing</li>
@@ -187,7 +186,7 @@
   <div class="section">
     <div class="head"><span class="num">05</span><h2>Proxy &amp; Packet Filtering</h2>
       <span class="tag">Network controls</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Packet filtering</h4><p>A firewall function that permits or blocks packets by
       source/destination IP, port, and protocol (stateless = per-packet rules; stateful = tracks connections).
       This is the basic "allow/deny" wall between networks.</p></div>
@@ -205,6 +204,7 @@
   </nav>
 
 </div>
+</div>
 
 <footer class="site">
   <div class="inner">
@@ -213,9 +213,10 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
-</div>
 </body>
 </html>

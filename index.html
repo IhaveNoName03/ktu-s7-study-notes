@@ -49,7 +49,7 @@
   .scard.warp .idx,.scard.warp h3{transform:translate3d(calc(var(--mx) * 8px - 4px),calc(var(--my) * 5px - 2.5px),0)}
   .scard.warp h3{text-shadow:calc(var(--mx) * -3px) calc(var(--my) * 2px) 0 rgba(0,200,255,.45),calc(var(--mx) * 3px) calc(var(--my) * -2px) 0 rgba(255,0,200,.35)}
   @media (prefers-reduced-motion: reduce){.scard,.scard .idx,.scard h3{transition:none!important}.scard.warp .idx,.scard.warp h3{transform:none!important}}
-  .scard .idx{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--accent);line-height:1;padding-top:2px}
+  .scard .idx{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--accent);line-height:1;padding-top:2px;background:none;width:auto;height:auto;border-radius:0;display:inline}
   .scard .main .code{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
   .scard .main h3{font-family:var(--serif);font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.4px;margin:4px 0 8px;line-height:1.05;color:var(--accent)}
   .scard .main .desc{font-family:var(--serif);font-size:16px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;max-width:640px}
@@ -93,74 +93,88 @@
   @keyframes ripple{to{transform:scale(2.6);opacity:0}}
 
   /* ---- DARK THEME ---- */
-  html[data-theme="dark"] body.landing{background:#0E0F12;color:#EDEFF2}
-  html[data-theme="dark"] .masthead .rule{border-top-color:#EDEFF2}
-  html[data-theme="dark"] .masthead .rule.thin{border-top-color:#2a2f37}
-  html[data-theme="dark"] .masthead .colophon b{color:#B7BEC7}
-  html[data-theme="dark"] .lead p{color:#B7BEC7}
-  html[data-theme="dark"] .searchbox{background:#16191F;border-color:#2a2f37;box-shadow:none}
-  html[data-theme="dark"] .searchbox input{color:#EDEFF2}
-  html[data-theme="dark"] .searchbox input::placeholder{color:#8A929C}
-  html[data-theme="dark"] .seclabel .line{border-top-color:#2a2f37}
-  html[data-theme="dark"] .scard{border-top-color:#2a2f37}
-  html[data-theme="dark"] .scard:last-child{border-bottom-color:#2a2f37}
-  html[data-theme="dark"] .scard:hover{background:#16191F}
-  html[data-theme="dark"] .scard .main .desc{color:#B7BEC7}
-  html[data-theme="dark"] .scard .mods span{color:#B7BEC7;background:#1b1f26;border-color:#2a2f37}
-  html[data-theme="dark"] .scard .go .pages{color:#8A929C}
-  html[data-theme="dark"] .quick a{color:#B7BEC7;background:#16191F;border-color:#2a2f37}
-  html[data-theme="dark"] .quick a:hover{border-color:var(--accent);color:var(--accent)}
-  html[data-theme="dark"] .stats{border-top-color:#EDEFF2;border-bottom-color:#2a2f37}
-  html[data-theme="dark"] .stat .n{color:#EDEFF2}
-  html[data-theme="dark"] .stat .l{color:#8A929C}
-  html[data-theme="dark"] .foot{color:#8A929C}
-  html[data-theme="dark"] .foot b{color:#B7BEC7}
-  html[data-theme="amoled"] body.landing{background:#000000;color:#e8e8e8}
-  html[data-theme="amoled"] .masthead .rule{border-top-color:#1a1a1a}
-  html[data-theme="amoled"] .masthead .rule.thin{border-top-color:#1a1a1a}
-  html[data-theme="amoled"] .masthead .colophon b{color:#b0b0b0}
-  html[data-theme="amoled"] .lead p{color:#b0b0b0}
-  html[data-theme="amoled"] .searchbox{background:#0a0a0a;border-color:#1a1a1a}
-  html[data-theme="amoled"] .searchbox input{color:#e8e8e8}
-  html[data-theme="amoled"] .searchbox input::placeholder{color:#7a7a7a}
-  html[data-theme="amoled"] .seclabel .line{border-top-color:#1a1a1a}
-  html[data-theme="amoled"] .scard{border-top-color:#1a1a1a}
-  html[data-theme="amoled"] .scard:last-child{border-bottom-color:#1a1a1a}
-  html[data-theme="amoled"] .scard:hover{background:#111111}
-  html[data-theme="amoled"] .scard .main .desc{color:#b0b0b0}
-  html[data-theme="amoled"] .scard .mods span{color:#d0d0d0;background:#1a1a1a;border-color:#2a2a2a}
-  html[data-theme="amoled"] .scard .go .pages{color:#7a7a7a}
-  html[data-theme="amoled"] .quick a{color:#b0b0b0;background:#0a0a0a;border-color:#1a1a1a}
-  html[data-theme="amoled"] .quick a:hover{border-color:var(--accent)}
-  html[data-theme="amoled"] .stats{border-top-color:#1a1a1a;border-bottom-color:#1a1a1a}
-  html[data-theme="amoled"] .stat .n{color:#e8e8e8}
-  html[data-theme="amoled"] .stat .l{color:#7a7a7a}
-  html[data-theme="amoled"] .foot{color:#7a7a7a}
-  html[data-theme="amoled"] .foot b{color:#b0b0b0}
-  html[data-theme="amoled"] .empty{color:#7a7a7a}
-  html[data-theme="dark"] .empty{color:#8A929C}
-  .theme-toggle{margin-left:14px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
-    font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;
-    border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:color .15s ease,border-color .15s ease}
-  .theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
-  .theme-toggle .ic{font-size:13px;line-height:1}
+  
+  
+  
 
-/* ─── Theme dropdown ─── */
-.theme-dd{position:relative;display:inline-flex}
-.theme-toggle{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--line);color:var(--ink-2);font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;cursor:pointer;transition:color .15s ease,border-color .15s ease}
-.theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
-.theme-toggle .ic{font-size:15px;line-height:1}
-.theme-panel{position:absolute;top:calc(100% + 8px);right:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:6px;min-width:160px;box-shadow:var(--shadow-lg);z-index:100;display:none;flex-direction:column;gap:2px}
-.theme-panel.show{display:flex}
-.theme-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:none;background:transparent;color:var(--ink-2);font-size:13px;font-weight:500;border-radius:6px;cursor:pointer;text-align:left;transition:background .15s ease,color .15s ease}
-.theme-item:hover{background:var(--accent-soft);color:var(--accent)}
-.theme-reveal{position:fixed;z-index:99999;border-radius:50%;pointer-events:none;transform:scale(0);opacity:.6;transition:transform .55s cubic-bezier(.4,0,.2,1),opacity .55s cubic-bezier(.4,0,.2,1);}
-.theme-reveal.go{transform:scale(40);opacity:0;}
+
+
+
+
+
+
+
+
+
+
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}html[data-theme="amoled"]{background:#000000}body{background:#f4f5f7}html[data-theme="dark"] body{background:#0E0F12}html[data-theme="amoled"] body{background:#000000}</style>
+<style>html{background:#f4f5f7}
+/* ─── Theme dropdown: Appearance + Accent ─── */
+.theme-dd{position:relative;display:inline-flex;margin-left:14px;flex:none}
+.theme-toggle{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font:inherit;font-size:12.5px;font-weight:600;color:var(--ink-2);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 12px;transition:color .15s ease,border-color .15s ease;white-space:nowrap;flex:none}
+.theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
+.theme-toggle .ic{font-size:13px;line-height:1}
+.theme-toggle .caret{font-size:9px;opacity:.6}
+.theme-panel{position:absolute;top:calc(100% + 8px);right:0;z-index:200;display:none;flex-direction:column;min-width:206px;padding:8px;background:var(--paper);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow-lg)}
+.theme-panel.show{display:flex}
+.theme-grouplabel{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);padding:3px 6px 7px}
+.theme-mode-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.theme-mode-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px;border:1px solid var(--line);border-radius:8px;background:transparent;cursor:pointer;font:inherit;font-size:10.5px;font-weight:600;color:var(--muted);transition:background .15s ease,color .15s ease,border-color .15s ease}
+.theme-mode-btn .ic{font-size:15px;line-height:1}
+.theme-mode-btn:hover{color:var(--ink);border-color:var(--accent)}
+.theme-mode-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.theme-divider{height:1px;background:var(--line);margin:9px 2px 8px}
+.theme-list{display:flex;flex-direction:column;gap:1px}
+.theme-item{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border:none;background:transparent;color:var(--ink-2);font:inherit;font-size:13px;font-weight:500;border-radius:7px;cursor:pointer;text-align:left;transition:background .15s ease,color .15s ease}
+.theme-item:hover{background:var(--accent-soft);color:var(--accent)}
+.theme-item.active{color:var(--accent);font-weight:700}
+.theme-dot{width:12px;height:12px;border-radius:50%;flex:none;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 20%,transparent)}
+.theme-name{flex:1}
+.theme-check{opacity:0;font-size:11px;font-weight:700;color:var(--accent)}
+.theme-item.active .theme-check{opacity:1}
+/* ── Card separation in dark / amoled ── */
+:root[data-mode="dark"] .mcard,:root[data-mode="amoled"] .mcard,
+:root[data-mode="dark"] .scard,:root[data-mode="amoled"] .scard{
+  background:color-mix(in srgb, var(--ink) 7%, var(--paper));
+  border-color:color-mix(in srgb, var(--ink) 22%, var(--paper));
+}
+:root[data-mode="dark"] .mcard:hover,:root[data-mode="amoled"] .mcard:hover,
+:root[data-mode="dark"] .scard:hover,:root[data-mode="amoled"] .scard:hover{
+  background:color-mix(in srgb, var(--ink) 11%, var(--paper));
+}
+
+/* ── Text on accent fills: adapt to accent lightness ── */
+.chip.red,.topnav a.active,.moddd-btn.active,.moddd.open .moddd-btn,
+.moddd-panel a.active,.theme-mode-btn.active,.idx,.marks,
+.backtop:hover{color:var(--on-accent,#fff)}
+.brand .mark{color:transparent;font-size:0}
+
+/* ── Theme reveal: View Transitions choreography ── */
+::view-transition-group(root),::view-transition-image-pair(root),
+::view-transition-old(root),::view-transition-new(root){animation:none !important;mix-blend-mode:normal}
+:root[data-vt="lighter"]::view-transition-old(root){z-index:1}
+:root[data-vt="lighter"]::view-transition-new(root){z-index:9999;clip-path:circle(0px)}
+:root[data-vt="darker"]::view-transition-new(root){z-index:1}
+:root[data-vt="darker"]::view-transition-old(root){z-index:9999}
+html.theme-vt,html.theme-vt *{transition:none !important}
+html.theme-vt .theme-panel{display:none !important}
+
+/* ── Narrow screens: header must not overflow ── */
+@media (max-width:1000px){
+  .topbar-inner{flex-wrap:wrap;gap:8px;padding:8px 14px;min-height:0}
+  .topnav{flex-wrap:wrap;justify-content:flex-start;margin-left:0;width:100%;gap:5px}
+  .theme-dd{margin-left:auto}
+  .brand{font-size:13.5px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .tablewrap{overflow-x:auto}
+}
+@media (max-width:560px){
+  .backtop{right:12px;bottom:12px}
+}
+</style>
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body class="landing">
 
@@ -174,7 +188,7 @@
   <div class="kicker">KTU · Semester VII</div>
   <h1>Study Notes</h1>
   <div class="rule"></div>
-  <div class="colophon"><b>Vol. VII</b> &nbsp;·&nbsp; Four Subjects &nbsp;·&nbsp; Twenty Modules &nbsp;·&nbsp; Forty Pages &nbsp;·&nbsp; <b>Works Offline</b></div>
+  <div class="colophon"><b>Vol. VII</b> &nbsp;·&nbsp; Four Subjects &nbsp;·&nbsp; Twenty Modules &nbsp;·&nbsp; Forty-One Pages &nbsp;·&nbsp; <b>Works Offline</b></div>
   <div class="rule thin"></div>
 </section>
 
@@ -197,15 +211,15 @@
 
 <div id="grid">
 
-  <a class="scard" href="ethical-hacking-site/index.html" data-keywords="ethical hacking cct401 footprinting reconnaissance malware sniffing system hacking session hijacking web attacks cryptography tracking pentest">
+  <a class="scard" href="ethical-hacking-site/index.html" data-keywords="ethical hacking cct401 footprinting reconnaissance malware sniffing system hacking session hijacking web attacks covering tracks privilege escalation pentest">
     <div class="idx">01</div>
     <div class="main">
       <div class="code">CCT 401 · KTU</div>
       <h3>Ethical Hacking</h3>
-      <p class="desc">Footprinting &amp; reconnaissance, malware, sniffing, system hacking, session hijacking, web attacks, cryptography, and tracking.</p>
-      <div class="mods"><span>M1 Basics</span><span>M2 Recon</span><span>M3 Attacks</span><span>M4 Net/Sys</span><span>M5 Crypto</span></div>
+      <p class="desc">Footprinting &amp; reconnaissance, malware, sniffing, system hacking, session hijacking, web attacks, and covering tracks.</p>
+      <div class="mods"><span>M1 Basics</span><span>M2 Recon</span><span>M3 Attacks</span><span>M4 Net/Sys</span><span>M5 Tracks</span></div>
     </div>
-    <span class="go">Open <span class="arr">→</span><span class="pages">12 pages</span></span>
+    <span class="go">Open <span class="arr">→</span><span class="pages">11 pages</span></span>
   </a>
 
   <a class="scard" href="renewable-energy-site/index.html" data-keywords="renewable energy eet435 solar otec tidal wind biomass hydro fuel cell hydrogen energy classification photovoltaic">
@@ -216,7 +230,7 @@
       <p class="desc">Energy classification and solar (M1), OTEC and tidal (M2), wind (M3), biomass (M4), small hydro / fuel cells / hydrogen (M5).</p>
       <div class="mods"><span>M1 Solar</span><span>M2 OTEC</span><span>M3 Wind</span><span>M4 Biomass</span><span>M5 Hydro</span></div>
     </div>
-    <span class="go">Open <span class="arr">→</span><span class="pages">11 pages</span></span>
+    <span class="go">Open <span class="arr">→</span><span class="pages">10 pages</span></span>
   </a>
 
   <a class="scard" href="industrial-safety-site/index.html" data-keywords="industrial safety mcn401 accident theory domino ppe construction machine guarding hazard fire hazop msds">
@@ -238,7 +252,7 @@
       <p class="desc">ML paradigms and Bayesian estimation (M1), supervised learning — regression, Naive Bayes, trees (M2), neural networks and SVMs (M3), unsupervised learning — clustering and PCA (M4), classification assessment, ROC, ensembles (M5).</p>
       <div class="mods"><span>M1 Paradigms</span><span>M2 Supervised</span><span>M3 NN/SVM</span><span>M4 Unsupervised</span><span>M5 Assessment</span></div>
     </div>
-    <span class="go">Open <span class="arr">→</span><span class="pages">13 pages</span></span>
+    <span class="go">Open <span class="arr">→</span><span class="pages">12 pages</span></span>
   </a>
 
 </div>
@@ -263,7 +277,7 @@
 </div>
 
 <div class="foot">
-  <span><b>4 subjects</b> · 40 pages · 20 modules</span> &nbsp;—&nbsp; <span>An editorial study companion, set in serif &amp; set to work fully offline.</span>
+  <span><b>4 subjects</b> · 41 pages · 20 modules</span> &nbsp;—&nbsp; <span>An editorial study companion, set in serif &amp; set to work fully offline.</span>
 </div>
 
 <script>
@@ -302,51 +316,6 @@
     card.addEventListener('pointermove',function(){if(card.classList.contains('warp')&&!raf)raf=requestAnimationFrame(update);});
   });
 
-  // Theme dropdown with reveal animation — persists across pages & sites
-  (function(){
-    var root=document.documentElement;
-    var order=["light","dark","amoled"];
-    var icons={light:"☀︎",dark:"☾",amoled:"⬤"};
-    var labels={light:"Light",dark:"Dark",amoled:"Amoled"};
-    function read(){ try{var c=document.cookie.match(/(^|; )theme=(dark|light|amoled)(;|$)/); if(c) return c[2];}catch(e){}
-      try{var ls=localStorage.getItem("theme"); if(ls==="dark"||ls==="light"||ls==="amoled") return ls;}catch(e){} return null; }
-    function write(v){ try{document.cookie="theme="+v+";path=/;max-age=31536000;samesite=lax";}catch(e){}
-      try{localStorage.setItem("theme",v);}catch(e){} }
-    var saved=read(); if(saved) root.setAttribute("data-theme",saved);
-    function reveal(targetTheme){
-      var cur=root.getAttribute("data-theme")||"light";
-      if(cur===targetTheme) return;
-      var btn=document.querySelector(".theme-toggle"); if(!btn) return;
-      var rect=btn.getBoundingClientRect();
-      var cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
-      var ov=document.createElement("div"); ov.className="theme-reveal";
-      ov.style.left=cx+"px"; ov.style.top=cy+"px";
-      ov.style.width="8px"; ov.style.height="8px";
-      ov.style.background=targetTheme==="light"?"#f4f5f7":targetTheme==="dark"?"#0E0F12":"#000000";
-      document.body.appendChild(ov);
-      requestAnimationFrame(function(){ov.classList.add("go");});
-      setTimeout(function(){root.setAttribute("data-theme",targetTheme);write(targetTheme);paint();},220);
-      setTimeout(function(){ov.remove();},560);
-    }
-    var bar=document.querySelector(".topbar-inner"); if(bar){
-      var wrap=document.createElement("div"); wrap.className="theme-dd";
-      var btn=document.createElement("button"); btn.className="theme-toggle"; btn.type="button";
-      btn.setAttribute("aria-label","Choose theme"); btn.setAttribute("aria-haspopup","true"); btn.setAttribute("aria-expanded","false");
-      function paint(){ var cur=root.getAttribute("data-theme")||"light";
-        btn.innerHTML='<span class="ic">'+icons[cur]+'</span> <span class="lbl">'+labels[cur]+'</span>'; }
-      var panel=document.createElement("div"); panel.className="theme-panel";
-      order.forEach(function(th){
-        var item=document.createElement("button"); item.className="theme-item"; item.type="button";
-        item.innerHTML='<span class="ic">'+icons[th]+'</span><span class="lbl">'+labels[th]+'</span>';
-        item.addEventListener("click",function(e){e.stopPropagation();reveal(th);panel.classList.remove("show");btn.setAttribute("aria-expanded","false");});
-        panel.appendChild(item);
-      });
-      btn.addEventListener("click",function(){var open=panel.classList.toggle("show");btn.setAttribute("aria-expanded",open?"true":"false");});
-      wrap.appendChild(btn); wrap.appendChild(panel); bar.appendChild(wrap);
-      document.addEventListener("click",function(e){if(!wrap.contains(e.target)){panel.classList.remove("show");btn.setAttribute("aria-expanded","false");}});
-      paint();
-    }
-  })();
 
   // Restructure brand into mark + name + subject
   (function(){

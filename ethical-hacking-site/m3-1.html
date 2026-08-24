@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 3 · Vulnerability Resources, Sniffing, MITM &amp; Attacks</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -57,7 +56,7 @@
       <div class="def">A <b>vulnerability</b> is a weakness that lets an attacker enter and harm a
       system — a flaw in design or a misconfiguration. To exploit it, the attacker needs a tool or
       technique that connects to that weakness. The top sources used to trace new vulnerabilities:</div>
-      <div class="grid cols-3">
+      <div class="stack">
         <div class="card"><h3><span class="idx">1</span>NVD</h3><p>US-government repository of standards-based vulnerability data using SCAP. Enables automation of vuln management, measurement and compliance; includes checklists, flaws, misconfigurations, product names, impact metrics.</p></div>
         <div class="card"><h3><span class="idx">2</span>CVE</h3><p>International, free dictionary of publicly-known vulnerabilities &amp; exposures. Common identifiers let security products exchange data. Scanning tools use CVEs for classification; SIEMs understand them.</p></div>
         <div class="card"><h3><span class="idx">3</span>CERT Notes</h3><p>CERT Knowledgebase — public Vulnerability Notes Database plus restricted components. Notes include summaries, technical details, remediation, affected vendors.</p></div>
@@ -75,7 +74,7 @@
   <div class="section" id="exploit">
     <div class="head"><span class="num">02</span><h2>Exploit Databases &amp; What an Exploit Is</h2>
       <span class="tag">Definitions</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3><span class="idx">DB</span>Exploit Database</h3><p>An archive of exploits for public security — useful for finding weaknesses in your network and staying current on attacks elsewhere. Lets defenders learn attackers' methods.</p></div>
       <div class="card"><h3><span class="idx">!</span>Exploit vs Vulnerability</h3><p>An <b>exploit</b> is a program or piece of code that finds and takes advantage of a flaw — it is <b>not malware itself</b>, but the method used to deliver malware. Defenses: EDR, threat-defense software, pen-testing programs.</p></div>
       <div class="card"><h3><span class="idx">K</span>Known exploits</h3><p>Once known, the flaw is usually patched and the info goes to security vendors. Public vulns get an ID, description and references.</p></div>
@@ -93,7 +92,7 @@
       <b>promiscuous mode</b> gathers all traffic. Can be <b>active</b> (spikes traffic into a switch
       LAN to monitor) or <b>passive</b> (no interaction; sits on a hub, needs only a LAN account).</p>
       <h4 style="margin:14px 0 6px;font-size:14.5px">Types of network sniffers</h4>
-      <div class="grid cols-3">
+      <div class="stack">
         <div class="card"><h4>MAC sniffers</h4><p>Sniff data relevant to a MAC-address filter.</p></div>
         <div class="card"><h4>Protocol sniffers</h4><p>Sniff for specific network protocols.</p></div>
         <div class="card"><h4>LAN sniffers</h4><p>Inspect an entire range of internal IP addresses.</p></div>
@@ -111,7 +110,7 @@
       <span class="tag">Intercepting traffic</span></div>
     <div class="card full">
       <p>An attacker eavesdrops on (or alters) communication between two legit hosts. <b>Types of MITM:</b></p>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h3><span class="idx">R</span>Rogue Access Point</h3><p>Attacker sets up an AP with the strongest signal; nearby devices auto-join. All victim traffic is then manipulable — no need to be on a trusted network, just close by.</p></div>
         <div class="card"><h3><span class="idx">A</span>ARP Spoofing</h3><p>ARP resolves IP→MAC on a LAN. Attacker answers ARP requests with its own MAC, poisoning both router and workstation caches, sitting silently in the middle. Detect with <code>arp -a</code> (two IPs, same MAC). Prevent with VPN, static ARP, packet filtering.</p></div>
         <div class="card"><h3><span class="idx">m</span>mDNS Spoofing</h3><p>Multicast DNS on a LAN; attacker replies to <code>tv.local</code>-style requests with a fake address it controls; victim caches it as trusted.</p></div>
@@ -135,7 +134,7 @@
   <div class="section">
     <div class="head"><span class="num">05</span><h2>Denial-of-Service &amp; Remote Attacks</h2>
       <span class="tag">Availability</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3><span class="idx">D</span>DoS vs DDoS</h3><p>DoS uses a <b>single</b> computer to overwhelm a target. <b>DDoS</b> comes from <b>many distributed</b> sources (e.g. a botnet). Goal: oversaturate capacity so legitimate requests are denied.</p></div>
       <div class="card"><h3><span class="idx">F</span>Attack categories</h3><ul>
         <li><b>Buffer overflow</b> — memory overrun consumes disk/RAM/CPU → crash.</li>
@@ -155,7 +154,7 @@
   <div class="section">
     <div class="head"><span class="num">06</span><h2>Brute Force &amp; Protocol Attacks</h2>
       <span class="tag">Credential &amp; app layer</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3><span class="idx">B</span>Brute Force types</h3><ul>
         <li><b>Simple</b> — manual guessing of weak/custom passwords (no software).</li>
         <li><b>Dictionary</b> — run words (+symbols/numbers) against a username.</li>
@@ -228,6 +227,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

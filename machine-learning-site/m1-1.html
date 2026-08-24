@@ -5,18 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · ML Paradigms &amp; Bayesian Formulation</title>
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
 <style>
-  .hero{background:var(--ink);color:var(--paper);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
   .hero .inner{max-width:980px;margin:0 auto}
   .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
-  .hero .lede{color:#cfd6dd;font-size:15px;max-width:700px;line-height:1.55}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:700px;line-height:1.55}
   .hero .meta-row{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
-  .hero .chip{display:inline-block;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:rgba(255,255,255,.10);color:var(--paper);border:1px solid rgba(255,255,255,.22)}
+  .hero .chip{display:inline-block;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-2);border:1px solid var(--line)}
   .hero .chip.red{background:var(--accent);border-color:var(--accent);color:var(--paper)}
   @media (max-width:780px){.hero h1{font-size:25px}.hero .lede{font-size:14.5px}}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -76,7 +75,7 @@
 
   <div class="section">
     <div class="head"><span class="num">02</span><h2>The Three Core Types of Machine Learning</h2><span class="tag">Paradigms at a glance</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">S</span>Supervised Learning</h3>
         <p>Trains models on <b>labelled</b> data to predict or classify new, unseen data. Each training example
@@ -115,7 +114,7 @@
 
   <div class="section">
     <div class="head"><span class="num">03</span><h2>Unsupervised Learning — Three Categories</h2><span class="tag">Structure without labels</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card">
         <h3><span class="idx">C</span>Clustering</h3>
         <p>Groups similar data points together so that items in the same group (cluster) are more alike than items
@@ -215,7 +214,7 @@
       <p>Bayes' theorem relates conditional probabilities. In the context of machine learning it is usually written
       as:</p>
       <p style="text-align:center;font-size:16px;font-weight:700;margin:14px 0;color:var(--accent-ink)">P(H | D) = P(D | H) · P(H) / P(D)</p>
-      <div class="grid cols-2" style="margin-top:6px">
+      <div class="stack" style="margin-top:6px">
         <div class="card">
           <h3><span class="idx">P(H | D)</span>Posterior</h3>
           <p>The probability of the hypothesis <b>H</b> after observing the data <b>D</b>. This is what we want to
@@ -286,6 +285,14 @@
 </div>
 
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/theme-bridge.js"></script>
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

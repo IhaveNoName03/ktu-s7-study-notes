@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · Classification of Energy Resources</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -66,7 +65,7 @@
 
   <div class="section">
     <div class="head"><span class="num">02</span><h2>By Usability (Primary → Secondary)</h2><span class="tag">Energy chain</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">P</span>Primary</h3><p>Resources available in nature in raw form — coal, oil, gas, uranium, hydro. "Raw energy resources."</p></div>
       <div class="card"><h3><span class="idx">I</span>Intermediate</h3><p>Obtained from primary by one or more transformation steps; used as a "vehicle of energy" (e.g. refined fuels).</p></div>
       <div class="card"><h3><span class="idx">S</span>Secondary</h3><p>The final usable form supplied to the consumer: electrical energy, thermal (steam/hot water), chemical (hydrogen, refined fuels).</p></div>
@@ -90,21 +89,21 @@
 
   <div class="section">
     <div class="head"><span class="num">04</span><h2>Conventional Energy Sources</h2><span class="tag">Fossil · Nuclear · Hydro</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">F</span>Fossil fuels</h3><p>Coal, petroleum, natural gas. Formed by decomposition of buried plant/animal remains over geologic time. Non-renewable, limited reserves, pollute.</p></div>
       <div class="card"><h3><span class="idx">N</span>Nuclear</h3><p>Heavy unstable atoms (U-235, Th-239) release heat by fission. 1 kg U-235 ≈ heat of 4500 t coal (or 220 t oil). Steam drives turbo-generators.</p></div>
       <div class="card"><h3><span class="idx">H</span>Hydro</h3><p>Water falls under gravity → potential energy → mechanical (hydraulic turbines) → electricity. Cheap where water is abundant; low operating cost (no fuel).</p></div>
     </div>
 
     <h4 style="margin:16px 0 6px;font-size:14.5px">Fossil fuel detail</h4>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h4>Coal</h4><p>Complex C/H/O compound (+N, S). Backbone of energy sector (industry, transport, power). Major mines: Jharia, Bokaro (Bihar), Raniganj (WB).</p></div>
       <div class="card"><h4>Petroleum</h4><p>Dark viscous crude trapped in rock. Refined by fractional distillation (~400 °C): petroleum gas (LPG, &lt;40 °C), petrol (40–170 °C), kerosene (170–250 °C), diesel (250–350 °C), fuel oil (350–400 °C), residue (lube/wax/asphalt).</p></div>
       <div class="card"><h4>Natural gas</h4><p>~95% methane (+ethane, propane). Found with/above oil. Used as domestic/industrial fuel; CNG substitutes petrol in vehicles. India: Tripura, Jaisalmer, Bombay High, Krishna–Godavari.</p></div>
     </div>
 
     <h4 style="margin:16px 0 6px;font-size:14.5px">Nuclear — limitations &amp; Indian plants</h4>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Limitations</h4><ul>
         <li>High capital cost of nuclear plants</li>
         <li>Limited, expensive-to-recover raw material (U reserves small)</li>
@@ -130,7 +129,7 @@
 
   <div class="section">
     <div class="head"><span class="num">05</span><h2>Non-Conventional (Renewable) Sources</h2><span class="tag">The alternatives</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">S</span>Solar</h3><p>From the Sun; intermittent, eco-friendly, non-polluting. Earth intercepts ≈1.8×10¹¹ MW. 99% of radiation is 0.2–4 µm wavelength. Used as heat or direct PV.</p></div>
       <div class="card"><h3><span class="idx">W</span>Wind</h3><p>Kinetic energy of air masses. Caused by atmospheric heating (convection) + Earth's rotation. ~1.6×10⁷ MW potential. Uses: agriculture, rural/municipal, pumping, large-scale generation.</p></div>
       <div class="card"><h3><span class="idx">B</span>Bioenergy</h3><p>From organic matter. <b>Biogas</b> = anaerobic decomposition of dung/waste → CH₄-rich gas. <b>Biomass</b> = energy from plants/animals, often transformed chemically/biologically first.</p></div>
@@ -159,7 +158,7 @@
 
   <div class="section">
     <div class="head"><span class="num">07</span><h2>Advantages &amp; Limitations — Both Sides</h2><span class="tag">Balanced view</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Conventional — Advantages</h4><ul>
         <li>Cheaper than non-conventional at present</li>
         <li>Easy, convenient storage → assured availability</li>
@@ -208,6 +207,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

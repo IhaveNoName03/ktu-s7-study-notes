@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · Solar Thermal Systems</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -46,7 +45,7 @@
 
   <div class="section">
     <div class="head"><span class="num">01</span><h2>Two Ways to Use Solar Energy</h2><span class="tag">Thermal vs PV</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3><span class="idx">T</span>Solar Thermal</h3><p>Collect radiant heat; use it in a thermal system. Best for low-grade heat (comfort heating, hot water, preheating, drying, process heat up to ~180 °C).</p></div>
       <div class="card"><h3><span class="idx">P</span>Solar Photovoltaic</h3><p>Convert sunlight directly to electricity (Module 1, Page 3). No thermal step.</p></div>
     </div>
@@ -77,7 +76,7 @@
     <div class="card full">
       <p>Simple, stationary, no sun-tracking. Mechanically strong (rigid platform), withstands outdoor conditions (rain, storm), low maintenance. <b>Disadvantage:</b> no optical concentration → large heat-loss area, so high temperatures cannot be reached.</p>
       <h4 style="margin:14px 0 6px;font-size:14.5px">Five components</h4>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>i. Absorber plate</h4><p>Blackened plate (copper/aluminium/steel) that intercepts and absorbs incident radiation; coating minimises re-emission.</p></div>
         <div class="card"><h4>ii. Transparent cover</h4><p>One or more glass/plastic sheets above the absorber. Lets radiation in but blocks reradiation + convective heat loss.</p></div>
         <div class="card"><h4>iii. Fluid tubes / channels</h4><p>In thermal contact with the absorber; carry fluid that receives the heat.</p></div>
@@ -146,7 +145,7 @@
 
   <div class="section">
     <div class="head"><span class="num">05</span><h2>The Three Concentrator Geometries</h2><span class="tag">Detail</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">T</span>Parabolic trough</h3><p>"U"-shaped; concentrates sunlight onto a receiver tube along the focal line. Glass envelope may surround the tube to cut loss. Reflector: polished aluminium, silvered glass, or aluminized plastic. Needs sun on the plane through focal line + vertex.</p></div>
       <div class="card"><h3><span class="idx">D</span>Parabolic dish</h3><p>Paraboloidal (parabola rotated about axis) → point focus. <b>Two-axis tracking:</b> rotate about vertical axis (alignment) + about horizontal axis (elevation). Concentration 10–1000×; temperatures to ~3000 °C.</p></div>
       <div class="card"><h3><span class="idx">C</span>Central tower</h3><p>Receiver atop a tower; many independently 2-axis <b>heliostats</b> on the ground reflect sun onto it from all sides — acting as one huge dish. Thousands of heliostats; concentration up to ~3000×. Heat sent to a heat engine.</p></div>
@@ -195,6 +194,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

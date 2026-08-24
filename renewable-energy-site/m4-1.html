@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 4 · Biomass Energy</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -73,7 +72,7 @@
     <div class="card full">
       <p>Thermo-chemical conversion of solid biomass into a combustible gas through <b>partial combustion</b> (restricted oxygen) with no solid carbon residue. Output gas = wood gas / producer gas / syngas — mainly CO + H₂ (+ small CH₄), plus SOₓ/NOₓ depending on feedstock.</p>
       <p><b>Gasifier types (fixed-bed):</b></p>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>Updraft</h4><p>Fuel and air move <b>counter-current</b> (opposite directions).</p></div>
         <div class="card"><h4>Downdraft</h4><p>Fuel and air move <b>co-current</b>. In a typical downdraft gasifier: drying (200 °C) → pyrolysis (200–600 °C, char + acetic acid + methanol + water vapour) → … → combustible gas at bottom.</p></div>
       </div>
@@ -98,7 +97,7 @@
     <div class="head"><span class="num">04</span><h2>Biogas Production</h2><span class="tag">Anaerobic digestion</span></div>
     <div class="card full">
       <p>A biogas plant converts cattle dung + organic matter into inflammable <b>biogas</b> + quality organic manure under <b>anaerobic</b> conditions. Two popular designs:</p>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>1. Floating-drum (constant pressure)</h4><p><b>KVIC model</b> (standardised 1961): underground cylindrical masonry digester with inlet (dung slurry) + outlet (sludge) pipes; a steel dome floats on the slurry, moving up/down with gas accumulation, guided by a shaft. A partition wall improves circulation for fermentation.</p></div>
         <div class="card"><h4>2. Fixed-dome (constant volume)</h4><p><b>Janata model</b>: fixed dome; gas collected in a dome, slurry level varies. Lower cost, less moving parts.</p></div>
       </div>
@@ -115,7 +114,7 @@
 
   <div class="section">
     <div class="head"><span class="num">05</span><h2>Urban Waste → Energy &amp; India Program</h2><span class="tag">Context</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Urban waste to energy</h4><p>Municipal/agro waste is a major biomass resource; current commercial use leans on residues collected for other reasons (timber/food processing, urban refuse).</p></div>
       <div class="card"><h4>Future in India (4 segments)</h4><ul>
         <li>Process heat in biomass-waste industries</li>
@@ -141,6 +140,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

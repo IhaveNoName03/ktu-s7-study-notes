@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 · Solar Photovoltaic Systems</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -48,7 +47,7 @@
     <div class="head"><span class="num">01</span><h2>What Is a Solar PV System?</h2><span class="tag">Overview</span></div>
     <div class="card full">
       <p>Converts solar energy <b>directly</b> to electricity via the <b>photovoltaic (PV) cell</b> — a p-n junction current source driven by a flux of radiation. First made in 1954 for space satellites; terrestrial use grew after the 1973 oil crisis.</p>
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>Advantages</h4><ul>
           <li>No moving parts; direct conversion (no thermal-mechanical link)</li>
           <li>Reliable, modular, durable, maintenance-free, quiet</li>
@@ -76,7 +75,7 @@
   <div class="section">
     <div class="head"><span class="num">03</span><h2>Solar Cell Construction</h2><span class="tag">Layer stack</span></div>
     <div class="card full">
-      <div class="grid cols-2">
+      <div class="stack">
         <div class="card"><h4>Parts</h4><ul>
           <li>p-type silicon bulk (~100–350 µm)</li>
           <li>thin n-type layer (~2 µm) diffused on top → p-n junction</li>
@@ -142,7 +141,7 @@
 
   <div class="section">
     <div class="head"><span class="num">05</span><h2>Cell → Module → Panel → Array</h2><span class="tag">Hierarchy</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Solar cell</h4><p>Single p-n junction; tiny output; no protection. Needs encapsulation.</p></div>
       <div class="card"><h4>Solar module</h4><p>32–36 cells in series (to charge a 12 V battery). Cells hermetically sealed; encapsulated in EVA (insulator, transparent, low water absorption), glass front, PVF/tedlar rear. Cells from same batch to minimise mismatch loss.</p></div>
       <div class="card"><h4>Solar panel</h4><p>Modules wired in series (same current) and parallel (same voltage). Frame mounts them. <b>Bypass diodes</b> across each module (skip a faulty one); <b>blocking diodes</b> in series strings (stop back-feed into a failed string).</p></div>
@@ -181,7 +180,7 @@
 
   <div class="section">
     <div class="head"><span class="num">08</span><h2>Cell Generations</h2><span class="tag">Technology</span></div>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">1</span>First gen</h3><p>Wafer-based mono- &amp; multi-crystalline silicon. Dominates the market today.</p></div>
       <div class="card"><h3><span class="idx">2</span>Second gen</h3><p>Thin-film: amorphous silicon, CIGS, cadmium telluride. Commercially available.</p></div>
       <div class="card"><h3><span class="idx">3</span>Third gen</h3><p>Different principle: dye-sensitized, organic, quantum-dot. Under development.</p></div>
@@ -202,6 +201,8 @@
   </div>
 </footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

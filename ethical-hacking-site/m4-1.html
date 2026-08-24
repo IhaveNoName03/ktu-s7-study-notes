@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 4 · Network &amp; System Defense — Ethical Hacking Notes</title>
 <link rel="stylesheet" href="assets/styles.css">
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/layout.css">
 </head>
 <body>
 
@@ -21,7 +20,7 @@
     <div class="head"><span class="num">1</span><h2>Routers</h2><span class="tag">Infrastructure</span></div>
     <div class="def">A <b>router</b> is a networking device that <b>connects two or more packet-switched networks</b> and forwards data packets between them, choosing the best path toward the destination.</div>
 
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">F</span> Core Functions</h3>
         <ul>
           <li><b>Packet forwarding</b> — switch packets from ingress to the correct egress interface.</li>
@@ -58,7 +57,7 @@
     <div class="def">A <b>firewall</b> is a network security system that <b>monitors and filters incoming/outgoing traffic according to a security policy</b> — acting as a <b>barrier between an internal (trusted) network and an untrusted network</b> such as the internet.</div>
 
     <h4 style="margin:6px 0 10px;font-weight:800">Firewall Generations</h4>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3><span class="idx">1</span> Gen 1 — Virus</h3><p>1980s. Threat was the <b>computer virus</b>; the response was <b>antivirus</b> software scanning files/signatures.</p></div>
       <div class="card"><h3><span class="idx">2</span> Gen 2 — Network</h3><p>Mid-1990s. Threat moved to the <b>network</b>; the <b>firewall</b> was born to filter traffic at the perimeter.</p></div>
       <div class="card"><h3><span class="idx">3</span> Gen 3 — Application</h3><p>2000s. Application-layer attacks drove <b>IPS</b> (Intrusion Prevention Systems) to inspect/block at L7.</p></div>
@@ -68,7 +67,7 @@
     </div>
 
     <h4 style="margin:18px 0 10px;font-weight:800">Firewall Types</h4>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Packet Filtering</h3><p>Stateless inspection of packets against ACLs (source/dest IP, port, protocol). Fast, cheap, but blind to connection state.</p></div>
       <div class="card"><h3>Proxy Service (Application-Layer)</h3><p>Acts as an intermediary; the client talks to the proxy, the proxy fetches on its behalf. Full L7 visibility, can filter content, but slower.</p></div>
       <div class="card"><h3>Stateful Inspection</h3><p>Tracks the state of active connections (state table) and makes decisions based on context — not just individual packets.</p></div>
@@ -112,7 +111,7 @@
     <div class="head"><span class="num">3</span><h2>Honeypots</h2><span class="tag">Deception</span></div>
     <div class="def">A <b>honeypot</b> is a security resource whose value lies in being <b>probed, attacked, or compromised</b> — a decoy system that <b>lures, deflects, and studies attackers</b> while appearing to be a high-value asset (database, server, router).</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Placement</h3>
         <ul>
           <li><b>DMZ</b> — exposed segment between firewall and internet; common, realistic exposure.</li>
@@ -128,20 +127,20 @@
     </div>
 
     <h4 style="margin:18px 0 10px;font-weight:800">Types</h4>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3>Production vs Research</h3><p><b>Production</b> honeypots protect an organization (added risk detection). <b>Research</b> honeypots gather threat intelligence (used by vendors/analysts).</p></div>
       <div class="card"><h3>Pure / High-Interaction</h3><p>A <b>full real system</b> with real services and often <b>root access</b> to the attacker. More realistic data but <b>riskier</b> — a compromise can be used to pivot.</p></div>
       <div class="card"><h3>Low-Interaction</h3><p><b>Simulates</b> common attack vectors only (e.g. <code>Honeyd</code>). <b>Safe</b>, cheap, easy to deploy; great for <b>detecting bots/automated malware</b> but gives less depth.</p></div>
     </div>
 
     <h4 style="margin:18px 0 10px;font-weight:800">Specialized Honeypots</h4>
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h4>Malware honeypot</h4><p>Collects and analyzes malware binaries.</p></div>
       <div class="card"><h4>Spam honeypot</h4><p>Traps spam/abuse (open relays, spam sinks).</p></div>
       <div class="card"><h4>Database honeypot</h4><p>Decoy DB to catch SQL injection/data theft.</p></div>
       <div class="card"><h4>Client honeypot</h4><p>Proactively seeks out malicious servers (drives a client to detect drive-by attacks).</p></div>
       <div class="card full"><h4>Benefits &amp; Disadvantages</h4>
-        <div class="grid cols-2" style="margin-top:6px">
+        <div class="stack" style="margin-top:6px">
           <div><p style="font-weight:700;margin:0 0 6px">Benefits</p><ul>
             <li><b>Real data</b> — captures actual attacker behavior.</li>
             <li><b>Fewer false positives</b> — any interaction is by definition suspicious.</li>
@@ -178,7 +177,7 @@
     </div>
 
     <h4 style="margin:18px 0 10px;font-weight:800">IDS Classifications</h4>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>By placement / scope</h3>
         <ul>
           <li><b>NIDS</b> — Network-based; watches network segments.</li>
@@ -197,7 +196,7 @@
     </div>
 
     <h4 style="margin:18px 0 10px;font-weight:800">IPS Classifications</h4>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>By placement</h3>
         <ul>
           <li><b>NIPS</b> — Network IPS (inline at a network point).</li>
@@ -219,7 +218,7 @@
     <div class="head"><span class="num">5</span><h2>Web Filtering</h2><span class="tag">Content Control</span></div>
     <div class="def">Web filtering is the practice of <b>controlling which web resources users may reach</b> — it can allow or block content by category, domain, or policy.</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Allow-list vs Block-list</h3>
         <ul>
           <li><b>Allow-list (whitelist)</b> — only explicitly approved sites are reachable; maximum security, low usability.</li>
@@ -265,7 +264,7 @@
       </ol>
     </div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Static vs Dynamic content</h3>
         <ul>
           <li><b>Static</b> — pre-built files served as-is (HTML, CSS, images).</li>
@@ -287,7 +286,7 @@
     <div class="head"><span class="num">7</span><h2>SQL Injection (SQLi)</h2><span class="tag">Web Attack</span></div>
     <div class="def"><b>SQL injection</b> is a code-injection technique where an attacker inserts <b>malicious SQL</b> into an input field so the application executes it against the <b>backend database</b>, manipulating queries it was never meant to run.</div>
 
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h3>In-band</h3>
         <p>Attacker uses the <b>same channel</b> for the attack and to read results.</p>
         <ul>
@@ -319,7 +318,7 @@
     <div class="head"><span class="num">8</span><h2>Cross-Site Scripting (XSS)</h2><span class="tag">Web Attack</span></div>
     <div class="def"><b>XSS</b> is a web vulnerability that lets a <b>third party execute a script in the victim's browser</b> — usually by injecting client-side code (JavaScript) that the site then serves to other users.</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Reflected XSS</h3>
         <p>The malicious payload is <b>embedded in the request and reflected back in the response</b>. The script runs immediately when the victim opens a crafted link (e.g. a search box that echoes input). Not stored — it needs the victim to trigger it.</p>
       </div>
@@ -336,7 +335,7 @@
     <div class="head"><span class="num">9</span><h2>Exploit Writing</h2><span class="tag">Offensive</span></div>
     <div class="def">Writing an exploit is the process of turning a known vulnerability into reliable, repeatable code that subverts a program's intended behavior (typically to gain control of execution).</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Workflow</h3>
         <ul>
           <li><b>1. Identify the vulnerability</b> — find the bug (overflow, format string, etc.).</li>
@@ -358,7 +357,7 @@
     <div class="head"><span class="num">10</span><h2>Buffer Overflow</h2><span class="tag">Memory Corruption</span></div>
     <div class="def">A <b>buffer overflow</b> occurs when a program writes <b>data that exceeds the allocated buffer's capacity</b>, causing it to <b>overflow into adjacent memory</b> and overwrite other data or control structures.</div>
 
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h4>System crash</h4><p>Overwritten data corrupts execution → the process (or OS) crashes / becomes unstable.</p></div>
       <div class="card"><h4>Access-control loss</h4><p>Overwriting permission/control data can defeat the program's intended security checks.</p></div>
       <div class="card"><h4>Further exploits</h4><p>The overflow becomes the foothold for injecting and running attacker <b>shellcode</b>.</p></div>
@@ -371,7 +370,7 @@
     <div class="head"><span class="num">11</span><h2>Reverse Engineering</h2><span class="tag">Analysis</span></div>
     <div class="def"><b>Reverse engineering (RE)</b> is the process of analyzing a product — <b>software or hardware</b> — to understand its <b>functions and information flow</b>. In security it is heavily used for <b>malware RE</b> (understanding what malicious code does without source).</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>The PDF's three "stages"</h3>
         <p>The source lists these stages (notably framed around <b>physical scanning</b> of an object):</p>
         <ul>
@@ -393,7 +392,7 @@
     </div>
 
     <div class="card" style="margin-top:14px"><h3>Tools</h3>
-      <div class="grid cols-2" style="margin-top:6px">
+      <div class="stack" style="margin-top:6px">
         <div><p style="font-weight:700;margin:0 0 6px">Debuggers (user-mode / kernel-mode)</p>
           <ul>
             <li><b>IDA Pro</b> — disassembler + debugger (industry standard).</li>
@@ -419,7 +418,7 @@
     <div class="head"><span class="num">12</span><h2>Email Hacking</h2><span class="tag">Account / Comms</span></div>
     <div class="def"><b>Email hacking</b> is the <b>unauthorized access to, or manipulation of, someone's email account or messages</b> — to read, send, or alter mail without permission.</div>
 
-    <div class="grid cols-3">
+    <div class="stack">
       <div class="card"><h4>Phishing</h4><p>Fake messages trick users into revealing credentials or clicking malicious links.</p></div>
       <div class="card"><h4>Password guessing</h4><p>Tries likely passwords (common/known) against the account.</p></div>
       <div class="card"><h4>Brute force</h4><p>Systematically tries many password combinations until one works.</p></div>
@@ -435,7 +434,7 @@
     <div class="head"><span class="num">13</span><h2>Incident Response</h2><span class="tag">Process</span></div>
     <div class="def"><b>Incident response</b> is the organized approach to <b>handling a security breach</b> — detecting, containing, and recovering — to <b>minimize damage</b>, cost, and recovery time. Owned by the <b>CSIRT</b> (Computer Security Incident Response Team).</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Step 1 — Early Detection</h3><p>Spot the incident early, e.g. a <b>SIEM alert</b> flagging anomalous activity or an IDS/IPS alarm.</p></div>
       <div class="card"><h3>Step 2 — Analysis</h3><p>Investigate: collect <b>IoC</b> (Indicators of Compromise), triage scope and severity.</p></div>
       <div class="card"><h3>Step 3 — Prioritization</h3><p>Rank by business impact and urgency to decide response order.</p></div>
@@ -451,7 +450,7 @@
     <div class="head"><span class="num">14</span><h2>Bluetooth Hacking</h2><span class="tag">Wireless</span></div>
     <div class="def">Bluetooth hacking means <b>locating Bluetooth-enabled devices</b> and <b>exploiting</b> weaknesses in the protocol or its configuration to attack them.</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Bluesmacking</h3><p>A <b>DoS</b> attack abusing <b>L2CAP</b> — flooding the device with oversized/ping packets to crash or hang it.</p></div>
       <div class="card"><h3>Bluejacking</h3><p>Sending <b>unsolicited messages</b> (usually just text/contact cards) to a victim's device — mostly annoying, low harm.</p></div>
       <div class="card"><h3>Bluebugging</h3><p>Taking <b>control</b> of a device left in <b>discovery mode</b> — making calls, reading SMS, using features without permission.</p></div>
@@ -475,7 +474,7 @@
     <div class="head"><span class="num">15</span><h2>Mobile Phone Hacking</h2><span class="tag">Endpoint</span></div>
     <div class="def"><b>Mobile phone hacking</b> is unauthorized access to a phone that puts the owner's <b>identity and privacy at risk</b> — from stolen credentials to surveillance and financial fraud.</div>
 
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h3>Warning signs</h3>
         <ul>
           <li><b>Fast battery drain</b> — hidden processes running.</li>
@@ -525,7 +524,7 @@
   <div class="section">
     <div class="head"><span class="num">19</span><h2>Secure Web-Server Hardening</h2>
       <span class="tag">Checklist</span></div>
-    <div class="grid cols-2">
+    <div class="stack">
       <div class="card"><h4>Config</h4><ul>
         <li>Disable directory listing &amp; default pages</li>
         <li>Remove unused modules; least privilege</li>
@@ -561,6 +560,8 @@
 
 <footer class="site"><div class="inner"><div><span class="brand2">Study Notes</span> · Module 4 — Routers, Firewall, Honeypots, IDS/IPS, Web, SQLi, XSS, RE, Email, IR, Bluetooth, Mobile.</div><div><a href="index.html">Home</a> · <a href="m5-1.html">M5</a></div></div></footer>
 
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

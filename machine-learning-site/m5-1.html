@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 5 · Classification Assessment</title>
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
 <style>
-  .hero{background:var(--ink);color:var(--paper);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
   .hero .inner{max-width:980px;margin:0 auto}
   .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
-  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
   .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
   .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
   .qbox p{margin:0}
@@ -18,8 +19,6 @@
   .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
   .def b{color:var(--accent-ink)}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -70,7 +69,7 @@
         </table>
       </div>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">TP</span>True Positive</h3>
           <p>The classifier said YES and the truth is YES. A correct positive prediction — the classifier caught a real positive case.</p>
@@ -80,7 +79,7 @@
           <p>The classifier said YES but the truth is NO. A "false alarm" — the classifier raised an alert on a negative case. Also called a <b>Type I error</b>.</p>
         </div>
       </div>
-      <div class="grid cols-2" style="margin-top:10px">
+      <div class="stack" style="margin-top:10px">
         <div class="card">
           <h3><span class="idx">FN</span>False Negative</h3>
           <p>The classifier said NO but the truth is YES. A "miss" — the classifier failed to catch a real positive case. Also called a <b>Type II error</b>.</p>
@@ -123,7 +122,7 @@
       <p>A classifier that outputs a <b>score</b> (or probability) can be thresholded at different levels — "call it positive if the score is above t." As we vary the threshold, the true positive rate
       and false positive rate change. The <b>ROC (Receiver Operating Characteristic) curve</b> plots TPR against FPR for all possible thresholds, giving a complete picture of the classifier's behaviour.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">ROC space</span></h3>
           <p>The ROC plot has <b>FPR on the x-axis</b> (0 to 1) and <b>TPR on the y-axis</b> (0 to 1). Each point on the curve is one threshold setting. The diagonal line from (0,0) to (1,1) is the
@@ -168,7 +167,7 @@
       <p>How do we know our performance numbers are trustworthy? A single train/test split can be lucky or unlucky. <b>Cross validation</b> and <b>bootstrapping</b> are resampling methods that give
       more reliable estimates by repeatedly training and testing on different subsets of the data.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">k-fold</span>Cross Validation</h3>
           <p>Split the data into <b>k</b> equal folds. Train on k−1 folds, test on the held-out fold; repeat k times so every fold is the test set once. Average the k test scores. This uses all the
@@ -197,7 +196,7 @@
       <p>An <b>ensemble</b> combines several classifiers (the "base learners") to make a single prediction, usually better than any one alone. The idea is that different models make different mistakes,
       and by combining them — by voting or averaging — the individual errors cancel out.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">Bagging</span>Bootstrap Aggregation</h3>
           <p>Train many base learners, each on a different <b>bootstrap sample</b> of the data (sampled with replacement). At prediction time, average the regression outputs or take a majority vote
@@ -263,6 +262,14 @@
 </div>
 
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/theme-bridge.js"></script>
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>

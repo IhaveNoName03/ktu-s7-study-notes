@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 4 · Unsupervised Learning</title>
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
 <style>
-  .hero{background:var(--ink);color:var(--paper);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
   .hero .inner{max-width:980px;margin:0 auto}
   .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
-  .hero .lede{color:#cfd6dd;font-size:15px;max-width:720px;line-height:1.55}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
   .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
   .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
   .qbox p{margin:0}
@@ -18,8 +19,6 @@
   .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
   .def b{color:var(--accent-ink)}
 </style>
-<style>html{background:#f4f5f7}html[data-theme="dark"]{background:#0E0F12}body{background:var(--bg)}html[data-theme="dark"] body{background:var(--bg)}</style>
-<script>(function(){try{var c=document.cookie.match(/(?:^|; )theme=(dark|light)(?:;|$)/);var t=c?c[1]:localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -59,7 +58,7 @@
       <p>Clustering is built on a notion of <b>similarity</b> (or, equivalently, <b>distance</b>) between data points. To decide which points belong together we need a way to measure
       how alike two feature vectors are. Different tasks call for different measures; picking the right one is part of the job.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">|x − y|<sub>1</sub></span>Manhattan distance</h3>
           <p>Also called <b>L1 distance</b> or <b>city-block distance</b>. For two points <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b> it is</p>
@@ -76,7 +75,7 @@
         </div>
       </div>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">(Σ |xᵢ − yᵢ|<sup>p</sup>)<sup>1/p</sup></span>Minkowski distance</h3>
           <p>A family that includes Manhattan (p=1) and Euclidean (p=2) as special cases. For general <b>p</b>:</p>
@@ -104,7 +103,7 @@
       <p>Clustering partitions a set of unlabelled data points into <b>clusters</b> — groups of points that are more similar to each other than to points in other groups. There is no "correct"
       answer provided; the algorithm discovers the grouping from the data itself.</p>
       <p>Two broad families appear in this syllabus:</p>
-      <div class="grid cols-2" style="margin-top:10px">
+      <div class="stack" style="margin-top:10px">
         <div class="card">
           <h3><span class="idx">HAC</span>Hierarchical Agglomerative Clustering</h3>
           <p>Builds a <b>hierarchy</b> of clusters, bottom-up. Each point starts as its own cluster; the two closest clusters are merged repeatedly until one cluster remains (or until a
@@ -129,7 +128,7 @@
       <p>Agglomerative clustering starts with every point in its own cluster and merges the closest pair of clusters step by step. The key design choice is the <b>linkage</b> — how to measure
       the distance between two <b>clusters</b> (each of which may contain many points).</p>
 
-      <div class="grid cols-3" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">Single</span>Single linkage</h3>
           <p>The distance between two clusters is the <b>minimum</b> distance between any point in one and any point in the other.</p>
@@ -160,7 +159,7 @@
     <div class="card full">
       <p>K-means is the most widely used clustering algorithm. It partitions the data into exactly <b>k</b> clusters by iteratively refining k <b>centroids</b> (the representative centre of each
       cluster) and the assignment of points to the nearest centroid.</p>
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">Algorithm</span>The k-means steps</h3>
           <ol>
@@ -209,7 +208,7 @@
       data" is the <b>cluster membership</b> — we do not know which point came from which component, so we treat the memberships as latent (hidden) variables and estimate them alongside the model
       parameters.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">E-step</span>Expectation</h3>
           <p>Given the current guess of the model parameters (the means, covariances, and mixing weights of the Gaussians), compute the <b>probability</b> (responsibility) that each point
@@ -240,7 +239,7 @@
       technique that finds a new set of <b>uncorrelated</b> features (the principal components) that are linear combinations of the original features, ordered so that the first few capture most of
       the variation in the data. We can then keep only the first few components and <b>discard the rest</b>, reducing dimensionality while losing as little information as possible.</p>
 
-      <div class="grid cols-2" style="margin-top:12px">
+      <div class="stack" style="margin-top:12px">
         <div class="card">
           <h3><span class="idx">What PCA does</span></h3>
           <p>PCA finds the directions (principal components) in which the data varies the most, and projects the data onto those directions. The <b>first principal component</b> is the direction of
@@ -271,6 +270,14 @@
 </div>
 
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+<script src="assets/theme-bridge.js"></script>
+<footer class="site">
+  <div class="inner">
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="papers.html">Papers</a></div>
+  </div>
+</footer>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
