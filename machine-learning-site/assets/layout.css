@@ -131,6 +131,46 @@ tbody tr:hover{background:color-mix(in srgb, var(--accent) 12%, var(--paper))}
 .site .wrap,.site > div{max-width:var(--maxw);margin:0 auto}
 
 
+/* ── "Mark as revised" tracking (per-device, localStorage) ──────────────── */
+.readmark{margin:34px 0 8px;padding-top:18px;border-top:1px solid var(--line)}
+.readmark-btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.2px;
+  color:var(--ink-2);background:var(--paper);
+  border:1px solid var(--line);border-radius:999px;padding:9px 16px;
+  transition:border-color .18s ease,color .18s ease,background .18s ease;
+}
+.readmark-btn:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--ink)}
+.readmark-box{
+  width:16px;height:16px;flex:none;border-radius:4px;
+  border:1.5px solid var(--line);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:11px;line-height:1;font-weight:800;
+}
+.readmark-btn.on{
+  color:var(--ink);
+  border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  background:color-mix(in srgb,var(--accent) 8%,var(--paper));
+}
+.readmark-btn.on .readmark-box{
+  background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff);
+}
+
+/* index cards that are already revised */
+.mcard.is-read{position:relative}
+.readtick{
+  position:absolute;top:12px;right:12px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent);color:var(--on-accent,#fff);
+  font-size:11px;font-weight:800;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.chip.readcount{
+  border-color:color-mix(in srgb,var(--accent) 45%,var(--line));
+  color:var(--ink);
+}
+@media print{.readmark,.readtick,.readcount{display:none !important}}
+
 /* ═══════════════════════════════════════════════════════════════════════
    EDITORIAL × SWISS MANUAL  (Sketch A — widened)
    A left rail carries the section number, title and label; the prose keeps

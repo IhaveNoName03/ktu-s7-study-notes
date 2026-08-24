@@ -5,6 +5,10 @@
 *.gif
 *.webp
 
+# ...but the app icons are real assets, not screenshots
+!icon-192.png
+!icon-512.png
+
 # ---- Temp / scratch files ----
 _*.py
 _*.*

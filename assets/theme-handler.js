@@ -130,6 +130,19 @@
     root.setAttribute("data-mode", mode);
     if (mode === "amoled") root.setAttribute("data-amoled", "true");
     else root.removeAttribute("data-amoled");
+
+    /* Keep the mobile browser chrome (Android address bar, iOS status area)
+       in step with the active palette, otherwise it stays a default grey
+       and the app looks half-themed when installed to the home screen. */
+    try {
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("name", "theme-color");
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", c.bg);
+    } catch (e) {}
   }
 
   /* ---------- circular reveal ---------- */

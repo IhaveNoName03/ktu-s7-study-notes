@@ -96,6 +96,15 @@ headers across pages and avoids breaking a card or equation mid-block.
 all 41 pages**, not just the four subject cards — so "naive bayes" or "hazop" jumps
 straight to the right page, with the matched terms highlighted.
 
+**Installable.** A web manifest plus icons means you can "Add to Home Screen" on a
+phone and it opens fullscreen with no address bar, like an app. The mobile browser bar
+also recolours to match whichever theme is active.
+
+**Mark as revised.** Every module page has a toggle at the end; ticked pages show a
+badge on the subject index along with a "3 of 12 revised" count. Stored locally per
+device — there is no backend, so progress does **not** sync between your laptop and
+phone.
+
 ---
 
 ## How to use
@@ -115,10 +124,13 @@ s7/
 ├── index-alt.html              # experimental alternate hub (not live)
 ├── README.md
 ├── sw.js                       # service worker: full offline caching
+├── manifest.json               # installable web app (icons, name, shortcuts)
+├── favicon.svg                 # tab icon
+├── icon-192.png / icon-512.png # home-screen / app icons
 ├── search-index.json           # generated: 261 sections for cross-subject search
 ├── build_search_index.py       # regenerates search-index.json
 ├── _validate.py                # dev: HTML well-formedness + dead-link checker
-├── assets/                     # shared theme scripts for the hub
+├── assets/                     # shared theme + read-progress scripts
 │
 ├── ethical-hacking-site/       # CCT 401
 ├── renewable-energy-site/      # EET 435

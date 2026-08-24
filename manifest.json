@@ -1,0 +1,22 @@
+{
+  "name": "KTU S7 Study Notes",
+  "short_name": "S7 Notes",
+  "description": "Offline study textbook for four KTU Semester 7 subjects: Ethical Hacking, Renewable Energy, Industrial Safety and Machine Learning.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0E0F12",
+  "theme_color": "#0E0F12",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Ethical Hacking",   "url": "./ethical-hacking-site/index.html" },
+    { "name": "Renewable Energy",  "url": "./renewable-energy-site/index.html" },
+    { "name": "Industrial Safety", "url": "./industrial-safety-site/index.html" },
+    { "name": "Machine Learning",  "url": "./machine-learning-site/index.html" }
+  ]
+}
