@@ -50,8 +50,19 @@ an exam-technique page (`m-t1`), a question bank (`papers.html`), and its own `a
 
 ## Features
 
-**Works completely offline.** No CDN, no remote fonts, no analytics, no telemetry.
-Double-click `index.html` and it runs. KaTeX is vendored locally for maths.
+| | |
+|---|---|
+| **Offline** | Service worker precaches all 46 pages — works with no signal, not just from a local folder |
+| **Themes** | 6 palettes × light / dark / AMOLED, animated radial switch, persists across every page |
+| **Search** | One box over 261 sections in all 41 pages, deep-linked and highlighted |
+| **Maths** | 55 equation blocks in true KaTeX display style |
+| **Mobile** | Verified 375–768 px, zero overflow; installable to the home screen |
+| **Print** | Dedicated stylesheet — chrome stripped, answers expanded, no mid-equation breaks |
+| **Revision** | Mark pages as revised; per-subject tick and count |
+
+**No dependencies, no network calls.** No CDN, no remote fonts, no analytics, no
+telemetry. KaTeX is vendored locally for maths. Double-click `index.html` and it runs
+straight off the disk.
 
 **Six themes × three modes.** Swiss Red, Catppuccin, Gruvbox, Tokyo Night, Nord and
 Solarized, each in light / dark / **AMOLED** (true black). Chosen from one dropdown in
@@ -94,7 +105,9 @@ headers across pages and avoids breaking a card or equation mid-block.
 
 **Cross-subject search.** The hub searches a generated index of **261 sections across
 all 41 pages**, not just the four subject cards — so "naive bayes" or "hazop" jumps
-straight to the right page, with the matched terms highlighted.
+straight to the right page, with the matched terms highlighted. Needs to be *served*
+(GitHub Pages, or `python3 -m http.server`); opened by double-clicking a file the
+browser blocks the index fetch and only the four subject cards are filtered.
 
 **Installable.** A web manifest plus icons means you can "Add to Home Screen" on a
 phone and it opens fullscreen with no address bar, like an app. The mobile browser bar
@@ -196,9 +209,11 @@ python3 -m http.server 8000     # then open http://localhost:8000/
 
 Nothing to install, nothing to compile. Edit the HTML and reload.
 
-**Two things to remember when deploying:**
+**Remember when deploying:**
 - Bump `VERSION` in `sw.js`, or returning visitors keep serving the old cached bundle.
 - Re-run `build_search_index.py` after content edits, or search results go stale.
+- If you add a page, add it to the `PAGES` map in `sw.js` too, or it will not be
+  precached for offline use.
 
 ---
 
