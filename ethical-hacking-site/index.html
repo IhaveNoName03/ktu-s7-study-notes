@@ -101,6 +101,22 @@ html.theme-vt .theme-panel{display:none !important}
 @media (max-width:560px){
   .backtop{right:12px;bottom:12px}
 }
+
+/* ── PRINT / PDF ── */
+@media print{
+  :root{--bg:#fff !important;--paper:#fff !important;--ink:#000 !important;
+        --ink-2:#1a1a1a !important;--muted:#555 !important;--line:#bbb !important;
+        --accent:#000 !important;--on-accent:#fff !important;
+        --topbar-bg:#fff !important;--footer-bg:#fff !important}
+  html,body{background:#fff !important;color:#000 !important}
+  .topbar,.site,.backtop,.theme-dd,.theme-panel,.theme-toggle,.navtoggle,
+  .moddd,.progressbar,.searchbar,.searchwrap,input[type="search"]{display:none !important}
+  .wrap,.shell{max-width:100% !important;padding:0 !important}
+  .mcard,.scard,.card{break-inside:avoid;page-break-inside:avoid;
+        border:1px solid #ccc !important;background:none !important;box-shadow:none !important}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
+  @page{margin:16mm 14mm}
+}
 </style>
 </head>
 <body class="subj">
@@ -220,5 +236,20 @@ html.theme-vt .theme-panel{display:none !important}
 <script src="assets/theme-config.js"></script>
 <script src="assets/theme-handler.js"></script>
 <script src="assets/app.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
 </body>
 </html>

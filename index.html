@@ -170,6 +170,38 @@ html.theme-vt .theme-panel{display:none !important}
 @media (max-width:560px){
   .backtop{right:12px;bottom:12px}
 }
+
+/* ── PRINT / PDF ── */
+@media print{
+  :root{--bg:#fff !important;--paper:#fff !important;--ink:#000 !important;
+        --ink-2:#1a1a1a !important;--muted:#555 !important;--line:#bbb !important;
+        --accent:#000 !important;--on-accent:#fff !important;
+        --topbar-bg:#fff !important;--footer-bg:#fff !important}
+  html,body{background:#fff !important;color:#000 !important}
+  .topbar,.site,.backtop,.theme-dd,.theme-panel,.theme-toggle,.navtoggle,
+  .moddd,.progressbar,.searchbar,.searchwrap,input[type="search"]{display:none !important}
+  .wrap,.shell{max-width:100% !important;padding:0 !important}
+  .mcard,.scard,.card{break-inside:avoid;page-break-inside:avoid;
+        border:1px solid #ccc !important;background:none !important;box-shadow:none !important}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
+  @page{margin:16mm 14mm}
+}
+
+/* ── Cross-subject deep search results ── */
+.deep{margin:10px 0 0;border-top:1px solid var(--line);max-height:60vh;overflow-y:auto}
+.deep-head{font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);padding:12px 2px 8px}
+.deep a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;
+  border:1px solid transparent}
+.deep a:hover{background:color-mix(in srgb,var(--accent) 8%,transparent);
+  border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+.deep .dt{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--ink);
+  display:block;margin-bottom:2px}
+.deep .dm{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--accent);margin-right:8px}
+.deep .dx{font-size:12.5px;line-height:1.5;color:var(--ink-2);display:block}
+.deep mark{background:color-mix(in srgb,var(--accent) 26%,transparent);
+  color:var(--ink);padding:0 2px;border-radius:2px}
 </style>
 <script src="assets/theme-bridge.js"></script>
 <script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
@@ -258,6 +290,7 @@ html.theme-vt .theme-panel{display:none !important}
 </div>
 
 <div class="empty" id="empty">No subjects match your search — try a broader term.</div>
+<div class="deep" id="deep" hidden></div>
 
 <div class="quick">
   <span class="lab">Jump to:</span>
@@ -282,15 +315,75 @@ html.theme-vt .theme-panel{display:none !important}
 
 <script>
   // Live search filter
-  var q=document.getElementById('q'), grid=document.getElementById('grid'), empty=document.getElementById('empty');
-  q.addEventListener('input',function(){
-    var v=q.value.trim().toLowerCase(), shown=0;
+  var q=document.getElementById('q'), grid=document.getElementById('grid'),
+      empty=document.getElementById('empty'), deep=document.getElementById('deep');
+
+  /* ── Cross-subject deep search ──────────────────────────────────────────
+     The card filter only matches the four subject cards. This also searches
+     search-index.json (261 section records across all 41 pages) so a query
+     like "naive bayes" jumps straight to the right section.
+     Index is fetched lazily on first keystroke; if it cannot load (file://
+     without a server) the card filter still works on its own.            */
+  var IDX=null, idxState='idle';
+  function loadIndex(){
+    if(idxState!=='idle') return;
+    idxState='loading';
+    fetch('search-index.json').then(function(r){return r.json();})
+      .then(function(j){IDX=j; idxState='ready'; run();})
+      .catch(function(){idxState='failed';});
+  }
+  function esc(s){return s.replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function hl(s,terms){
+    var out=esc(s);
+    terms.forEach(function(t){
+      if(t.length<2) return;
+      out=out.replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+    });
+    return out;
+  }
+  function run(){
+    var raw=q.value.trim(), v=raw.toLowerCase(), shown=0;
     grid.querySelectorAll('.scard').forEach(function(c){
-      var hit=c.getAttribute('data-keywords').toLowerCase().indexOf(v)>-1 || c.textContent.toLowerCase().indexOf(v)>-1;
+      var hit=!v || c.getAttribute('data-keywords').toLowerCase().indexOf(v)>-1
+              || c.textContent.toLowerCase().indexOf(v)>-1;
       c.style.display=hit?'':'none'; if(hit) shown++;
     });
-    empty.style.display=shown?'none':'block';
-  });
+
+    if(v.length<2){ deep.hidden=true; deep.innerHTML='';
+      empty.style.display=shown?'none':'block'; return; }
+
+    if(!IDX){ empty.style.display=shown?'none':'block'; return; }
+
+    var terms=v.split(/\s+/).filter(Boolean);
+    var hits=IDX.map(function(r){
+      var hay=(r.t+' '+r.p+' '+r.m+' '+r.s+' '+r.x).toLowerCase();
+      var score=0;
+      for(var i=0;i<terms.length;i++){
+        if(hay.indexOf(terms[i])<0) return null;          // AND across terms
+        if(r.t.toLowerCase().indexOf(terms[i])>-1) score+=3;   // heading match
+        if(r.p.toLowerCase().indexOf(terms[i])>-1) score+=2;
+        score+=1;
+      }
+      return {r:r,score:score};
+    }).filter(Boolean).sort(function(a,b){return b.score-a.score;}).slice(0,25);
+
+    if(!hits.length){ deep.hidden=true; deep.innerHTML='';
+      empty.style.display=shown?'none':'block'; return; }
+
+    empty.style.display='none';
+    deep.hidden=false;
+    deep.innerHTML='<div class="deep-head">'+hits.length+
+      ' section'+(hits.length===1?'':'s')+' across all subjects</div>'+
+      hits.map(function(h){
+        var r=h.r;
+        return '<a href="'+r.u+'"><span class="dt"><span class="dm">'+esc(r.c)+
+               '</span>'+hl(r.t,terms)+'</span><span class="dx">'+
+               hl(r.x,terms)+'</span></a>';
+      }).join('');
+  }
+  q.addEventListener('input',function(){ loadIndex(); run(); });
+  q.addEventListener('focus', loadIndex);
 
   // Animated reveal + count-up
   var cards=grid.querySelectorAll('.scard');
@@ -351,6 +444,21 @@ html.theme-vt .theme-panel{display:none !important}
       });
     });
   })();
+</script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
 </script>
 </body>
 </html>

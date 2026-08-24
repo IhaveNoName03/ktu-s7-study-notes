@@ -83,6 +83,19 @@ stacked fractions, sums and products with limits above and below.
 768 px: zero horizontal overflow, the rail collapses to an inline heading, wide tables
 and formulas scroll inside their own block.
 
+**Truly offline on a phone too.** A service worker precaches all 46 pages, both
+stylesheets, the theme scripts and the KaTeX fonts on first visit, so the site keeps
+working with no signal — not just when opened from a local folder. HTML is
+network-first (fresh when online), assets are cache-first.
+
+**Print / PDF ready.** A dedicated print stylesheet drops the nav, rail, footer and
+theme control, forces black-on-white, expands every collapsed answer, repeats table
+headers across pages and avoids breaking a card or equation mid-block.
+
+**Cross-subject search.** The hub searches a generated index of **261 sections across
+all 41 pages**, not just the four subject cards — so "naive bayes" or "hazop" jumps
+straight to the right page, with the matched terms highlighted.
+
 ---
 
 ## How to use
@@ -101,6 +114,9 @@ s7/
 ├── index.html                  # hub: links to all four subjects, with search
 ├── index-alt.html              # experimental alternate hub (not live)
 ├── README.md
+├── sw.js                       # service worker: full offline caching
+├── search-index.json           # generated: 261 sections for cross-subject search
+├── build_search_index.py       # regenerates search-index.json
 ├── _validate.py                # dev: HTML well-formedness + dead-link checker
 ├── assets/                     # shared theme scripts for the hub
 │
@@ -160,11 +176,18 @@ matters: the AI confidently described content it had never written.
 # Validate every page: well-formed tags + no dead links
 python3 _validate.py
 
+# Rebuild the cross-subject search index (run after editing content)
+python3 build_search_index.py
+
 # Preview locally
 python3 -m http.server 8000     # then open http://localhost:8000/
 ```
 
 Nothing to install, nothing to compile. Edit the HTML and reload.
+
+**Two things to remember when deploying:**
+- Bump `VERSION` in `sw.js`, or returning visitors keep serving the old cached bundle.
+- Re-run `build_search_index.py` after content edits, or search results go stale.
 
 ---
 

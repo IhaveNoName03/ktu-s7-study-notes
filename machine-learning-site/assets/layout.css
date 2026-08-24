@@ -352,3 +352,80 @@ tbody tr:hover{background:color-mix(in srgb, var(--accent) 12%, var(--paper))}
    does not animate its own colours a second time and drift out of sync. */
 html.theme-vt,html.theme-vt *{transition:none !important}
 html.theme-vt .theme-panel{display:none !important}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PRINT / PDF
+   Strip the interactive chrome, force a light high-contrast palette, expand
+   every collapsed answer, and keep blocks from breaking across pages.
+   Printing without this dumps the sticky rail, nav, footer and theme button
+   onto the paper.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media print{
+  /* force readable ink-on-paper whatever theme is active on screen */
+  :root{
+    --bg:#ffffff !important; --paper:#ffffff !important;
+    --ink:#000000 !important; --ink-2:#1a1a1a !important;
+    --muted:#555555 !important; --line:#bbbbbb !important;
+    --accent:#000000 !important; --on-accent:#ffffff !important;
+    --topbar-bg:#ffffff !important; --footer-bg:#ffffff !important;
+  }
+  html,body{background:#fff !important;color:#000 !important}
+
+  /* drop everything that is navigation or a control */
+  .topbar,.site,.backtop,.theme-dd,.theme-panel,.theme-toggle,
+  .navtoggle,.moddd,.progressbar,.pagenav,.searchbar,.searchwrap,
+  input[type="search"],.ansbtn,.ans-toggle,.qlink,.sk-bar{
+    display:none !important;
+  }
+
+  /* full width: no sticky rail, no grid columns */
+  .wrap{max-width:100% !important;padding:0 !important}
+  .section{display:block !important;margin:0 0 18pt !important}
+  .section > .head{
+    position:static !important;display:block !important;
+    margin:0 0 6pt !important;border:none !important;padding:0 !important;
+  }
+  .section > .head .num{
+    display:inline !important;font-size:10pt !important;margin:0 6pt 0 0 !important;
+  }
+  .section > .head h2{display:inline !important;font-size:13pt !important}
+  .section > *:not(.head){
+    border-left:none !important;padding-left:0 !important;margin-left:0 !important;
+  }
+
+  /* reveal every answer that is collapsed on screen */
+  .ans,.ans-collapsible{
+    display:block !important;max-height:none !important;
+    opacity:1 !important;overflow:visible !important;
+  }
+  .ans[hidden]{display:block !important}
+
+  /* typography for paper */
+  body{font-size:10.5pt;line-height:1.45}
+  h1{font-size:18pt}
+  .hero{padding:0 0 10pt !important;background:none !important;border-bottom:1pt solid #000 !important}
+  .hero .lede{font-size:11pt}
+  .card,.def,.eq,.qbox,.diagram{
+    background:none !important;box-shadow:none !important;
+    border:1px solid #ccc !important;
+  }
+  .def::before{background:#fff !important}
+
+  /* never split these across a page */
+  .card,.def,.eq,.qbox,table,figure,.diagram,.q{
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  table{width:100% !important;font-size:9.5pt}
+  thead{display:table-header-group}          /* repeat headers on each page */
+  thead th{background:#eee !important;color:#000 !important;border-bottom:1pt solid #000 !important}
+
+  /* show link targets so a printed page is still traceable */
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
+
+  /* KaTeX must not be clipped by the on-screen scroll container */
+  .eq{overflow:visible !important}
+  .katex,.katex-display{color:#000 !important}
+
+  @page{margin:16mm 14mm}
+}
