@@ -62,14 +62,14 @@
         <div class="card">
           <h3><span class="idx">|x − y|<sub>1</sub></span>Manhattan distance</h3>
           <p>Also called <b>L1 distance</b> or <b>city-block distance</b>. For two points <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b> it is</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(D(a,b) = |x_2-x_1| + |y_2-y_1|\)</p>
+          <p class="eq">\[D(a,b) = |x_2-x_1| + |y_2-y_1|\]</p>
           <p>It measures distance along a grid — like walking city blocks. It is <b>robust to outliers</b> because it does not square the coordinate differences, so a single large
           coordinate difference does not dominate.</p>
         </div>
         <div class="card">
           <h3><span class="idx">|x − y|<sub>2</sub></span>Euclidean distance</h3>
           <p>The straight-line distance — the <b>L2 norm</b>. For <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b>:</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(D(a,b) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}\)</p>
+          <p class="eq">\[D(a,b) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}\]</p>
           <p>This is the most common default. It is sensitive to large differences (because of the square) and to the <b>scale</b> of each feature, so features are often normalised
           first so that no single feature dominates.</p>
         </div>
@@ -79,12 +79,12 @@
         <div class="card">
           <h3><span class="idx">(Σ |xᵢ − yᵢ|<sup>p</sup>)<sup>1/p</sup></span>Minkowski distance</h3>
           <p>A family that includes Manhattan (p=1) and Euclidean (p=2) as special cases. For general <b>p</b>:</p>
-          <p class="eq">\(D_p(a,b)=\Bigl(\sum_i|x_i-y_i|^{p}\Bigr)^{1/p}\)</p>
+          <p class="eq">\[D_p(a,b)=\Bigl(\sum_i|x_i-y_i|^{p}\Bigr)^{1/p}\]</p>
         </div>
         <div class="card">
           <h3><span class="idx">cosine similarity</span></h3>
           <p>Measures the <b>angle</b> between two vectors rather than their absolute distance. For vectors <b>x</b> and <b>y</b>:</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(\cos\theta = \frac{x\cdot y}{\lVert x\rVert\cdot\lVert y\rVert}\)</p>
+          <p class="eq">\[\cos\theta = \frac{x\cdot y}{\lVert x\rVert\cdot\lVert y\rVert}\]</p>
           <p>Two vectors pointing the same direction have cosine similarity 1 even if they are far apart in magnitude. This is useful when <b>magnitude is not important</b> — e.g.
           comparing document term-frequency vectors, where a longer document is not "more similar" just because its counts are larger.</p>
         </div>

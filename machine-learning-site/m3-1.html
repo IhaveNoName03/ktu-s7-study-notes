@@ -66,9 +66,9 @@
         <div class="card">
           <h3><span class="idx">Structure</span></h3>
           <p>A perceptron has <b>n</b> inputs <b>x₁ … xₙ</b>, each with a weight <b>w₁ … wₙ</b>, a <b>bias</b> <b>b</b>, and an output. The net input is</p>
-          <p class="eq" style="text-align:center;font-size:15px;margin:6px 0">\(z = w_1x_1 + w_2x_2 + \dots + w_nx_n + b\)</p>
+          <p class="eq">\[z = w_1x_1 + w_2x_2 + \dots + w_nx_n + b\]</p>
           <p>The output is a step (threshold) function of <b>z</b>:</p>
-          <p class="eq" style="text-align:center;font-size:15px;margin:6px 0">\(y = 1\ \text{if}\ z\ge 0,\ \text{else}\ y=0\)</p>
+          <p class="eq">\[y = 1\ \text{if}\ z\ge 0,\ \text{else}\ y=0\]</p>
           <div class="def" style="margin-top:8px"><b>Intuition:</b> each weight says how important its input is; the bias is a threshold adjuster. The perceptron fires when the weighted evidence for "1" is strong enough.</div>
         </div>
         <div class="card">
@@ -80,13 +80,13 @@
 
       <h3>Perceptron Learning</h3>
       <p>The perceptron learns by <b>correcting its mistakes</b>. For each training example, if the perceptron's prediction is wrong, the weights are updated in the direction that would have made the correct prediction. The rule is simple and incremental — one pass over the data at a time, repeated until no mistakes remain (if the data is linearly separable).</p>
-      <p class="eq" style="text-align:center;font-size:15px;margin:8px 0;color:var(--accent-ink)">\(w_j \leftarrow w_j + \eta\,(\text{target}-\text{output})\,x_j,\qquad b\leftarrow b+\eta\,(\text{target}-\text{output})\) &nbsp;&nbsp; , &nbsp;&nbsp; b ← b + η · (target − output)</p>
+      <p class="eq">\[w_j \leftarrow w_j + \eta\,(\text{target}-\text{output})\,x_j,\qquad b\leftarrow b+\eta\,(\text{target}-\text{output})\] &nbsp;&nbsp; , &nbsp;&nbsp; b ← b + η · (target − output)</p>
       <div class="def"><b>How to read the rule:</b> if the target is 1 and the perceptron output 0 (missed a positive), the error <b>(target − output)</b> is +1, so each weight moves toward the input values — making it more likely to fire next time. If the target is 0 and output is 1 (false alarm), the error is −1, so weights move away from the inputs — making it less likely to fire. The <b>learning rate η</b> controls the step size.</div>
       <div class="def"><b>A worked perceptron step:</b> suppose a perceptron has weights w₁=0.5, w₂=−0.3, bias b=0.1, and inputs x₁=1, x₂=1. Then z = 0.5·1 + (−0.3)·1 + 0.1 = 0.3. Since z ≥ 0, the output is 1. If the target was 0 (a mistake), the error is 0 − 1 = −1. With η=0.1, the new weights are w₁ = 0.5 + 0.1·(−1)·1 = 0.4, w₂ = −0.3 + 0.1·(−1)·1 = −0.4, b = 0.1 + 0.1·(−1) = 0.0. The perceptron is now less likely to fire on (1,1).</div>
       <div class="qbox" style="margin-top:12px">
         <h4>\(\text{Worked — forward pass: }x_1=1,\ x_2=3,\ w_1=0.3,\ w_2=0.1;\ \text{binary step activation}.\)</h4>
         <p>Inputs x₁=1, x₂=3 with weights w₁=0.3, w₂=0.1; output neuron uses a <b>binary step</b> activation.</p>
-        <p class="eq">\(y_{\text{in}}=1\cdot0.3+3\cdot0.1=0.5\)</p>
+        <p class="eq">\[y_{\text{in}}=1\cdot0.3+3\cdot0.1=0.5\]</p>
       </div>
     </div>
   </div>
@@ -232,10 +232,10 @@
 
       <h3>Illustrative example — a tiny network</h3>
       <p>Consider a network with 1 input <b>x</b>, 1 hidden neuron <b>h</b>, and 1 output <b>y</b>. Weights: input→hidden = w₁, hidden→output = w₂; biases b₁, b₂; activation f (say sigmoid) at the hidden neuron, and identity at the output. Given a training input x and target t:</p>
-      <p class="eq" style="text-align:center;font-size:15px;margin:8px 0;color:var(--accent-ink)">\(h = f(w_1x + b_1),\quad y = w_2h + b_2,\quad \text{error } E = \tfrac{1}{2}(y-t)^2\) &nbsp; , &nbsp; y = w₂h + b₂ &nbsp; , &nbsp; error E = ½(y − t)²</p>
+      <p class="eq">\[h = f(w_1x + b_1),\quad y = w_2h + b_2,\quad \text{error } E = \tfrac{1}{2}(y-t)^2\] &nbsp; , &nbsp; y = w₂h + b₂ &nbsp; , &nbsp; error E = ½(y − t)²</p>
       <p>The backpropagation steps compute:</p>
-      <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0;color:var(--accent-ink)">\(\frac{\partial E}{\partial y} = (y-t) \;\to\; \frac{\partial E}{\partial w_2} = (y-t)\cdot h \;\to\; \frac{\partial E}{\partial b_2} = (y-t)\) &nbsp;→&nbsp; ∂E/∂w₂ = (y−t)·h &nbsp;→&nbsp; ∂E/∂b₂ = (y−t)</p>
-      <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0;color:var(--accent-ink)">\(\frac{\partial E}{\partial h} = (y-t)\cdot w_2 \;\to\; \frac{\partial E}{\partial z_1} = (y-t)\cdot w_2\cdot f'(z_1) \;\to\; \frac{\partial E}{\partial w_1} = (y-t)\cdot w_2\cdot f'(z_1)\cdot x\) &nbsp;→&nbsp; ∂E/∂z₁ = (y−t)·w₂·f′(z₁) &nbsp;→&nbsp; ∂E/∂w₁ = (y−t)·w₂·f′(z₁)·x</p>
+      <p class="eq">\[\frac{\partial E}{\partial y} = (y-t) \;\to\; \frac{\partial E}{\partial w_2} = (y-t)\cdot h \;\to\; \frac{\partial E}{\partial b_2} = (y-t)\] &nbsp;→&nbsp; ∂E/∂w₂ = (y−t)·h &nbsp;→&nbsp; ∂E/∂b₂ = (y−t)</p>
+      <p class="eq">\[\frac{\partial E}{\partial h} = (y-t)\cdot w_2 \;\to\; \frac{\partial E}{\partial z_1} = (y-t)\cdot w_2\cdot f'(z_1) \;\to\; \frac{\partial E}{\partial w_1} = (y-t)\cdot w_2\cdot f'(z_1)\cdot x\] &nbsp;→&nbsp; ∂E/∂z₁ = (y−t)·w₂·f′(z₁) &nbsp;→&nbsp; ∂E/∂w₁ = (y−t)·w₂·f′(z₁)·x</p>
       <div class="def"><b>Reading this:</b> the error signal (y−t) starts at the output. It flows back through w₂ to the hidden neuron (giving ∂E/∂h), is scaled by the hidden neuron's activation derivative f′(z₁) (the chain rule), and then flows back through x to the input weight w₁. Each weight's gradient is the error signal at the neuron it feeds, times the input that weight multiplies. The weights are then updated: w₁ ← w₁ − η·∂E/∂w₁, and similarly for the others.</div>
 
     </div>
@@ -305,20 +305,20 @@
       <div class="def"><b>The constraints:</b> for each training point <b>xᵢ</b> with label <b>yᵢ ∈ {+1, −1}</b>, we require <b>yᵢ(w·xᵢ + b) ≥ 1</b>. This says: the signed distance from the point to the hyperplane, times the label, is at least 1. Points with y=+1 must satisfy w·x+b ≥ 1; points with y=−1 must satisfy w·x+b ≤ −1. The points that satisfy this with equality (yᵢ(w·xᵢ+b) = 1) are exactly the support vectors on the margin.</div>
 
       <div class="def"><b>Primal (hard-margin) optimisation:</b>
-      <p class="eq">\(\text{minimise}\ \tfrac{1}{2}\,\lVert w\rVert^{2}\)</p>
-      <p class="eq" style="text-align:center;font-size:14.5px;margin:4px 0 10px;color:var(--accent-ink)">subject to &nbsp; \(y_i\,(w\cdot x_i + b) \ge 1,\quad \text{for all }i\) &nbsp; , &nbsp; for all i</p>
+      <p class="eq">\[\text{minimise}\ \tfrac{1}{2}\,\lVert w\rVert^{2}\]</p>
+      <p class="eq">subject to &nbsp; \[y_i\,(w\cdot x_i + b) \ge 1,\quad \text{for all }i\] &nbsp; , &nbsp; for all i</p>
       <div class="def"><b>Reading it:</b> we search over all possible (w, b) for the one that makes ½||w||² as small as possible while satisfying every point's margin constraint. Small ||w|| means a wide margin (margin = 2/||w||). This is a <b>convex</b> quadratic-programming problem — it has a unique global minimum (for a given separable dataset), and the solution is the maximum-margin hyperplane.</div>
 
       <div class="def"><b>From primal to dual (the key step for kernels):</b> introducing Lagrange multipliers <b>αᵢ ≥ 0</b> for each constraint and applying the Karush-Kuhn-Tucker conditions leads to the <b>dual</b> problem — an equivalent optimisation that involves only the pairwise dot products of the training points:</div>
-      <p class="eq" style="text-align:center;font-size:15px;margin:8px 0;color:var(--accent-ink)">maximise &nbsp; \(\max_{\alpha}\ \sum_i\alpha_i - \tfrac{1}{2}\sum_i\sum_j\alpha_i\alpha_j y_i y_j\,(x_i\cdot x_j)\)</p>
-      <p class="eq" style="text-align:center;font-size:14px;margin:4px 0 8px;color:var(--accent-ink)">subject to &nbsp; \(0\le\alpha_i\le C\ \text{(soft margin)},\quad \sum_i\alpha_i y_i = 0\) &nbsp; (soft margin) &nbsp; , &nbsp; Σᵢ αᵢ yᵢ = 0</p>
+      <p class="eq">maximise &nbsp; \[\max_{\alpha}\ \sum_i\alpha_i - \tfrac{1}{2}\sum_i\sum_j\alpha_i\alpha_j y_i y_j\,(x_i\cdot x_j)\]</p>
+      <p class="eq">subject to &nbsp; \[0\le\alpha_i\le C\ \text{(soft margin)},\quad \sum_i\alpha_i y_i = 0\] &nbsp; (soft margin) &nbsp; , &nbsp; Σᵢ αᵢ yᵢ = 0</p>
       <div class="def"><b>Why this matters:</b> in the dual, the training points <b>only ever appear as dot products xᵢ·xⱼ</b>. That is the door that opens to the kernel trick — if we can compute dot products in some (possibly very high-dimensional) feature space without ever constructing the features, we can plug them straight into the dual and get a maximum-margin classifier in that feature space. The αᵢ that are non-zero at the solution are the support vectors.</div>
 
       <div class="def"><b>Recovering the hyperplane:</b> once we have the αᵢ, the weight vector is <b>w = Σᵢ αᵢ yᵢ xᵢ</b> (a weighted combination of the support vectors only — the αᵢ for non-support vectors are zero). The decision for a new point x is: sign( Σᵢ αᵢ yᵢ (xᵢ·x) + b ). The bias b is recovered from any support vector on the margin.</div>
 
       <div class="def"><b>Soft margin — the C parameter:</b> the hard-margin formulation only works when the data is perfectly separable. Real data is not. The <b>soft-margin</b> SVM relaxes the constraint by allowing some points to violate the margin, controlled by <b>slack variables ξᵢ ≥ 0</b> and a penalty parameter <b>C</b>:</div>
-      <p class="eq">\(\text{minimise}\ \tfrac{1}{2}\lVert w\rVert^{2}+C\sum_i\xi_i\)</p>
-      <p class="eq" style="text-align:center;font-size:14.5px;margin:4px 0 8px;color:var(--accent-ink)">subject to &nbsp; \(y_i\,(w\cdot x_i + b)\ge 1-\xi_i,\quad \xi_i\ge 0\) &nbsp; , &nbsp; ξᵢ ≥ 0</p>
+      <p class="eq">\[\text{minimise}\ \tfrac{1}{2}\lVert w\rVert^{2}+C\sum_i\xi_i\]</p>
+      <p class="eq">subject to &nbsp; \[y_i\,(w\cdot x_i + b)\ge 1-\xi_i,\quad \xi_i\ge 0\] &nbsp; , &nbsp; ξᵢ ≥ 0</p>
       <div class="def"><b>What C does:</b> C is the trade-off between a wide margin and making fewer classification errors. <b>Large C</b> heavily penalises margin violations — the model tries hard to classify every training point correctly, risking a narrow margin and overfitting. <b>Small C</b> is more tolerant of violations — it prefers a wider margin, which can generalise better but may allow some training errors. Choosing C (usually by cross-validation) is a central part of using an SVM in practice.</div>
     </div>
   </div>

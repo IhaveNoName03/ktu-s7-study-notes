@@ -43,7 +43,7 @@
     <div class="head"><span class="num">01</span><h2>Bias–Variance Decomposition</h2><span class="tag">Theory</span></div>
     <div class="card full">
       <p>The expected test error splits into three parts:</p>
-      <div class="eq">\(\text{Error} = \text{Bias}^{2} + \text{Variance} + \text{Irreducible noise}\)</div>
+      <div class="eq">\[\text{Error} = \text{Bias}^{2} + \text{Variance} + \text{Irreducible noise}\]</div>
       <ul>
         <li><b>Bias</b> — error from a too-simple model (underfitting); it consistently misses the pattern.</li>
         <li><b>Variance</b> — error from a too-sensitive model (overfitting); it changes a lot with small data changes.</li>
@@ -58,7 +58,7 @@
     <div class="card full">
       <p><b>k-fold CV:</b> split data into k equal parts; train on k−1, test on the held-out part; repeat k times
       and average the scores. Common choices: k = 5 or 10.</p>
-      <div class="eq">\(\text{CV score}=\frac{1}{k}\sum_{j=1}^{k}\text{error on fold }j\)</div>
+      <div class="eq">\[\text{CV score}=\frac{1}{k}\sum_{j=1}^{k}\text{error on fold }j\]</div>
       <p>This uses all data for both train and test (just never at the same time), giving a stable estimate of how
       the model will perform on unseen data. <b>Bootstrapping</b> is the cousin that resamples with replacement to
       build confidence intervals.</p>

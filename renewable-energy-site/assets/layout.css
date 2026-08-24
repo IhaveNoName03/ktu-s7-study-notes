@@ -366,6 +366,26 @@ tbody tr:hover{background:color-mix(in srgb, var(--accent) 12%, var(--paper))}
   .backtop{right:12px;bottom:12px}
 }
 
+/* ── Display equations ───────────────────────────────────────────────────
+   Block math uses \[ ... \] so KaTeX renders true display style (full-size
+   fractions, sums with limits above/below). These rules give the block a
+   consistent surface and let very wide formulas scroll rather than
+   overflow the page.                                                       */
+.eq{
+  display:block;margin:18px 0;padding:16px 20px;
+  text-align:center;font-size:15px;
+  overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+}
+.eq .katex-display{margin:0}
+.eq .katex-display > .katex{white-space:nowrap}
+.eq .katex{font-size:1.08em}
+/* label + formula on one line, e.g. "Entropy:  <math>" */
+.eq .katex-display{display:block}
+/* keep scrollbars unobtrusive */
+.eq::-webkit-scrollbar{height:6px}
+.eq::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+
 /* ── Theme reveal: View Transitions pseudo-element choreography ──────────
    The clip-path animation in theme-handler.js is the ONLY motion we want.
 

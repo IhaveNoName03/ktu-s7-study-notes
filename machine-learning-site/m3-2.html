@@ -46,7 +46,7 @@
     <div class="card full">
       <p>For linearly separable data, the decision boundary is a hyperplane w·x + b = 0. The margin is the distance
       from the boundary to the nearest point; SVM maximizes it. In the <b>hard-margin</b> case:</p>
-      <div class="eq">\(\text{minimize}\ \tfrac{1}{2}\,\lVert w\rVert^{2}\ \text{subject to}\ y_i(w\cdot x_i+b)\ge 1\ \forall i\) &nbsp; subject to &nbsp; y<sub>i</sub>(w·x<sub>i</sub> + b) ≥ 1 &nbsp; ∀i</div>
+      <div class="eq">\[\text{minimize}\ \tfrac{1}{2}\,\lVert w\rVert^{2}\ \text{subject to}\ y_i(w\cdot x_i+b)\ge 1\ \forall i\] &nbsp; subject to &nbsp; y<sub>i</sub>(w·x<sub>i</sub> + b) ≥ 1 &nbsp; ∀i</div>
       <p>Minimizing ½‖w‖² maximizes the margin (margin = 2/‖w‖). The constraints force every point to be at least
       1 unit from the boundary in scaled space.</p>
       <div class="def"><b>Support vectors:</b> only the points that sit exactly on the margin (the active constraints)
@@ -59,9 +59,9 @@
     <div class="card full">
       <p>Real data isn't perfectly separable, so we allow small violations ξ<sub>i</sub> (slack) and trade them off
       against margin width with a penalty C:</p>
-      <div class="eq">\(\text{minimize}\ \tfrac{1}{2}\lVert w\rVert^{2}+C\sum_i\xi_i\ \text{s.t.}\ y_i(w\cdot x_i+b)\ge 1-\xi_i,\ \xi_i\ge 0\)</div>
+      <div class="eq">\[\text{minimize}\ \tfrac{1}{2}\lVert w\rVert^{2}+C\sum_i\xi_i\ \text{s.t.}\ y_i(w\cdot x_i+b)\ge 1-\xi_i,\ \xi_i\ge 0\]</div>
       <p>The <b>dual form</b> (via Lagrange multipliers α<sub>i</sub>) reveals the kernel trick:</p>
-      <div class="eq">\(\text{maximize}\ \sum_i\alpha_i-\tfrac{1}{2}\sum_i\sum_j\alpha_i\alpha_j y_i y_j\,K(x_i,x_j)\ \text{s.t.}\ 0\le\alpha_i\le C,\ \sum_i\alpha_i y_i=0\)</div>
+      <div class="eq">\[\text{maximize}\ \sum_i\alpha_i-\tfrac{1}{2}\sum_i\sum_j\alpha_i\alpha_j y_i y_j\,K(x_i,x_j)\ \text{s.t.}\ 0\le\alpha_i\le C,\ \sum_i\alpha_i y_i=0\]</div>
       <p>The classifier becomes f(x) = sign( Σ<sub>SV</sub> α<sub>i</sub> y<sub>i</sub> K(x<sub>i</sub>, x) + b ).</p>
       <div class="def"><b>C controls bias–variance:</b> large C → few violations, narrow margin, risk of overfitting;
       small C → wider margin, more tolerance, smoother boundary.</div>

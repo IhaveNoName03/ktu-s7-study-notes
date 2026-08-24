@@ -46,10 +46,10 @@
     <div class="head"><span class="num">01</span><h2>Naive Bayes — the Idea</h2><span class="tag">Classifier</span></div>
     <div class="card full">
       <p>For a class C and feature vector x = (x₁,…,xₙ), Bayes' theorem gives the posterior:</p>
-      <div class="eq">\(P(C\mid x) = \frac{P(x\mid C)\,P(C)}{P(x)}\)</div>
+      <div class="eq">\[P(C\mid x) = \frac{P(x\mid C)\,P(C)}{P(x)}\]</div>
       <p>The <b>naive</b> assumption: features are conditionally independent given the class, so
       P(x|C) = Π<sub>i</sub> P(x<sub>i</sub> | C). The classifier picks the class with the largest posterior:</p>
-      <div class="eq">\(\hat{C}=\arg\max_{C}\Bigl[P(C)\cdot\prod_i P(x_i\mid C)\Bigr]\)</div>
+      <div class="eq">\[\hat{C}=\arg\max_{C}\Bigl[P(C)\cdot\prod_i P(x_i\mid C)\Bigr]\]</div>
       <div class="def"><b>Why "naive"?</b> Real features are rarely independent, yet the method works surprisingly well —
       it is fast, needs little data, and is a strong baseline for text/spam classification.</div>
     </div>
@@ -60,11 +60,11 @@
     <div class="card full">
       <p>A decision tree asks a feature question at each node to split the data. <b>ID3</b> picks the question
       that most reduces <b>entropy</b> ( disorder / impurity ). Entropy of a set with class proportions p<sub>i</sub>:</p>
-      <div class="eq">\(H(S)=-\sum_i p_i\log_2 p_i\)</div>
+      <div class="eq">\[H(S)=-\sum_i p_i\log_2 p_i\]</div>
       
       <p>Information gain of splitting on feature A is the drop in impurity after the split — the parent entropy minus the
       weighted average entropy of the child branches:</p>
-      <div class="eq">\(\text{IG}(S,A)=H(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot H(S_v)\)</div>
+      <div class="eq">\[\text{IG}(S,A)=H(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot H(S_v)\]</div>
       <div class="def"><b>Formal definition (information gain):</b> if after splitting on A the data partitions into branches v, with |S<sub>v</sub>|
       instances taking branch v, the total impurity after the split is the weighted sum
       I′(S,A) = − Σ<sub>v</sub> (|S<sub>v</sub>| ⁄ |S|) Σ<sub>i</sub> p<sub>i,v</sub> log<sub>2</sub> p<sub>i,v</sub> (Alpaydın eq. 9.8). Information gain is then
@@ -72,8 +72,8 @@
       that minimizes this post-split impurity (equivalently, maximizes the gain).</div>
       <p>Entropy is not the only impurity measure. For a two-class problem (p, 1−p), any nonnegative φ(p,1−p) that is maximal at
       p = ½ and zero at p = 0 or 1 works; the textbook lists three, with little practical difference between them:</p>
-      <div class="eq">Entropy: &nbsp; \(\phi = -p\log_2 p - (1-p)\log_2(1-p)\)</div>
-      <div class="eq">Gini index: &nbsp; \(\phi = 2p(1-p) \qquad\text{Gini index}\) &nbsp;&nbsp; Misclassification error: &nbsp; \(\phi = 1 - \max(p,1-p) \qquad\text{Misclassification error}\)</div>
+      <div class="eq">Entropy: &nbsp; \[\phi = -p\log_2 p - (1-p)\log_2(1-p)\]</div>
+      <div class="eq">Gini index: &nbsp; \[\phi = 2p(1-p) \qquad\text{Gini index}\] &nbsp;&nbsp; Misclassification error: &nbsp; \[\phi = 1 - \max(p,1-p) \qquad\text{Misclassification error}\]</div>
       <p>The feature with the highest gain is chosen as the root, and the process repeats on each child. (For the
       tennis set the gains work out roughly: Outlook ≈ 0.24, Wind ≈ 0.48, Humidity ≈ 0.15, Temp ≈ 0.03 —
       so Wind then Humidity are the strongest splitters after Outlook.)</p>

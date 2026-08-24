@@ -46,7 +46,7 @@
       <p>Given d-dimensional data, PCA finds d orthogonal directions (principal components) ordered by how much
       variance they capture. Project onto the first k components to get a k-dimensional representation that keeps
       as much variance as possible.</p>
-      <div class="eq">\(Z=W^{T}X\)</div>
+      <div class="eq">\[Z=W^{T}X\]</div>
       <p>where the columns of W are the top-k eigenvectors of the data's covariance matrix, and Z is the reduced data.</p>
       <div class="def"><b>Why reduce?</b> fewer features → faster training, less overfitting, and you can plot 2-D/3-D to see structure. PCA is unsupervised — it only looks at variance, not labels.</div>
     </div>
@@ -63,7 +63,7 @@
         <li>Sort eigenvectors by eigenvalue Λ (variance along that component), keep the top k.</li>
         <li>Project: Z = V<sub>k</sub><sup>T</sup> X.</li>
       </ol>
-      <div class="eq">\(\text{variance along component }j=\lambda_j\quad\Bigl(\text{fraction kept}=\frac{\sum_{j\le k}\lambda_j}{\sum_{\text{all}}\lambda_j}\Bigr)\)</div>
+      <div class="eq">\[\text{variance along component }j=\lambda_j\quad\Bigl(\text{fraction kept}=\frac{\sum_{j\le k}\lambda_j}{\sum_{\text{all}}\lambda_j}\Bigr)\]</div>
       <div class="def"><b>Choosing k:</b> keep enough components to retain, say, 95% of total variance. A scree plot (eigenvalue vs index) shows the "elbow" where extra components add little.</div>
     </div>
   </div>

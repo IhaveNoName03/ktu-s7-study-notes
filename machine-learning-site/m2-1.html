@@ -104,7 +104,7 @@
       <p>To "learn" the model we need a way to score how bad a particular choice of parameters is. The standard score for regression is the <b>mean squared
       error</b> — the average of the squared differences between the model's prediction and the true value, over all training examples. Smaller error means a
       better fit.</p>
-      <p class="eq" style="text-align:center;font-size:17px;font-weight:700;margin:14px 0;color:var(--accent-ink)">\(J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr)^{2}\)</p>
+      <p class="eq">\[J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr)^{2}\]</p>
       <div class="card">
         <h3>Why this form</h3>
           <p>The <b>1/m</b> averages the error over all <b>m</b> examples, so the score does not grow with dataset size. The <b>1/2</b> is a convenience: when we take
@@ -127,7 +127,7 @@
         <h3><span class="sym">▼</span>Gradient Descent</h3>
         <p>An iterative method: start with some θ (often zeros), then repeatedly take a small step in the direction that <b>reduces</b> J the fastest — that is, opposite
         to the gradient. Repeat until J stops improving. The size of each step is the <b>learning rate α</b>.</p>
-        <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(\theta_j := \theta_j - \alpha\,\frac{\partial J}{\partial\theta_j}\)</p>
+        <p class="eq">\[\theta_j := \theta_j - \alpha\,\frac{\partial J}{\partial\theta_j}\]</p>
         <div class="def" style="margin-top:8px"><b>Intuition:</b> imagine standing on a hill (high J) and wanting to reach the valley (low J). The gradient tells you which way is steepest uphill;
         step the opposite way, a little at a time. Eventually you reach a low point.</div>
       </div>
@@ -135,7 +135,7 @@
         <h3><span class="sym">=</span>Closed-Form (Normal Equation)</h3>
         <p>A direct formula that gives the optimal θ in one step, without iterating. It solves ∂J/∂θ = 0 analytically. The price is computation: it requires inverting a
         <b>D×D</b> matrix.</p>
-        <p class="eq">\(\theta=(X^{T}X)^{-1}X^{T}y\)</p>
+        <p class="eq">\[\theta=(X^{T}X)^{-1}X^{T}y\]</p>
       <div class="stack" style="margin-top:10px">
         <div class="card">
           <h3><span class="idx">Underfitting</span></h3>
@@ -161,19 +161,19 @@
       <p>Regularization is the standard way to prevent overfitting. The idea is simple: when we choose the parameters, we not only care about fitting the data (small J), but also
       about keeping the parameters <b>small</b>. A model with huge weights is usually overfitting — it is bending sharply to hit individual points. By adding a penalty on the size of θ,
       we force the model to prefer simpler, smoother fits.</p>
-      <p class="eq" style="text-align:center;font-size:16px;font-weight:700;margin:12px 0;color:var(--accent-ink)">J<sub>regularized</sub> =\(J_{\text{reg}}=J(\theta)+\lambda\cdot(\text{penalty on }\theta)\)) + λ · (penalty on θ)</p>
+      <p class="eq">J<sub>regularized</sub> =\[J_{\text{reg}}=J(\theta)+\lambda\cdot(\text{penalty on }\theta)\]) + λ · (penalty on θ)</p>
       <div class="stack" style="margin-top:6px">
         <div class="card">
           <h3><span class="idx">Ridge</span>L2 regularization</h3>
           <p>Adds <b>λ Σ θⱼ²</b> — the sum of squared parameters — to the cost. It gently shrinks all weights toward zero but rarely makes them exactly zero. It is the default
           regularizer for most regression tasks and works well when many features each contribute a little.</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum\theta_j^{2}\)</p>
+          <p class="eq">\[J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum\theta_j^{2}\]</p>
         </div>
         <div class="card">
           <h3><span class="idx">Lasso</span>L1 regularization</h3>
           <p>Adds <b>λ Σ |θⱼ|</b> — the sum of absolute parameter values. Because the penalty is on the absolute value, it tends to drive some weights to <b>exactly zero</b>. This
           performs <b>feature selection</b>: irrelevant features get zero weight and disappear from the model.</p>
-          <p class="eq" style="text-align:center;font-size:14.5px;margin:6px 0">\(J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum|\theta_j|\)</p>
+          <p class="eq">\[J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum|\theta_j|\]</p>
         </div>
       </div>
       <div class="tablewrap" style="margin-top:10px">
@@ -228,17 +228,17 @@
       <p>Despite the name, <b>logistic regression</b> is a classification method. It keeps the same linear form as linear
       regression, <b>wᵀx</b>, but passes it through a <b>sigmoid</b> so the output is a probability in (0,1). The textbook
       (Alpaydın, logistic discrimination, §10.7 / §11.3) writes the two-class model as:</p>
-      <div class="eq">\(y_t = \sigma(w^{T}x_t) \qquad \bigl(P(C_1\mid x_t)=y_t;\; r_t=1\text{ if }x_t\in C_1,\;0\text{ if }x_t\in C_2\bigr)\) &nbsp;&nbsp; ( P(C₁|xₜ) = yₜ ; &nbsp; rₜ = 1 if xₜ∈C₁, &nbsp; 0 if xₜ∈C₂ )</div>
+      <div class="eq">\[y_t = \sigma(w^{T}x_t) \qquad \bigl(P(C_1\mid x_t)=y_t;\; r_t=1\text{ if }x_t\in C_1,\;0\text{ if }x_t\in C_2\bigr)\] &nbsp;&nbsp; ( P(C₁|xₜ) = yₜ ; &nbsp; rₜ = 1 if xₜ∈C₁, &nbsp; 0 if xₜ∈C₂ )</div>
       <p>Inverting the sigmoid shows the model is <b>linear in the log-odds (the logit)</b>:</p>
-      <div class="eq">\(\log\!\left(\frac{y_t}{1-y_t}\right) = w^{T}x_t\)</div>
+      <div class="eq">\[\log\!\left(\frac{y_t}{1-y_t}\right) = w^{T}x_t\]</div>
       <div class="def"><b>Odds &amp; logit:</b> the <i>odds</i> of class C₁ are yₜ ⁄ (1 − yₜ); the <i>logit</i> is their logarithm. Logistic
       regression therefore models the log-odds as a linear combination of the inputs. A one-unit increase in feature xⱼ multiplies the
       odds by e<sup>wⱼ</sup> — this is exactly why the method is called <i>logistic</i>.</div>
       <p>The parameters are learned by <b>maximum likelihood</b>: maximize the Bernoulli log-likelihood, equivalently minimize its
       negative — the <b>cross-entropy</b>:</p>
-      <div class="eq">\(L(r\mid X)=\sum_t\bigl[r_t\log y_t+(1-r_t)\log(1-y_t)\bigr]\)</div>
+      <div class="eq">\[L(r\mid X)=\sum_t\bigl[r_t\log y_t+(1-r_t)\log(1-y_t)\bigr]\]</div>
       <p>This is minimized with <b>gradient descent</b>. For a single training instance the online (stochastic) update is:</p>
-      <div class="eq">\(\Delta w_{tj}=\eta\,(r_t-y_t)\,x_{tj}\qquad(j=0,\dots,d)\)</div>
+      <div class="eq">\[\Delta w_{tj}=\eta\,(r_t-y_t)\,x_{tj}\qquad(j=0,\dots,d)\]</div>
       <div class="def"><b>Update rule:</b> η is the learning factor. The batch version sums the correction (rₜ − yₜ)x<sub>tⱼ</sub> over <i>all</i>
       instances before updating; the online version updates after each pattern. Both share the same shape —
       <b>Update = learning-factor × (desired − actual) × input</b> — the perceptron learning rule applied to the cross-entropy error.</div>
@@ -258,12 +258,12 @@
       <h3>Bayes' theorem, slowly</h3>
       <div class="qbox">
         <h4>Bayes' theorem</h4>
-        <p class="eq">\(P(\text{class} \mid \text{evidence}) = \dfrac{P(\text{evidence} \mid \text{class}) \cdot P(\text{class})}{P(\text{evidence})}\)</p>
+        <p class="eq">\[P(\text{class} \mid \text{evidence}) = \dfrac{P(\text{evidence} \mid \text{class}) \cdot P(\text{class})}{P(\text{evidence})}\]</p>
       </div>
       <p>Left to right: <b>how likely is the class given this evidence</b> = <b>how likely is this evidence if the class is true</b> × <b>how common the class is</b> ÷ <b>how common the evidence is overall</b>. When we <i>compare</i> two classes, the bottom term P(evidence) is identical for both — so we drop it and just compare the top:</p>
       <div class="qbox">
         <h4>What we actually compute</h4>
-        <p class="eq">\(\hat{y} = \arg\max_{v_j} \bigl\{ P(v_j) \cdot \prod_i P(a_i \mid v_j) \bigr\}\)</p>
+        <p class="eq">\[\hat{y} = \arg\max_{v_j} \bigl\{ P(v_j) \cdot \prod_i P(a_i \mid v_j) \bigr\}\]</p>
       </div>
       <p><b>P(vⱼ)</b> = how often class vⱼ appears in training (the prior). <b>P(aᵢ | vⱼ)</b> = for that class, how often feature aᵢ shows up (the likelihood). We multiply them all, repeat for every class, and pick the biggest. That is the whole algorithm — no training loop, no gradient, just counting.</p>
 
@@ -277,11 +277,11 @@
       <p>A <b>decision tree</b> is a non-linear model (uses supervised learning) that splits data at each internal node by the attribute that best separates the classes; leaf nodes hold the predicted class. <b>ID3</b> picks the split using <b>entropy</b> (impurity) and <b>information gain</b>.</p>
       <div class="qbox">
         <h4>Entropy of a set S (binary)</h4>
-        <p class="eq">\(\text{Entropy}(S) = -P_{+}\log_2 P_{+} - P_{-}\log_2 P_{-}\)</p>
+        <p class="eq">\[\text{Entropy}(S) = -P_{+}\log_2 P_{+} - P_{-}\log_2 P_{-}\]</p>
       </div>
       <div class="qbox">
         <h4>Information Gain of attribute A</h4>
-        <p class="eq">\(\text{Gain}(S,A)=E(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot E(S_v)\)</p>
+        <p class="eq">\[\text{Gain}(S,A)=E(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot E(S_v)\]</p>
       </div>
       <p>For the Play-Tennis root choice the notes compute (student's numbers): Gain(Outlook)=0.24, Gain(Wind)=0.48, Gain(Temp)=0.032, Gain(Humidity)=0.15. The tree built: root <b>Outlook</b> → Sunny splits on <b>Humidity</b> (high→No, normal→Yes), Overcast→<b>Yes</b>, Rain splits on <b>Wind</b> (strong→No, weak→Yes).</p>
     </div>
