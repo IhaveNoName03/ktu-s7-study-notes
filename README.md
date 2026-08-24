@@ -1,72 +1,96 @@
 # KTU S7 Study Notes — Offline Textbook
 
-> **⚠️ AI-ASSISTED CONTENT — VERIFY BEFORE AN EXAM.**
-> Every page here was produced by an AI agent from the student's collected source
-> material (PDFs, past papers, handwritten scans, two reference textbooks). Treat it
-> as study aid, **not** as an official KTU publication. Check anything exam-critical
-> against the official syllabus and your own class notes. The student is not the
-> author and is not responsible for errors.
+> ### 🤖 This entire project is AI-generated. Vibecoded, start to finish.
+>
+> Every line of HTML, CSS and JavaScript here was written by an AI agent. So was every
+> page of study content — derived from the student's own source material (syllabus PDFs,
+> class notes, handwritten scans, past papers, owned textbooks), but **written by a
+> machine, not by a human subject expert.**
+>
+> No human wrote this code. No human proofread every equation. The layout, the six
+> colour themes, the animations, the question banks, the derivations — all of it came
+> out of prompt-and-iterate sessions with an LLM.
+>
+> **What that means for you:**
+> - Treat it as a **revision aid**, never as an authority.
+> - AI produces confident, well-formatted, plausible-sounding errors. This document is
+>   not exempt.
+> - Anything exam-critical — a formula, a numeric answer, a statutory clause, a date —
+>   **check against the official KTU syllabus, your textbook, or your lecturer.**
+> - Highest-risk content is anything transcribed from handwritten scans by a vision
+>   model, and any worked numeric result.
+> - Not an official KTU publication. The student who gathered the sources is not the
+>   author and is not responsible for errors.
 
-A **self-contained, offline study textbook** for the four Semester 7 (S7) subjects of
-the **Kerala Technological University (KTU)** B.Tech programme. Static HTML/CSS/JS only —
-no backend, no build step, no network calls. Works from a USB stick, a phone bookmark,
-or GitHub Pages, online or offline.
+A **self-contained, offline study textbook** for the four Semester 7 subjects of the
+**Kerala Technological University (KTU)** B.Tech programme. Static HTML/CSS/JS only —
+no backend, no build step, no network calls, no dependencies. Works from a USB stick,
+a phone bookmark, or GitHub Pages, online or offline.
+
+**Live:** https://ihavenoname03.github.io/ktu-s7-study-notes/
 
 ---
 
 ## Subjects
 
-| # | Subject | KTU Code | Folder | Pages |
-|---|---------|----------|--------|-------|
-| 1 | Ethical Hacking | **CCT 401** | `ethical-hacking-site/` | 12 |
-| 2 | Renewable Energy Systems | **EET 435** | `renewable-energy-site/` | 11 |
-| 3 | Industrial Safety Engineering | **MCN 401** | `industrial-safety-site/` | 8 |
-| 4 | Machine Learning | **CST 413** | `machine-learning-site/` | 13 |
+| # | Subject | KTU Code | Folder | Pages | Questions |
+|---|---------|----------|--------|-------|-----------|
+| 1 | Ethical Hacking | **CCT 401** | `ethical-hacking-site/` | 11 | 50 |
+| 2 | Renewable Energy Systems | **EET 435** | `renewable-energy-site/` | 10 | 26 |
+| 3 | Industrial Safety Engineering | **MCN 401** | `industrial-safety-site/` | 8 | 23 |
+| 4 | Machine Learning | **CST 413** | `machine-learning-site/` | 12 | 53 |
 
-- **4 subjects · 20 modules · ~44 HTML pages · 0 external dependencies.**
+**4 subjects · 20 modules · 41 content pages · 152 answered questions · 0 external
+dependencies.**
+
+Each subject follows the same shape: a subject index, module pages (`m1-1` … `m5-2`),
+an exam-technique page (`m-t1`), a question bank (`papers.html`), and its own `assets/`.
 
 ---
 
 ## Features
 
-- **Works offline.** No CDN, no web fonts pulled over the network, no analytics.
-  Double-click `index.html` and it runs.
-- **Swiss-style design.** Dark hero, light reading body, a single red accent. Clean,
-  text-forward, low decoration (per the student's explicit preference).
-- **Light / Dark mode.** Toggle in the top bar. Choice is saved (cookie + `localStorage`)
-  and **persists across every page and all four subjects** until you switch back. Applied
-  *before first paint*, so there is no white flash on load.
-- **Consistent navigation.** Every page in a subject shares the same nav (generated from a
-  single source of truth in `app.js`), so the menu always shows the right items with the
-  current page highlighted.
-- **Equal desktop & mobile.** The header nav is a pill bar on desktop and a first-class
-  dropdown menu on mobile — same items, same weight, not a lesser version.
-- **Searchable question banks.** Each subject's `papers.html` has a live search box and
-  expandable "Show answer" buttons. Answers render as compact two-column
-  **label | content** cards for phone readability.
-- **Responsive + accessible.** Mobile-friendly layouts, visible keyboard focus, and
-  `prefers-reduced-motion` respected.
+**Works completely offline.** No CDN, no remote fonts, no analytics, no telemetry.
+Double-click `index.html` and it runs. KaTeX is vendored locally for maths.
+
+**Six themes × three modes.** Swiss Red, Catppuccin, Gruvbox, Tokyo Night, Nord and
+Solarized, each in light / dark / **AMOLED** (true black). Chosen from one dropdown in
+the header.
+
+**Theme choice follows you everywhere** — across pages and across all four subjects.
+Persisted through a three-tier store (`localStorage` + cookie + a URL-fragment bridge),
+which is what makes it survive `file://` browsing, where Chrome isolates storage per
+file. Applied *before first paint*, so there is no flash of the wrong colour.
+
+**Animated theme switching.** A radial reveal built on the View Transitions API — the
+palette changes *as* the circle expands from the button, not before it. Chromium-only;
+elsewhere it falls back to an instant switch, as it does for `prefers-reduced-motion`.
+
+**Editorial rail layout.** Each section carries its number, title and label in a sticky
+left rail while the prose keeps a full-width measure beside it — the rail doubles as a
+live position marker as you scroll.
+
+**Identical furniture on every page.** Header, navigation and footer are the same across
+all 41 content pages (verified by comparing computed geometry, not by eye).
+
+**Searchable question banks.** Live filtering plus expandable "Show answer" panels, with
+answers laid out as label/content rows that stack on a phone.
+
+**Real display maths.** All 55 equation blocks render in KaTeX display style — full-size
+stacked fractions, sums and products with limits above and below.
+
+**Phone-first, not phone-tolerated.** Verified across five viewports from 375 px to
+768 px: zero horizontal overflow, the rail collapses to an inline heading, wide tables
+and formulas scroll inside their own block.
 
 ---
 
 ## How to use
 
-**On a laptop**
-- Double-click `index.html` to open the hub, then click a subject card.
-- Each page has in-page navigation; the header jumps between modules.
-
-**On a phone**
-- Open the GitHub Pages URL (bookmark it) and browse like any site.
-- Tap **Menu** (top-right) to open the full nav dropdown.
-
-**Finding answers fast**
-- Open a subject's `papers.html`, type in the search box, and tap **Show answer**.
-- Questions are grouped by source (past papers, internals, unit-wise).
-
-**Turning on dark mode**
-- Click the **Light/Dark** toggle in the header. It stays on everywhere until you toggle
-  it back. To reset if it ever gets stuck: clear the site cookie / `localStorage`
-  (`theme` key) and reload.
+**Laptop** — double-click `index.html`, pick a subject.
+**Phone** — open the GitHub Pages link and bookmark it; tap **Menu** for full navigation.
+**Revision** — open a subject's `papers.html`, search, then tap **Show answer**.
+**Themes** — use the dropdown at the top right; your pick sticks until you change it.
 
 ---
 
@@ -74,71 +98,79 @@ or GitHub Pages, online or offline.
 
 ```
 s7/
-├── index.html              # live hub: Swiss-style landing, links to all 4 subjects
-├── index-alt.html          # experimental alternate hub design (not the live one)
-├── README.md               # this file
-├── _validate.py            # dev tool: HTML well-formedness + dead-link checker
+├── index.html                  # hub: links to all four subjects, with search
+├── index-alt.html              # experimental alternate hub (not live)
+├── README.md
+├── _validate.py                # dev: HTML well-formedness + dead-link checker
+├── assets/                     # shared theme scripts for the hub
 │
-├── ethical-hacking-site/   # CCT 401  (index, m1-1…m5-1, m-t1, papers, assets/)
-├── renewable-energy-site/  # EET 435  (same shape)
-├── industrial-safety-site/ # MCN 401  (same shape)
-└── machine-learning-site/  # CST 413  (index, m1-1…m5-2, m-t1, papers, assets/)
+├── ethical-hacking-site/       # CCT 401
+├── renewable-energy-site/      # EET 435
+├── industrial-safety-site/     # MCN 401
+└── machine-learning-site/      # CST 413
 ```
 
-Each subject folder is **fully self-contained** (its own `assets/`), so you can copy a
-single subject onto a USB stick and it works alone. Shared CSS/JS is duplicated per folder
-on purpose, for portability.
+Each subject folder is **fully self-contained** — its own `assets/styles.css`,
+`layout.css`, `app.js`, theme scripts and vendored KaTeX. Shared code is duplicated per
+folder on purpose, so a single subject can be copied onto a USB stick and still work.
 
 ---
 
 ## How it was built
 
-1. **Sources gathered** — KTU syllabus PDFs, class notes (clean + handwritten scans),
-   past-question papers (some as a WhatsApp photo), and two textbooks
-   (Alpaydın *Introduction to ML*, Mitchell *Machine Learning*).
-2. **Text extracted** — clean PDFs via PyMuPDF; handwritten scans rendered to PNG and
-   read with a vision model, then transcribed by hand (this is why ML pages contain real
-   worked examples despite illegible sources).
-3. **Syllabus-mapped & deepened** — module pages follow the official KTU topic list;
-   textbooks added rigorous derivations (SVM dual, kernel trick, PCA eigen-decomposition,
-   bias–variance, Bayesian estimation).
-4. **Styled & validated** — shared `assets/styles.css` + `assets/app.js` per site; a
-   custom HTML-parser validator (`_validate.py`) checks well-formed tags and dead links;
-   pages rendered headless at desktop + phone widths to confirm no overflow.
-5. **Published** — committed and pushed to GitHub Pages. No token was ever written into
-   the repo.
+1. **Sources gathered** by the student — KTU syllabus PDFs, clean and handwritten class
+   notes, past papers (one arrived as a WhatsApp photo), and owned textbooks.
+2. **Text extracted** — clean PDFs with PyMuPDF; handwritten scans rendered to PNG and
+   read with a vision model.
+3. **Content written by the AI agent**, mapped to the official KTU module list and
+   grounded strictly in the supplied material.
+4. **Iterated by conversation.** The design went through several rejected directions —
+   neomorphism, a bento grid, a full-width stack — before settling on the editorial rail.
+   Much of the work was fixing what earlier passes got wrong.
+5. **Verified by automation, not by vibes.** Headless browser sweeps for contrast,
+   overflow, duplicate IDs, dead links, JS exceptions and theme correctness across every
+   page × 18 theme/mode combinations, plus vision checks on rendered screenshots.
+
+That verification caught real bugs an eyeball pass had missed: white slabs in dark mode
+from surfaces filled with the *light* ink colour, four answer buttons that silently did
+nothing because a panel shared its `id` with its wrapper, equations rendering in cramped
+inline style, a theme setting that never persisted on `file://`, and — notably — an index
+card advertising a **cryptography module that does not exist in CCT 401**.
+
+That last one is the clearest illustration of why the warning at the top of this file
+matters: the AI confidently described content it had never written.
 
 ---
 
 ## Content trust & limitations
 
-- **Highest risk: handwritten-scan transcriptions.** Vision OCR of handwriting can
-  misread symbols/numbers — re-check any worked value before relying on it.
-- **AI authorship** means confident-but-wrong statements are possible. This is study
-  material, not a substitute for the textbook or lectures.
-- **Syllabus drift.** Matches the S7 (2026) version supplied; a future KTU revision could
-  leave a page partly out of date.
-- **Fonts** are offline/local-only and fall back to system fonts (no CDN) — the design
-  holds, but the exact typeface varies per device.
+- **Handwritten-scan transcriptions are the weakest link.** Vision OCR misreads symbols
+  and digits. Re-derive any numeric result before trusting it.
+- **AI authorship means fluent, confident errors are possible** — and have already been
+  found and fixed here. Assume more remain.
+- **Syllabus drift.** Matches the S7 version supplied; a KTU revision could date a page.
+- **Fonts** are local-only with system fallbacks, so the exact typeface varies by device.
+- **The animated theme reveal is Chromium-only.** Firefox and Safari switch instantly.
 
 ---
 
 ## Dev / maintenance
 
 ```bash
-# Validate all pages (well-formed tags + no dead links)
+# Validate every page: well-formed tags + no dead links
 python3 _validate.py
 
 # Preview locally
 python3 -m http.server 8000     # then open http://localhost:8000/
 ```
 
-`index-alt.html` is an alternate hub design kept for reference; the live hub is
-`index.html`.
+Nothing to install, nothing to compile. Edit the HTML and reload.
+
+---
 
 ## License & disclaimer
 
-Personal study aid, provided **as-is, without warranty**. Content derives from
-third-party syllabi, notes, and textbooks; respective copyrights remain with their
-owners. The student who compiled the sources is **not** the author of these pages and is
-not liable for their accuracy.
+Personal study aid, provided **as-is, without warranty of any kind**. Content derives
+from third-party syllabi, notes and textbooks; respective copyrights remain with their
+owners. Generated by an AI agent — the student who compiled the sources is **not** the
+author of these pages and is not liable for their accuracy.
