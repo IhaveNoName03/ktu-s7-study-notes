@@ -376,5 +376,118 @@ const ThemeRegistry = {
       selection: { bg: "#268bd2" },
       home: { heroNameColor: "#268bd2", heroNameBackground: "#268bd2", heroImageBackground: "linear-gradient(-45deg, #268bd2 50%, #dc322f 50%)", heroImageFilter: "blur(44px)" }
     }
+  },
+
+  /* ── Slate Blue (modern, high-contrast) ── */
+  slate: {
+    displayName: "Slate Blue",
+    light: {
+      brand: { 1: "#2563eb", 2: "#1d4ed8", 3: "#93c5fd", soft: "#eff6ff" },
+      bg: "#f8fafc", bgAlt: "#f1f5f9", bgElv: "#ffffff",
+      text: { 1: "#0f172a", 2: "#334155", 3: "#64748b" },
+      button: {
+        brand: { bg: "#2563eb", border: "#2563eb", text: "#ffffff", hoverBg: "#1d4ed8", hoverBorder: "#1d4ed8", hoverText: "#ffffff", activeBg: "#1e40af", activeBorder: "#1e40af", activeText: "#ffffff" },
+        alt: { bg: "#e2e8f0", text: "#0f172a", hoverBg: "#cbd5e1", hoverText: "#0f172a" }
+      },
+      customBlock: {
+        info: { bg: "#eff6ff", border: "#2563eb", text: "#1d4ed8", textDeep: "#1e3a8a" },
+        tip: { bg: "#ecfdf5", border: "#059669", text: "#047857", textDeep: "#065f46" },
+        warning: { bg: "#fffbeb", border: "#d97706", text: "#b45309", textDeep: "#92400e" },
+        danger: { bg: "#fef2f2", border: "#dc2626", text: "#b91c1c", textDeep: "#991b1b" }
+      },
+      selection: { bg: "#bfdbfe" },
+      home: { heroNameColor: "#2563eb", heroNameBackground: "#2563eb", heroImageBackground: "linear-gradient(-45deg, #2563eb 50%, #0f172a 50%)", heroImageFilter: "blur(44px)" }
+    },
+    dark: {
+      brand: { 1: "#60a5fa", 2: "#93c5fd", 3: "#bfdbfe", soft: "#172554" },
+      bg: "#0f172a", bgAlt: "#1e293b", bgElv: "#1e293b",
+      text: { 1: "#e2e8f0", 2: "#cbd5e1", 3: "#94a3b8" },
+      button: {
+        brand: { bg: "#60a5fa", border: "#60a5fa", text: "#0f172a", hoverBg: "#93c5fd", hoverBorder: "#93c5fd", hoverText: "#0f172a", activeBg: "#bfdbfe", activeBorder: "#bfdbfe", activeText: "#0f172a" },
+        alt: { bg: "#334155", text: "#e2e8f0", hoverBg: "#475569", hoverText: "#e2e8f0" }
+      },
+      customBlock: {
+        info: { bg: "#0c1e3a", border: "#60a5fa", text: "#93c5fd", textDeep: "#bfdbfe" },
+        tip: { bg: "#052e24", border: "#34d399", text: "#6ee7b7", textDeep: "#a7f3d0" },
+        warning: { bg: "#2c1c05", border: "#fbbf24", text: "#fcd34d", textDeep: "#fde68a" },
+        danger: { bg: "#2c1215", border: "#f87171", text: "#fca5a5", textDeep: "#fecaca" }
+      },
+      selection: { bg: "#1e40af" },
+      home: { heroNameColor: "#60a5fa", heroNameBackground: "#60a5fa", heroImageBackground: "linear-gradient(-45deg, #60a5fa 50%, #0f172a 50%)", heroImageFilter: "blur(44px)" }
+    },
+    amoled: {
+      brand: { 1: "#60a5fa", 2: "#93c5fd", 3: "#bfdbfe", soft: "#0b1733" },
+      bg: "#000000", bgAlt: "#0b1220", bgElv: "#111c33",
+      text: { 1: "#e2e8f0", 2: "#cbd5e1", 3: "#94a3b8" },
+      button: {
+        brand: { bg: "#60a5fa", border: "#60a5fa", text: "#000000", hoverBg: "#93c5fd", hoverBorder: "#93c5fd", hoverText: "#000000", activeBg: "#bfdbfe", activeBorder: "#bfdbfe", activeText: "#000000" },
+        alt: { bg: "#1e293b", text: "#e2e8f0", hoverBg: "#334155", hoverText: "#e2e8f0" }
+      },
+      customBlock: {
+        info: { bg: "#000000", border: "#60a5fa", text: "#93c5fd", textDeep: "#bfdbfe" },
+        tip: { bg: "#000000", border: "#34d399", text: "#6ee7b7", textDeep: "#a7f3d0" },
+        warning: { bg: "#000000", border: "#fbbf24", text: "#fcd34d", textDeep: "#fde68a" },
+        danger: { bg: "#000000", border: "#f87171", text: "#fca5a5", textDeep: "#fecaca" }
+      },
+      selection: { bg: "#1e40af" },
+      home: { heroNameColor: "#60a5fa", heroNameBackground: "#60a5fa", heroImageBackground: "linear-gradient(-45deg, #60a5fa 50%, #000000 50%)", heroImageFilter: "blur(44px)" }
+    }
+  },
+
+  /* ── Graphite Teal (calm, readable) ── */
+  teal: {
+    displayName: "Graphite Teal",
+    light: {
+      brand: { 1: "#0f766e", 2: "#115e59", 3: "#99f6e4", soft: "#ecfdf5" },
+      bg: "#f5f7f6", bgAlt: "#eef2f1", bgElv: "#ffffff",
+      text: { 1: "#14201f", 2: "#3b4d4a", 3: "#6b807c" },
+      button: {
+        brand: { bg: "#0f766e", border: "#0f766e", text: "#ffffff", hoverBg: "#115e59", hoverBorder: "#115e59", hoverText: "#ffffff", activeBg: "#134e4a", activeBorder: "#134e4a", activeText: "#ffffff" },
+        alt: { bg: "#dfe8e6", text: "#14201f", hoverBg: "#cfdcd9", hoverText: "#14201f" }
+      },
+      customBlock: {
+        info: { bg: "#ecfeff", border: "#0891b2", text: "#0e7490", textDeep: "#155e75" },
+        tip: { bg: "#ecfdf5", border: "#059669", text: "#047857", textDeep: "#065f46" },
+        warning: { bg: "#fffbeb", border: "#d97706", text: "#b45309", textDeep: "#92400e" },
+        danger: { bg: "#fef2f2", border: "#dc2626", text: "#b91c1c", textDeep: "#991b1b" }
+      },
+      selection: { bg: "#99f6e4" },
+      home: { heroNameColor: "#0f766e", heroNameBackground: "#0f766e", heroImageBackground: "linear-gradient(-45deg, #0f766e 50%, #14201f 50%)", heroImageFilter: "blur(44px)" }
+    },
+    dark: {
+      brand: { 1: "#5eead4", 2: "#2dd4bf", 3: "#99f6e4", soft: "#0b2b27" },
+      bg: "#101716", bgAlt: "#16211f", bgElv: "#1d2b28",
+      text: { 1: "#e6f0ee", 2: "#b7c9c5", 3: "#8aa29d" },
+      button: {
+        brand: { bg: "#5eead4", border: "#5eead4", text: "#101716", hoverBg: "#99f6e4", hoverBorder: "#99f6e4", hoverText: "#101716", activeBg: "#ccfbf1", activeBorder: "#ccfbf1", activeText: "#101716" },
+        alt: { bg: "#2b3a37", text: "#e6f0ee", hoverBg: "#3a4d49", hoverText: "#e6f0ee" }
+      },
+      customBlock: {
+        info: { bg: "#0b2126", border: "#22d3ee", text: "#67e8f9", textDeep: "#a5f3fc" },
+        tip: { bg: "#052e24", border: "#34d399", text: "#6ee7b7", textDeep: "#a7f3d0" },
+        warning: { bg: "#2c1c05", border: "#fbbf24", text: "#fcd34d", textDeep: "#fde68a" },
+        danger: { bg: "#2c1215", border: "#f87171", text: "#fca5a5", textDeep: "#fecaca" }
+      },
+      selection: { bg: "#115e59" },
+      home: { heroNameColor: "#5eead4", heroNameBackground: "#5eead4", heroImageBackground: "linear-gradient(-45deg, #5eead4 50%, #101716 50%)", heroImageFilter: "blur(44px)" }
+    },
+    amoled: {
+      brand: { 1: "#5eead4", 2: "#2dd4bf", 3: "#99f6e4", soft: "#081a18" },
+      bg: "#000000", bgAlt: "#0a1312", bgElv: "#101d1b",
+      text: { 1: "#e6f0ee", 2: "#b7c9c5", 3: "#8aa29d" },
+      button: {
+        brand: { bg: "#5eead4", border: "#5eead4", text: "#000000", hoverBg: "#99f6e4", hoverBorder: "#99f6e4", hoverText: "#000000", activeBg: "#ccfbf1", activeBorder: "#ccfbf1", activeText: "#000000" },
+        alt: { bg: "#1d2b28", text: "#e6f0ee", hoverBg: "#2b3a37", hoverText: "#e6f0ee" }
+      },
+      customBlock: {
+        info: { bg: "#000000", border: "#22d3ee", text: "#67e8f9", textDeep: "#a5f3fc" },
+        tip: { bg: "#000000", border: "#34d399", text: "#6ee7b7", textDeep: "#a7f3d0" },
+        warning: { bg: "#000000", border: "#fbbf24", text: "#fcd34d", textDeep: "#fde68a" },
+        danger: { bg: "#000000", border: "#f87171", text: "#fca5a5", textDeep: "#fecaca" }
+      },
+      selection: { bg: "#115e59" },
+      home: { heroNameColor: "#5eead4", heroNameBackground: "#5eead4", heroImageBackground: "linear-gradient(-45deg, #5eead4 50%, #000000 50%)", heroImageFilter: "blur(44px)" }
+    }
   }
+
 };

@@ -32,6 +32,10 @@ a phone bookmark, or GitHub Pages, online or offline.
 | 3 | Industrial Safety Engineering | **MCN 401** | `industrial-safety-site/` | 8 | 23 |
 | 4 | Machine Learning | **CST 413** | `machine-learning-site/` | 12 | 53 |
 
+### Added solved-paper pages (new)
+
+Each of Ethical Hacking and Machine Learning now has an `exam-hub.html` linking to fully worked KTU papers (`exam-a/b/c/d.html`), the official model paper + syllabus, a 60-topic coverage map and a formula cheat sheet. These were integrated from a separate local study site; answers are collapsed by default and cross-linked from `papers.html`. Two new palettes — Slate Blue and Graphite Teal — were also added to the appearance menu. The multi-theme system, service worker and global search index include the new pages.
+
 **4 subjects · 20 modules · 41 content pages · 152 answered questions · 0 external
 dependencies.**
 

@@ -25,7 +25,7 @@
 
   var K_THEME = "theme-name", K_MODE = "theme-mode", WN = "s7theme:";
   var MODES = ["light", "dark", "amoled"];
-  var THEMES = ["swiss", "catppuccin", "gruvbox", "nord", "solarized", "tokyo"];
+  var THEMES = ["swiss", "catppuccin", "gruvbox", "nord", "solarized", "tokyo", "slate", "teal"];
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }

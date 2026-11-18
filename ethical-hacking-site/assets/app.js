@@ -58,8 +58,8 @@
                path.indexOf("industrial-safety-site")>-1?"ise":null;
     if(!subj) return;
     var NAVS={
-      ml:[["index.html","Home"],["m1-1.html","M1 · Paradigms"],["m2-1.html","M2 · Supervised"],["m3-1.html","M3 · NN &amp; SVM"],["m4-1.html","M4 · Unsupervised"],["m5-1.html","M5 · Classification"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
-      eh:[["index.html","Home"],["m1-1.html","M1 · Basics"],["m1-2.html","M1 · Hackers"],["m1-3.html","M1 · Pentest"],["m2-1.html","M2 · Recon"],["m2-2.html","M2 · Attacks"],["m2-3.html","M2 · Social Eng."],["m3-1.html","M3 · Vuln/Attacks"],["m4-1.html","M4 · Net/Sys"],["m5-1.html","M5 · Tracks"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
+      ml:[["index.html","Home"],["m1-1.html","M1 · Paradigms"],["m2-1.html","M2 · Supervised"],["m3-1.html","M3 · NN &amp; SVM"],["m4-1.html","M4 · Unsupervised"],["m5-1.html","M5 · Classification"],["m-t1.html","Exam Techniques"],["papers.html","Papers"],["exam-hub.html","Solved papers ✦"]],
+      eh:[["index.html","Home"],["m1-1.html","M1 · Basics"],["m1-2.html","M1 · Hackers"],["m1-3.html","M1 · Pentest"],["m2-1.html","M2 · Recon"],["m2-2.html","M2 · Attacks"],["m2-3.html","M2 · Social Eng."],["m3-1.html","M3 · Vuln/Attacks"],["m4-1.html","M4 · Net/Sys"],["m5-1.html","M5 · Tracks"],["m-t1.html","Exam Techniques"],["papers.html","Papers"],["exam-hub.html","Solved papers ✦"]],
       res:[["index.html","Home"],["m1-1.html","M1 · Resources"],["m1-2.html","M1 · Solar Thermal"],["m1-3.html","M1 · Solar PV"],["m2-1.html","M2 · OTEC"],["m2-2.html","M2 · Tidal"],["m3-1.html","M3 · Wind"],["m4-1.html","M4 · Biomass"],["m5-1.html","M5 · Hydro/Fuel"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
       ise:[["index.html","Home"],["m1-1.html","M1 · Intro"],["m2-1.html","M2 · PPE"],["m3-1.html","M3 · Construction"],["m4-1.html","M4 · Machines"],["m5-1.html","M5 · Hazards"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]]
     };
@@ -68,6 +68,7 @@
     var activeHref;
     if(file==="index.html") activeHref="index.html";
     else if(file==="papers.html") activeHref="papers.html";
+    else if(file.indexOf("exam-")===0) activeHref="exam-hub.html";
     else if(file==="m-t1.html") activeHref="m-t1.html";
     else { var mm=file.match(/^m(\d)-/); activeHref = mm ? ("m"+mm[1]+"-1.html") : null; }
     var topbar=document.querySelector(".topbar-inner");

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper A — Dec 2022 · Study Notes</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<link rel="stylesheet" href="assets/exam-content.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a><a href="../index.html">All subjects</a>
+      <a href="m1-1.html">M1 · Paradigms</a>
+      <a href="m2-1.html">M2 · Supervised</a>
+      <a href="m3-1.html">M3 · NN &amp; SVM</a>
+      <a href="m4-1.html">M4 · Unsupervised</a>
+      <a href="m5-1.html">M5 · Classification</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html" class="active">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Worked paper · KTU</span>
+  <h1></h1>
+  <p class="lede">Full answer key for the 2022 paper: Part A plus both options of every Part B module question.</p>
+  <div class="meta-row"><span class="chip red">CST 413</span><span class="chip">Worked answers</span><span class="chip">Self-test</span></div>
+</section>
+
+<div class="wrap">
+<div class="exam-content">
+
+<div class="page-head"><p class="eyebrow">Past paper · December 2022</p><h1>CST413 — Question Paper A (Dec 2022)</h1><p class="lede">Full answer key for the 2022 paper: Part A plus both options of every Part B module question.</p><div class="meta"><span class="badge acc">Paper code 1000CST413122203</span><span class="badge">3 papers in site</span></div></div><section class="q" id="q1">
+<div class="q-head"><span class="q-no">Q1</span><h3 class="q-title">Classification vs regression scenario</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Explain a scenario in which classification is better than regression.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>Definitions.</strong> <em>Regression</em> predicts a <strong>continuous</strong> target y ∈ ℝ (a quantity with a meaningful order and distance, e.g. price, temperature, height). <em>Classification</em> predicts a <strong>categorical</strong> label y ∈ {c₁,…,cₖ} (a discrete class with no inherent numeric distance between labels).</p>
+<p><strong>Scenario where classification wins: spam detection.</strong> Given an email's word frequencies, decide <em>spam</em> vs <em>ham</em>. There is no meaningful continuous quantity being measured — "spamness" is not a number on a ruler. If we forced a regression model to output a real number (say 0.73), we would still have to impose an arbitrary cut-off (e.g. ≥ 0.5 ⇒ spam) to get a decision, and the difference between 0.2 and 0.7 would carry no physical interpretation. A classifier instead models P(spam | email) directly and returns the label, which is exactly what the application needs.</p>
+<p><strong>Why classification is the better tool here:</strong></p>
+<ul>
+<li>The target is discrete and unordered; the evaluation metric is accuracy / precision / recall, not squared error.</li>
+<li>Classifiers calibrate a probability and apply a principled decision threshold; the probability is interpretable as confidence.</li>
+<li>Class-conditional likelihoods P(words | class) are natural to estimate (e.g. Naive Bayes), whereas forcing a Gaussian noise model on a label is unnatural.</li>
+</ul>
+<p><strong>Other examples:</strong> diagnosing disease (yes/no), predicting exam pass/fail, recognising a handwritten digit, sentiment (positive/negative/neutral).</p>
+<p><strong>Contrast:</strong> use regression instead when the output is genuinely continuous — house price, stock price, temperature, number of minutes a user will stay.</p>
+<p class="tip"><strong>Exam tip:</strong> The key phrase is "no natural ordering or distance between outputs." State that first, give one concrete scenario, then explain why a regression number would need an arbitrary threshold. (3 marks: definition + scenario + justification.)</p>
+</div></details>
+</section><section class="q" id="q2">
+<div class="q-head"><span class="q-no">Q2</span><h3 class="q-title">Choosing the learning method</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Identify the suitable learning method: a) Predict stock prices b) Detect an email as spam.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p>Both tasks are <strong>supervised</strong> because labelled examples (input X and known output y) are available during training. They differ only in the <em>type</em> of output, which decides regression vs classification.</p>
+<ul>
+<li><strong>(a) Predict stock prices — supervised regression.</strong> Historical prices plus features (volume, indices, news sentiment) form labelled pairs (X, price) with a <em>continuous</em> target. Fit a function f(X) → ℝ using linear/multiple regression, polynomial regression, SVR, random-forest regression or a neural network. Evaluate with MSE / RMSE / MAE / R². Note that financial series are noisy and non-stationary, so a simple model is often preferable and time-based validation is essential.</li>
+<li><strong>(b) Detect spam — supervised classification.</strong> A labelled corpus of emails (spam / ham) is available; each email is represented by a bag-of-words or TF-IDF vector. Learn P(class | features) with Naive Bayes, logistic regression or an SVM, and output a <em>discrete</em> label. Evaluate with accuracy, precision / recall / F1, ROC-AUC; care about false positives (legitimate mail sent to spam).</li>
+</ul>
+<p><strong>Decision rule:</strong> ask (i) are labels available? → supervised; (ii) is the target continuous? → regression, categorical? → classification. If no labels were available and we only wanted to group similar emails, that would be unsupervised clustering instead.</p>
+<p class="tip"><strong>Exam tip:</strong> For each part name the paradigm (<em>supervised</em>), the task (<em>regression</em> or <em>classification</em>), a suitable algorithm and a suitable metric. That four-part structure reliably earns full marks.</p>
+</div></details>
+</section><section class="q" id="q3">
+<div class="q-head"><span class="q-no">Q3</span><h3 class="q-title">General MLE method</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Explain the general MLE method for estimating the parameters of a probability distribution.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>Principle.</strong> Maximum Likelihood Estimation chooses the parameter value θ̂ that makes the observed data most probable — i.e. it maximises the likelihood of the sample actually seen.</p>
+<div class="formula">Given i.i.d. observations x₁,…,xₙ ~ p(x | θ):
+L(θ) = ∏_{i=1..n} p(xᵢ | θ)          (likelihood: product of densities/pmf)
+ℓ(θ) = log L(θ) = Σ_{i=1..n} log p(xᵢ | θ)   (log-likelihood)
+Solve  dℓ/dθ = 0  for θ̂ ;  verify  d²ℓ/dθ² &lt; 0  (maximum).</div>
+<p><strong>Why the log?</strong> A product of many small densities underflows numerically; the log turns the product into a sum. Since log is monotonic, the θ maximising ℓ also maximises L. For an i.i.d. sample the log-likelihood is a sum of n terms, so derivatives are straightforward.</p>
+<p><strong>General procedure (write these steps in the exam):</strong></p>
+<ol>
+<li>Write the pmf / pdf p(x | θ) for a single observation.</li>
+<li>Form the likelihood L(θ) = ∏ p(xᵢ | θ) over all observations.</li>
+<li>Take logs to get ℓ(θ), dropping constants.</li>
+<li>Differentiate w.r.t. θ, set to zero (the <em>score equation</em>) and solve for θ̂.</li>
+<li>Check the second derivative is negative to confirm a maximum.</li>
+</ol>
+<p><strong>Properties.</strong> MLE is <em>consistent</em> (θ̂ → true θ as n → ∞), <em>asymptotically normal</em> and <em>asymptotically efficient</em> (attains the Cramér–Rao lower bound) under regularity conditions. For finite samples it can be biased (e.g. the MLE of variance divides by n, not n−1) and can overfit with small data.</p>
+<p><strong>MAP connection.</strong> Adding a prior P(θ) and maximising P(θ | D) ∝ P(D | θ)P(θ) gives MAP estimation; MLE is the special case of a uniform prior. Gaussian prior ⇒ L2 regularisation, Laplace prior ⇒ L1.</p>
+<p><strong>Quick example.</strong> For Bernoulli(p) with data H,H,H,T: L = p³(1−p), ℓ = 3 ln p + ln(1−p), 3/p − 1/(1−p) = 0 ⇒ p̂ = 3/4 — the sample proportion, as intuition suggests.</p>
+<p class="tip"><strong>Exam tip:</strong> Always show the likelihood, the log-likelihood, the derivative set to zero, and the second-derivative check. Marks are awarded for each step, not just the final answer.</p>
+</div></details>
+</section><section class="q" id="q4">
+<div class="q-head"><span class="q-no">Q4</span><h3 class="q-title">Linear vs logistic regression</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Compare linear regression and logistic regression models.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p>Both learn a linear score z = w·x + b, but they use it for different tasks and fit it with different objectives.</p>
+<div class="table-wrap"><table><thead><tr><th>Aspect</th><th>Linear regression</th><th>Logistic regression</th></tr></thead><tbody>
+<tr><td>Task</td><td>Regression (continuous target)</td><td>Classification (categorical target)</td></tr>
+<tr><td>Prediction</td><td>ŷ = w·x + b</td><td>P(y=1|x) = 1/(1+e<sup>−(w·x+b)</sup>) = σ(w·x+b)</td></tr>
+<tr><td>Output range</td><td>Any real number (−∞, ∞)</td><td>Restricted to (0, 1)</td></tr>
+<tr><td>Link function</td><td>Identity</td><td>Logit (sigmoid inverse): log(p/(1−p)) = w·x + b</td></tr>
+<tr><td>Loss / fitting</td><td>Least squares: minimise Σ(yᵢ−ŷᵢ)² (closed-form normal equations XᵀXβ = Xᵀy)</td><td>Maximum likelihood: minimise cross-entropy −Σ[y ln p + (1−y) ln(1−p)] (iterative, e.g. gradient descent)</td></tr>
+<tr><td>Decision boundary</td><td>Not applicable</td><td>Linear hyperplane w·x + b = 0 (at threshold 0.5)</td></tr>
+<tr><td>Metrics</td><td>MSE, RMSE, MAE, R²</td><td>Accuracy, precision/recall, log-loss, ROC-AUC</td></tr>
+<tr><td>Example</td><td>House price from area, bedrooms</td><td>Spam / ham from word counts</td></tr>
+</tbody></table></div>
+<p><strong>Why the sigmoid?</strong> It maps the unbounded score z into a probability in (0,1), and the logit transform log(p/(1−p)) makes the log-odds linear in x — which is why the model is called <em>logistic</em> regression.</p>
+<p><strong>Common ground:</strong> both are parametric, discriminative, linear-in-the-parameters models; both can be extended with polynomial / interaction features or regularisation (ridge / lasso).</p>
+<p><strong>Key trap:</strong> despite the word "regression" in its name, logistic regression is a <strong>classification</strong> algorithm because its output is a class probability.</p>
+<p class="tip"><strong>Exam tip:</strong> A well-labelled comparison table earns most marks; add the sigmoid formula and the log-odds interpretation to show understanding, and finish with the naming trap.</p>
+</div></details>
+</section><section class="q" id="q5">
+<div class="q-head"><span class="q-no">Q5</span><h3 class="q-title">Feed-forward net with lateral inhibition</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Construct a feed-forward network with four input nodes, three hidden nodes and three output nodes with lateral inhibition in the output layer.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>Architecture.</strong> Three layers: 4 input units → 3 hidden units → 3 output units. Information flows one way (feed-forward, no cycles). Every input connects to every hidden unit; every hidden unit connects to every output unit. In addition, the output units send <em>inhibitory</em> links to each other (oᵢ ⊣ oⱼ for i ≠ j).</p>
+<div class="formula"><pre><code>  x1 ─┐                    ┌─► o1 ←─────────┐
+  x2 ─┼─► [ 4 inputs ] ──► h1 ─► o2 ←─┐  ⊣   │  inhibitory links
+  x3 ─┤                 ┌─► h2 ─► o3 ←─┴─────┘  (o_i suppresses o_j, i≠j)
+  x4 ─┘                 └─► h3
+                 (all-to-all, feed-forward)
+
+  x_i ──(w_ij)──► h_j ──(v_jk)──► o_k
+  o_1 ⊣ o_2 ,  o_1 ⊣ o_3 ,  o_2 ⊣ o_3   (lateral, same layer)</code></pre></div>
+<p><strong>Computation.</strong> hⱼ = f(Σᵢ w_{ij} xᵢ + bⱼ); net output oₖ = g(Σⱼ v_{jk} hⱼ + cₖ − Σ_{m≠k} γ_{mk} oₘ), where γ ≥ 0 is an inhibition weight: the activation of a rival output <em>subtracts</em> from oₖ.</p>
+<p><strong>What lateral inhibition achieves.</strong> It implements <strong>competition</strong>: the most strongly activated output suppresses its neighbours, so the network converges toward a <em>winner-take-all</em> representation in which one output dominates and the others are driven toward zero. This:</p>
+<ul>
+<li>sharpens contrast between competing patterns (like the visual system's edge enhancement / Mach bands),</li>
+<li>makes the output sparse and easier to read as a single decision,</li>
+<li>is the basis of competitive learning and self-organising maps.</li>
+</ul>
+<p class="tip"><strong>Exam tip:</strong> Draw the three layers and label the inhibitory links among the outputs explicitly — the diagram is the main deliverable. Then give one sentence on winner-take-all and one on where it is used.</p>
+</div></details>
+</section><section class="q" id="q6">
+<div class="q-head"><span class="q-no">Q6</span><h3 class="q-title">Optimal separating hyperplane</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is the significance of the optimal separating hyperplane in SVM?</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p>For linearly separable data there are infinitely many hyperplanes w·x + b = 0 that separate the classes. The <strong>optimal separating hyperplane (OSH)</strong> is the one that maximises the <em>margin</em> — the distance between the hyperplane and the nearest data points of each class.</p>
+<div class="formula">Hyperplane: w·x + b = 0
+Geometric margin (half-width) = 1 / ‖w‖ ,  total margin = 2 / ‖w‖
+Constraints: yᵢ(w·xᵢ + b) ≥ 1   for all i
+OSH: minimise ½‖w‖²  subject to those constraints
+→ w = Σ αᵢ yᵢ xᵢ  (only support vectors have αᵢ &gt; 0)</div>
+<p><strong>Significance — why the maximum-margin solution is special:</strong></p>
+<ul>
+<li><strong>Uniqueness:</strong> among all separators, the maximum-margin one is unique and well-defined by the optimisation.</li>
+<li><strong>Determined by support vectors only:</strong> the boundary depends solely on the few points lying on the margin; moving or removing other points leaves it unchanged. This makes the model <em>sparse</em> and memory-efficient.</li>
+<li><strong>Better generalisation:</strong> a large margin corresponds to low capacity / low VC dimension. By structural risk minimisation it reduces the expected test error — a small-margin separator is more likely to misclassify a new point near the boundary.</li>
+<li><strong>Robustness:</strong> the classifier is insensitive to noise and small perturbations of non-support points; it also admits a soft-margin extension (slack ξᵢ, penalty C) for noisy / overlapping classes.</li>
+</ul>
+<p><strong>Diagram idea:</strong> two clouds of points with a central solid line (the OSH) and two dashed lines through the support vectors; the gap between the dashed lines is 2/‖w‖ and should be as wide as possible.</p>
+<p class="tip"><strong>Exam tip:</strong> Lead with "maximises the margin 2/‖w‖," then give at least three bullets (uniqueness, support-vector sparsity, generalisation / SRM, robustness). Mentioning soft margin is a bonus.</p>
+</div></details>
+</section><section class="q" id="q7">
+<div class="q-head"><span class="q-no">Q7</span><h3 class="q-title">K-means parameters</h3><span class="marks">3 marks</span></div>
+<p class="q-text">For K-means: which parameters are usually specified by the user, and what does the algorithm estimate?</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>User-specified (hyperparameters):</strong></p>
+<ul>
+<li><strong>K</strong> — the number of clusters (the main choice, often selected by the elbow method or silhouette score);</li>
+<li><strong>initial centres</strong> — either explicit seeds or an initialisation scheme such as <em>k-means++</em> (better spread, fewer poor local optima);</li>
+<li><strong>distance metric</strong> — Euclidean by default (Manhattan / cosine for other data);</li>
+<li><strong>convergence tolerance ε and maximum iterations</strong> — stopping criteria.</li>
+</ul>
+<p><strong>Estimated by the algorithm (learned parameters):</strong></p>
+<ul>
+<li>the <strong>cluster assignment</strong> c(i) ∈ {1,…,K} of every data point, and</li>
+<li>the <strong>final centres / centroids</strong> μₖ (the mean of the points assigned to cluster k).</li>
+</ul>
+<div class="formula">Repeat until centres stop moving:
+  Assignment step: c(i) = argmin_k ‖xᵢ − μₖ‖²
+  Update step:     μₖ = (1/|Cₖ|) Σ_{i∈Cₖ} xᵢ
+Minimises the within-cluster sum of squares (inertia) Σₖ Σ_{i∈Cₖ} ‖xᵢ − μₖ‖².</div>
+<p><strong>Why this split matters:</strong> K-means is <em>unsupervised</em> — it receives only the feature matrix X, no labels. K must be supplied because it is not learned from the data; the algorithm only optimises assignments and centres for that fixed K. Bad initialisation can trap it in a local minimum, which is why multiple random restarts are common.</p>
+<p class="tip"><strong>Exam tip:</strong> Make a two-column list (specified vs estimated). Naming k-means++, the objective (inertia), and the assignment/update alternation shows full understanding.</p>
+</div></details>
+</section><section class="q" id="q8">
+<div class="q-head"><span class="q-no">Q8</span><h3 class="q-title">EM: supervised or unsupervised?</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Is EM a supervised or unsupervised learning method? Explain.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>EM (Expectation–Maximisation) is an unsupervised method.</strong> It is applied to unlabelled data containing <em>latent (hidden) variables</em> — for example, in a Gaussian mixture model the hidden variable zᵢ indicates which component generated observation xᵢ, and that component label is never observed in the training set.</p>
+<div class="formula">Data X observed; hidden Z unobserved; parameters θ.
+E-step: compute responsibilities  γ(zᵢk) = P(zᵢ=k | xᵢ, θ^old)
+M-step: update θ to maximise  Q(θ, θ^old) = Σᵢ Σₖ γ(zᵢk) log P(xᵢ, zᵢ=k | θ)
+Repeat — the observed-data log-likelihood P(X | θ) increases monotonically.</div>
+<p><strong>Why it is unsupervised:</strong></p>
+<ul>
+<li>No target labels y are used anywhere; the algorithm infers everything from the feature vectors alone.</li>
+<li>The E-step <em>infers</em> the missing latent labels from the current parameters (soft assignment, not the hard assignment of K-means).</li>
+<li>The M-step re-estimates the parameters (means, covariances, mixing weights) from those inferred responsibilities.</li>
+</ul>
+<p><strong>Example.</strong> Given a histogram of heights with two bumps, EM fits a two-Gaussian mixture: it first guesses which bump each person belongs to (responsibilities), then refits each Gaussian's mean/variance, iterating to convergence. This is density estimation / clustering — classic unsupervised tasks.</p>
+<p><strong>Nuance.</strong> EM can be adapted to <em>semi-supervised</em> learning when some labels are known (their responsibilities are fixed to 0/1), but in its standard form on unlabelled data it is unsupervised. It can also be used to fit missing-data problems and HMMs (Baum–Welch is a special case).</p>
+<p class="tip"><strong>Exam tip:</strong> State "unsupervised," name the latent variables, describe E-step and M-step in one line each, and give the Gaussian-mixture example. Mention the monotonic likelihood increase for full marks.</p>
+</div></details>
+</section><section class="q" id="q9">
+<div class="q-head"><span class="q-no">Q9</span><h3 class="q-title">Ensemble learning and non-linear data</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is ensemble learning? Can ensemble learning using linear classifiers learn classification of linearly non-separable sets?</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>Ensemble learning</strong> trains several base models (weak learners) and combines their predictions — by majority vote for classification or averaging for regression — to obtain a predictor that is more accurate and more robust than any single member. The intuition is the "wisdom of crowds": errors made by diverse models tend to cancel.</p>
+<ul>
+<li><strong>Bagging</strong> (bootstrap aggregating): train base models on different bootstrap samples, reduce variance — e.g. Random Forest.</li>
+<li><strong>Boosting</strong>: train sequentially, reweighting misclassified points, reduce bias — e.g. AdaBoost, Gradient Boosting.</li>
+<li><strong>Stacking</strong>: train a meta-learner to combine base predictions.</li>
+</ul>
+<p><strong>Yes — linear base classifiers can classify linearly non-separable data.</strong> Although each individual member has a linear decision boundary, the ensemble's <em>combined</em> boundary need not be linear:</p>
+<ul>
+<li>Each linear classifier can be trained on a different weighted version of the data (boosting) or a different feature subspace / bootstrap sample (bagging), so each covers a different region.</li>
+<li>Weighted voting of several linear boundaries produces a <strong>piecewise-linear</strong> boundary, which can approximate an arbitrarily complex (non-linear) boundary given enough members.</li>
+<li>Equivalently, using linear classifiers in different kernel-induced feature spaces gives non-linear boundaries in the original input space.</li>
+</ul>
+<div class="formula">Final decision:  ŷ = sign( Σₜ αₜ hₜ(x) ),  hₜ(x) = sign(wₜ·x + bₜ)
+Each hₜ is linear, yet the signed weighted sum can be non-linear in x — e.g. an
+XOR pattern (not linearly separable) is learned by two stumps splitting on x1 and x2.</div>
+<p><strong>Key requirement: diversity.</strong> If all base classifiers make identical errors, combining them gains nothing. Randomisation, different data subsets and different feature views create the diversity that makes the ensemble powerful. Trade-off: increased training cost and reduced interpretability.</p>
+<p class="tip"><strong>Exam tip:</strong> Define the ensemble, name bagging/boosting, then answer "yes" explicitly and explain that the <em>combination</em> of linear boundaries is piecewise-linear/non-linear, with diversity as the key ingredient.</p>
+</div></details>
+</section><section class="q" id="q10">
+<div class="q-head"><span class="q-no">Q10</span><h3 class="q-title">ROC point selection</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Classifiers A (FPR,TPR) = (0,1), B (1,1), C (1,0.5). Which is perfect? Justify.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>ROC space</strong> plots the True Positive Rate (TPR = TP/(TP+FN), vertical axis) against the False Positive Rate (FPR = FP/(FP+TN), horizontal axis). Both lie in [0,1]. The ideal classifier sits at the <strong>top-left corner (0,1)</strong>; the diagonal from (0,0) to (1,1) is random guessing.</p>
+<div class="formula">A = (0, 1):  TPR = 1 → every positive found ; FPR = 0 → no false alarms → PERFECT
+B = (1, 1):  TPR = 1 but FPR = 1 → predicts "positive" for everything (always-positive)
+C = (1, 0.5): FPR = 1, TPR = 0.5 → all negatives are false positives, only half the
+              positives found → poor, no better than random on negatives</div>
+<p><strong>Answer: A is the perfect classifier.</strong> It lies at the ideal top-left point of ROC space: it achieves a 100% true-positive rate while producing zero false positives — i.e. it makes no errors at all on either class.</p>
+<p><strong>Interpretation of the others:</strong> B is a degenerate "always predict positive" rule — it catches all positives but floods the result with false alarms (a classifier of no discriminative value). C is even weaker: it triggers a false alarm on every negative and detects only half the positives. Neither is useful; a model's ROC curve is judged by how close it bows toward A.</p>
+<p class="tip"><strong>Exam tip:</strong> State the axes first, then identify (0,1) as perfect and explain both coordinates of A. One line each for B and C completes the justification. (3 marks.)</p>
+</div></details>
+</section><section class="q" id="q11">
+<div class="q-head"><span class="q-no">Q11</span><h3 class="q-title">Bernoulli, Poisson and geometric MLE</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) Coin flipped 4 times gives HHHT: MLE of P(heads). b) Poisson threes: 14, 26, 25, 13 — MLE of λ. c) Geometric x = trials to first success: show p̂ = 1/x.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">General method</span>
+<p>For each part we write the pmf, form L = ∏ p(xᵢ|θ), take logs, set dℓ/dθ = 0 and check d²ℓ/dθ² &lt; 0. The data are assumed i.i.d. (independent, identically distributed).</p>
+<span class="subhead">a) Bernoulli coin — H,H,H,T</span>
+<div class="formula">Let p = P(heads).  P(H)=p, P(T)=1−p; three heads, one tail.
+L(p) = p³(1−p)¹
+ℓ(p) = 3 log p + log(1−p)
+dℓ/dp = 3/p − 1/(1−p) = 0  ⇒  3(1−p) = p  ⇒  p = 3/4
+d²ℓ/dp² = −3/p² − 1/(1−p)² &lt; 0 ⇒ maximum
+p̂ = 3/4 = 0.75   (the sample proportion of heads — the intuitive answer)</div>
+<span class="subhead">b) Poisson mean — 14, 26, 25, 13</span>
+<div class="formula">P(X=x) = e^(−λ) λ^x / x!
+L(λ) = ∏ e^(−λ) λ^(xᵢ)/xᵢ! = e^(−nλ) λ^(Σxᵢ) / ∏xᵢ!
+ℓ(λ) = −nλ + (Σxᵢ) log λ − Σ log(xᵢ!)   [last term constant in λ]
+dℓ/dλ = −n + (Σxᵢ)/λ = 0  ⇒  λ̂ = (Σxᵢ)/n = x̄
+Σxᵢ = 14+26+25+13 = 78, n = 4  ⇒  λ̂ = 78/4 = 19.5
+d²ℓ/dλ² = −(Σxᵢ)/λ² &lt; 0 ⇒ maximum. The MLE of a Poisson mean is the sample mean.</div>
+<span class="subhead">c) Geometric (x = number of trials up to and including the first success)</span>
+<div class="formula">P(X=x) = (1−p)^(x−1) p ,  x = 1,2,3,…   [x−1 failures then one success]
+For one observation x:  L(p) = (1−p)^(x−1) p
+ℓ(p) = (x−1) log(1−p) + log p
+dℓ/dp = −(x−1)/(1−p) + 1/p = 0
+⇒ (x−1)/(1−p) = 1/p  ⇒ p(x−1) = 1−p  ⇒ p x = 1  ⇒ p = 1/x
+d²ℓ/dp² = −(x−1)/(1−p)² − 1/p² &lt; 0 ⇒ maximum
+Hence p̂ = 1/x — the reciprocal of the observed number of trials.</div>
+<p><strong>Interpretation &amp; caveats.</strong> In (c) the estimate is intuitive: if the first success took x trials, the estimated success probability per trial is 1/x. Note the two geometric conventions: this one counts <em>trials to success</em> (support 1,2,…, p̂ = 1/x); the alternate counts <em>failures before success</em> (support 0,1,2,…, P(X=x)=(1−p)pˣ, p̂ = x/(x+1)). Always use the pmf stated in the question.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> For each sub-part show all five steps — pmf, likelihood, log, derivative = 0, second-derivative check — and box the final estimate. The second-derivative check and the note on conventions earn the top marks.</p>
+</div></details>
+</section><section class="q" id="q12">
+<div class="q-head"><span class="q-no">Q12</span><h3 class="q-title">Geometric pmf MLE + die</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) pmf p(x)=θ(1−θ)^(x−1), x=1,2,…: likelihood and MLE of θ. b) 40 die rolls, eight sixes: MLE of P(6).</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Geometric pmf — likelihood and MLE of θ</span>
+<p>This is the "trials-to-first-success" geometric distribution: P(X=x) = θ(1−θ)^(x−1) for x = 1,2,… Assume a random sample x₁,…,xₙ (i.i.d.).</p>
+<div class="formula">L(θ) = ∏_{i=1..n} θ(1−θ)^(xᵢ−1) = θⁿ (1−θ)^(Σxᵢ − n)
+ℓ(θ) = n log θ + (Σxᵢ − n) log(1−θ)
+dℓ/dθ = n/θ − (Σxᵢ − n)/(1−θ) = 0
+⇒ n(1−θ) = θ(Σxᵢ − n)  ⇒ n − nθ = θΣxᵢ − nθ  ⇒ n = θ Σxᵢ
+⇒ θ̂ = n / Σxᵢ = 1 / x̄     (since x̄ = Σxᵢ/n)
+d²ℓ/dθ² = −n/θ² − (Σxᵢ − n)/(1−θ)² &lt; 0  (for Σxᵢ &gt; n) ⇒ maximum</div>
+<p><strong>Interpretation.</strong> The MLE is the reciprocal of the sample mean number of trials — exactly the analogue of part (c) of the previous question. For a single observation (n = 1), θ̂ = 1/x.</p>
+<span class="subhead">b) Die — MLE of P(6)</span>
+<p>Each roll is a Bernoulli trial with success = "six", probability p = P(6). With 8 sixes in 40 independent rolls, the number of sixes K ~ Binomial(40, p).</p>
+<div class="formula">L(p) = p⁸ (1−p)³²       ℓ(p) = 8 log p + 32 log(1−p)
+dℓ/dp = 8/p − 32/(1−p) = 0  ⇒ 8(1−p) = 32p  ⇒ 8 = 40p  ⇒ p = 8/40
+p̂ = 8/40 = 0.2   (the observed proportion of sixes)</div>
+<p>This is the general Bernoulli/binomial result: the MLE of a success probability is the observed relative frequency. Here P(6) is estimated as 0.2, considerably higher than the fair-die value 1/6 ≈ 0.167; a hypothesis test would be needed to say whether that difference is significant.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Show the full likelihood and log-likelihood and the derivative for both parts. Explicitly connect the answer to "MLE of a probability is the sample proportion," and note the geometric answer θ̂ = 1/x̄ is the reciprocal of the mean.</p>
+</div></details>
+</section><section class="q" id="q13">
+<div class="q-head"><span class="q-no">Q13</span><h3 class="q-title">ID3 on refund dataset + tree issues</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) Compute information gain for each attribute and draw the decision tree (Refund, Marital status, Taxable income). b) What issues do decision-tree algorithms face?</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Information gain and decision tree</span>
+<p>ID3 builds the tree top-down, choosing at each node the attribute with the highest <strong>information gain</strong> — the reduction in entropy. Entropy and gain are:</p>
+<div class="formula">Entropy(S) = − Σ_c p(c) log₂ p(c)
+Gain(S,A) = Entropy(S) − Σ_{v∈values(A)} (|S_v|/|S|) Entropy(S_v)
+
+Root (10 records, 3 "Yes" / 7 "No"):
+Entropy(S) = −(3/10)log₂(3/10) − (7/10)log₂(7/10) = 0.8813
+
+Gain(Refund)          = 0.8813 − 0.6897 = 0.1916
+Gain(Marital status)  = 0.8813 − 0.6000 = 0.2813
+Gain(Taxable income)  = 0.8813 − 0.0000 = 0.8813   ← highest → root</div>
+<p><strong>Tree.</strong> Taxable income has the largest gain, so it is the root. In the given 10-row table each taxable-income value corresponds to a single record, so every branch leads to a pure leaf:</p>
+<div class="formula"><pre><code>            [ Taxable income ]
+        ┌──────┼──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
+       t1     t2     t3     t4     t5     t6     t7     t8     t9    t10
+        │      │      │      │      │      │      │      │      │      │
+       No     No     No     No     Yes    No     No     Yes    No     Yes
+   → leaf labels: (No, No, No, No, Yes, No, No, Yes, No, Yes)</code></pre></div>
+<p>For a continuous taxable-income attribute one instead tests candidate thresholds (e.g. ≤ 80k), computes the gain of each binary split and picks the best; the other attributes (Marital status gain 0.2813, Refund gain 0.1916) would be used at deeper nodes if splits were impure.</p>
+<span class="subhead">b) Issues faced by decision-tree algorithms</span>
+<ul>
+<li><strong>Overfitting:</strong> deep trees memorise noise. Remedies: pre-pruning (max depth, min samples per leaf, min gain) and post-pruning (cost-complexity / reduced-error pruning), or use an ensemble (random forest).</li>
+<li><strong>Instability:</strong> a small change in the data can produce a completely different tree; reduced by bagging / random forests.</li>
+<li><strong>Greedy, non-optimal splits:</strong> ID3 chooses the locally best split at each node, which need not give the globally optimal (smallest) tree.</li>
+<li><strong>Bias toward many-valued attributes:</strong> attributes with many distinct values (e.g. an ID) get high gain — use <em>gain ratio</em> (C4.5) or Gini (CART) instead.</li>
+<li><strong>Axis-aligned boundaries only:</strong> oblique / diagonal concepts need many splits; hard to learn smooth functions.</li>
+<li><strong>Missing values and noisy labels</strong> complicate split evaluation; need surrogate splits or imputation.</li>
+</ul>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Show the entropy formula, all three gains with the correct numbers, and a sketch of the tree; then give at least four distinct issues, each with a remedy where one exists.</p>
+</div></details>
+</section><section class="q" id="q14">
+<div class="q-head"><span class="q-no">Q14</span><h3 class="q-title">Flu Naive Bayes + regression on y</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) Can the doctor conclude a person with chills=Y, running nose=N, headache=Mild, fever=Y has flu? b) Obtain a linear regression assuming y is the independent variable.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Naive Bayes flu prediction</span>
+<p>Naive Bayes applies Bayes' rule with the <em>naive</em> assumption that the attributes are conditionally independent given the class: P(features | class) = ∏ⱼ P(aⱼ | class). We compute an unnormalised score for each class and pick the larger; the common evidence P(features) cancels.</p>
+<div class="formula">Priors: P(flu)=5/7, P(no flu)=2/7  (5 flu, 2 non-flu training rows)
+
+Score(flu) ∝ P(flu)·P(Chills=Y|flu)·P(Running=N|flu)·P(Head=Mild|flu)·P(Fever=Y|flu)
+          = (5/7)(3/5)(2/5)(2/5)(4/5) ≈ 0.0549
+Score(no flu) ∝ P(no flu)·(1/2)(2/2)(1/2)(1/2) ≈ 0.0357
+
+0.0549 &gt; 0.0357 ⇒ class = FLU. Yes, the person is predicted to have flu.
+(Posterior = 0.0549 / (0.0549+0.0357) ≈ 0.606.) With add-1 Laplace smoothing the
+conclusion is unchanged: 0.0535 vs 0.0268.</div>
+<p>The scores are not probabilities (they do not sum to 1 because we dropped the evidence), but their ratio gives the posterior odds. Always compare the unnormalised scores, or normalise them to get a confidence.</p>
+<span class="subhead">b) Linear regression of x on y</span>
+<p>Now y is the <strong>independent</strong> (predictor) variable and x the target — note this is the reverse of the more usual direction, so we fit x̂ = a + b y.</p>
+<div class="formula">Data:  x : 55  60  65  70  80        (mean x̄ = 66)
+       y : 52  54  56  58  62        (mean ȳ = 56.4)
+
+b = Σ(y−ȳ)(x−x̄) / Σ(y−ȳ)² = 112 / 44.8 = 2.5
+a = x̄ − b·ȳ = 66 − 2.5(56.4) = 66 − 141 = −75
+
+Regression line:  x̂ = −75 + 2.5 y
+Check: y = 60 ⇒ x̂ = −75 + 150 = 75.</div>
+<p><strong>Calculation detail.</strong> The slope is the cross-product sum divided by the sum of squared deviations of the predictor y: b = Σ(y−ȳ)(x−x̄)/Σ(y−ȳ)² = 112/44.8 = 2.5, and the intercept follows from a = x̄ − bȳ = −75. Always double-check which variable is the predictor: regressing y on x would give a different line, and this question explicitly asks for x on y (so the roles of x and y are reversed relative to the usual convention).</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> For (a) show the priors, the product of five likelihoods for each class, both numeric scores and the decision; mention the independence assumption. For (b) write the model x̂ = a + by, compute both means, the slope, the intercept and verify with a sample point. Box the final numbers.</p>
+</div></details>
+</section><section class="q" id="q15">
+<div class="q-head"><span class="q-no">Q15</span><h3 class="q-title">Kernels in SVM</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) What is a kernel in SVM? Why use kernels? What is the kernel trick? b) Explain different types of kernel functions.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Kernels and the kernel trick</span>
+<p>A <strong>kernel</strong> is a symmetric, positive-semidefinite function K(x, y) = φ(x)·φ(y): it returns the inner product of two data points after mapping them into a (possibly very high-dimensional) feature space via φ. Valid kernels satisfy Mercer's condition; equivalently the Gram matrix [K(xᵢ,xⱼ)] must be positive semi-definite.</p>
+<p><strong>Why kernels?</strong> Many data sets are not linearly separable in the input space but become separable when mapped into a richer feature space (Cover's theorem). Explicitly computing φ(x) for every point can be prohibitively expensive or even impossible (the RBF kernel maps into an infinite-dimensional space).</p>
+<div class="formula">SVM dual depends on the data ONLY through dot products:
+  max_α  Σαᵢ − ½ ΣᵢΣⱼ αᵢαⱼ yᵢyⱼ (xᵢ·xⱼ)
+Kernel trick: replace (xᵢ·xⱼ) with K(xᵢ,xⱼ) = φ(xᵢ)·φ(xⱼ)
+→ linear algorithm in feature space = non-linear classifier in input space,
+   with no need to compute φ(x) explicitly and no extra cost beyond the
+   n×n Gram matrix.</div>
+<p><strong>Benefits:</strong> (i) non-linear decision boundaries for the price of a linear solver; (ii) cost scales with the number of samples n, not with the feature-space dimension; (iii) swapping the kernel changes the notion of similarity without redesigning the optimiser; (iv) convex objective ⇒ global optimum, no local minima.</p>
+<span class="subhead">b) Common kernel functions</span>
+<div class="table-wrap"><table><thead><tr><th>Kernel</th><th>Formula</th><th>Properties / typical use</th></tr></thead><tbody>
+<tr><td>Linear</td><td>K(x,y) = x·y</td><td>No mapping; linearly separable data; fastest, fewest hyper-parameters.</td></tr>
+<tr><td>Polynomial</td><td>K(x,y) = (x·y + c)^d</td><td>Global polynomial boundaries; degree d and offset c control complexity; can overfit for large d.</td></tr>
+<tr><td>RBF / Gaussian</td><td>K(x,y) = exp(−‖x−y‖²/(2σ²))</td><td>Most popular default; localised, maps to infinite-dimensional space; σ (or γ = 1/2σ²) controls smoothness. Value 1 for identical points, → 0 far apart.</td></tr>
+<tr><td>Sigmoid</td><td>K(x,y) = tanh(κ x·y + c)</td><td>Neural-network-like behaviour; positive-semidefinite only for a restricted parameter range; seldom the first choice.</td></tr>
+</tbody></table></div>
+<p><strong>Selection guidance:</strong> start with RBF; use linear for very high-dimensional / large-scale data; a kernel should reflect domain similarity. Hyper-parameters (C, γ, d) are tuned by cross-validation; scaling features first is essential for distance-based kernels.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Define K = φ(x)·φ(y), state Mercer/PSD, present the dual and show exactly where the substitution happens (that <em>is</em> the kernel trick). Then give the four kernels with formulas and one use each.</p>
+</div></details>
+</section><section class="q" id="q16">
+<div class="q-head"><span class="q-no">Q16</span><h3 class="q-title">Backpropagation + activation functions</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) Pros and cons of backpropagation. b) Short notes on any four activation functions.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Backpropagation — advantages and disadvantages</span>
+<p>Backpropagation computes the gradient of the loss with respect to every weight by applying the chain rule backwards through the network, reusing the intermediate derivatives cached in the forward pass.</p>
+<div class="table-wrap"><table><thead><tr><th>Pros</th><th>Cons</th></tr></thead><tbody>
+<tr><td>Efficient: one forward + one backward pass gives all gradients (cost comparable to one evaluation), avoiding a separate perturbation per weight.</td><td>Can converge to local minima / saddle points in non-convex loss surfaces.</td></tr>
+<tr><td>General: works with any differentiable architecture and loss; the same algorithm underlies all modern deep learning.</td><td>Vanishing / exploding gradients in deep nets; gradients can shrink or blow up multiplicatively across layers.</td></tr>
+<tr><td>Reuses intermediate derivatives, so no repeated recomputation.</td><td>Sensitive to learning rate, weight initialisation and input scaling; needs careful tuning.</td></tr>
+<tr><td>Enables end-to-end learning of millions of parameters.</td><td>Requires labelled data and many epochs; is not biologically plausible (real neurons do not send exact error signals backwards).</td></tr>
+</tbody></table></div>
+<p><strong>Core equations:</strong> δᴸ = (aᴸ − y) ⊙ σ′(zᴸ) at the output; δˡ = ((Wˡ⁺¹)ᵀ δˡ⁺¹) ⊙ σ′(zˡ) for hidden layers; ∂J/∂Wˡ = δˡ (aˡ⁻¹)ᵀ; then W ← W − η ∂J/∂W.</p>
+<span class="subhead">b) Four activation functions</span>
+<ul>
+<li><strong>Sigmoid</strong> σ(z) = 1/(1+e<sup>−z</sup>): maps ℝ → (0,1); interpretable as a probability, used with cross-entropy / binary outputs. Disadvantage: saturates at both ends → vanishing gradients; not zero-centred.</li>
+<li><strong>Tanh</strong> tanh(z) = (e^z−e<sup>−z</sup>)/(e^z+e<sup>−z</sup>) = 2σ(2z)−1: maps ℝ → (−1,1) and is zero-centred, which speeds learning in hidden layers. Disadvantage: still saturates → vanishing gradients.</li>
+<li><strong>ReLU</strong> max(0,z): piecewise linear, cheap to compute, does not saturate for z &gt; 0 (so gradients flow), induces sparse activations; the default for hidden layers. Disadvantage: zero gradient for z &lt; 0 gives "dying ReLU" units that never update; output unbounded above and not zero-centred (Leaky ReLU / ELU mitigate this).</li>
+<li><strong>Softmax</strong> σ(zᵢ) = e^{zᵢ}/Σⱼ e^{zⱼ}: converts a vector of scores into a probability distribution over K classes (outputs sum to 1); used in the output layer for multi-class classification with cross-entropy loss. Degenerates to sigmoid for K=2.</li>
+</ul>
+<p><strong>Choice rule:</strong> ReLU (or a variant) in hidden layers, sigmoid for binary output, softmax for multi-class output; use sigmoid/tanh only where bounded outputs matter. All must be differentiable so backprop can use them.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Give at least three pros and three cons in a table, write the backprop recurrence, then for each activation give its formula, range, one advantage and one disadvantage.</p>
+</div></details>
+</section><section class="q" id="q17">
+<div class="q-head"><span class="q-no">Q17</span><h3 class="q-title">K-means with Euclidean distance</h3><span class="marks">14 marks</span></div>
+<p class="q-text">Cluster the eight points into three clusters using Euclidean distance, initial centres A1, B1, C1. Show centres after first round and final clusters.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<p><strong>Method.</strong> Alternate (1) assign each point to the nearest centre using Euclidean distance d = √((x₁−c₁)²+(x₂−c₂)²), and (2) move each centre to the mean of its assigned points. Stop when assignments/centres no longer change. Initial centres: C1=(2,10), C2=(5,8), C3=(1,2).</p>
+<div class="formula">Points: A1(2,10) A2(2,5) A3(8,4) B1(5,8) B2(7,5) B3(6,4) C1(1,2) C2(4,9)
+Initial: centre1=(2,10), centre2=(5,8), centre3=(1,2); distance = Euclidean
+
+Round 1 — assign to nearest centre, then recompute means:
+  C1 = {A1}                  → centre (2, 10)
+  C2 = {A3, B1, B2, B3, C2} → centre (6, 6)     [mean of (8,4),(5,8),(7,5),(6,4),(4,9)]
+  C3 = {A2, C1}              → centre (1.5, 3.5)
+
+Round 2:
+  C2 = {A3, B1, B2, B3} → (6.5, 5.25) ;  C1 = {A1, C2} → (3, 9.5)
+Round 3:
+  B1 joins C1 ; C2 = {A3, B2, B3} → (7, 4.33) ; C1 → (11/3, 9)
+No change after round 3 (converged).
+
+FINAL CLUSTERS:
+  C1 = { A1, B1, C2 }  centre (3.67, 9.00)
+  C2 = { A3, B2, B3 }  centre (7.00, 4.33)
+  C3 = { A2, C1 }      centre (1.50, 3.50)</div>
+<p><strong>Worked distance illustration (round 1).</strong> For A3(8,4): d to c1 = √(36+36)=√72≈8.49; to c2 = √(9+16)=5; to c3 = √(49+4)≈7.28 → assigned to C2. For C2(4,9): d to c1 = √(4+1)=√5≈2.24; to c2 = √(1+1)=√2≈1.41 → nearest C2. Repeating for all eight points gives the round-1 sets shown above.</p>
+<p><strong>Objective.</strong> Each iteration reduces the within-cluster sum of squares (inertia); convergence to a stationary point is guaranteed, though not necessarily the global optimum — the result depends on the initial centres (k-means++ or multiple restarts help).</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Tabulate each point's distances to the three centres for round 1, list the three new centres, then show successive reassignments until convergence and state the final clusters and centres with the exact numbers above.</p>
+</div></details>
+</section><section class="q" id="q18">
+<div class="q-head"><span class="q-no">Q18</span><h3 class="q-title">Covariance matrix + PCA</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) Find the covariance matrix for X1 = (4,8,13,7), X2 = (11,4,5,14). b) State the PCA algorithm; is PCA supervised?</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Covariance matrix</span>
+<div class="formula">x̄₁ = (4+8+13+7)/4 = 8 ;  x̄₂ = (11+4+5+14)/4 = 8.5
+Deviations X1: −4, 0, 5, −1 ;  X2: 2.5, −4.5, −3.5, 5.5
+Squares X1: 16+0+25+1 = 42 ;  X2: 6.25+20.25+12.25+30.25 = 69
+Cross-products: (−4)(2.5)+(0)(−4.5)+(5)(−3.5)+(−1)(5.5) = −10+0−17.5−5.5 = −33
+
+Using denominator n−1 = 3 (sample covariance):
+Var(X1) = 42/3 = 14 ; Var(X2) = 69/3 = 23 ; Cov = −33/3 = −11
+→ [[14, −11], [−11, 23]]
+
+Using denominator n = 4 (population / ML covariance):
+Var(X1) = 42/4 = 10.5 ; Var(X2) = 69/4 = 17.25 ; Cov = −33/4 = −8.25
+→ [[10.5, −8.25], [−8.25, 17.25]]
+
+[Population / ML convention (÷ n = 4): [[10.5, −8.25], [−8.25, 17.25]].
+State which convention you use.]</div>
+<p><strong>Reading the matrix:</strong> the diagonal entries are the variances of X1 and X2; the off-diagonal entries are the covariance. The negative covariance (−11) shows the two variables tend to move in opposite directions. Note the convention: dividing the sums of squares (42, 69) and cross-products (−33) consistently by n−1 = 3 gives [[14,−11],[−11,23]]; dividing by n = 4 would give [[10.5,−8.25],[−8.25,17.25]]. Always state which denominator you use — exam keys vary, and the value [[14,−11],[−11,23]] is the commonly accepted one for this question.</p>
+<span class="subhead">b) PCA algorithm</span>
+<ol>
+<li>Standardise the features (subtract mean, divide by standard deviation) so scale does not dominate.</li>
+<li>Compute the covariance matrix S of the standardised data.</li>
+<li>Find eigenvectors and eigenvalues of S: S v = λ v.</li>
+<li>Sort eigenvectors by decreasing eigenvalue (λ₁ ≥ λ₂ ≥ …); the largest eigenvalue gives the direction of maximum variance (PC1).</li>
+<li>Keep the top k eigenvectors and project: Z = X·Vₖ. Choose k to retain a target variance fraction Σ_{j≤k} λⱼ / Σⱼ λⱼ (e.g. 95%).</li>
+</ol>
+<p><strong>Is PCA supervised? No — it is unsupervised.</strong> It uses only the feature matrix X, never the class labels y. It maximises <em>variance</em>, not class separability; the directions it finds need not be the best for classification. (LDA, by contrast, is supervised and maximises between-class vs within-class scatter.) PCA is used for visualisation, compression, noise reduction and as a pre-processing step before a supervised learner.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Show the means, deviations and sum-of-squares/cross-products, state the denominator explicitly, give the matrix, then list the PCA steps and clearly say "unsupervised, because no labels are used."</p>
+</div></details>
+</section><section class="q" id="q19">
+<div class="q-head"><span class="q-no">Q19</span><h3 class="q-title">Confusion metrics + bias</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) True labels [T,T,F,T,F,T,F,T], predicted [T,F,T,T,F,F,F,T]. Compute accuracy and precision/recall/F1 for T. b) Characteristics of high-bias, low-variance model.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Confusion matrix and metrics (positive class = T)</span>
+<p>Pair the true and predicted labels position by position: TT→TP, TF→FN, FT→FP, FF→TN.</p>
+<div class="formula">True:      T  T  F  T  F  T  F  T
+Predicted: T  F  T  T  F  F  F  T
+Outcome:  TP FN FP TP TN FN TN TP
+
+Counts: TP = 3, FP = 1, FN = 2, TN = 2   (total 8)
+
+Accuracy  = (TP+TN)/N        = (3+2)/8 = 0.625
+Precision = TP/(TP+FP)      = 3/(3+1) = 0.75     (of predicted T, how many are T)
+Recall    = TP/(TP+FN)      = 3/(3+2) = 0.60     (of actual T, how many found)
+F1 = 2·Precision·Recall/(Precision+Recall)
+   = 2(0.75)(0.60)/(0.75+0.60) = 0.9/1.35 ≈ 0.667</div>
+<p>F1 is the harmonic mean of precision and recall; it is useful when there is a trade-off between the two and class imbalance makes accuracy misleading. Specificity = TN/(TN+FP) = 2/3 ≈ 0.667.</p>
+<span class="subhead">b) High-bias, low-variance model</span>
+<p>This is the <strong>underfitting</strong> regime of the bias–variance trade-off:</p>
+<ul>
+<li><strong>High bias:</strong> the model's average prediction is far from the true function — it makes strong, overly simple assumptions (e.g. a straight line through curved data) and ignores informative features.</li>
+<li><strong>Low variance:</strong> the fitted model changes very little when trained on different samples — predictions are stable but consistently wrong.</li>
+<li><strong>Symptom:</strong> high training error and similarly high test error; only a small train–test gap (unlike overfitting, where the gap is large).</li>
+<li><strong>Remedies:</strong> add features / interaction or polynomial terms, increase model capacity, reduce regularisation, train longer, improve optimisation, or reduce noise in the data.</li>
+</ul>
+<p><strong>Contrast:</strong> low bias + high variance = overfitting (low training error, high test error, large gap) — cured by regularisation, more data, bagging or early stopping.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> Build the confusion matrix first (TP=3, FP=1, FN=2, TN=2), then each metric with its formula, then describe underfitting with the training/test-error pattern and at least three remedies.</p>
+</div></details>
+</section><section class="q" id="q20">
+<div class="q-head"><span class="q-no">Q20</span><h3 class="q-title">Linkage dendrograms + search metrics</h3><span class="marks">14 marks</span></div>
+<p class="q-text">a) Single and complete link agglomerative clustering for the 4×4 distance matrix; show dendrograms. b) 80 records, 55 relevant, 50 retrieved, 40 of those relevant: confusion matrix, precision and recall.</p>
+<details class="ans" open><summary>Answer</summary><div class="ans-body">
+<span class="subhead">a) Agglomerative clustering — single vs complete linkage</span>
+<p>Agglomerative clustering starts with each point as its own cluster and repeatedly merges the closest pair. <strong>Single linkage</strong> uses the minimum inter-point distance between clusters (d(min)); <strong>complete linkage</strong> uses the maximum (d(max)).</p>
+<div class="formula">Distances: d(A,B)=1, d(A,C)=4, d(A,D)=5, d(B,C)=2, d(B,D)=6, d(C,D)=3
+
+Single linkage (merge at the minimum distance):
+  A+B @1 → (AB) ; d((AB),C)=min(4,2)=2 → (ABC) @2 ;
+  d((ABC),D)=min(5,6,3)=3 → (ABCD) @3   (chaining effect)
+
+Complete linkage (merge at the maximum distance):
+  A+B @1, C+D @3 ; d((AB),(CD)) = max(4,5,2,6) = 6 → merge @6
+
+Dendrograms (height = merge distance):
+  single:           complete:
+   ┌── D @3          ┌────── @6 ──┐
+ ┌─┤                 │  ┌─ A ─┐    │
+ │ └──┐              │  │  B ─┘    │
+ │  ┌─┴─ C @2        │  └──────────┤
+ │  │                │     ┌─ C ─┐ │
+ A  B                A     │  D ─┘ │
+                           B      C D   (truncated sketch; A,B merge @1; C,D @3)</div>
+<p>Single linkage produces long "chains" (the classic chaining phenomenon) and can ignore cluster compactness; complete linkage favours compact, spherical clusters and is more sensitive to outliers.</p>
+<span class="subhead">b) Information-retrieval confusion matrix</span>
+<div class="formula">Total records N = 80 ; relevant in DB = 55 ; retrieved = 50 ; relevant &amp; retrieved = 40
+
+              | Retrieved | Not retrieved | Total
+Relevant      | TP = 40   | FN = 55−40=15 | 55
+Not relevant  | FP = 10   | TN = 80−55−10 = 15 | 25
+Total         | 50        | 30            | 80
+
+TP = 40, FP = 50−40 = 10, FN = 55−40 = 15, TN = 80−40−10−15 = 15
+Precision = TP/(TP+FP) = 40/50 = 0.80       (fraction of retrieved docs that are relevant)
+Recall    = TP/(TP+FN) = 40/55 ≈ 0.727      (fraction of relevant docs that are retrieved)</div>
+<p>(Accuracy here = (TP+TN)/N = (40+15)/80 = 0.6875, and F1 = 2·0.80·0.727/(0.80+0.727) ≈ 0.762, if requested.) Precision and recall trade off against each other as the retrieval threshold is varied; the F1 or the precision–recall curve summarises the trade-off.</p>
+<p class="tip"><strong>Exam tip (14 marks):</strong> For (a) list the merge sequence with heights and sketch both dendrograms, noting single linkage's chaining. For (b) fill the 2×2 table from the four given counts and give precision and recall with formulas and interpretations.</p>
+</div></details>
+</section>
+
+<div class="card full" style="margin-top:34px">
+  <h3>Back to the question bank</h3>
+  <p><a href="papers.html">← Existing CCT401/CST413 question bank and topic notes</a> · <a href="exam-hub.html">All newly added solved papers</a></p>
+</div>
+</div>
+</div>
+
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

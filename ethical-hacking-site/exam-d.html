@@ -1,0 +1,1101 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper D — Apr 2025 · Study Notes</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<link rel="stylesheet" href="assets/exam-content.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a><a href="../index.html">All subjects</a>
+      <a href="m1-1.html">M1 · Basics</a>
+      <a href="m1-2.html">M1 · Hackers</a>
+      <a href="m1-3.html">M1 · Pentest</a>
+      <a href="m2-1.html">M2 · Recon</a>
+      <a href="m2-2.html">M2 · Attacks</a>
+      <a href="m2-3.html">M2 · Social Eng.</a>
+      <a href="m3-1.html">M3 · Vuln/Attacks</a>
+      <a href="m4-1.html">M4 · Net/Sys</a>
+      <a href="m5-1.html">M5 · Tracks</a>
+      <a href="m-t1.html">Exam Techniques</a>
+      <a href="papers.html" class="active">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Worked paper · KTU</span>
+  <h1></h1>
+  <p class="lede">Expanded, exam-grade answer key for the April 2025 CCT401 question paper. Part A carries ten compulsory 3-mark questions; Part B carries five modules with an OR choice in each (one 14-mark question per module, split 6 + 8). Every answer is written to fetch marks: definitions, mechanisms, numbered procedures, comparison tables, diagrams, countermeasures and exam tips.</p>
+  <div class="meta-row"><span class="chip red">CCT 401</span><span class="chip">Worked answers</span><span class="chip">Self-test</span></div>
+</section>
+
+<div class="wrap">
+<div class="exam-content">
+
+<div class="page-head"><p class="eyebrow">APJ KTU · B.Tech 7th Semester (S/FE) · 2019 Scheme · CCT401</p><h1>Paper D — Ethical Hacking (April 2025)</h1><p class="lede">Expanded, exam-grade answer key for the April 2025 CCT401 question paper. Part A carries ten compulsory 3-mark questions; Part B carries five modules with an OR choice in each (one 14-mark question per module, split 6 + 8). Every answer is written to fetch marks: definitions, mechanisms, numbered procedures, comparison tables, diagrams, countermeasures and exam tips.</p><div class="meta"><span class="badge acc">100 Marks</span><span class="badge">3 Hours</span><span class="badge">Part A: Q1–Q10 · 3 marks each</span><span class="badge acc">Part B: Q11–Q20 · 14 marks each</span><span class="badge">20 Questions</span></div></div>
+<section class="q" id="q1">
+<div class="q-head"><span class="q-no">Q1</span><h3 class="q-title">Hacker vs Ethical Hacker</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is the difference between a hacker and an ethical hacker?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> A <strong>hacker</strong> is anyone who uses technical skill to
+probe or bypass computer systems; in popular use the word implies a malicious intruder
+(also called a <em>black hat</em>) who breaks in for personal gain, curiosity or damage
+without authorisation. An <strong>ethical hacker</strong> (a <em>white hat</em>) applies the
+same toolkit and mindset but operates with the <strong>owner's written permission</strong>,
+within an agreed scope, and reports findings so they can be fixed.</p>
+<p><strong>Mechanism and key distinctions.</strong> The dividing line is intent plus
+authorisation, not technique. Both use reconnaissance, scanning, vulnerability discovery
+and exploitation, but the ethical hacker follows a rules-of-engagement document, respects
+privacy and the law, and leaves the system more secure. Malicious hackers cover their
+tracks, escalate privileges and exfiltrate data; ethical hackers document every step and
+hand over a remediation report. A grey-hat sits between the two.</p>
+<p><strong>Example.</strong> A malicious attacker finds an unpatched SQL injection on a
+bank site and drains the customer table. An ethical hacker hired by the same bank finds
+the identical flaw with a scanner plus manual testing, proves it safely with a harmless
+payload, and files a report recommending parameterised queries.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Score the 3 marks with three anchors —
+(1) unauthorised/malicious intent vs (2) explicit written authorisation and (3) reporting
+and remediation. Mention black hat / white hat / grey hat terminology for full credit.</div>
+</div></details>
+</section>
+<section class="q" id="q2">
+<div class="q-head"><span class="q-no">Q2</span><h3 class="q-title">Non-repudiation</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Briefly explain the concept of non-repudiation in information security.</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Non-repudiation is the security service that
+<strong>prevents a party from denying that it performed an action</strong> — such as sending
+a message, signing a document or approving a transaction. It provides proof of origin and
+proof of delivery so the sender cannot claim "I never sent that" and the receiver cannot
+claim "I never received it."</p>
+<p><strong>Mechanism.</strong> Non-repudiation is built on <strong>digital signatures</strong>
+and public-key infrastructure (PKI). The sender hashes the message, encrypts the hash with
+their private key to create a signature, and sends message + signature. Anyone can verify
+with the sender's public key; because only the owner holds the private key, the signature
+is strong evidence of origin. Hash functions give integrity (the message was not altered)
+and timestamps/audit logs add temporal proof. Message Authentication Codes give integrity
+and authentication but <em>not</em> true non-repudiation, because both parties share the key.</p>
+<p><strong>Example.</strong> An online purchase is signed with the customer's digital
+certificate and time-stamped by a trusted authority; the bank cannot later repudiate the
+order, and the customer cannot deny placing it.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Tie non-repudiation to the CIA triad's often
+forgotten companion services — authentication, integrity and audit/logs. Name digital
+signatures + PKI + timestamps as the enabling mechanisms and contrast with MACs for a
+distinguished answer.</div>
+</div></details>
+</section>
+<section class="q" id="q3">
+<div class="q-head"><span class="q-no">Q3</span><h3 class="q-title">Google Hacking</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is Google hacking, and how is it used in ethical hacking?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Google hacking (Google dorking) is the use of
+<strong>advanced Google search operators</strong> in the query string to locate sensitive
+information that search engines have inadvertently indexed — exposed directories,
+configuration files, credentials, database dumps and vulnerable web pages.</p>
+<p><strong>Mechanism.</strong> Operators narrow the search: <code class="kbd">site:</code>
+restricts a domain, <code class="kbd">filetype:</code> targets file extensions,
+<code class="kbd">intitle:</code> matches page titles, <code class="kbd">inurl:</code> matches
+URL text, and <code class="kbd">intext:</code> matches body text. Combining them, e.g.
+<code class="kbd">site:example.com filetype:pdf "confidential"</code>, reveals indexed
+secrets. Attackers also use compiled "dork" lists to find admin panels or cameras.</p>
+<p><strong>Use in ethical hacking.</strong> During <strong>reconnaissance</strong>, a
+penetration tester uses dorks passively (no packets touch the target) to discover the
+external attack surface, leaked documents and forgotten subdomains. The findings are
+reported so the client can remove the data and block indexing. Tools such as theHarvester
+and Maltego automate the same idea.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> State that Google hacking is a
+<em>passive</em> information-gathering technique, list two or three operators, and mention
+the defensive countermeasure (remove sensitive files, use <code class="kbd">robots.txt</code>
+and noindex, monitor dork results) to round out the answer.</div>
+</div></details>
+</section>
+<section class="q" id="q4">
+<div class="q-head"><span class="q-no">Q4</span><h3 class="q-title">Dumpster Diving</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is dumpster diving in social engineering attacks?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Dumpster diving is a <strong>physical social-engineering
+and information-gathering attack</strong> in which an attacker sifts through discarded
+material — trash bins, recycling, old media, printed records — to recover confidential
+information that has not been securely destroyed.</p>
+<p><strong>Mechanism and targets.</strong> The attacker looks for items that were thrown
+away rather than shredded: bank statements, invoices, printouts of credentials, sticky
+notes, old USB drives and hard disks, discarded laptops, packaging with barcodes and
+employee directories. Even "junk" yields names, usernames, account numbers and internal
+jargon that make later phishing or pretexting far more convincing. Attackers may pose as
+sanitation workers or simply collect bins put out on collection night.</p>
+<p><strong>Example.</strong> An attacker retrieves a company's discarded boxes and finds a
+quarterly report and a help-desk password written on a notepad; the employee directory
+supplies names and email formats for a targeted phishing campaign.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Classify it as <em>low-tech but high-yield</em>
+social engineering. Countermeasures worth one line each: cross-cut shredding, shred-all
+policies, locked "secure disposal" bins, media degaussing/wiping, and employee training.
+Note the legal wrinkle (trespass laws vary), which examiners like to see.</div>
+</div></details>
+</section>
+<section class="q" id="q5">
+<div class="q-head"><span class="q-no">Q5</span><h3 class="q-title">Exploit Databases</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What are exploit databases, and why are they important for attackers and defenders?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> An <strong>exploit database</strong> is a searchable
+repository that catalogues known software vulnerabilities together with proof-of-concept
+code, affected versions and references. Well-known examples are Exploit-DB, the NVD/MITRE
+CVE catalogue, Packet Storm and vendor advisories, each entry usually keyed by a
+<strong>CVE identifier</strong>.</p>
+<p><strong>Importance for attackers.</strong> They shorten the attack cycle dramatically:
+an attacker matches a scanned service/version to a ready-made exploit, learns the exact
+trigger conditions and payload, and can attack without original research. Metasploit
+modules are largely built from such public exploits.</p>
+<p><strong>Importance for defenders.</strong> The same catalogue drives vulnerability
+management: teams search the database to learn which CVEs affect their assets, check CVSS
+severity, prioritise patching, and write detection signatures (IDS rules, WAF rules) for
+known attack patterns. It turns a vague "we are vulnerable" into a specific, fixable item.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Use the phrase "dual-use" — identical data
+empowers both offensive exploit chaining and defensive patch prioritisation. Mention CVE,
+CVSS and proof-of-concept code for full marks.</div>
+</div></details>
+</section>
+<section class="q" id="q6">
+<div class="q-head"><span class="q-no">Q6</span><h3 class="q-title">Network Sniffing</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is network sniffing, and what are its types?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Network sniffing (packet capture) is the act of
+<strong>intercepting and inspecting raw data packets</strong> travelling across a network
+using a packet analyser such as Wireshark or tcpdump. It turns the shared network medium
+into a place to observe traffic that was not addressed to the sniffer.</p>
+<p><strong>Types.</strong> (1) <strong>Passive sniffing</strong> — on a hub or via a SPAN/mirror
+port, the sniffer silently receives copies of traffic without altering it. (2) <strong>Active
+sniffing</strong> — on a switched network the attacker must redirect traffic, using ARP
+poisoning/spoofing, MAC flooding, DHCP spoofing or a rogue access point. Related variants
+are <em>man-in-the-middle</em> sniffing and protocol-specific capture. Sniffers can operate
+in promiscuous mode to accept every frame.</p>
+<p><strong>Example.</strong> On an open Wi-Fi network an attacker captures HTTP login traffic
+and reads plaintext credentials; on a switched LAN they first ARP-poison the gateway to
+route traffic through their machine.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Structure as definition + two types
+(passive/active) + one tool + one countermeasure (encryption over HTTP, SSH/HTTPS,
+switch port security, static ARP, IDS). That fills all three marks.</div>
+</div></details>
+</section>
+<section class="q" id="q7">
+<div class="q-head"><span class="q-no">Q7</span><h3 class="q-title">Cross-Site Scripting (XSS)</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is cross-site scripting (XSS)?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Cross-site scripting (XSS) is a <strong>client-side
+injection vulnerability</strong> in which an attacker injects malicious JavaScript into a
+web page that is then executed in the victim's browser, running in the site's origin with
+the victim's privileges.</p>
+<p><strong>Mechanism.</strong> A web application echoes user input into a page without
+validating or escaping it. The attacker supplies a payload such as
+<code class="kbd">&lt;script&gt;...&lt;/script&gt;</code> through a form, URL parameter or
+comment field; when another user views the page the browser executes the script, which can
+steal session cookies, deface the page, redirect the user or perform actions as them.</p>
+<p><strong>Main types.</strong> <strong>Stored (persistent)</strong> — payload saved in the
+database and served to many victims; <strong>Reflected</strong> — payload in the request is
+bounced back in the response (phishing links); <strong>DOM-based</strong> — the flaw is in
+client-side JavaScript manipulating the DOM.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Name all three types, give one impact
+(session hijacking) and one defence each: context-aware output encoding, input validation,
+Content Security Policy, and <code class="kbd">HttpOnly</code> cookies. That earns full marks
+comfortably.</div>
+</div></details>
+</section>
+<section class="q" id="q8">
+<div class="q-head"><span class="q-no">Q8</span><h3 class="q-title">IDS vs IPS</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is the difference between IDS and IPS in network security?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> An <strong>IDS (Intrusion Detection System)</strong> is a
+passive monitoring device that <strong>detects and alerts</strong> on suspicious activity;
+an <strong>IPS (Intrusion Prevention System)</strong> is an inline device that detects
+<em>and actively blocks</em> the malicious traffic in real time.</p>
+<p><strong>Mechanism and differences.</strong> An IDS sits out-of-band, receiving a copy of
+traffic via a SPAN port or tap — it never sits in the packet path, so it cannot stop an
+attack, only alert, log or trigger a response. An IPS is deployed <strong>inline</strong> so
+all traffic passes through it; on detecting a signature or anomaly it drops the packet,
+resets the connection or blocks the source. Consequently an IPS can cause false-positive
+outages and adds latency, while an IDS is safer to deploy but reactive.</p>
+<div class="table-wrap"><table><tr><th>Aspect</th><th>IDS</th><th>IPS</th></tr>
+<tr><td>Placement</td><td>Out-of-band (SPAN/tap)</td><td>Inline in traffic path</td></tr>
+<tr><td>Action</td><td>Alert / log only</td><td>Block, drop, reset</td></tr>
+<tr><td>Impact of false positive</td><td>Annoyance only</td><td>Legitimate traffic dropped</td></tr>
+<tr><td>Examples</td><td>Snort (IDS mode), Suricata</td><td>Snort inline, Cisco IPS</td></tr></table></div>
+<div class="exam-tip"><strong>Exam tip:</strong> The one-line differentiator is
+<em>passive alert vs active inline prevention</em>; add placement and false-positive impact
+to convert a 2-mark answer into a full 3.</div>
+</div></details>
+</section>
+<section class="q" id="q9">
+<div class="q-head"><span class="q-no">Q9</span><h3 class="q-title">Log Tampering / Evidence Hiding</h3><span class="marks">3 marks</span></div>
+<p class="q-text">Define the process of hiding evidence by altering event logs.</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Hiding evidence by altering event logs — often called
+<strong>log tampering, log scrubbing or anti-forensics</strong> — is the process of
+<strong>modifying, deleting or corrupting audit records</strong> so that an intruder's
+actions cannot be reconstructed. It is an anti-forensic technique aimed at defeating
+accountability and incident investigation.</p>
+<p><strong>Mechanism.</strong> After gaining access, an attacker edits or truncates log
+files (<code class="kbd">/var/log/*</code>, Windows Event Logs), deletes specific event IDs,
+changes timestamps, or clears the entire log with utilities such as
+<code class="kbd">wevtutil cl</code>. More subtle attacks remove only the attacker's own
+entries to avoid the suspicion a completely empty log would cause. Distributed or
+forwarded logs may be intercepted before they reach the collector.</p>
+<p><strong>Example.</strong> Following a compromised login, the attacker uses a cleared-logs
+script to delete the failed-login and account-creation events so no trace remains for the
+SOC.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Name the goal (<em>anti-forensics /
+destroying the audit trail</em>), list one or two methods (delete, edit, timestamp change),
+and mention the key defence — centralised, write-once, time-synced log servers — for a
+complete 3-mark response.</div>
+</div></details>
+</section>
+<section class="q" id="q10">
+<div class="q-head"><span class="q-no">Q10</span><h3 class="q-title">Privilege Escalation</h3><span class="marks">3 marks</span></div>
+<p class="q-text">What is privilege escalation?</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Privilege escalation is an attack in which a user or
+process <strong>gains access rights or permissions higher than those legitimately
+granted</strong> — for example moving from a normal user to administrator or root.</p>
+<p><strong>Mechanism.</strong> <strong>Vertical</strong> escalation raises privilege within
+one account (user to admin) by exploiting a kernel/OS bug, a vulnerable setuid binary,
+misconfigured sudo rules, stored credentials or an unpatched service running as root.
+<strong>Horizontal</strong> escalation moves sideways to another account with similar
+privileges (stealing a peer's session or credentials). Attackers first enumerate the OS,
+users, running processes and installed patches, then match a weakness to a known exploit.</p>
+<p><strong>Example.</strong> A compromised low-privilege account runs a local kernel exploit
+that adds a new root user, converting a foothold into full system control; from there the
+attacker can disable defences and reach the whole network.</p>
+<div class="exam-tip"><strong>Exam tip:</strong> Always define vertical vs horizontal,
+give one vector (unpatched kernel / misconfigured sudo / stolen token) and one countermeasure
+(least privilege, patching, UAC, auditing). This reliably earns all 3 marks.</div>
+</div></details>
+</section>
+<section class="q" id="q11">
+<div class="q-head"><span class="q-no">Q11</span><h3 class="q-title">Module I — Q11 (OR Q12)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) Explain the role of security and penetration testers. (6) (b) Describe the OWASP methodology for penetration testing and its significance in web application security. (8) — OR — Q12: (a) Discuss the security challenges faced by organizations today. (6) (b) How does non-repudiation enhance security in online communication systems? (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Role of security and penetration testers (6 marks)</span>
+<p><strong>Definitions.</strong> A <strong>security tester</strong> evaluates the overall
+security posture of an organisation — policies, controls, configurations and awareness —
+to find weaknesses before attackers do. A <strong>penetration tester</strong> (pentester)
+goes further: with written authorisation they actively simulate real attacks against a
+defined scope to prove whether a vulnerability can actually be exploited and how far an
+attacker can get.</p>
+<p><strong>Core roles and responsibilities.</strong></p>
+<ol class="step-list">
+<li><strong>Asset discovery and scoping</strong> — define the rules of engagement, assets,
+test windows and legal boundaries before touching anything.</li>
+<li><strong>Vulnerability identification</strong> — use automated scanners and manual
+techniques to find misconfigurations, unpatched software and logical flaws.</li>
+<li><strong>Exploitation (controlled)</strong> — safely prove impact, chain findings, and
+demonstrate real-world risk without damaging data or availability.</li>
+<li><strong>Post-exploitation assessment</strong> — measure privilege escalation, lateral
+movement and data access to show the true blast radius.</li>
+<li><strong>Reporting and remediation guidance</strong> — rank findings by severity/CVSS,
+explain business impact and give concrete fix recommendations; re-test after fixes.</li>
+<li><strong>Compliance and assurance</strong> — map tests to standards (ISO 27001, PCI-DSS,
+OWASP ASVS) and support risk registers and audit.</li>
+</ol>
+<p><strong>Significance.</strong> They provide an independent, attacker's-eye view, validate
+that controls actually work, reduce breach probability and cost, and satisfy regulatory
+and customer-trust requirements. Ethical boundaries — permission, scope, confidentiality,
+non-destructive testing and full disclosure of findings — distinguish them from malicious
+hackers.</p>
+<div class="note">Testers protect the <strong>CIA triad</strong> (confidentiality, integrity,
+availability) and add accountability and non-repudiation through detailed, signed logs.</div>
+
+<span class="subhead">(b) OWASP methodology for penetration testing and its significance (8 marks)</span>
+<p><strong>Definition.</strong> The <strong>OWASP (Open Web Application Security Project)
+methodology</strong> is a structured, repeatable framework for testing web applications.
+Its best-known artefacts are the <strong>OWASP Testing Guide (OTG)</strong>, the
+<strong>Application Security Verification Standard (ASVS)</strong> and the
+<strong>Top 10</strong> critical risks. It organises testing into phases with documented
+test cases so results are consistent and comparable.</p>
+<p><strong>Phases of an OWASP-aligned web pentest.</strong></p>
+<pre><code> 1. Pre-engagement  → scope, rules of engagement, RoE sign-off
+ 2. Reconnaissance  → info gathering, fingerprinting (passive + active)
+ 3. Configuration &amp; deployment → headers, error pages, admin interfaces
+ 4. Identity &amp; auth  → registration, login, session management, MFA
+ 5. Authorization   → access control, IDOR, privilege boundaries
+ 6. Data validation → XSS, SQLi, command/file injection, SSRF
+ 7. Business logic  → workflow abuse, price tampering, race conditions
+ 8. Session management → cookie flags, CSRF, timeout, fixation
+ 9. Cryptography    → TLS config, weak ciphers, key handling
+10. Reporting       → risk-ranked findings + remediation + retest</code></pre>
+<p><strong>How it is applied.</strong> Each phase maps to concrete test cases: for example,
+data-validation testing checks that all inputs are validated on the server, encoded on
+output and parameterised for SQL; the famous <strong>OWASP Top 10</strong> (injection, broken
+authentication, sensitive data exposure, XXE, broken access control, security
+misconfiguration, XSS, insecure deserialisation, vulnerable components, insufficient
+logging) acts as a risk-prioritised checklist.</p>
+<p><strong>Significance in web application security.</strong></p>
+<ul>
+<li><strong>Completeness</strong> — a phased checklist prevents testers from skipping
+categories such as business logic or configuration.</li>
+<li><strong>Repeatability and consistency</strong> — different testers produce comparable
+results; tests can be repeated after remediation.</li>
+<li><strong>Common language</strong> — developers, auditors and management share the Top 10
+and ASVS vocabulary, simplifying risk communication.</li>
+<li><strong>Standards alignment</strong> — supports PCI-DSS, ISO 27001 and regulatory audits,
+and feeds secure SDLC / DevSecOps pipelines with automated ASVS checks.</li>
+<li><strong>Risk-based prioritisation</strong> — effort is focused on the most exploitable,
+high-impact flaws, giving the best security return on investment.</li>
+</ul>
+<div class="pitfall"><strong>Pitfall:</strong> Do not present OWASP as a tool — it is a
+<em>methodology/framework</em>. Also distinguish the OWASP Testing Guide (process) from the
+OWASP Top 10 (risk list).</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) use the six numbered
+roles and the ethical-boundary note. For (b) draw the phase flow, name at least three
+Top 10 categories and list three "significance" benefits. Covering definition →
+procedure → significance is exactly how the 6 + 8 marks are awarded.</div>
+</div></details>
+</section>
+<section class="q" id="q12">
+<div class="q-head"><span class="q-no">Q12</span><h3 class="q-title">Module I — Q12 (OR Q11)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) Discuss the security challenges faced by organizations today. (6) (b) How does non-repudiation enhance security in online communication systems? (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Security challenges faced by organizations today (6 marks)</span>
+<p><strong>Definition.</strong> Organisations today operate in a <strong>hybrid,
+cloud-connected, always-on threat landscape</strong> where data and identities cross
+boundaries constantly. Security challenges are the obstacles and risks that make protecting
+confidentiality, integrity and availability difficult in that environment.</p>
+<p><strong>Key challenges.</strong></p>
+<ol class="step-list">
+<li><strong>Evolving, sophisticated threats</strong> — ransomware, phishing, APTs, supply-chain
+and zero-day attacks outpace signature-based defences.</li>
+<li><strong>Expanding attack surface</strong> — cloud services, IoT, remote work, mobile BYOD
+and APIs create many unmanaged endpoints and blind spots.</li>
+<li><strong>Insider threats and human error</strong> — careless clicks, misconfigured
+buckets and disgruntled staff bypass technical controls.</li>
+<li><strong>Identity and access complexity</strong> — managing credentials, MFA and least
+privilege across on-premise and cloud (IAM sprawl).</li>
+<li><strong>Data volume and privacy regulation</strong> — GDPR/DPDP compliance, encryption
+key management and data residency add legal constraints.</li>
+<li><strong>Skills shortage and alert fatigue</strong> — too few analysts, too many tools
+and false positives leave incidents undetected; the average breach dwell time stays high.</li>
+</ol>
+<p><strong>Impact.</strong> Financial loss, downtime, reputational damage, regulatory fines
+and loss of customer trust. Addressing them needs layered defence-in-depth, continuous
+monitoring, staff training and incident response planning.</p>
+<span class="subhead">(b) How non-repudiation enhances security in online communication (8 marks)</span>
+<p><strong>Definition.</strong> Non-repudiation is the assurance that an entity <strong>cannot
+deny the authenticity of its actions</strong> — that a specific party sent, received or
+authorised a specific message. In online communication it supplies irrefutable evidence,
+backed by cryptography and trusted third parties, that a transaction really occurred.</p>
+<p><strong>Mechanism — how it is achieved.</strong></p>
+<ol class="step-list">
+<li>The sender hashes the message to create a fixed-size digest.</li>
+<li>The digest is encrypted with the sender's <strong>private key</strong> to form a
+<strong>digital signature</strong> (RSA/ECDSA) — only the owner can produce it.</li>
+<li>The receiver verifies with the sender's <strong>public key</strong> obtained from a
+<strong>digital certificate</strong> issued by a trusted <strong>Certificate Authority</strong>
+in a PKI, confirming identity and integrity.</li>
+<li>A trusted <strong>Time-Stamping Authority</strong> and secure <strong>audit logs</strong>
+record when the event happened, preventing back-dating or later denial.</li>
+</ol>
+<pre><code> Sender                                      Receiver
+   |  hash(message)                              |
+   |  sign(hash) with PRIVATE key                |
+   | ------ message + signature + cert --------&gt; |
+   |                                 verify with PUBLIC key (from CA cert)
+   |                                 compare hash -&gt; integrity + origin + time
+   | &lt;------------------ signed receipt --------- |  (proof of delivery)</code></pre>
+<p><strong>Enhancements to online communication security.</strong></p>
+<ul>
+<li><strong>Accountability</strong> — every action is attributable to a named key holder,
+discouraging fraud and misuse.</li>
+<li><strong>Integrity and authenticity</strong> — the recipient knows the message is
+unaltered and genuinely from the claimed sender.</li>
+<li><strong>Dispute resolution / legal proof</strong> — signed, time-stamped records satisfy
+regulators and courts (e.g. e-contracts, e-tendering, banking). Essential for e-commerce,
+e-governance and online banking.</li>
+<li><strong>Defence against replay and forgery</strong> — timestamps and nonces stop an
+attacker reusing a captured message.</li>
+</ul>
+<p><strong>Contrast.</strong> Symmetric MACs (HMAC) give integrity and authentication but
+<em>not</em> non-repudiation because both parties hold the shared key; only asymmetric
+digital signatures provide true non-repudiation.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Non-repudiation is not the same as
+confidentiality — signatures prove who sent something but do not hide it; combine with
+encryption for both.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) give six numbered
+challenges with one-line impacts. For (b) draw the sign/verify flow, name PKI + CA + digital
+signature + timestamp + audit log, and add the HMAC-vs-signature contrast for distinction.
+Always end on "accountability and dispute resolution."</div>
+</div></details>
+</section>
+<section class="q" id="q13">
+<div class="q-head"><span class="q-no">Q13</span><h3 class="q-title">Module II — Q13 (OR Q14)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) Discuss the differences between viruses and worms. (6) (b) Discuss the importance of competitive intelligence in the reconnaissance phase of penetration testing. (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Differences between viruses and worms (6 marks)</span>
+<p><strong>Definitions.</strong> A <strong>virus</strong> is malicious code that attaches
+itself to a legitimate host file or boot sector and <strong>requires human action</strong>
+(running the file, opening an email) to spread and execute. A <strong>worm</strong> is a
+standalone, self-contained program that <strong>replicates and propagates automatically</strong>
+over networks, exploiting vulnerabilities without any user intervention.</p>
+<div class="table-wrap"><table>
+<tr><th>Feature</th><th>Virus</th><th>Worm</th></tr>
+<tr><td>Existence</td><td>Needs a host file/boot sector</td><td>Standalone program</td></tr>
+<tr><td>Propagation</td><td>Requires user action (open/execute)</td><td>Automatic, self-propagating over network</td></tr>
+<tr><td>Spread speed</td><td>Relatively slow, human-paced</td><td>Rapid, exponential</td></tr>
+<tr><td>Infection target</td><td>Local files, boot records, documents</td><td>Network services, hosts, via exploits</td></tr>
+<tr><td>Payload</td><td>Often corrupts files / displays message</td><td>Often consumes bandwidth/resources, installs backdoor</td></tr>
+<tr><td>Examples</td><td>Melissa, CIH/Chernobyl, macro viruses</td><td>Morris worm, Code Red, Conficker, WannaCry</td></tr>
+<tr><td>Removal</td><td>Disinfect/delete infected host file</td><td>Patch + block ports + remove from all hosts</td></tr>
+</table></div>
+<p><strong>Exam focus.</strong> Remember the headline: a virus needs a <em>carrier and a
+human</em>, a worm is <em>self-contained and self-spreading</em>. Both are malware and may
+carry destructive payloads.</p>
+
+<span class="subhead">(b) Importance of competitive intelligence in reconnaissance (8 marks)</span>
+<p><strong>Definition.</strong> <strong>Competitive intelligence</strong> in penetration
+testing is the ethical, systematic collection and analysis of <strong>publicly available
+information about the target organisation and its environment</strong> — its technology,
+people, partners, subsidiaries and business direction. It overlaps with OSINT
+(open-source intelligence) and feeds the earliest, passive phase of reconnaissance.</p>
+<p><strong>Sources of competitive intelligence.</strong> Company websites and press releases,
+annual reports and filings, job advertisements (reveal software versions and tooling),
+social media and employee profiles (LinkedIn), technical forums, DNS/WHOIS records,
+certificate transparency logs, search-engine dorks, leaked documents and partner/vendor
+sites. Tools include theHarvester, Maltego, Shodan, Recon-ng and Google dorking.</p>
+<p><strong>Why it is important in the reconnaissance phase.</strong></p>
+<ol class="step-list">
+<li><strong>Builds an accurate target profile</strong> — identifies domains, subdomains, IP
+ranges, technologies and key personnel before any active scan.</li>
+<li><strong>Keeps testing passive and stealthy</strong> — public-source collection generates
+no traffic to the target, avoiding detection and staying safely inside the rules of
+engagement.</li>
+<li><strong>Makes later scanning efficient</strong> — the tester knows which IP blocks and
+services to scan and which vulnerabilities are plausible, saving time.</li>
+<li><strong>Reveals the human attack surface</strong> — staff names, roles and email formats
+drive precise phishing/spear-phishing and pretexting scenarios for social engineering.</li>
+<li><strong>Supports threat modelling and business context</strong> — understanding
+partners, acquisitions and business processes exposes supply-chain and trust-boundary risks
+and helps rank findings by business impact.</li>
+<li><strong>Improves reporting and scoping</strong> — lets the tester define an accurate scope
+and present findings in terms the client's management understands.</li>
+</ol>
+<p><strong>Ethical/legal boundary.</strong> Competitive intelligence uses only lawful,
+public sources; it stops short of unauthorised access, deception for gain or industrial
+espionage, all of which would cross into illegal activity.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Do not confuse competitive intelligence with
+espionage — the distinguishing words are <em>lawful, public, and authorised</em>. Also
+remember reconnaissance is passive (no direct probing) until scanning begins.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) lead with the
+"host + human vs standalone + automatic" contrast and give a comparison table plus one
+example each. For (b) define it, name four sources/tools, then list at least four
+"importance" points and close with the ethical boundary. The 6 + 8 split rewards breadth
+in (a) and depth in (b).</div>
+</div></details>
+</section>
+<section class="q" id="q14">
+<div class="q-head"><span class="q-no">Q14</span><h3 class="q-title">Module II — Q14 (OR Q13)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) What is the role of proxy and packet filtering in network security? (6) (b) Describe the process of scanning and enumeration in ethical hacking and their importance in gathering network information. (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Role of proxy and packet filtering in network security (6 marks)</span>
+<p><strong>Definitions.</strong> A <strong>proxy</strong> is an intermediary that accepts
+client requests and forwards them to the destination, hiding the client's real address and
+inspecting/caching traffic. <strong>Packet filtering</strong> is a firewall technique that
+controls access by examining packet headers (source/destination IP, port, protocol, flags)
+and applying allow/deny rules.</p>
+<pre><code> Client ---&gt; [Proxy/Firewall] ---&gt; Internet/Server
+               |  inspects headers + rules
+               |  hides client IP, caches, filters ports
+        allowed packets pass ; denied packets dropped (no reply)</code></pre>
+<p><strong>Roles.</strong></p>
+<ul>
+<li><strong>Access control</strong> — packet-filtering rules block unauthorised ports/IPs
+(e.g. deny inbound port 23, allow established sessions); proxies enforce policy per user.</li>
+<li><strong>Anonymity and privacy</strong> — a proxy masks the internal client's IP from the
+outside world.</li>
+<li><strong>Content caching and filtering</strong> — web proxies cache frequently requested
+pages and block forbidden sites/categories, improving performance and enforcing use policy.</li>
+<li><strong>Logging and auditing</strong> — both produce records of connections for
+monitoring and incident investigation.</li>
+</ul>
+<p><strong>Comparison of the two filtering approaches.</strong></p>
+<div class="table-wrap"><table><tr><th>Aspect</th><th>Packet filtering</th><th>Proxy (application-level)</th></tr>
+<tr><td>OSI layer</td><td>Network/Transport (L3/L4)</td><td>Application (L7)</td></tr>
+<tr><td>Inspects</td><td>IP/port/protocol headers</td><td>Full application data/commands</td></tr>
+<tr><td>Speed</td><td>Fast, low overhead</td><td>Slower, more CPU</td></tr>
+<tr><td>Context awareness</td><td>Little (stateless unless stateful)</td><td>High (user, URL, content)</td></tr>
+<tr><td>Hides client</td><td>No (usually)</td><td>Yes</td></tr></table></div>
+<p><strong>Limitation.</strong> Simple packet filters are stateless and cannot inspect
+application payloads, so they are vulnerable to spoofing and tunnelling — modern firewalls
+combine stateful inspection with proxying.</p>
+
+<span class="subhead">(b) Scanning and enumeration in ethical hacking (8 marks)</span>
+<p><strong>Definitions.</strong> <strong>Scanning</strong> is the systematic probing of a
+network to discover live hosts, open ports, running services and reachable vulnerabilities.
+<strong>Enumeration</strong> goes deeper: it actively extracts detailed information — user
+and group names, shares, hostnames, service versions, routing tables, SNMP details — from
+the systems found. If reconnaissance is "what exists?", enumeration is "who and what exactly
+is there?".</p>
+<p><strong>Types of scanning.</strong></p>
+<ul>
+<li><strong>Port scanning</strong> — TCP connect, SYN (half-open), FIN/NULL/XMAS, ACK and UDP
+scans to map open ports (Nmap).</li>
+<li><strong>Network scanning</strong> — ping sweeps / ICMP and ARP sweeps to find live hosts.</li>
+<li><strong>Vulnerability scanning</strong> — automated tools (Nessus, OpenVAS) match service
+versions to known CVEs.</li>
+</ul>
+<p><strong>Enumeration techniques.</strong> Querying DNS zone transfers, NetBIOS/SMB shares
+and null sessions, LDAP directories, SNMP community strings, SMTP <code class="kbd">VRFY</code>/
+<code class="kbd">EXPN</code>, and banner grabbing (FTP/SSH/HTTP server banners). Tools:
+Nmap, Netcat, enum4linux, NBTScan, snmpwalk, theHarvester.</p>
+<p><strong>Process in an ethical hack.</strong></p>
+<ol class="step-list">
+<li>Confirm scope and rules of engagement (authorisation, test window, targets).</li>
+<li>Discover live hosts with ping/ARP sweeps.</li>
+<li>Port-scan each host to find open ports and services.</li>
+<li>Fingerprint services and operating systems (version banners, TCP stack behaviour).</li>
+<li>Enumerate users, shares, groups and configurations on the discovered services.</li>
+<li>Run vulnerability scans and correlate enumerated data to identify exploitable flaws.</li>
+<li>Document every finding with evidence; then move to controlled exploitation.</li>
+</ol>
+<pre><code> nmap -sS -sV -O 192.168.1.0/24    # SYN scan, versions, OS detect
+ nmap -p 1-65535 -sV &lt;target&gt;      # full port range + service versions
+ snmpwalk -v2c -c public &lt;host&gt;    # SNMP enumeration (read-only community)</code></pre>
+<p><strong>Importance.</strong> Scanning and enumeration turn a vague target into a precise
+map: they define the <em>attack surface</em>, reveal the most promising entry points, avoid
+wasted effort on closed ports, directly feed vulnerability assessment, and are a mandatory
+input to risk ranking and the final report. Enumeration also exposes misconfigurations
+(anonymous shares, default community strings) that are themselves reportable findings.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Scanning without written authorisation is
+illegal/unauthorised access in many jurisdictions — always stress the RoE. Enumeration is
+more intrusive/noisier than passive recon, so note that it is logged by IDS.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) define both terms, show
+the flow diagram, give three roles and the L3-vs-L7 comparison table. For (b) define
+scanning vs enumeration, list the types, give the numbered process, and end with
+"importance" (attack-surface mapping + feeding vulnerability assessment). Mention at least
+two tool names in each relevant section.</div>
+</div></details>
+</section>
+<section class="q" id="q15">
+<div class="q-head"><span class="q-no">Q15</span><h3 class="q-title">Module III — Q15 (OR Q16)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) Explain the concept of DNS spoofing and its consequences. (6) (b) Discuss the various types of sniffing techniques and their impact on network security. (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) DNS spoofing and its consequences (6 marks)</span>
+<p><strong>Definition.</strong> DNS spoofing (DNS poisoning/cache poisoning) is an attack in
+which <strong>false DNS mapping data is introduced</strong> into a resolver's cache so that
+a legitimate hostname resolves to an attacker-controlled IP address. Victims who type the
+correct URL are silently redirected to a malicious site.</p>
+<p><strong>Mechanism.</strong> The attacker sends forged DNS responses — often exploiting
+predictable transaction IDs, the birthday-attack window, or a compromised authoritative
+server — that arrive before the legitimate reply. The resolver accepts and caches the fake
+A-record.</p>
+<pre><code>  Victim                DNS Resolver              Attacker
+    |--- www.bank.com ----&gt;|                          |
+    |                      |&lt;-- FORGED reply ----------|  (forged TxID)
+    |                      |   www.bank.com = 10.0.0.66 (evil)
+    |&lt;-- 10.0.0.66 --------|   [cached poisoned entry]
+    |--- connects to attacker's fake bank site ------&gt;|</code></pre>
+<p><strong>Consequences.</strong></p>
+<ul>
+<li><strong>Credential theft</strong> — users enter passwords on a convincing fake site
+(pharming).</li>
+<li><strong>Man-in-the-middle / traffic interception</strong> — all traffic to the real domain
+flows through the attacker.</li>
+<li><strong>Malware distribution</strong> — the fake site serves drive-by downloads.</li>
+<li><strong>Denial of service / reputation damage</strong> — legitimate services become
+unreachable or are defamed.</li>
+</ul>
+<p><strong>Countermeasures.</strong> DNSSEC (signed, validated records), randomising source
+ports and transaction IDs, patching DNS servers, limiting cache TTLs, using trusted
+resolvers, and encryption (DoH/DoT). Note that DNS cache poisoning is distinct from
+on-the-wire <em>ARP</em> poisoning (Q16).</p>
+
+<span class="subhead">(b) Types of sniffing techniques and their impact (8 marks)</span>
+<p><strong>Definition.</strong> Sniffing (packet capture) is the interception of packets
+travelling across a network. Whether it succeeds depends on the network topology: hubs
+broadcast to all ports, switches send frames only to the destination port, and wireless
+networks broadcast to all radios in range.</p>
+<p><strong>Major types and techniques.</strong></p>
+<div class="table-wrap"><table>
+<tr><th>Technique</th><th>How it works</th><th>Impact</th></tr>
+<tr><td>Passive sniffing (hub/SPAN)</td><td>Sniffer receives copies of traffic quietly on a hub or mirror port</td><td>Silent data leakage; hard to detect; reveals plaintext credentials</td></tr>
+<tr><td>ARP poisoning/spoofing</td><td>Forged ARP replies redirect gateway traffic through attacker</td><td>MitM on switched LAN; session hijack, DoS</td></tr>
+<tr><td>MAC flooding</td><td>Overflow switch CAM table so it floods frames to all ports</td><td>Switch degrades to hub behaviour; sniffing becomes trivial, possible DoS</td></tr>
+<tr><td>DHCP spoofing</td><td>Rogue DHCP server hands out attacker as default gateway</td><td>All victim traffic routed via attacker</td></tr>
+<tr><td>Wireless sniffing</td><td>Radio card in monitor mode captures 802.11 frames</td><td>Exposes open-Wi-Fi and weak-WEP traffic; rogue AP enables MitM</td></tr>
+<tr><td>Protocol analysis</td><td>Deep decode of captured packets (Wireshark/tcpdump)</td><td>Reconstructs files, chats, sessions from raw traffic</td></tr>
+</table></div>
+<p><strong>Typical attack flow.</strong></p>
+<ol class="step-list">
+<li>Gain access to a network segment (physical, Wi-Fi, or compromised host).</li>
+<li>Place the NIC in promiscuous mode and start a capture tool.</li>
+<li>On a switched LAN, use ARP poisoning/MAC flooding to redirect traffic.</li>
+<li>Filter and reassemble interesting streams (HTTP, FTP, DNS, email).</li>
+<li>Extract credentials, tokens, sessions or sensitive files; avoid or cover traces.</li>
+</ol>
+<p><strong>Impact on network security.</strong> Sniffing compromises
+<strong>confidentiality</strong> (secrets in plaintext) and enables authentication theft,
+session hijacking, identity spoofing and espionage; active variants also threaten
+<strong>availability</strong> through DoS. Because it can be entirely passive, it often
+goes unnoticed.</p>
+<p><strong>Countermeasures.</strong> Encrypt traffic end-to-end (HTTPS/TLS, SSH, IPsec/VPN,
+WPA2/WPA3), use switches rather than hubs and enable port security + DHCP snooping +
+Dynamic ARP Inspection, deploy IDS to detect sniffing behaviour, and segment the network
+to limit what any sniffer can see.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Encryption defeats <em>passive</em> sniffing
+but not active MitM once the attacker is in the path — say "encryption + switching +
+ARP/DHCP protections" together.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) draw the spoof flow and
+list four consequences plus DNSSEC. For (b) give the technique/comparison table (scoring
+gold), the numbered flow, the CIA impact and a countermeasure set. Tying sniffing back to
+"hub vs switch vs wireless" shows real understanding.</div>
+</div></details>
+</section>
+<section class="q" id="q16">
+<div class="q-head"><span class="q-no">Q16</span><h3 class="q-title">Module III — Q16 (OR Q15)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) Explain how weak authentication can lead to successful network attacks. (6) (b) How does ARP spoofing lead to denial-of-service attacks, and what are its countermeasures? (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Weak authentication leading to successful network attacks (6 marks)</span>
+<p><strong>Definition.</strong> Weak authentication exists when the mechanism used to verify
+a user's or device's identity is easy to bypass — default/blank passwords, short or
+guessable secrets, no MFA, credential reuse, shared accounts, or protocols that send
+credentials in clear text (Telnet, FTP, HTTP Basic).</p>
+<p><strong>How it enables attacks (mechanism).</strong></p>
+<ol class="step-list">
+<li><strong>Guessing/brute force</strong> — short passwords fall to dictionary and brute-force
+tools; no lockout or rate limiting means unlimited attempts.</li>
+<li><strong>Credential stuffing</strong> — passwords leaked from one site are replayed on
+others because users reuse them.</li>
+<li><strong>Sniffing cleartext credentials</strong> — protocols without encryption expose
+passwords to a network sniffer (see Q15).</li>
+<li><strong>Session hijacking</strong> — weak session IDs or predictable cookies let an
+attacker impersonate a logged-in user.</li>
+<li><strong>Lateral movement / privilege escalation</strong> — one compromised account opens
+the door to more systems, especially where accounts are shared or over-privileged.</li>
+</ol>
+<p><strong>Example</strong>: an default <code class="kbd">admin/admin</code> on a router or an
+SQL-injection login bypass gives the attacker an immediate authenticated foothold; from
+there they pivot across the network.</p>
+<p><strong>Countermeasures.</strong> Strong password policy and length, unique accounts,
+MFA, account lockout/rate limiting, hashing with salt (bcrypt/Argon2), encrypted protocols
+(SSH, HTTPS, TLS), session expiry, least privilege and log monitoring.</p>
+<p><strong>Significance.</strong> Weak authentication is one of the most common root causes
+of breaches (OWASP A07 / broken authentication) because it converts a remote attacker into
+a "legitimate" user, defeating many perimeter controls at a stroke.</p>
+
+<span class="subhead">(b) ARP spoofing → denial of service and countermeasures (8 marks)</span>
+<p><strong>Definitions.</strong> <strong>ARP</strong> (Address Resolution Protocol) maps a
+known IP address to an unknown MAC address on a local network and is <strong>stateless and
+unauthenticated</strong>. <strong>ARP spoofing/poisoning</strong> is the sending of forged
+ARP reply messages that associate the attacker's MAC address with another host's IP
+(typically the default gateway), corrupting victims' ARP caches.</p>
+<pre><code> Normal:     Victim ARP cache: [gateway IP 192.168.1.1 -&gt; Gateway MAC G]
+ Poisoned:   Victim ARP cache: [gateway IP 192.168.1.1 -&gt; Attacker MAC A]
+             Gateway ARP cache:[victim IP 192.168.1.10 -&gt; Attacker MAC A]
+
+             Victim  -----&gt; Attacker  -----&gt; Gateway   (MitM / traffic interception)
+             Victim  -X-&gt; (traffic dropped by attacker)  = denial of service</code></pre>
+<p><strong>How ARP spoofing leads to DoS.</strong></p>
+<ol class="step-list">
+<li>The attacker crafts gratuitous ARP replies claiming the gateway's IP maps to their MAC.</li>
+<li>Victims update their ARP caches with the false mapping (no authentication to stop it).</li>
+<li>All victim traffic destined off-subnet is now sent to the attacker's MAC.</li>
+<li>If the attacker simply <strong>drops</strong> the intercepted packets instead of forwarding
+them, victims lose internet/LAN connectivity — a <strong>denial of service</strong>.</li>
+<li>Variants: poison the gateway's cache so it sends traffic to a non-existent MAC; flood
+the network with forged replies; or create an ARP loop that saturates links. Repeated
+poisoning can also crash hosts or network equipment (resource exhaustion).</li>
+</ol>
+<p><strong>Consequences.</strong> Loss of availability (the DoS), plus confidentiality loss
+when the attacker forwards traffic and performs a man-in-the-middle: credential theft,
+session hijacking and data modification. Detection is difficult because ARP is a local,
+trust-based protocol.</p>
+<p><strong>Countermeasures.</strong></p>
+<ul>
+<li><strong>Dynamic ARP Inspection (DAI)</strong> with DHCP snooping — validates ARP packets
+against a trusted IP-to-MAC binding table (the strongest switch-based defence).</li>
+<li><strong>Static ARP entries</strong> for critical hosts (gateway/server) — prevents cache
+overwriting, though hard to scale.</li>
+<li><strong>Port security</strong> — limit MAC addresses per switch port to block spoofing
+and MAC flooding.</li>
+<li><strong>Encryption</strong> (HTTPS/TLS, IPsec, VPN) and strong authentication — make
+intercepted traffic useless even if redirected.</li>
+<li><strong>Detection tools</strong> — ARPWatch/arping, IDS signatures, monitoring for
+duplicate IPs/MACs and gratuitous ARP storms; segmented VLANs to limit scope.</li>
+</ul>
+<div class="pitfall"><strong>Pitfall:</strong> State clearly that ARP spoofing causes DoS
+<em>when packets are dropped</em>, and becomes MitM <em>when packets are forwarded</em> —
+examiners reward this distinction.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) give four weak-auth
+types, a mechanism chain, one example and the fix list. For (b) draw the ARP cache
+before/after diagram, number the DoS steps, separate DoS from MitM, and give four
+countermeasures naming DAI + DHCP snooping and port security explicitly.</div>
+</div></details>
+</section>
+<section class="q" id="q17">
+<div class="q-head"><span class="q-no">Q17</span><h3 class="q-title">Module IV — Q17 (OR Q18)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) What is web filtering, and how does it enhance security? (6) (b) Discuss the techniques used in penetration testing for web servers and their impact on security. (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Web filtering and how it enhances security (6 marks)</span>
+<p><strong>Definition.</strong> Web filtering (URL/content filtering) is the controlled
+<strong>blocking or allowing of access to websites and web content</strong> based on policy —
+categories, URLs, keywords, reputation or file types. It can run on a proxy/firewall, a
+dedicated appliance, a DNS filter or an endpoint agent.</p>
+<p><strong>How it works.</strong> When a user requests a site, the filter checks the URL/IP
+against category databases and rules (e.g. block "malware", "phishing", "gambling"), then
+allows, blocks, or warns. Filters may inspect the full URL via a proxy, or use DNS-based
+blocking; HTTPS is handled by certificate inspection or category-by-domain.</p>
+<pre><code> User --&gt; [Web filter / proxy] -- policy check --&gt; allow / block / warn
+                  |-- malware &amp; phishing category DB
+                  |-- logging &amp; alerting to admin</code></pre>
+<p><strong>Security enhancements.</strong></p>
+<ul>
+<li><strong>Malware and phishing prevention</strong> — blocks known malicious domains and
+drive-by download sites before they are reached.</li>
+<li><strong>Data-loss prevention</strong> — stops uploads of sensitive data to cloud storage
+or email and blocks risky file types.</li>
+<li><strong>Acceptable-use enforcement</strong> — restricts non-work categories, reducing
+productivity loss and legal liability.</li>
+<li><strong>Bandwidth management and visibility</strong> — controls consumption and supplies
+logs/analytics for incident response.</li>
+<li><strong>Compliance</strong> — supports regulatory requirements to restrict harmful content.</li>
+</ul>
+<p><strong>Limitations.</strong> Over-blocking, encrypted-traffic blind spots, and bypass via
+VPNs/proxies or alternate DNS — so web filtering is one layer of defence-in-depth, not a
+complete solution.</p>
+
+<span class="subhead">(b) Web-server penetration-testing techniques and their impact (8 marks)</span>
+<p><strong>Definition.</strong> Web-server penetration testing is the authorised, controlled
+assessment of a web server and its applications to find exploitable weaknesses. It targets
+three layers: the <strong>server/OS and services</strong>, the <strong>web application</strong>,
+and the underlying <strong>database and configuration</strong>.</p>
+<p><strong>Techniques and their impact.</strong></p>
+<div class="table-wrap"><table>
+<tr><th>Technique</th><th>What it tests / typical tool</th><th>Impact if vulnerable</th></tr>
+<tr><td>Port/service scanning &amp; banner grabbing</td><td>Open ports, versions, OS (Nmap)</td><td>Exposes outdated Apache/IIS, PHP, SSH versions to known CVEs</td></tr>
+<tr><td>HTTP method &amp; header analysis</td><td>TRACE enabled, missing security headers, server version leakage</td><td>Information disclosure, XSS amplification, clickjacking</td></tr>
+<tr><td>Directory/file enumeration</td><td>Hidden files, backups, admin panels (DirBuster, Gobuster)</td><td>Leaked source, config files, credentials</td></tr>
+<tr><td>SQL injection</td><td>Unsanitised input in queries (sqlmap)</td><td>Database dump, authentication bypass, data destruction</td></tr>
+<tr><td>XSS / CSRF</td><td>Input echoing and state-changing requests</td><td>Session theft, forced actions, client compromise</td></tr>
+<tr><td>File upload &amp; path traversal</td><td>Unrestricted uploads, directory escapes</td><td>Remote code execution, website defacement</td></tr>
+<tr><td>Authentication/session tests</td><td>Default creds, weak session IDs, brute force</td><td>Account takeover, privilege escalation</td></tr>
+<tr><td>SSL/TLS &amp; config audit</td><td>Weak ciphers, expired certs (SSL Labs, Nessus)</td><td>MitM, decryption of sensitive traffic</td></tr>
+<tr><td>Denial-of-service testing</td><td>Slowloris, request floods (authorised only)</td><td>Service unavailability, resource exhaustion</td></tr>
+</table></div>
+<p><strong>Testing process (aligned to OWASP, see Q11).</strong></p>
+<ol class="step-list">
+<li>Define scope and rules of engagement (which hosts, what test windows, no destructive acts).</li>
+<li>Passively gather info (DNS, search dorks, tech stack).</li>
+<li>Scan ports and fingerprint the server; enumerate files and directories.</li>
+<li>Map the application and test each input/parameter for injection and logic flaws.</li>
+<li>Test authentication, authorisation, session management and cryptography.</li>
+<li>Carefully validate findings (proof-of-concept, no data damage), then report with CVSS
+severity and remediation (patch, input validation, WAF rules, secure config).</li>
+<li>Re-test after fixes.</li>
+</ol>
+<p><strong>Overall impact on security.</strong> Done ethically, these techniques expose flaws
+<em>before attackers do</em>, letting teams patch SQLi/XSS, harden configurations, remove
+verbose banners, enforce TLS and add WAF rules — measurably shrinking the attack surface and
+supporting compliance. The same techniques in hostile hands cause data breaches, defacement,
+RCE and downtime — which is why authorisation and non-destructive testing are mandatory.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Never include real working exploit payloads or
+run DoS tests outside the signed scope — describe techniques conceptually, as done above.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) define, sketch the flow,
+give four benefits and one limitation. For (b) use the technique/impact table (high-scoring),
+add the numbered process and close with the dual "before attackers / in hostile hands"
+impact. Reference OWASP to link modules.</div>
+</div></details>
+</section>
+<section class="q" id="q18">
+<div class="q-head"><span class="q-no">Q18</span><h3 class="q-title">Module IV — Q18 (OR Q17)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) What is buffer overflow, and what are its implications in web security? (6) (b) How can incident handling and response procedures mitigate the effects of a security breach? (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Buffer overflow and its implications in web security (6 marks)</span>
+<p><strong>Definition.</strong> A <strong>buffer overflow</strong> occurs when a program writes
+more data into a fixed-size memory buffer than it can hold, so the excess bytes spill into
+adjacent memory. In languages without automatic bounds checking (C/C++), this can corrupt
+variables, crash the process, or — when carefully crafted — overwrite the return address to
+execute attacker-supplied code (arbitrary code execution).</p>
+<pre><code> Stack (grows down)      Buffer overflow in action:
+   [ local buffer 256 B ] &lt;-- attacker sends 500 B
+   [ saved EBP          ] &lt;-- overwritten
+   [ return address     ] &lt;-- replaced with address of injected shellcode
+   [ arguments          ]     |  (no real exploit code shown)
+        ↓ when function returns → CPU jumps to attacker's code
+
+ Types: stack overflow | heap overflow | format-string | integer overflow</code></pre>
+<p><strong>Implications in web/server security.</strong></p>
+<ul>
+<li><strong>Remote code execution</strong> — an untrusted HTTP parameter, header, cookie or
+file upload passed to a vulnerable native module/CGI can let an attacker run code as the
+web-server user, install a web shell or pivot deeper.</li>
+<li><strong>Denial of service</strong> — crashes the server process, taking the site offline.</li>
+<li><strong>Privilege escalation / defence bypass</strong> — especially where the vulnerable
+component runs as root or SYSTEM.</li>
+<li><strong>Data breach</strong> — memory disclosure can leak encryption keys and secrets.</li>
+<li><strong>Worm propagation</strong> — historic internet worms (Code Red, Blaster) spread
+purely via buffer-overflow exploits.</li>
+</ul>
+<p><strong>Countermeasures.</strong> Use memory-safe languages, compiler protections (stack
+canaries, ASLR, DEP/NX, safe libc), strict input-length validation, bounds checking,
+fuzzing in testing, patching, least privilege for service accounts, and a WAF/IPS as a
+stopgap. (No real exploit code is included, by design.)</p>
+
+<span class="subhead">(b) Incident handling and response to mitigate a breach (8 marks)</span>
+<p><strong>Definition.</strong> <strong>Incident handling/response (IR)</strong> is the
+organised, documented process of <strong>preparing for, detecting, analysing, containing,
+eradicating and recovering from</strong> a security incident, followed by lessons learned.
+Its goal is to limit damage and restore normal operations quickly with evidence preserved.
+NIST SP 800-61 and ISO 27035 are the standard references.</p>
+<p><strong>The six-phase incident response lifecycle.</strong></p>
+<pre><code>  1. Preparation ── 2. Detection &amp; Analysis ── 3. Containment
+        ▲                                            │
+        │                                            ▼
+  6. Lessons Learned ◄── 5. Recovery ◄── 4. Eradication</code></pre>
+<ol class="step-list">
+<li><strong>Preparation</strong> — build the IR team/CSIRT, policies, playbooks, contacts,
+forensic tools and baselines; train staff and set up logging/monitoring before an incident.</li>
+<li><strong>Detection &amp; analysis</strong> — collect alerts from IDS/SIEM, logs and users;
+triage and validate the incident; determine scope, severity and affected assets; preserve
+evidence (chain of custody, disk images, memory dumps).</li>
+<li><strong>Containment</strong> — stop the bleeding fast: isolate affected hosts/VLANs,
+disable compromised accounts, block malicious IPs, apply temporary rules. Prefer short-term
+containment then a lasting fix.</li>
+<li><strong>Eradication</strong> — remove the root cause: delete malware, close the exploited
+vulnerability (patch), remove persistence (backdoors, rogue accounts), and rebuild systems
+from trusted images where needed.</li>
+<li><strong>Recovery</strong> — restore systems and data from clean backups, validate integrity,
+return to production in monitored stages, and watch for re-infection.</li>
+<li><strong>Lessons learned / post-mortem</strong> — document the timeline, root cause, actions
+and costs; update policies, controls and playbooks; report to regulators/stakeholders as
+required and retain evidence for legal action.</li>
+</ol>
+<p><strong>How IR mitigates breach effects.</strong></p>
+<ul>
+<li><strong>Reduces dwell time and blast radius</strong> — fast containment limits data loss
+and lateral movement, directly lowering breach cost.</li>
+<li><strong>Preserves evidence</strong> — correct handling supports attribution, prosecution
+and regulatory proof (and links to non-repudiation, Q2/Q12).</li>
+<li><strong>Enables timely notification</strong> — meets GDPR/DPDP and breach-disclosure
+deadlines, reducing fines and reputational harm.</li>
+<li><strong>Prevents recurrence</strong> — root-cause fixes and lessons-learned close the
+security gap that allowed the breach.</li>
+<li><strong>Maintains business continuity and trust</strong> — structured recovery restores
+services and reassures customers.</li>
+</ul>
+<p><strong>Supporting practices.</strong> Clear communication plan, legal/HR involvement,
+regular tabletop exercises, and integration with BCP/DR. Common pitfalls are panicking and
+destroying evidence (rebooting/wiping before imaging), poor documentation, and skipping the
+lessons-learned phase.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Do not jump straight from detection to
+recovery — containment and eradication must come first, and evidence must be preserved
+before any cleanup.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) define, show the stack
+diagram, name 3 implications and the protection list (canary/ASLR/DEP + bounds checking).
+For (b) draw the six-phase cycle, explain each phase in one or two lines, then list five
+"mitigation" benefits. Mentioning NIST/ISO and chain of custody earns distinction marks.</div>
+</div></details>
+</section>
+<section class="q" id="q19">
+<div class="q-head"><span class="q-no">Q19</span><h3 class="q-title">Module V — Q19 (OR Q20)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) How can attackers manipulate event logs to avoid detection? (6) (b) Discuss the various methods used to escalate privileges in a compromised system. (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Manipulating event logs to avoid detection (6 marks)</span>
+<p><strong>Definition.</strong> Log manipulation (log tampering / anti-forensics) is the
+<strong>altering, deleting or suppression of audit records</strong> so that an intruder's
+activity leaves no usable trail. It attacks the accountability and non-repudiation services
+and is a hallmark of advanced persistent threats that "live off the land."</p>
+<p><strong>Methods used.</strong></p>
+<ol class="step-list">
+<li><strong>Deleting/clearing logs</strong> — emptying whole logs (e.g. <code class="kbd">wevtutil cl</code>
+on Windows, truncating <code class="kbd">/var/log/auth.log</code>) or deleting log files.</li>
+<li><strong>Selective editing</strong> — removing only the attacker's own events so the log
+still looks "normal" and does not raise suspicion.</li>
+<li><strong>Timestamp manipulation (timestomping)</strong> — changing file/event times to blend
+in or to confuse timeline analysis.</li>
+<li><strong>Log flooding / noise</strong> — generating vast numbers of harmless events to
+bury the real events and exhaust the SIEM/storage (log smashing).</li>
+<li><strong>Disabling or redirecting logging</strong> — turning off audit policies, killing the
+logging service, or changing the log destination so events never reach the collector.</li>
+<li><strong>Tampering with forwarded logs</strong> — intercepting syslog traffic in transit or
+altering the local agent before it ships events off-host.</li>
+</ol>
+<pre><code> Clean log:   [login OK][failed login][new admin user][file access]
+ Attacker removes only the incriminating lines:
+ Tampered:    [login OK][file access]        ← looks innocent, not empty</code></pre>
+<p><strong>Why it works / impact.</strong> Many systems log locally by default, let admins
+delete logs, and lack integrity protection — so a compromised admin can erase evidence,
+blocking detection, incident response and prosecution. Countermeasures are covered in
+Q20 (centralised write-once logging, time sync, file integrity monitoring, SIEM alerting on
+log clearing).</p>
+
+<span class="subhead">(b) Methods used to escalate privileges in a compromised system (8 marks)</span>
+<p><strong>Definition.</strong> <strong>Privilege escalation</strong> is the act of obtaining
+higher access rights than authorised — moving from a standard user to admin/root
+(<strong>vertical</strong>) or from one user to another with equal rights (<strong>horizontal</strong>).
+It is a critical post-exploitation step because a foothold alone rarely reaches the
+attacker's goals.</p>
+<p><strong>Methods and vectors.</strong></p>
+<ol class="step-list">
+<li><strong>OS/kernel and software vulnerabilities</strong> — unpatched local kernel flaws or
+privileged services; exploit modules (e.g. Linux Dirty COW-style bugs, Windows privilege
+escalation exploits) elevate the process token.</li>
+<li><strong>Misconfigured sudo / SUID binaries</strong> — <code class="kbd">sudo -l</code> revealing
+over-broad rules or NOPASSWD entries; world-writable scripts or SUID binaries that can be
+abused to spawn a root shell (GTFOBins-style technique, described conceptually).</li>
+<li><strong>Stored/plaintext credentials</strong> — passwords in config files, browser caches,
+unattended install files, registry/autologon keys, or connection strings; also
+<code class="kbd">/etc/shadow</code> hash dumping for offline cracking.</li>
+<li><strong>Token impersonation / credential theft</strong> — Mimikatz-style memory scraping of
+plaintext passwords and Kerberos tickets, token stealing, pass-the-hash, pass-the-ticket.</li>
+<li><strong>Weak service permissions &amp; scheduled tasks</strong> — services running as SYSTEM
+with modifiable binaries, unquoted service paths, writable cron/task directories.</li>
+<li><strong>Application/database flaws</strong> — SQL injection reaching <code class="kbd">sa</code>/root,
+command injection in a web app, or a vulnerable setuid web module.</li>
+<li><strong>Kernel/Driver and DLL hijacking</strong> — loading a malicious library into a
+privileged process via insecure search paths or writable directories.</li>
+<li><strong>Account/group abuse</strong> — adding a user to the Administrators/sudo group using
+already-compromised privileged credentials, or abusing domain trust/Group Policy.</li>
+</ol>
+<p><strong>Typical attacker workflow.</strong></p>
+<pre><code> Foothold (low-priv user)
+   → enumerate OS, users, groups, sudo, SUID, services, patches
+   → match a weakness (missing patch / misconfig / stored credential)
+   → run privilege-escalation technique
+   → gain admin/root → dump more creds → disable defences → lateral move
+   → cover tracks by manipulating logs (part a)</code></pre>
+<p><strong>Countermeasures.</strong> Principle of least privilege and just-in-time admin,
+prompt patching, removing unnecessary SUID bits and writable service paths, strong
+credential hygiene with LSA protection/credential guard, MFA, application control/allow-listing,
+UAC, auditing of privilege use and group changes, endpoint detection, and separating
+administrative accounts from daily-use accounts (tiered administration).</p>
+<div class="pitfall"><strong>Pitfall:</strong> Always define vertical vs horizontal and give
+examples from at least three categories (patchable vulnerability, misconfiguration, stolen
+credential) — a list of exploit names alone will not earn full marks.</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) list six log-manipulation
+methods and explain why selective editing beats wiping (looks normal). For (b) give the
+definition, eight numbered methods, the escalation workflow diagram and the countermeasure
+set. Linking (a) and (b) as "cover tracks after escalation" shows the full attack chain.</div>
+</div></details>
+</section>
+<section class="q" id="q20">
+<div class="q-head"><span class="q-no">Q20</span><h3 class="q-title">Module V — Q20 (OR Q19)</h3><span class="marks">14 marks</span></div>
+<p class="q-text">(a) What are the defenses used to protect log and accounting files from tampering? (6) (b) How can incident responders detect and respond to log and event file manipulation during an investigation? (8)</p>
+<details class="ans"><summary>Answer</summary><div class="ans-body">
+<span class="subhead">(a) Defences protecting log and accounting files from tampering (6 marks)</span>
+<p><strong>Definition.</strong> Log/accounting files are the audit trail used to prove who did
+what and when. Defences against tampering are technical and administrative controls that
+keep these records <strong>complete, accurate, authentic and available</strong> as evidence.</p>
+<p><strong>Key defences.</strong></p>
+<ol class="step-list">
+<li><strong>Centralised, remote logging</strong> — forward events immediately to a dedicated,
+hardened SIEM/log server so local deletion cannot erase the remote copy.</li>
+<li><strong>Write-once / append-only storage (WORM)</strong> and immutable snapshots — logs
+cannot be edited or deleted after writing; object-lock/retention policies enforce this.</li>
+<li><strong>Access control and separation of duties</strong> — restrict who can read/change
+logs; administrators should not be able to delete their own audit records; use role-based access.</li>
+<li><strong>Integrity protection</strong> — hashing, digital signatures and file-integrity
+monitoring (e.g. Tripwire, AIDE, auditd rules) detect any unauthorised change.</li>
+<li><strong>Time synchronisation</strong> — NTP/PTP and reliable timestamps (with time-stamping
+authorities) prevent timestomping and keep a consistent, trustworthy timeline.</li>
+<li><strong>Redundancy and secure backup</strong> — multiple collectors, off-site encrypted
+backups and tested restore procedures guarantee availability.</li>
+<li><strong>Monitoring and alerting</strong> — SIEM rules that fire on log-clearing events,
+gaps in sequence numbers, service stops or missing heartbeats.</li>
+</ol>
+<pre><code> Host A ──syslog/TLS──&gt; [Central SIEM: append-only + hashed + NTP time]
+ Host B ──syslog/TLS──&gt;        ▲ attacker deleting local logs changes nothing
+                               └─ alert on log gap / service stop / event ID 1102</code></pre>
+<p><strong>Supporting measures.</strong> Encryption of logs in transit and at rest, strict
+retention/handling policy, regular auditing of the logging pipeline, and legal provisions
+making log alteration an offence. Together these uphold non-repudiation (Q2/Q12).</p>
+
+<span class="subhead">(b) Detecting and responding to log/event manipulation during an investigation (8 marks)</span>
+<p><strong>Definition.</strong> Detection and response to log manipulation is the
+<strong>forensic process of noticing that audit records were altered or suppressed and then
+preserving evidence, reconstructing the truth and restoring trustworthy logging</strong>
+during an incident investigation.</p>
+<p><strong>Detection techniques — what responders look for.</strong></p>
+<ul>
+<li><strong>Gaps and inconsistencies</strong> — missing event sequence numbers, time gaps, or
+a suspiciously "clean" log after known activity; events out of chronological order.</li>
+<li><strong>Tell-tale clearing events</strong> — Windows Security log cleared (Event ID
+<strong>1102</strong>), audit service stopped (<strong>1100</strong>), Linux log rotation
+anomalies, or unexpected truncation.</li>
+<li><strong>Correlate independent sources</strong> — compare host logs with SIEM/network
+flow, firewall, proxy, DNS, EDR telemetry and backup copies; a discrepancy reveals tampering.</li>
+<li><strong>File-integrity checks</strong> — verify hashes/signatures against baselines; check
+file modification times and permissions (timestomping detection).</li>
+<li><strong>Anomalies in log behaviour</strong> — missing heartbeats, sudden drop in event
+volume, duplicate or forged event IDs, unusual log file size.</li>
+</ul>
+<p><strong>Response procedure (forensically sound).</strong></p>
+<ol class="step-list">
+<li><strong>Declare and scope</strong> — treat suspected log tampering as an incident; record
+the discovery, who found it and the affected systems.</li>
+<li><strong>Preserve evidence first</strong> — acquire forensic images of disks and memory
+<em>before</em> rebooting or cleaning; capture volatile data; maintain a documented chain of
+custody with hashes. Do not "fix" logs before imaging.</li>
+<li><strong>Isolate and contain</strong> — isolate affected hosts, disable compromised accounts
+and revoke tokens to stop further alteration.</li>
+<li><strong>Reconstruct events</strong> — correlate surviving logs with network/EDR/DNS/proxy
+records, backups and remote collectors; build an accurate timeline using normalised time.</li>
+<li><strong>Eradicate and restore logging</strong> — remove the attacker's persistence, patch
+the entry point, re-enable and harden logging (central forwarding, WORM, tighter ACLs,
+NTP), and verify events flow again.</li>
+<li><strong>Document and report</strong> — record the tampering as evidence of intent,
+brief legal/compliance and regulators where required, and preserve records for prosecution.</li>
+<li><strong>Lessons learned</strong> — update detection rules (alert on log clearing/gaps),
+close the security gap, and exercise the response plan.</li>
+</ol>
+<p><strong>Challenges.</strong> Encrypted logs, missing baselines, attacker-controlled time
+sources and the sheer volume of data make reconstruction hard — which is why prevention
+(part a) and cross-source correlation are essential. Log tampering itself is strong evidence
+of an attacker's attempt to hide activity and should escalate the incident's severity.</p>
+<div class="pitfall"><strong>Pitfall:</strong> Never clean or reboot a system before
+capturing volatile evidence — responders often destroy the very proof they need. Always say
+"image first, analyse on a copy."</div>
+<div class="exam-tip"><strong>Exam tip (both parts):</strong> For (a) list seven defences with
+centralised/WORM logging, integrity hashing, NTP and access control as the big four. For (b)
+split cleanly into detection signals (gaps, Event ID 1102, correlation, hashes) and a
+numbered response that puts evidence preservation before containment/eradication. Mentioning
+chain of custody and cross-source correlation earns distinction marks.</div>
+</div></details>
+</section>
+
+<div class="card full" style="margin-top:34px">
+  <h3>Back to the question bank</h3>
+  <p><a href="papers.html">← Existing CCT401/CST413 question bank and topic notes</a> · <a href="exam-hub.html">All newly added solved papers</a></p>
+</div>
+</div>
+</div>
+
+<script src="assets/theme-bridge.js"></script>
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>
