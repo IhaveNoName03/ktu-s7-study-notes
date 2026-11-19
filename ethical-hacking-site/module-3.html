@@ -125,7 +125,7 @@
     <div class="stack">
       <div class="card"><h3><span class="idx">D</span>DoS vs DDoS</h3><p>DoS uses a <b>single</b> computer to overwhelm a target. <b>DDoS</b> comes from <b>many distributed</b> sources (e.g. a botnet). Goal: oversaturate capacity so legitimate requests are denied.</p></div>
       <div class="card"><h3><span class="idx">F</span>Attack categories</h3><ul>
-        <li><b>Buffer overflow</b> — memory overrun consumes disk/RAM/CPU → crash.</li>
+        <li><b>Buffer overflow</b> — writing past a buffer's bounds corrupts adjacent memory, crashing the service or enabling code execution (a crash bug, not resource exhaustion).</li>
         <li><b>Flood attacks</b> — saturate with packets (needs more bandwidth than target).</li>
         <li><b>Smurf / Ping flood / Ping of Death</b> — historic ICMP-based attacks.</li>
       </ul></div>
@@ -328,7 +328,7 @@ Display:  http.request.method == "POST"
     <div class="head"><span class="num">E5</span><h2>ARP Spoofing and Man-in-the-Middle Mechanics</h2><span class="tag">Deep dive · interception</span></div>
     <div class="card full">
       <p><b>ARP</b> resolves an IPv4 address to a hardware (MAC) address on a local network. A host that wants to send a packet to the gateway broadcasts "who has 192.168.1.1?" and trusts the reply. The protocol has no authentication, so an attacker can reply first with their own MAC address. If the attacker also sends a forged reply to the gateway claiming to be the victim, both sides update their ARP caches and the attacker sits in the middle of the conversation, forwarding traffic so that neither party notices.</p>
-      <p>The step-by-step attack is: identify the gateway and victim addresses, send crafted ARP replies to poison both caches, enable IP forwarding on the attacker machine, and start capturing or modifying the traffic. Detection is possible because the gateway's MAC address appears twice in the ARP table, because duplicate IP addresses appear on the network, or because an IDS flags gratuitous ARP announcements. Tools that perform the attack are easy to obtain, which is why the defence must be built into the network rather than left to users.</p>
+      <p>The step-by-step attack is: identify the gateway and victim addresses, send crafted ARP replies to poison both caches, enable IP forwarding on the attacker machine, and start capturing or modifying the traffic. Detection is possible because one MAC address — the attacker's — appears against two or more IP addresses in the ARP cache (the gateway IP and another host both resolving to it), because a known IP's MAC suddenly changes, or because an IDS flags unsolicited gratuitous ARP replies. Tools that perform the attack are easy to obtain, which is why the defence must be built into the network rather than left to users.</p>
       <p>The strongest defences are <b>DHCP snooping</b>, which builds a trusted binding table of MAC-to-IP assignments, and <b>dynamic ARP inspection</b>, which validates ARP replies against that table and drops forged ones. <b>Static ARP entries</b> work on small networks but do not scale. <b>VPNs</b> protect traffic even if an attacker succeeds in intercepting it, and <b>TLS with certificate validation</b> prevents silent modification. Note that these defences are diverse: one prevents the poisoning, another protects the data, and a third detects the attempt.</p>
     </div>
     <div class="tablewrap">
@@ -347,13 +347,14 @@ Display:  http.request.method == "POST"
       <h4>Worked detection</h4>
       <pre><code>C:\&gt; arp -a
   Internet Address      Physical Address      Type
-  192.168.1.1           00:11:22:33:44:55    dynamic   &lt;-- real router
-  192.168.1.1           aa:bb:cc:dd:ee:ff    dynamic   &lt;-- attacker!
+  192.168.1.1           aa:bb:cc:dd:ee:ff    dynamic   &lt;-- gateway IP, attacker's MAC!
   192.168.1.50          aa:bb:cc:dd:ee:ff    dynamic   &lt;-- attacker's own IP
 
-Two different IPs map to one MAC address: classic ARP poisoning.
+One MAC answers for two different IPs: classic ARP poisoning.
+A cache holds ONE entry per IP, so the forged reply overwrites the real
+router MAC (00:11:22:33:44:55) rather than appearing beside it.
 Respond: verify the legitimate gateway MAC, enable DAI, and investigate
-the port where the rogue MAC is seen.</code></pre>
+the switch port where the rogue MAC is seen.</code></pre>
     </div>
     <div class="def"><b>Exam tip:</b> For MITM, name the trust assumption that is abused. In ARP it is "replies are trusted without authentication"; in DNS it is "the first answer wins"; in TLS stripping it is "users will not notice the missing padlock." Identifying the assumption shows depth.</div>
   </div>
@@ -451,7 +452,7 @@ the port where the rogue MAC is seen.</code></pre>
 At 100 guesses/second with no lockout: 10,000 / 100 = 100 seconds.
 At 1 guess/second with a 5-attempt lockout: hours per account.
 
-Assume a 12-character passphrase from a 2,000-word list:
+Assume a 12-word passphrase drawn from a 2,000-word list:
 2,000^12 possibilities -- astronomically beyond brute force.
 
 Conclusion: length plus rate limiting defeats online guessing;

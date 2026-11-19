@@ -201,14 +201,14 @@
     <div class="head"><span class="num">E1</span><h2>Anti-Forensics and the Attacker's Endgame</h2><span class="tag">Deep dive · anti-forensics</span></div>
     <div class="card full">
       <p>Once an attacker has a foothold, their priority changes from getting in to staying in and avoiding attribution. <b>Covering tracks</b> is the collection of techniques used to remove, obscure, or falsify evidence of the intrusion. It is the final phase of the classic kill chain and is mapped in MITRE ATT&amp;CK to the <b>defence evasion</b> tactic, with indicator removal and clearing of event logs as specific techniques. The motivation is practical: a defender who can reconstruct the attack can identify the entry point, close it, and attribute the activity; an attacker who hides the trail can return later through the same door.</p>
-      <p>Anti-forensics attacks the <b>integrity and availability of evidence</b> rather than the confidentiality of data. The attacker disables auditing, clears or edits logs, alters timestamps, hides files in alternate streams or slack space, removes tools, and may tunnel communications through protocols that monitoring ignores. Each action leaves a second-order trace: disabling auditing produces its own event, a cleared log has a suspicious gap, and a file whose modification time predates the operating system's installation is impossible. Perfect concealment is hard; the attacker is usually trying to delay discovery long enough to finish the objective.</p>
+      <p>Anti-forensics attacks the <b>integrity and availability of evidence</b> rather than the confidentiality of data. The attacker disables auditing, clears or edits logs, alters timestamps, hides files in alternate streams or slack space, removes tools, and may tunnel communications through protocols that monitoring ignores. Each action leaves a second-order trace: disabling auditing produces its own event, a cleared log has a suspicious gap, and a file whose modification time predates the operating system's installation is anomalous and worth investigating (though copied, extracted or restored files can legitimately carry older timestamps). Perfect concealment is hard; the attacker is usually trying to delay discovery long enough to finish the objective.</p>
       <p>The defender's response is to make evidence <b>hard to destroy and easy to correlate</b>. Logs are shipped off the host as they are produced, so wiping the local copy does not erase the central one. Clocks are synchronised with NTP so events from many systems line up. File-integrity monitoring detects changes to critical files, and endpoint telemetry records process creation even when an application log is cleared. These controls assume the host is compromised and therefore protect the evidence outside it.</p>
     </div>
     <div class="tablewrap">
       <table>
         <thead><tr><th>Anti-forensic action</th><th>Evidence it removes</th><th>Second-order trace</th><th>Defender control</th></tr></thead>
         <tbody>
-          <tr><td>Clear event log</td><td>Login and process history</td><td>Gap in time, audit-disabled event</td><td>Off-box forwarding, append-only store</td></tr>
+          <tr><td>Clear event log</td><td>Login and process history</td><td>Event 1102 (Security log cleared) plus a gap in the timeline</td><td>Off-box forwarding, append-only store</td></tr>
           <tr><td>Timestomping</td><td>When files changed</td><td>Dates inconsistent with other events</td><td>Timeline correlation, integrity hashes</td></tr>
           <tr><td>Delete dropped tools</td><td>Presence of malware</td><td>Process execution records, hashes</td><td>EDR telemetry, process auditing</td></tr>
           <tr><td>Hide in alternate stream</td><td>File contents in listings</td><td>Stream names, unusual file sizes</td><td>ADS-aware scanning tools</td></tr>
@@ -343,7 +343,7 @@ Because logs were forwarded, the first four events survive on the collector.</co
         <tbody>
           <tr><td>Alternate data stream</td><td>Named stream of a file</td><td>ADS enumeration tools</td></tr>
           <tr><td>Timestomping</td><td>File metadata</td><td>Timeline analysis, MAC time comparison</td></tr>
-          <tr><td>Slack space</td><td>Unused cluster space</td><td>Forensic carving of unallocated space</td></tr>
+          <tr><td>Slack space</td><td>Unused cluster space</td><td>Slack-aware tools reading the allocated clusters</td></tr>
           <tr><td>Steganography</td><td>Image or document bits</td><td>Statistical steganalysis</td></tr>
           <tr><td>Encryption</td><td>Plain sight, unreadable</td><td>Entropy checks, key recovery</td></tr>
         </tbody>

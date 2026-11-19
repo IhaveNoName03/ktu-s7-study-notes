@@ -289,7 +289,7 @@
       <div class="card"><h3>Common servers &amp; capabilities</h3>
         <ul>
           <li><b>Apache, IIS, Nginx, Lighttpd, Sun Java System</b> (Web Server).</li>
-          <li>Can also handle <b>SMTP / FTP</b> and other protocols.</li>
+          <li>Serve <b>HTTP/HTTPS</b>. SMTP and FTP are separate services that may run on the same host — not protocols the web-server software itself speaks.</li>
           <li>Run <b>server-side scripting</b> via <code>ASP</code>, <code>PHP</code>, etc. to build dynamic pages.</li>
         </ul>
       </div>
@@ -573,7 +573,7 @@
     <div class="card full">
       <p>A router connects networks at layer 3 and forwards packets toward their destination. It is useful to separate its two planes. The <b>control plane</b> runs routing protocols such as OSPF and BGP, builds the routing table, and manages interfaces and ACLs; it is essentially a small computer running an operating system. The <b>data plane</b> takes an arriving packet, looks up the best next hop, rewrites the layer-2 header, and sends it out; on high-end devices this is done in specialised hardware. Attacks against the control plane, such as a flood of routing updates or a compromised management interface, can break the whole network even when the data plane is healthy.</p>
       <p>Routing decision is by longest-prefix match: of all the routes whose network prefix contains the destination address, the one with the most specific mask wins. <b>Static routes</b> are explicit and predictable; <b>dynamic routing</b> adapts to change but introduces trust in neighbours. BGP, which glues autonomous systems together, historically trusted route advertisements and is vulnerable to route hijacking; protections include prefix filtering, RPKI validation, and MD5/TCP-AO authentication of sessions. <b>NAT</b> conserves public addresses and hides internal addressing, but it complicates logging because many internal hosts share one external IP.</p>
-      <p>Security hardening of a router follows a short checklist: change default credentials, disable unused services and interfaces, restrict management to a dedicated network with strong authentication, apply ACLs in both directions, log to an external collector, keep the firmware patched, and backups of configuration stored securely. <b>ACLs</b> are evaluated top-down with an implicit deny at the end, so rule order is critical. A rule that denies all traffic before the specific permit is silently useless.</p>
+      <p>Security hardening of a router follows a short checklist: change default credentials, disable unused services and interfaces, restrict management to a dedicated network with strong authentication, apply ACLs in both directions, log to an external collector, keep the firmware patched, and backups of configuration stored securely. <b>ACLs</b> are evaluated top-down with an implicit deny at the end, so rule order is critical. A specific permit placed after a deny-all rule is shadowed: it never matches, so the permit is silently useless. Order rules specific-to-general and let the implicit deny backstop them.</p>
     </div>
     <div class="tablewrap">
       <table>
@@ -721,7 +721,7 @@
   <div class="section">
     <div class="head"><span class="num">E8</span><h2>Cross-Site Scripting in Depth</h2><span class="tag">Deep dive · browser</span></div>
     <div class="card full">
-      <p>XSS lets an attacker run JavaScript in another user's browser within the context of a trusted site. It is not the server that is compromised; the browser is, and it trusts the site's origin, so the script can read cookies, make requests as the user, or rewrite the page. In <b>reflected XSS</b> the payload is part of the request and echoed in the response, so the victim must open a crafted link. In <b>stored XSS</b> the payload is saved on the server, for example in a comment, and executed for everyone who views it, which makes it far more dangerous. A third form, <b>DOM-based XSS</b>, arises when client-side JavaScript writes data from the URL into the page without safe handling; the server never sees the payload.</p>
+      <p>XSS lets an attacker run JavaScript in another user's browser within the context of a trusted site. It is not the server that is compromised; the browser is, and it trusts the site's origin, so the script can read cookies, make requests as the user, or rewrite the page. In <b>reflected XSS</b> the payload is part of the request and echoed in the response, so the victim must open a crafted link. In <b>stored XSS</b> the payload is saved on the server, for example in a comment, and executed for everyone who views it, which makes it far more dangerous. A third form, <b>DOM-based XSS</b>, arises when client-side JavaScript writes data from the URL into the page without safe handling; the payload never appears in the server's response — it reaches the server only if carried in the query string or path, and never at all when carried in the URL fragment after #.</p>
       <p>Defence depends on context. <b>Output encoding</b> converts characters into safe representations for the place they are inserted — HTML body, attribute, script, or URL — and is the core control for reflected and stored XSS. A <b>Content Security Policy</b> restricts which scripts may execute and where they may load from, limiting the damage if a payload gets through. <b>HttpOnly</b> cookies cannot be read by JavaScript, which blunts session theft. Frameworks that auto-escape templates help, but developers must still avoid dangerous sinks such as <code>innerHTML</code> with untrusted data.</p>
       <p>Testing should use a harmless proof such as a marker string that appears as text rather than executing, then confirm which context reflects it. Stored XSS is tested by saving the marker and revisiting the page as another user. The report should state the context, the impact, and the specific encoding needed, because the generic phrase "sanitise input" does not tell a developer what to change.</p>
     </div>
@@ -806,7 +806,7 @@
       <table>
         <thead><tr><th>Control</th><th>Question answered</th><th>Stored in</th><th>Limitation</th></tr></thead>
         <tbody>
-          <tr><td>SPF</td><td>Is this server allowed to send?</td><td>DNS TXT record</td><td>Can be spoofed in the Return-Path</td></tr>
+          <tr><td>SPF</td><td>Is this server allowed to send?</td><td>DNS TXT record</td><td>Validates only the envelope sender, not the visible From header; forwarding breaks it</td></tr>
           <tr><td>DKIM</td><td>Was the message altered or forged?</td><td>Signature plus DNS key</td><td>Does not validate the visible From alone</td></tr>
           <tr><td>DMARC</td><td>Do the identities align, and what do I do?</td><td>DNS policy record</td><td>Needs careful rollout and reporting</td></tr>
           <tr><td>MFA</td><td>Is the person really the account owner?</td><td>Identity provider</td><td>Can be phished with real-time relays</td></tr>

@@ -73,7 +73,7 @@
         <text x="360" y="80" text-anchor="middle" class="lbl" fill="var(--ink)" font-weight="800">Integrity</text>
         <text x="280" y="245" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">Availability</text>
       </svg>
-      <p class="dcap">The three goals overlap — real controls usually serve more than one at once (e.g. encryption protects both Confidentiality and Integrity).</p>
+      <p class="dcap">The three goals overlap — real controls usually serve more than one at once (e.g. TLS protects both Confidentiality and Integrity, because it combines encryption with an integrity check — encryption alone provides confidentiality only; integrity needs AEAD, a MAC/HMAC or a signature).</p>
     </div>
   </div>
 
@@ -277,7 +277,7 @@
     <div class="head"><span class="num">02</span><h2>Frameworks &amp; Standards</h2>
       <span class="tag">Methodology</span></div>
     <div class="stack">
-      <div class="card"><h3><span class="idx">O</span>OSSTMM</h3><p>Open Source Security Testing Methodology Manual — covers Communications, Infrastructure, Applications, Wireless, and the Human (social engineering) channels.</p></div>
+      <div class="card"><h3><span class="idx">O</span>OSSTMM</h3><p>Open Source Security Testing Methodology Manual — covers five channels: Human, Physical, Wireless, Telecommunications and Data Networks.</p></div>
       <div class="card"><h3><span class="idx">N</span>NIST SP 800-115</h3><p>Technical Guide to Information Security Testing and Assessment — planning, scanning, exploitation, reporting.</p></div>
       <div class="card"><h3><span class="idx">W</span>OWASP</h3><p>Open Web Application Security Project — focuses on web app risk (the Top 10 below).</p></div>
     </div>
@@ -690,7 +690,7 @@ Retest:    Cross-account request now returns HTTP 403; closed 2026-02-14</code><
   <div class="section">
     <div class="head"><span class="num">E11</span><h2>Frameworks Compared</h2><span class="tag">Deep dive · standards</span></div>
     <div class="card full">
-      <p>Frameworks exist so that a test is repeatable and its results comparable. <b>OSSTMM</b> is a methodology manual organised around channels — communications, infrastructure, applications, wireless, and the human channel — and it emphasises measuring security rather than just listing findings. <b>NIST SP 800-115</b> is a technical guide that describes planning, information gathering, scanning, exploitation, and reporting with an emphasis on minimising risk to the target during testing. <b>OWASP</b> concentrates on web application risk; its Top 10 is a prioritised awareness document rather than a full testing methodology. <b>ISO/IEC 27001</b> is a certifiable management-system standard that requires risk assessment, controls, and continual improvement. <b>MITRE ATT&amp;CK</b> is a knowledge base of adversary behaviour used to reason about detection coverage.</p>
+      <p>Frameworks exist so that a test is repeatable and its results comparable. <b>OSSTMM</b> is a methodology manual organised around five channels — human, physical, wireless, telecommunications and data networks — and it emphasises measuring security rather than just listing findings. <b>NIST SP 800-115</b> is a technical guide that describes planning, information gathering, scanning, exploitation, and reporting with an emphasis on minimising risk to the target during testing. <b>OWASP</b> concentrates on web application risk; its Top 10 is a prioritised awareness document rather than a full testing methodology. <b>ISO/IEC 27001</b> is a certifiable management-system standard that requires risk assessment, controls, and continual improvement. <b>MITRE ATT&amp;CK</b> is a knowledge base of adversary behaviour used to reason about detection coverage.</p>
       <p>These are complementary, not competing. A professional engagement might use ISO 27001 to understand the organisation's control environment, NIST 800-115 to structure the test, OWASP to choose web test cases, ATT&amp;CK to check detection coverage, and OSSTMM to ensure that physical and human channels are not forgotten. An exam answer that names the scope of each framework and says how they fit together demonstrates understanding, whereas a list of acronyms demonstrates only memorisation.</p>
     </div>
     <div class="tablewrap">

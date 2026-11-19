@@ -314,7 +314,7 @@
       <ol>
         <li><b>Features:</b> pixel windows → Haar-like or HOG features (high-dimensional).</li>
         <li><b>Model:</b> train a classifier (e.g. boosted decision stumps, as in Viola–Jones) on labelled windows.</li>
-        <li><b>Assess:</b> use ROC/AUC (m5-1) and k-fold CV to pick the threshold that meets the false-positive budget.</li>
+        <li><b>Assess:</b> use ROC/AUC (this module) and k-fold CV to pick the threshold that meets the false-positive budget.</li>
         <li><b>Improve:</b> an ensemble (boosting) lifts accuracy far above a single weak classifier.</li>
       </ol>
       <p>This ties the whole course together: features + supervised learning + evaluation (ROC) + ensembles + honest CV.</p>

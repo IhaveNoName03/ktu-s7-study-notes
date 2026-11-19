@@ -132,7 +132,7 @@
       </div>
       <div class="card">
         <h3><span class="idx">3</span>OS Fingerprinting</h3>
-        <p>Infers the <b>operating system</b> from TCP/IP stack quirks (TTL, window size, flags). Nmap <code>-O</code> uses banner and response-analysis techniques.</p>
+        <p>Infers the <b>operating system</b> from TCP/IP stack quirks (TTL, window size, flags). Nmap <code>-O</code> matches probe responses (TTL, initial window size, TCP option ordering, DF bit) against a database of TCP/IP stack fingerprints. Reading service banners is version detection (<code>-sV</code>), not OS detection.</p>
       </div>
       <div class="card">
         <h3><span class="idx">4</span>Version Detection</h3>
@@ -432,7 +432,7 @@
         </table>
       </div>
       <p style="margin-top:10px"><b>How it works:</b> the attacker exhausts a resource — bandwidth (flood the pipe),
-      connection table (SYN flood fills the backlog), or CPU (slowloris holds connections open).
+      connection table (SYN flood fills the backlog), or the server's connection/worker-thread pool (Slowloris holds many partial requests open); expensive requests are what exhaust CPU.
       <b>Mitigation:</b> upstream scrubbing/clean-pipe, rate-limiting, anycast, and blocking amplification by
       disabling open resolvers. The deeper treatment is on <a href="module-3.html">Module 3</a>.</p>
       <div class="def">Network attacks build on the reconnaissance from
@@ -725,7 +725,7 @@ Defender breaks: disable VRFY, block null sessions, change SNMP string,
     <div class="head"><span class="num">E5</span><h2>Denial of Service in Depth</h2><span class="tag">Deep dive · availability</span></div>
     <div class="card full">
       <p>Denial-of-service attacks try to make a service unavailable to legitimate users by exhausting a finite resource. The resource might be network bandwidth, the connection-tracking table of a firewall, the worker threads of a web server, the memory of a database, or simply the operator's attention. A <b>DoS</b> attack originates from one source; a <b>distributed denial of service</b> (DDoS) uses many compromised machines, which makes blocking by source address ineffective and increases the available volume dramatically.</p>
-      <p>Attacks are commonly grouped into three classes. <b>Volumetric attacks</b> saturate the link with sheer traffic, often using amplification: a small query to an open DNS or NTP resolver produces a much larger reply directed at the victim. <b>Protocol attacks</b> abuse the state machines of network protocols; a SYN flood fills the half-open connection table so legitimate handshakes cannot complete, and a Smurf attack spoofs a broadcast ping so that many hosts reply to the victim. <b>Application-layer attacks</b> send seemingly valid but expensive requests, such as slow headers (Slowloris) or complex searches, exhausting CPU and database capacity with very little bandwidth.</p>
+      <p>Attacks are commonly grouped into three classes. <b>Volumetric attacks</b> saturate the link with sheer traffic, often using amplification: a small query to an open DNS or NTP resolver produces a much larger reply directed at the victim. <b>Protocol attacks</b> abuse the state machines of network protocols; a SYN flood fills the half-open connection table so legitimate handshakes cannot complete, and a Smurf attack spoofs a broadcast ping so that many hosts reply to the victim. <b>Application-layer attacks</b> send seemingly valid but expensive requests, such as slow headers (Slowloris), which exhausts the server's concurrent-connection and worker-thread pool, or complex searches, which exhaust CPU and database capacity — both using very little bandwidth.</p>
       <p>Defence requires capacity and filtering at several points. An <b>anycast content-delivery network</b> spreads traffic across many locations, so a flood is absorbed rather than concentrated. <b>Upstream scrubbing</b> filters malicious traffic before it reaches the customer link. <b>Rate limiting</b>, connection thresholds, SYN cookies, and per-client quotas protect state and application resources. Operationally, an incident plan identifies who contacts the provider and who declares an incident; during an attack is the worst time to discover the phone number.</p>
     </div>
     <div class="tablewrap">
