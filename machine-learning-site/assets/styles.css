@@ -42,7 +42,8 @@ body{
   font-size:16px;
   -webkit-font-smoothing:auto;
   -moz-osx-font-smoothing:auto;
-  text-rendering:auto;
+  text-rendering:optimizeLegibility;
+  font-kerning:normal;
 }
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
 a:hover{text-decoration:none}
@@ -93,13 +94,15 @@ a:hover{text-decoration:none}
   .moddd-btn.active{background:var(--accent);color:var(--on-accent, #fff);border-color:transparent;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent)}
   .moddd.open .moddd-btn{background:var(--accent);color:var(--on-accent, #fff);border-color:transparent;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 50%,transparent)}
   .moddd.open .moddd-btn .caret{transform:rotate(180deg)}
-  .moddd-panel{position:absolute;top:calc(100% + 10px);right:0;z-index:70;min-width:230px;
-    display:flex;flex-direction:column;gap:6px;padding:12px;
-    background:rgba(15,17,21,.98);border:1px solid var(--line);border-radius:16px;
-    box-shadow:0 18px 44px rgba(0,0,0,.45);
-    -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);
+  .moddd-panel{position:absolute;top:calc(100% + 10px);right:0;z-index:70;min-width:250px;max-height:min(62vh,480px);overflow-y:auto;
+    display:flex;flex-direction:column;gap:4px;padding:10px;
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    box-shadow:var(--shadow-lg);
     opacity:0;visibility:hidden;transform:translateY(8px);
     transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+  .moddd-label{font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);font-weight:800;padding:8px 12px 2px;border-top:1px solid var(--line);margin-top:4px}
+  .moddd-panel a.featured{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+  .moddd-panel a.active.featured{background:var(--accent);color:var(--on-accent,#fff);border-color:var(--accent)}
   .moddd.open .moddd-panel{opacity:1;visibility:visible;transform:translateY(0)}
   .moddd-panel a{padding:10px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink-2);
     border:1px solid var(--line);background:var(--bg-alt);
@@ -218,9 +221,9 @@ a:hover{text-decoration:none}
   letter-spacing:.2px;
   -webkit-overflow-scrolling:touch;
 }
-.eq .katex,.qbox .katex{ font-size:1.12em; }
-.katex{ line-height:1.7; }
-.katex-display{ margin:.4em 0; }
+.eq .katex,.qbox .katex{ font-size:1.32em; }
+.katex{ line-height:1.8; }
+.katex-display{ margin:.55em 0; font-size:1.25em; }
 .eq::-webkit-scrollbar,.qbox::-webkit-scrollbar{height:6px}
 .eq::-webkit-scrollbar-thumb,.qbox::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 code{
@@ -580,6 +583,7 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
 .theme-toggle:hover{color:var(--ink);border-color:var(--accent)}
 .theme-toggle .ic{font-size:13px;line-height:1}
 .theme-toggle .caret{font-size:9px;opacity:.6;margin-left:1px}
+.theme-reset{width:100%;margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--bg-alt);color:var(--ink-2);font:inherit;font-size:12px;font-weight:600;cursor:pointer}.theme-reset:hover{background:var(--accent-soft);color:var(--accent)}
 .theme-panel{position:absolute;top:calc(100% + 8px);right:0;z-index:200;display:none;
   flex-direction:column;min-width:206px;padding:8px;
   background:var(--paper);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow-lg)}
@@ -595,7 +599,7 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
 .theme-mode-btn:hover{color:var(--ink);border-color:var(--accent)}
 .theme-mode-btn.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent, #fff)}
 .theme-divider{height:1px;background:var(--line);margin:9px 2px 8px}
-.theme-list{display:flex;flex-direction:column;gap:1px}
+.theme-list{display:grid;grid-template-columns:1fr 1fr;gap:2px}
 .theme-item{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border:none;
   background:transparent;color:var(--ink-2);font:inherit;font-size:13px;font-weight:500;
   border-radius:7px;cursor:pointer;text-align:left;
@@ -609,3 +613,22 @@ mark.qhit{background:var(--accent-soft);color:var(--accent-ink);padding:0 2px;bo
 .theme-item.active .theme-check{opacity:1}
 
 /* Circular reveal overlay — sized/faded by JS (WAAPI) */
+@media (max-width:600px){
+  .navtoggle,.theme-toggle,.moddd-btn{min-height:40px;padding:8px 12px}
+  .topbar-inner{padding:0 12px}
+}
+
+/* ---------- site polish v2 ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.moddd-panel a{padding:9px 13px;border-radius:9px;font-size:13px;transition:background .15s ease,color .15s ease}
+.moddd-panel a:hover{background:var(--accent-soft);color:var(--accent)}
+.moddd-panel a.featured::after{content:" ✦";color:var(--accent)}
+.section{margin-bottom:54px}
+.section .head h2{line-height:1.25}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+pre{max-height:420px;overflow:auto}
+.toc{border:1px solid var(--line);background:var(--paper);border-radius:var(--r);padding:12px 16px;margin:0 0 28px}
+.toc summary{cursor:pointer;font-weight:700;color:var(--ink-2);font-size:13px}
+.toc ol{columns:2;column-gap:28px;margin:10px 0 0;padding-left:20px;font-size:13px}
+.toc li{break-inside:avoid;margin:3px 0}
+@media (max-width:600px){.toc ol{columns:1}.section{margin-bottom:38px}}

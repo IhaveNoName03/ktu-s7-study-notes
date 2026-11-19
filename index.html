@@ -9,6 +9,10 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0E0F12">
 <link rel="stylesheet" href="ethical-hacking-site/assets/styles.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <style>
   /* ---- Editorial landing (print-inspired, no CDN) ---- */
   .landing{ --maxw:1440px; --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
@@ -224,10 +228,10 @@ html.theme-vt .theme-panel{display:none !important}
   background:none !important;color:#000 !important}
   .ai-badge{background:#000 !important;color:#fff !important}}
 </style>
-<script src="assets/theme-bridge.js"></script>
-<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
-<script src="assets/theme-config.js"></script>
-<script src="assets/theme-handler.js"></script>
+
+
+
+
 </head>
 <body class="landing">
 
@@ -310,15 +314,69 @@ html.theme-vt .theme-panel{display:none !important}
 
 </div>
 
+
+<div class="seclabel">
+  <span class="no">§</span>
+  <span class="txt">Worked Answers</span>
+  <span class="line"></span>
+</div>
+
+<div id="solvedGrid" style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:26px">
+  <a class="scard" href="ethical-hacking-site/solved-papers.html" data-keywords="solved papers worked answers cct401 ethical hacking model paper coverage">
+    <div class="idx">✦</div>
+    <div class="main"><div class="code">CCT 401 · 112 answers</div><h3>Ethical Hacking — Solved Papers</h3>
+      <p class="desc">Four KTU papers, official model paper, 60-topic syllabus map and cheat sheet.</p>
+      <div class="mods"><span>Papers A–D</span><span>Model paper</span><span>Coverage map</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
+  <a class="scard" href="machine-learning-site/solved-papers.html" data-keywords="solved papers worked answers cst413 machine learning formulas">
+    <div class="idx">✦</div>
+    <div class="main"><div class="code">CST 413 · 60 answers</div><h3>Machine Learning — Solved Papers</h3>
+      <p class="desc">Three KTU papers with verified calculations and a formula cheat sheet.</p>
+      <div class="mods"><span>Papers A–C</span><span>Verified maths</span><span>Cheat sheet</span></div></div>
+    <span class="go">Open <span class="arr">→</span></span>
+  </a>
+</div>
+
+
+<div class="seclabel"><span class="no">§</span><span class="txt">How to use this site</span><span class="line"></span></div>
+<div class="lead" style="text-align:left;max-width:var(--maxw)">
+  <p><strong>1 — Pick a subject, then a module.</strong> Each subject has five module pages that replaced the old one-screen topic pages. They contain the full explanation, worked examples, tables and exam tips.</p>
+  <p><strong>2 — Learn the answer structure.</strong> The Exam Guide page gives the mark scheme and a 3-mark / 14-mark template. Use it before writing practice answers.</p>
+  <p><strong>3 — Test yourself.</strong> The Question Bank pages keep answers collapsed. Attempt first, reveal second.</p>
+  <p><strong>4 — Check wording across years.</strong> Solved Papers contains the real KTU papers with every OR option answered, plus a cross-paper topic index so you can see what repeats.</p>
+  <p><strong>5 — Search everything.</strong> The search box at the top searches all four subjects, including every question answer.</p>
+</div>
+
+<div class="seclabel"><span class="no">§</span><span class="txt">What changed in v2</span><span class="line"></span></div>
+<div class="lead" style="text-align:left;max-width:var(--maxw)">
+  <p>The old site had 38 short Ethical Hacking and Machine Learning pages. Related pages were merged into 18 comprehensive ones: five module pages, an exam guide, a question bank and a solved-papers page per subject. Old addresses still work — they redirect automatically. Content is roughly 2–3× deeper, with full derivations, comparison tables and countermeasures.</p>
+  <p>The look also changed: the modules menu is grouped into Topic notes and Exam resources, the theme menu is two-column with a reset button, text has guaranteed WCAG contrast in every palette, and long pages now get an on-page contents list.</p>
+</div>
+
+<div class="seclabel"><span class="no">§</span><span class="txt">Exam-day checklist</span><span class="line"></span></div>
+<div class="lead" style="text-align:left;max-width:var(--maxw)">
+  <ul>
+    <li>Part A: answer all 10 questions — do not leave one blank.</li>
+    <li>Part B: one full question per module; choose the OR option you can structure fastest.</li>
+    <li>Show working for numericals; the last line should interpret the result.</li>
+    <li>Draw labelled diagrams where asked; unlabelled arrows earn little.</li>
+    <li>For attacks, always add a defence paragraph.</li>
+    <li>Keep 3-mark answers near 120–180 words and 14-mark answers near 350–550 words.</li>
+  </ul>
+</div>
+
 <div class="empty" id="empty">No subjects match your search — try a broader term.</div>
 <div class="deep" id="deep" hidden></div>
 
 <div class="quick">
   <span class="lab">Jump to:</span>
-  <a href="ethical-hacking-site/papers.html">EH Papers</a>
+  <a href="ethical-hacking-site/solved-papers.html">EH Solved ✦</a>
+  <a href="ethical-hacking-site/papers.html">EH Bank</a>
+  <a href="machine-learning-site/solved-papers.html">ML Solved ✦</a>
+  <a href="machine-learning-site/papers.html">ML Bank</a>
   <a href="renewable-energy-site/papers.html">RES Papers</a>
   <a href="industrial-safety-site/papers.html">ISE Papers</a>
-  <a href="machine-learning-site/papers.html">ML Papers</a>
   <a href="machine-learning-site/m2-1.html">ML Naïve Bayes</a>
   <a href="industrial-safety-site/m5-1.html">ISE Hazards</a>
 </div>
@@ -326,7 +384,7 @@ html.theme-vt .theme-panel{display:none !important}
 <div class="stats">
   <div class="stat"><div class="n" data-count="4">0</div><div class="l">Subjects</div></div>
   <div class="stat"><div class="n" data-count="20">0</div><div class="l">Modules</div></div>
-  <div class="stat"><div class="n" data-count="40">0</div><div class="l">Pages</div></div>
+  <div class="stat"><div class="n" data-count="18">0</div><div class="l">Core pages</div></div>
   <div class="stat"><div class="n"><span data-count="100">0</span>%</div><div class="l">Offline</div></div>
 </div>
 
@@ -415,7 +473,7 @@ html.theme-vt .theme-panel{display:none !important}
     cards.forEach(function(c,i){ setTimeout(function(){io.observe(c);}, i*90); });
   } else { cards.forEach(function(c){c.classList.add('in');}); }
 
-  document.querySelectorAll('.stat .n').forEach(function(el){
+  document.querySelectorAll('[data-count]').forEach(function(el){
     var target=+el.getAttribute('data-count'), cur=0, step=Math.max(1,Math.round(target/28));
     var t=setInterval(function(){ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=cur; },22);
   });
@@ -448,7 +506,7 @@ html.theme-vt .theme-panel{display:none !important}
     var root=document.documentElement;
     var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(reduce) return;
-    root.classList.add("motion");
+    root.classList.remove("motion");
     var els=[].slice.call(document.querySelectorAll(".scard,.stat,.lead,.seclabel,.masthead"));
     if("IntersectionObserver" in window && els.length){
       els.forEach(function(el,i){el.style.setProperty("--rv-delay",(Math.min(i,10)*35)+"ms");el.classList.add("rv");});

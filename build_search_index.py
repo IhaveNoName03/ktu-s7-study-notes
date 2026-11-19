@@ -30,6 +30,7 @@ for folder, (subject, code) in SUBJECTS.items():
         if not fn.endswith(".html") or fn == "index.html":
             continue
         src = open(os.path.join(d, fn), encoding="utf-8").read()
+        if "data-redirect" in src: continue   # merged-away pages must not be indexed
 
         h1 = re.search(r'<h1[^>]*>(.*?)</h1>', src, re.S)
         page_title = strip(h1.group(1)) if h1 else fn

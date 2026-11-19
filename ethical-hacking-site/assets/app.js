@@ -5,6 +5,38 @@
   var prefersReduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- On-page TOC for long merged pages ---------- */
+  (function () {
+    if (document.querySelector(".toc")) return;
+    function inChrome(el) {
+      return !!el.closest(".topbar, footer, nav, .toc, .moddd-panel, .themepanel");
+    }
+    var hs = [].slice.call(document.querySelectorAll("h2")).filter(function (h) { return !inChrome(h); });
+    if (hs.length < 4) {
+      hs = [].slice.call(document.querySelectorAll("h3.q-title")).filter(function (h) { return !inChrome(h); });
+    }
+    if (hs.length < 4) return;
+    var d = document.createElement("details"); d.className = "toc";
+    var s = document.createElement("summary");
+    s.textContent = "On this page (" + hs.length + " sections)"; d.appendChild(s);
+    var ol = document.createElement("ol");
+    hs.forEach(function (h, i) {
+      if (!h.id) h.id = "sec-" + i;
+      var li = document.createElement("li"), a = document.createElement("a");
+      a.href = "#" + h.id; a.textContent = h.textContent.trim().slice(0, 90);
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var off = (document.querySelector(".topbar") || { offsetHeight: 0 }).offsetHeight + 8;
+        window.scrollTo({ top: h.getBoundingClientRect().top + window.scrollY - off,
+                          behavior: prefersReduced ? "auto" : "smooth" });
+      });
+      li.appendChild(a); ol.appendChild(li);
+    });
+    d.appendChild(ol);
+    var first = hs[0];
+    first.parentNode.insertBefore(d, first);
+  })();
+
   /* ---------- Reading progress bar ---------- */
   var bar = document.createElement("div");
   bar.className = "progressbar";
@@ -58,8 +90,8 @@
                path.indexOf("industrial-safety-site")>-1?"ise":null;
     if(!subj) return;
     var NAVS={
-      ml:[["index.html","Home"],["m1-1.html","M1 · Paradigms"],["m2-1.html","M2 · Supervised"],["m3-1.html","M3 · NN &amp; SVM"],["m4-1.html","M4 · Unsupervised"],["m5-1.html","M5 · Classification"],["m-t1.html","Exam Techniques"],["papers.html","Papers"],["exam-hub.html","Solved papers ✦"]],
-      eh:[["index.html","Home"],["m1-1.html","M1 · Basics"],["m1-2.html","M1 · Hackers"],["m1-3.html","M1 · Pentest"],["m2-1.html","M2 · Recon"],["m2-2.html","M2 · Attacks"],["m2-3.html","M2 · Social Eng."],["m3-1.html","M3 · Vuln/Attacks"],["m4-1.html","M4 · Net/Sys"],["m5-1.html","M5 · Tracks"],["m-t1.html","Exam Techniques"],["papers.html","Papers"],["exam-hub.html","Solved papers ✦"]],
+      ml:[["index.html","Home"],["module-1.html","M1"],["module-2.html","M2"],["module-3.html","M3"],["module-4.html","M4"],["module-5.html","M5"],["exam-guide.html","Exam Guide"],["question-bank.html","Question Bank"],["solved-papers.html","Solved Papers"]],
+      eh:[["index.html","Home"],["module-1.html","M1"],["module-2.html","M2"],["module-3.html","M3"],["module-4.html","M4"],["module-5.html","M5"],["exam-guide.html","Exam Guide"],["question-bank.html","Question Bank"],["solved-papers.html","Solved Papers"]],
       res:[["index.html","Home"],["m1-1.html","M1 · Resources"],["m1-2.html","M1 · Solar Thermal"],["m1-3.html","M1 · Solar PV"],["m2-1.html","M2 · OTEC"],["m2-2.html","M2 · Tidal"],["m3-1.html","M3 · Wind"],["m4-1.html","M4 · Biomass"],["m5-1.html","M5 · Hydro/Fuel"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]],
       ise:[["index.html","Home"],["m1-1.html","M1 · Intro"],["m2-1.html","M2 · PPE"],["m3-1.html","M3 · Construction"],["m4-1.html","M4 · Machines"],["m5-1.html","M5 · Hazards"],["m-t1.html","Exam Techniques"],["papers.html","Papers"]]
     };
@@ -70,7 +102,8 @@
     else if(file==="papers.html") activeHref="papers.html";
     else if(file.indexOf("exam-")===0) activeHref="exam-hub.html";
     else if(file==="m-t1.html") activeHref="m-t1.html";
-    else { var mm=file.match(/^m(\d)-/); activeHref = mm ? ("m"+mm[1]+"-1.html") : null; }
+    else if(file==="exam-guide.html"||file==="question-bank.html"||file==="solved-papers.html") activeHref=file;
+    else { var mm=file.match(/^module-(\d)/); activeHref = mm ? ("module-"+mm[1]+".html") : null; }
     var topbar=document.querySelector(".topbar-inner");
     var nav=document.querySelector(".topnav");
     if(!nav && topbar){ nav=document.createElement("nav"); nav.className="topnav"; topbar.appendChild(nav); }
@@ -78,9 +111,13 @@
       var tog=document.createElement("button"); tog.className="navtoggle"; tog.setAttribute("aria-label","Menu"); tog.textContent="Menu"; topbar.appendChild(tog);
     }
     if(!nav) return;
-    var modLinks=items.slice(1).map(function(it){
-      return '<a href="'+it[0]+'"'+(it[0]===activeHref?' class="active"':'')+'>'+it[1]+'</a>';
-    }).join("");
+    function navLink(it,featured){
+      var cls=(it[0]===activeHref?'active':'')+(featured?' featured':'');
+      return '<a href="'+it[0]+'"'+(cls?' class="'+cls.trim()+'"':'')+'>'+it[1]+'</a>';
+    }
+    var topicItems=items.slice(1,-2), examItems=items.slice(-2);
+    var modLinks='<div class="moddd-label">Topic notes</div>'+topicItems.map(function(it){return navLink(it,false);}).join("")+
+      '<div class="moddd-label">Exam resources</div>'+examItems.map(function(it){return navLink(it,it[0]==="exam-hub.html");}).join("");
     nav.innerHTML='<span class="navhead">Browse</span>'+
       '<a href="index.html" class="home'+(activeHref==="index.html"?' active':'')+'">Home</a>'+
       '<a href="../index.html" class="allsubj">All subjects</a>'+
@@ -205,7 +242,7 @@
   (function () {
     var root = document.documentElement;
     if (prefersReduced) return;            // reduced-motion: keep everything static
-    root.classList.add("motion");
+    root.classList.remove("motion");
 
     // Scroll-reveal: fade + rise once when scrolled into view
     var revealEls = [].slice.call(document.querySelectorAll(".section,.card,.scard,.stat,.qbox,.def,.tablewrap"));

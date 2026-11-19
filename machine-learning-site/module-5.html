@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 · Classification Assessment, Ensembles &amp; Generalisation</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+<style>
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
+  .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
+  .qbox p{margin:0}
+  .qbox .eq{text-align:center;font-size:16px;font-weight:700;margin:8px 0;color:var(--accent-ink);font-family:var(--mono),monospace}
+  .qbox .eq span{color:var(--accent)}
+  .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
+  .def b{color:var(--accent-ink)}
+  .formula{display:block;background:color-mix(in srgb,var(--ink) 6%,var(--paper));border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 20px;margin:18px 0;overflow-x:auto;color:var(--ink);font-size:15.5px;line-height:1.9;text-align:center;white-space:pre-wrap;-webkit-overflow-scrolling:touch}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
+      <a href="module-1.html">M1 · Paradigms</a>
+      <a href="module-2.html">M2 · Supervised</a>
+      <a href="module-3.html">M3 · NN &amp; SVM</a>
+      <a href="module-4.html">M4 · Unsupervised</a>
+      <a href="module-5.html" class="active">M5 · Classification</a>
+      <a href="exam-guide.html">Exam Techniques</a>
+      <a href="question-bank.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 5 · Classification Assessment · 7 hours · Comprehensive edition</span>
+    <h1>Performance Measures, Cross-Validation, Ensembles &amp; Bias–Variance</h1>
+    <p class="lede">The complete Module 5: confusion matrices and precision/recall/F1, ROC and AUC, cross-validation and bootstrapping, bagging and boosting, the bias–variance decomposition and the face-detection case study — all worked through with concrete numbers.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Classification Performance Measures</h2><span class="tag">Beyond accuracy</span></div>
+    <div class="card full">
+      <p>When a classifier makes predictions, every prediction is one of four kinds, relative to the true class. These four counts form the foundation of every performance measure in
+      binary classification.</p>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th></th><th>Predicted YES (positive)</th><th>Predicted NO (negative)</th></tr></thead>
+          <tbody>
+            <tr><td><b>Actual YES</b> (positive)</td><td><b>TP</b> — True Positive</td><td><b>FN</b> — False Negative</td></tr>
+            <tr><td><b>Actual NO</b> (negative)</td><td><b>FP</b> — False Positive</td><td><b>TN</b> — True Negative</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">TP</span>True Positive</h3>
+          <p>The classifier said YES and the truth is YES. A correct positive prediction — the classifier caught a real positive case.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">FP</span>False Positive</h3>
+          <p>The classifier said YES but the truth is NO. A "false alarm" — the classifier raised an alert on a negative case. Also called a <b>Type I error</b>.</p>
+        </div>
+      </div>
+      <div class="stack" style="margin-top:10px">
+        <div class="card">
+          <h3><span class="idx">FN</span>False Negative</h3>
+          <p>The classifier said NO but the truth is YES. A "miss" — the classifier failed to catch a real positive case. Also called a <b>Type II error</b>.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">TN</span>True Negative</h3>
+          <p>The classifier said NO and the truth is NO. A correct negative prediction — correctly ignored a negative case.</p>
+        </div>
+      </div>
+
+      <div class="tablewrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th>Measure</th><th>Formula</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><b>Accuracy</b></td><td>(TP + TN) / (TP + FP + TN + FN)</td><td>Fraction of all predictions that are correct. Intuitive but misleading when classes are imbalanced.</td></tr>
+            <tr><td><b>Precision</b></td><td>TP / (TP + FP)</td><td>Of all the cases the classifier called positive, how many really were? Answers "when it says yes, how trustworthy is it?"</td></tr>
+            <tr><td><b>Recall</b> (Sensitivity, True Positive Rate)</td><td>TP / (TP + FN)</td><td>Of all the real positive cases, how many did the classifier catch? Answers "did it find the positives?"</td></tr>
+            <tr><td><b>F-Measure</b> (F1 score)</td><td>2 · (Precision·Recall) / (Precision + Recall)</td><td>The harmonic mean of precision and recall — a single number that balances both. Useful when you care about both false alarms and misses.</td></tr>
+            <tr><td><b>True Positive Rate</b> (TPR)</td><td>TP / (TP + FN)</td><td>Same as recall. The fraction of positives correctly identified.</td></tr>
+            <tr><td><b>False Positive Rate</b> (FPR)</td><td>FP / (FP + TN)</td><td>The fraction of negatives incorrectly flagged as positive. The "false alarm rate."</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>Precision vs recall — the tension:</b> a classifier that says YES to everything has perfect recall (catches all positives) but terrible precision (most of its YESes are wrong).
+      A classifier that says YES only when it is absolutely certain has high precision but low recall (misses many positives). The right balance depends on the cost of each error: is a false alarm
+      worse, or is a miss worse? In medical diagnosis, a missed cancer (false negative) is usually far worse than a false alarm, so recall matters more. In spam filtering, a false positive (legitimate
+      email marked as spam) is costly, so precision matters more.</div>
+
+      <div class="def"><b>The accuracy trap — worked example:</b> suppose a dataset has 9700 cancer-free images and 300 cancer images (3% positive). A classifier that predicts "no cancer" for everything gets
+      accuracy = 9700/10000 = 97% — looks great, but it completely fails to detect any cancer. Now suppose the classifier predicts cancer for 210 images, of which 120 are true cancers and 90 are false
+      alarms, and correctly says no-cancer for the rest. Then TP=120, FP=90, TN=9600, FN=180, accuracy=(120+9600)/10000=97.2%, precision=120/210≈57%, recall=120/300=40%. Accuracy barely moved,
+      but now we have real information: the classifier catches 40% of cancers with 57% precision. This is why accuracy alone is dangerous on imbalanced data.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>ROC Curve &amp; AUC</h2><span class="tag">The full picture of a classifier</span></div>
+    <div class="card full">
+      <p>A classifier that outputs a <b>score</b> (or probability) can be thresholded at different levels — "call it positive if the score is above t." As we vary the threshold, the true positive rate
+      and false positive rate change. The <b>ROC (Receiver Operating Characteristic) curve</b> plots TPR against FPR for all possible thresholds, giving a complete picture of the classifier's behaviour.</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">ROC space</span></h3>
+          <p>The ROC plot has <b>FPR on the x-axis</b> (0 to 1) and <b>TPR on the y-axis</b> (0 to 1). Each point on the curve is one threshold setting. The diagonal line from (0,0) to (1,1) is the
+          line of <b>random guessing</b> — a classifier that guesses at chance falls on this line.</p>
+          <div class="def" style="margin-top:8px"><b>Points in ROC space:</b>
+          <ul style="margin:6px 0 0 18px;padding:0">
+            <li><b>(0, 1)</b> — perfect prediction: zero false positives, all true positives caught.</li>
+            <li><b>(1, 1)</b> — always predict positive: catches all positives (TPR=1) but also flags everything as positive (FPR=1).</li>
+            <li><b>(1, 0)</b> — always predict negative: catches no positives (TPR=0) and flags nothing as positive (FPR=0).</li>
+            <li><b>(0, 0)</b> — always predict negative: misses everything, false-alarm-free.</li>
+          </ul>
+          The farther a point is toward the top-left corner (0,1), the better the classifier.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">AUC</span>Area Under the Curve</h3>
+          <p><b>AUC</b> summarises the ROC curve as a single number — the area under it. AUC = 1 means a perfect classifier. AUC = 0.5 means random guessing (the diagonal). AUC < 0.5 means the
+          classifier is worse than random (and you could flip its predictions to get > 0.5).</p>
+          <div class="def" style="margin-top:8px"><b>Interpretation:</b> AUC is the probability that the classifier ranks a randomly chosen positive example higher than a randomly chosen negative example.
+          Higher AUC = better ranking. It is a threshold-independent measure — it evaluates the classifier's ability to order examples correctly, regardless of any single threshold.</div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>The Better Classifier — Training vs Test</h2><span class="tag">Generalisation matters</span></div>
+    <div class="card full">
+      <p>Two classifiers can have very different behaviour on training data versus unseen test data. The key question is always: <b>how well does it generalise?</b></p>
+
+      
+
+      <div class="def"><b>The rule to remember:</b> a model that is perfect on training data is suspicious. The point of machine learning is not to fit the training set — it is to perform well on data the
+      model has <b>never seen</b>. A large gap between training and test performance is the clearest sign of overfitting. A small gap and decent test performance is what we want.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Bootstrapping &amp; Cross Validation</h2><span class="tag">Reliable performance estimates</span></div>
+    <div class="card full">
+      <p>How do we know our performance numbers are trustworthy? A single train/test split can be lucky or unlucky. <b>Cross validation</b> and <b>bootstrapping</b> are resampling methods that give
+      more reliable estimates by repeatedly training and testing on different subsets of the data.</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">k-fold</span>Cross Validation</h3>
+          <p>Split the data into <b>k</b> equal folds. Train on k−1 folds, test on the held-out fold; repeat k times so every fold is the test set once. Average the k test scores. This uses all the
+          data for both training and testing (just at different times) and gives a more stable estimate than a single random split.</p>
+          <div class="def" style="margin-top:8px"><b>Common choice:</b> 10-fold CV is standard. <b>Leave-one-out</b> (k = n) uses a single example as the test set each time — very expensive but uses almost all
+          data for training each time. CV reduces the variance of the performance estimate and is the default tool for model selection and evaluation.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Bootstrap</span></h3>
+          <p>Draw <b>n</b> samples <b>with replacement</b> from the original dataset of size n to form a "bootstrap sample" (about 63% of distinct original points appear, on average). Train on the
+          bootstrap sample, test on the points <b>not</b> drawn (the "out-of-bag" data). Repeat many times.</p>
+          <div class="def" style="margin-top:8px"><b>Why it helps:</b> bootstrapping lets us estimate the <b>distribution</b> of a statistic (e.g. accuracy) and its variance, by simulating many possible training
+          sets. It is especially useful when data is limited. Bootstrap and CV answer the same question — "how well will this model generalise?" — with slightly different mechanics.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>When to use which:</b> cross validation is the go-to for most model evaluation and for choosing hyperparameters (e.g. which λ for regularization, which k for k-means, which degree
+      for polynomial regression). Bootstrapping is useful when you want confidence intervals or when the dataset is small. Both are more reliable than a single hold-out split, and both help you avoid
+      over-fitting your <b>evaluation</b> — picking a model that just happens to do well on one particular test split.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Ensemble Methods — Bagging &amp; Boosting</h2><span class="tag">Many heads are better than one</span></div>
+    <div class="card full">
+      <p>An <b>ensemble</b> combines several classifiers (the "base learners") to make a single prediction, usually better than any one alone. The idea is that different models make different mistakes,
+      and by combining them — by voting or averaging — the individual errors cancel out.</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">Bagging</span>Bootstrap Aggregation</h3>
+          <p>Train many base learners, each on a different <b>bootstrap sample</b> of the data (sampled with replacement). At prediction time, average the regression outputs or take a majority vote
+          for classification.</p>
+          <div class="def" style="margin-top:8px"><b>What it does:</b> bagging primarily <b>reduces variance</b>. By averaging many models trained on different samples, the fluctuations of any one model average out.
+          It is especially effective for high-variance, low-bias models like deep decision trees. A single tree overfits; a <b>bag of trees</b> (Random Forest) generalises much better.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Boosting</span></h3>
+          <p>Train base learners <b>sequentially</b>, each one focusing on the examples the previous ones got wrong. Early learners are weak (slightly better than random); later ones concentrate on
+          the hard cases. The final prediction weights the learners (often by their accuracy).</p>
+          <div class="def" style="margin-top:8px"><b>What it does:</b> boosting primarily <b>reduces bias</b> (and can also reduce variance). By successively correcting errors, boosting turns many weak learners into
+          a strong one. <b>AdaBoost</b> and <b>Gradient Boosting</b> are the classic examples. Boosting is one of the most powerful and widely used techniques in practice.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>Can ensemble learning using linear classifiers learn a linearly non-separable set?</b> Yes — this is an important point. A single linear classifier can only learn a linear
+      boundary. But an <b>ensemble</b> of linear classifiers can combine several linear boundaries (vote, or weighted vote) to approximate a <b>non-linear</b> decision surface. Each base learner draws a
+      straight line; the ensemble's vote creates a piecewise-linear or more complex boundary that can separate data a single line cannot. (This is closely related to how boosting and to some extent how
+      neural networks build complex functions from simple pieces.)</div>
+      <div class="def"><b>Boosting and ensemble learning — the relation:</b> boosting <b>is</b> a form of ensemble learning. Ensemble learning is the general idea (combine multiple models); boosting is a
+      specific ensemble strategy (sequential, error-focused, weighted combination). Bagging is another ensemble strategy (parallel, bootstrap-based, variance-reducing). Both are ensemble methods; boosting
+      is the one that builds strength by correcting mistakes step by step.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Bias–Variance Decomposition</h2><span class="tag">Why models fail</span></div>
+    <div class="card full">
+      <p>The <b>expected</b> error of a learned model on new data can be decomposed into three parts: <b>bias</b>, <b>variance</b>, and <b>irreducible error</b> (noise in the data itself, which no
+      model can eliminate). This decomposition is the theoretical foundation for understanding over- and underfitting.</p>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Term</th><th>What it means</th><th>High bias looks like</th><th>High variance looks like</th></tr></thead>
+          <tbody>
+            <tr><td><b>Bias</b></td><td>Error from the model being too simple / wrong assumptions — the gap between what the model <i>can</i> represent and the true function.</td>
+              <td>Underfitting: high error on both training and test data; the model cannot capture the pattern even on data it has seen.</td>
+              <td>—</td></tr>
+            <tr><td><b>Variance</b></td><td>Error from the model being too sensitive to the particular training sample — small changes in training data produce very different models.</td>
+              <td>—</td>
+              <td>Overfitting: low training error, high test error; the model's predictions swing wildly with different training data.</td></tr>
+            <tr><td><b>Irreducible error</b></td><td>Noise inherent in the data — variability that no model can explain (measurement noise, unobserved variables).</td>
+              <td colspan="2">Cannot be reduced by any model; it is a property of the problem, not of the learning algorithm.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>The trade-off:</b> as a model becomes more complex, bias tends to <b>decrease</b> (it can represent more functions) but variance tends to <b>increase</b> (it fits the noise in the
+      particular training set). The best model sits at the "sweet spot" where the sum of bias² and variance is minimised — enough complexity to capture the truth, not so much that it memorises noise.
+      This is the bias–variance trade-off. It is the theoretical reason that regularisation (Ridge, Lasso), ensembles, and cross validation all work: they all shift this balance toward better
+      generalisation.</div>
+
+      <div class="def"><b>Why it matters:</b> the Bayes classifier is the accuracy ceiling — no method can beat it on average. Practical models (incl. ensembles) are trying to approximate this optimum from data.</div>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">07</span><h2>Bias–Variance Decomposition</h2><span class="tag">Theory</span></div>
+    <div class="card full">
+      <p>The expected test error splits into three parts:</p>
+      <div class="eq">\[\text{Error} = \text{Bias}^{2} + \text{Variance} + \text{Irreducible noise}\]</div>
+      <ul>
+        <li><b>Bias</b> — error from a too-simple model (underfitting); it consistently misses the pattern.</li>
+        <li><b>Variance</b> — error from a too-sensitive model (overfitting); it changes a lot with small data changes.</li>
+      </ul>
+      <div class="def"><b>The trade-off:</b> as model complexity rises, bias falls but variance grows. The sweet spot
+      minimizes their sum. Regularization and more data both help push the frontier.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Cross-Validation</h2><span class="tag">Honest estimate</span></div>
+    <div class="card full">
+      <p><b>k-fold CV:</b> split data into k equal parts; train on k−1, test on the held-out part; repeat k times
+      and average the scores. Common choices: k = 5 or 10.</p>
+      <div class="eq">\[\text{CV score}=\frac{1}{k}\sum_{j=1}^{k}\text{error on fold }j\]</div>
+      <p>This uses all data for both train and test (just never at the same time), giving a stable estimate of how
+      the model will perform on unseen data. <b>Bootstrapping</b> is the cousin that resamples with replacement to
+      build confidence intervals.</p>
+      <div class="def"><b>Why not just use the training accuracy?</b> a model can score 100% on data it already saw
+      and fail on new data. CV measures generalization, not memorization.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>Ensemble Methods</h2><span class="tag">Combine</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>How</th><th>Intuition</th></tr></thead>
+          <tbody>
+            <tr><td><b>Bagging</b> (e.g. Random Forest)</td><td>Train many models on bootstrap samples, average/vote</td><td>Reduces variance</td></tr>
+            <tr><td><b>Boosting</b> (e.g. AdaBoost, XGBoost)</td><td>Train sequentially; each fixes the previous errors</td><td>Reduces bias</td></tr>
+            <tr><td><b>Stacking</b></td><td>Meta-model learns to combine base models' outputs</td><td>Best of both</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Why ensembles win:</b> independent models make different errors; averaging cancels many of them out.
+      A Random Forest (many deep trees) is far more stable than one deep tree, which is why it is a default go-to.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">10</span><h2>Case Study — Face-Detection Classifier</h2><span class="tag">Apply</span></div>
+    <div class="card full">
+      <p>Build a classifier that labels an image window "face / not-face":</p>
+      <ol>
+        <li><b>Features:</b> pixel windows → Haar-like or HOG features (high-dimensional).</li>
+        <li><b>Model:</b> train a classifier (e.g. boosted decision stumps, as in Viola–Jones) on labelled windows.</li>
+        <li><b>Assess:</b> use ROC/AUC (m5-1) and k-fold CV to pick the threshold that meets the false-positive budget.</li>
+        <li><b>Improve:</b> an ensemble (boosting) lifts accuracy far above a single weak classifier.</li>
+      </ol>
+      <p>This ties the whole course together: features + supervised learning + evaluation (ROC) + ensembles + honest CV.</p>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">11</span><h2>The Confusion Matrix — Every Metric Computed from One Example</h2><span class="tag">Evaluation</span></div>
+    <div class="card full">
+      <p>For a binary classifier, all evaluation metrics derive from four counts. The convention is that the <i>positive</i> class is the one you care about detecting (cancer, fraud, face). A true positive (TP) is a correct alert; a false positive (FP) is a false alarm (Type I error); a false negative (FN) is a miss (Type II error); a true negative (TN) is a correct rejection.</p>
+      <div class="formula">\[\text{Accuracy}=\frac{TP+TN}{N},\quad \text{Precision}=\frac{TP}{TP+FP},\quad \text{Recall (TPR)}=\frac{TP}{TP+FN}\]</div>
+      <div class="formula">\[F_1=\frac{2PR}{P+R}=\frac{2TP}{2TP+FP+FN},\quad \text{FPR}=\frac{FP}{FP+TN},\quad \text{Specificity}=1-\text{FPR}=\frac{TN}{FP+TN}\]</div>
+      <h3>Worked example — imbalanced screening</h3>
+      <p>A screening test on N = 1000 people yields TP = 50, FN = 10, FP = 30, TN = 910. (There are 60 true positives and 940 negatives.) Then:</p>
+      <div class="formula">\[\text{Accuracy}=\frac{50+910}{1000}=0.960,\qquad \text{Precision}=\frac{50}{50+30}=0.625,\qquad \text{Recall}=\frac{50}{50+10}=0.833\]</div>
+      <div class="formula">\[F_1=\frac{2(0.625)(0.833)}{0.625+0.833}=0.714,\qquad \text{FPR}=\frac{30}{30+910}=0.0319,\qquad \text{Specificity}=0.968\]</div>
+      <p>The 96% accuracy looks excellent, but the classifier misses one in six diseased patients. If we instead predicted "negative" for everybody, accuracy would be 940/1000 = 94% with recall zero — only two points below, yet useless. This is why accuracy is unsuitable for imbalanced data.</p>
+      <div class="def"><b>Precision–recall tension:</b> lowering the decision threshold flags more cases, raising recall and lowering precision; raising it does the reverse. Choose the threshold from the application: for cancer screening a false negative is far costlier, so accept low precision; for spam filtering a false positive (a lost business email) is costlier, so favour precision. F1 is the harmonic mean because it punishes extreme imbalance between the two — the arithmetic mean would hide a model with precision 1 and recall 0.01.</div>
+      <div class="def"><b>Multiclass extension:</b> for K classes compute a confusion matrix with K² entries. Micro-averaging pools counts over all classes (equivalent to accuracy when every example has one label); macro-averaging computes the metric per class and takes the unweighted mean, giving each class equal say — macro is preferred when classes are imbalanced.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">12</span><h2>ROC Curves and AUC — Construction, Trapezoid Arithmetic and Interpretation</h2><span class="tag">Threshold-free evaluation</span></div>
+    <div class="card full">
+      <p>A classifier producing a score s(x) can be thresholded at any t. Each threshold yields one (FPR, TPR) pair; plotting all of them gives the ROC curve. The diagonal from (0,0) to (1,1) is random guessing. The perfect classifier passes through the top-left corner (0,1).</p>
+      <h3>Worked AUC from five operating points</h3>
+      <p>Suppose sweeping the threshold gives these (FPR, TPR) points, already sorted by FPR: (0, 0), (0.1, 0.5), (0.3, 0.7), (0.6, 0.9), (1, 1). Approximate the area under the curve by trapezoids:</p>
+      <pre><code>segment 1: (0.1-0.0) * (0.0+0.5)/2 = 0.1 * 0.25 = 0.025
+segment 2: (0.3-0.1) * (0.5+0.7)/2 = 0.2 * 0.60 = 0.120
+segment 3: (0.6-0.3) * (0.7+0.9)/2 = 0.3 * 0.80 = 0.240
+segment 4: (1.0-0.6) * (0.9+1.0)/2 = 0.4 * 0.95 = 0.380
+AUC = 0.025 + 0.120 + 0.240 + 0.380 = 0.765</code></pre>
+      <div class="formula">\[\text{AUC}=P\bigl(s(\text{random positive})&gt;s(\text{random negative})\bigr)\]</div>
+      <p>This probabilistic interpretation explains why AUC is threshold-independent: it measures how well the classifier <i>ranks</i> cases. AUC = 0.5 is chance, 0.7–0.8 is considered acceptable, above 0.9 excellent. A classifier with AUC below 0.5 can simply have its decisions inverted to obtain above 0.5.</p>
+      <div class="def"><b>ROC vs precision–recall curves:</b> PR curves plot precision against recall. When negatives vastly outnumber positives, ROC can look optimistic because FPR changes slowly (the denominator FP + TN is huge); PR curves expose the poor precision. Use PR/AUC-PR for heavily imbalanced problems, ROC/AUC for balanced ones.</div>
+      <div class="def"><b>Choosing an operating point:</b> Youden's J = TPR + Specificity − 1 = TPR − FPR picks the point farthest above the diagonal; the closest-to-(0,1) point minimises √((1−TPR)² + FPR²). In practice choose the threshold that satisfies a domain constraint, e.g. "FPR ≤ 5%", then maximise TPR subject to it — exactly the false-positive-budget language used in the face-detection case study.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">13</span><h2>Honest Evaluation — Train/Validation/Test, k-Fold CV and Bootstrap Arithmetic</h2><span class="tag">Resampling</span></div>
+    <div class="card full">
+      <p>A single hold-out split is a random estimate: a lucky split inflates performance. Cross-validation averages over splits to reduce that variance. The golden rule: the <b>test set is touched once</b>, after all model and hyperparameter choices are made; the validation set is used for those choices; the training set is used to fit parameters. Nesting these loops avoids leaking information.</p>
+      <div class="formula">\[\widehat{\mathrm{CV}}=\frac{1}{k}\sum_{j=1}^{k}\mathrm{err}\bigl(h^{(-j)},D_j\bigr),\qquad h^{(-j)}=\text{model trained without fold }j\]</div>
+      <h3>Worked k-fold calculation</h3>
+      <p>Five-fold CV on a dataset yields fold errors 0.12, 0.10, 0.14, 0.11, 0.13. Mean = 0.60/5 = <b>0.12</b>; the sample standard deviation is √[(0² + 0.02² + 0.02² + 0.01² + 0.01²)/4] = √(0.001/4) = <b>0.0158</b>. Report the mean as the performance estimate and the standard deviation (or a standard error = s/√k = 0.0071) as its uncertainty. k = 5 or 10 is standard; leave-one-out (k = n) has low bias but high computational cost and high variance of the estimate because the training sets differ by only one example.</p>
+      <h3>Bootstrap — where 63.2% comes from</h3>
+      <p>Drawing n samples with replacement from a set of size n, the probability a particular original point is never chosen is (1 − 1/n)<sup>n</sup> → e⁻¹ ≈ 0.368 as n grows. Hence about <b>63.2%</b> of distinct points appear in a bootstrap sample and 36.8% are out-of-bag. For n = 10 the in-bag fraction is 1 − 0.9¹⁰ = 0.651, already close to the limit. The out-of-bag points provide a free test set — the basis of bagging's out-of-bag error estimate.</p>
+      <div class="def"><b>Data leakage to watch for:</b> scaling or feature selection must be fitted on the training fold only, then applied to the validation fold; fitting them on all data leaks information and inflates the CV score. The same applies to hyperparameter tuning: choosing λ using the test set turns it into a training set. Nested CV (outer loop for evaluation, inner loop for tuning) is the rigorous fix.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">14</span><h2>Ensembles — Why Averaging Works, and the AdaBoost Update Arithmetic</h2><span class="tag">Combining models</span></div>
+    <div class="card full">
+      <p>Ensembles combine base learners to reduce error. Suppose m models each have variance σ² and pairwise correlation ρ. The variance of their average is</p>
+      <div class="formula">\[\operatorname{Var}\Bigl(\frac{1}{m}\sum_{i=1}^{m}h_i\Bigr)=\rho\sigma^{2}+\frac{1-\rho}{m}\sigma^{2}\]</div>
+      <p>With independent models (ρ = 0) the variance falls to σ²/m — averaging m models cuts variance by a factor of m. This is the mathematical core of <b>bagging</b>: train many models on bootstrap samples so their errors are decorrelated, then average (regression) or majority-vote (classification). Random Forests add random feature subsampling at each split to decorrelate the trees further.</p>
+      <p><b>Boosting</b> works differently: it trains weak learners sequentially, reweighting the data so each new learner focuses on previously misclassified examples. In AdaBoost, for base learner t with weighted error εₜ,</p>
+      <div class="formula">\[\alpha_t=\frac{1}{2}\ln\frac{1-\varepsilon_t}{\varepsilon_t},\qquad w_i\leftarrow w_i\exp\bigl(-\alpha_t y_i h_t(x_i)\bigr),\qquad H(x)=\operatorname{sign}\Bigl(\sum_t \alpha_t h_t(x)\Bigr)\]</div>
+      <p><b>Worked:</b> round 1 has weighted error ε₁ = 0.2, so α₁ = 0.5 ln(0.8/0.2) = 0.5 ln 4 = <b>0.693</b>. Round 2 has ε₂ = 0.3, so α₂ = 0.5 ln(0.7/0.3) = 0.5 ln(2.333) = <b>0.424</b>. Misclassified points (yᵢh₁(xᵢ) = −1) have their weights multiplied by e<sup>+0.693</sup> = 2.0, while correct points are multiplied by e<sup>−0.693</sup> = 0.5 — the next learner sees twice as much emphasis on the hard cases. In the final vote the first classifier has 1.63 times the say of the second. Boosting primarily reduces <b>bias</b> (a sequence of weak learners approximates a complex function); bagging primarily reduces <b>variance</b>.</p>
+      <div class="def"><b>Can an ensemble of linear classifiers separate non-linear data?</b> Yes. Each base learner draws a straight boundary; a weighted vote of several such boundaries produces a piecewise-linear region, which can be non-convex and non-linearly separable as a whole. This is the same constructive principle as a neural network's hidden layer and as kernel SVMs: combine simple pieces to build a complex decision surface.</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>Training</th><th>Combination</th><th>Main effect</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Bagging</td><td>Parallel bootstrap samples</td><td>Average / majority vote</td><td>Variance ↓</td><td>Random Forest</td></tr>
+            <tr><td>Boosting</td><td>Sequential, reweighted</td><td>Weighted vote</td><td>Bias ↓ (sometimes variance too)</td><td>AdaBoost, Gradient Boosting, XGBoost</td></tr>
+            <tr><td>Stacking</td><td>Parallel diverse models</td><td>Learned meta-model</td><td>Both, if meta-learner is trained honestly</td><td>Blended regressors/classifiers</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Why ensembles can still fail:</b> if base models make the same mistakes (ρ ≈ 1), averaging buys almost nothing — diversity is essential. Boosting can overfit noisy labels because it keeps chasing outliers; bagging with deep trees is more robust. Always use cross-validation to choose the number of boosting rounds (early stopping).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">15</span><h2>Bias–Variance Decomposition — The Algebra and Two Contrasting Models</h2><span class="tag">Theory</span></div>
+    <div class="card full">
+      <p>For a fixed test input x, let the true value be f(x) = E[y | x] and the observed target be y = f(x) + ε with E[ε] = 0, Var(ε) = σ². For a model ŷ trained on a random sample, the expected squared error decomposes as</p>
+      <div class="formula">\[\mathbb E\bigl[(y-\hat y)^2\bigr]=\underbrace{\bigl(f(x)-\mathbb E[\hat y]\bigr)^2}_{\text{Bias}^2}+\underbrace{\mathbb E\bigl[(\hat y-\mathbb E[\hat y])^2\bigr]}_{\text{Variance}}+\underbrace{\sigma^2}_{\text{irreducible}}\]</div>
+      <p>To derive it, write y − ŷ = (f − E[ŷ]) + (E[ŷ] − ŷ) − ε; squaring gives the three squared terms plus cross terms. Taking expectations kills the cross terms: E[E[ŷ] − ŷ] = 0 and ε is independent of ŷ with mean zero. What remains is exactly the expression above.</p>
+      <h3>Two contrasting predictors</h3>
+      <p>Suppose the true value at x is f(x) = 5 and noise variance is σ² = 0.5. Model A is a very flexible fit whose predictions on five repeated training samples are 4, 5, 6, 5, 5 — mean 5, bias 0, variance [(−1)²+0²+1²+0²+0²]/5 = 0.4, expected error ≈ 0 + 0.4 + 0.5 = <b>0.9</b>. Model B is a rigid predictor that always answers 4.3 — bias² = (5 − 4.3)² = 0.49, variance 0, expected error ≈ 0.49 + 0 + 0.5 = <b>0.99</b>. In this case the flexible model wins; if its spread were larger (predictions 2, 8, 5, 4, 6 → variance 4.4) the rigid one would win. The optimum sits where the sum of the two controllable terms is smallest.</p>
+      <div class="def"><b>Diagnostic → remedy table:</b> high training error and high validation error → high bias → add features, increase model complexity, reduce regularisation, train longer. Low training error and much higher validation error → high variance → gather more data, regularise, simplify, use bagging, apply early stopping. Look at the <i>gap</i> and the <i>level</i> separately — this is the single most useful exam diagnostic.</div>
+      <div class="def"><b>Consistency with earlier modules:</b> Ridge/Lasso (Module 2) raise bias to cut variance; C and γ in SVMs (Module 3) do the same; tree pruning and depth limits (Module 2) control variance; ensembling (this module) attacks whichever term dominates. EM's covariance constraints and PCA's component count (Module 4) are further examples. The bias–variance decomposition is the unifying language of the entire course.</div>
+      <div class="def"><b>Exam caution:</b> bias² + variance + noise is the decomposition of expected <i>squared</i> error for regression. For classification the algebra is messier, but the intuition transfers and examiners accept the qualitative trade-off. Also distinguish it from the bias of an estimator in Module 1 (E[θ̂] − θ): related ideas, different objects.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">16</span><h2>Case Study — Face Detection with a Cascaded Boosted Classifier</h2><span class="tag">Course synthesis</span></div>
+    <div class="card full">
+      <p>The face-detection task ties every module together. A sliding window scans an image at several scales; for each window we decide "face" or "not face". Nearly all windows are background, so the class distribution is severely imbalanced and the false-positive budget dominates the design.</p>
+      <pre><code>1) Features: Haar-like rectangular sums computed with an integral image
+   (a 24x24 window yields &gt; 160,000 rectangle features; select a small subset).
+2) Learning: AdaBoost selects the best weak "stump" each round and combines
+   them into a strong classifier (Module 5 ensembles + Module 2 decisions).
+3) Cascade: arrange stages from simple to complex; a window rejected by a
+   stage is discarded immediately; only survivors reach later stages.
+4) Evaluation: choose per-stage thresholds so the whole cascade meets a
+   target detection rate and FPR, measured with ROC/AUC and k-fold CV (M5).
+5) Scan: run the cascade over all positions and scales, merge overlapping
+   detections.</code></pre>
+      <h3>Cascade arithmetic</h3>
+      <p>Suppose each of 5 stages rejects 50% of non-face windows and passes 95% of real faces. The overall detection rate is 0.95⁵ = <b>0.774</b> (77.4% of faces survive) and the overall false-positive rate is 0.5⁵ = <b>0.0313</b> (about 3% of background windows survive). Early stages are cheap and reject most of the background, which is why the cascade is fast even with many features. Adding a sixth stage would push FPR to 1.56% but lower detection to 73.5% — a direct illustration of the precision/recall trade-off quantified in the first section.</p>
+      <div class="def"><b>Integral image trick:</b> building a summed-area table lets the sum of pixels in any axis-aligned rectangle be computed with four array lookups, independent of the rectangle's size. This is what makes thousands of Haar features evaluable in real time — a reminder that feature engineering and algorithmic engineering matter as much as the learning algorithm.</div>
+      <div class="def"><b>Module map of this case study:</b> features and normalisation (Module 4 distance/scaling ideas), supervised label generation (Module 1 supervised paradigm), weak learners as decision stumps (Module 2 trees), boosting (Module 5 ensembles), false-positive-budget thresholding (Module 5 ROC), and honest performance estimates (Module 5 CV). In an exam, use this case study as a concrete example whenever asked to "tie the course together".</div>
+      <div class="def"><b>Final revision checklist for Module 5:</b> (1) write the confusion matrix and all six formulas from memory; (2) explain why accuracy fails under imbalance with the 97%-accuracy example; (3) sketch an ROC curve and interpret an AUC value; (4) state the k-fold procedure and the 63.2% bootstrap result; (5) contrast bagging (variance) and boosting (bias) with the α formula; (6) derive bias² + variance + noise; (7) quote the cascade numbers 0.95⁵ and 0.5⁵. These seven items cover the module's marking scheme.</div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="head"><span class="num">17</span><h2>Is the Difference Real? — Confidence Intervals and Paired Comparison of Classifiers</h2><span class="tag">Statistical evaluation</span></div>
+    <div class="card full">
+      <p>A CV score is itself a random quantity. Reporting "classifier A scored 0.86 and B scored 0.84" without an uncertainty invites over-claiming. With k fold scores e₁ … eₖ, estimate the mean error ē and its standard error s/√k, then give a 95% interval ē ± t<sub>0.975,k−1</sub>·s/√k (t ≈ 2.57 for k = 5, 2.23 for k = 10). For the five fold errors 0.12, 0.10, 0.14, 0.11, 0.13 the mean is 0.12, s = 0.0158, standard error = 0.0071, and the interval is 0.12 ± 2.57·0.0071 = [0.102, 0.138].</p>
+      <p>To compare two classifiers on the <i>same</i> folds, compute the per-fold difference dⱼ = eⱼ<sup>A</sup> − eⱼ<sup>B</sup> and apply a paired t-test:</p>
+      <div class="formula">\[t=\frac{\bar d}{s_d/\sqrt{k}},\qquad \bar d=\frac{1}{k}\sum_{j=1}^{k}d_j\]</div>
+      <p>with k − 1 degrees of freedom. Pairing removes the variability caused by the folds themselves, making the test far more sensitive than comparing two unpaired means. When folds are small or the difference is not approximately normal, use the <b>5×2 cross-validation</b> variant or McNemar's test on the single held-out set. McNemar uses the counts b and c of examples that only one of the two classifiers got right and the statistic (|b − c| − 1)²/(b + c), compared with χ²₁ (critical value 3.84 at 5%).</p>
+      <div class="def"><b>Worked McNemar:</b> classifier A alone is correct on b = 20 cases that B misses; B alone is correct on c = 5 cases that A misses. Then (|20 − 5| − 1)²/(20 + 5) = (14)²/25 = 196/25 = 7.84 &gt; 3.84, so the difference is statistically significant at 5% — A is genuinely better on this test set, not just luckily.</div>
+      <div class="def"><b>Multiple comparisons:</b> testing twenty hyperparameter settings at the 5% level yields roughly one false positive by chance. Apply a Bonferroni correction (use α/m as the significance level) or report the whole CV curve with error bars instead of declaring a single winner. This is the same honesty principle as never tuning on the test set.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">18</span><h2>Handling Imbalanced Data — Class Weights, Resampling and Threshold Choice</h2><span class="tag">Practical classification</span></div>
+    <div class="card full">
+      <p>When positives are rare (fraud, cancer, faces), a classifier optimised for overall accuracy will ignore them. There are four complementary responses. <b>Class weights</b> modify the loss so a missed positive costs w times more — set w = N/(2·N<sub>minority</sub>) so the weighted class totals are equal. <b>Oversampling</b> duplicates minority examples; <b>undersampling</b> discards majority examples; SMOTE synthesises new minority points by interpolating between nearest neighbours, avoiding pure duplication. <b>Threshold moving</b> keeps the trained model but lowers the decision threshold until recall reaches the required level.</p>
+      <div class="formula">\[J_{\mathrm{weighted}}=-\sum_i\bigl[w_1 r_i\ln \hat y_i+w_0(1-r_i)\ln(1-\hat y_i)\bigr],\qquad w_c=\frac{N}{2N_c}\]</div>
+      <p><b>Worked:</b> in the 1000-person screening example there are 60 positives and 940 negatives. w₁ = 1000/(2·60) = 8.33 and w₀ = 1000/(2·940) = 0.532. A false negative now costs about 15.7 times as much as a false positive in the weighted loss, pushing the model toward higher recall. Note that weighting changes the effective operating point; report unweighted precision/recall on a natural test distribution to communicate the real-world performance.</p>
+      <div class="def"><b>Critical warning:</b> resampling must be performed <i>inside</i> each training fold. Duplicating or synthesising minority points before splitting leaks near-identical examples into the test fold and produces wildly optimistic scores. Similarly, a synthetic minority point created from a validation example is contamination. The evaluation set must always reflect the natural class distribution.</div>
+      <div class="def"><b>Which metric to optimise?</b> If the cost matrix is known, choose the threshold minimising expected cost = C<sub>FN</sub>·FN + C<sub>FP</sub>·FP. Otherwise optimise F<sub>β</sub> = (1 + β²)PR/(β²P + R), which weights recall β times as heavily as precision (β = 2 for medical screening), or use AUC-PR for ranking under heavy imbalance. Accuracy should never be the sole reported metric on an imbalanced problem.</div>
+      <div class="def"><b>Module 5 in one paragraph:</b> define the confusion matrix; choose a metric matched to the error costs and class balance; plot ROC/PR to understand threshold trade-offs; estimate performance with cross-validation or bootstrap and report uncertainty; control complexity to manage bias and variance; combine models with bagging or boosting when a single learner is unstable; and, in deployment, monitor for drift because a validated model is only valid for the distribution it was validated on.</div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="head"><span class="num">19</span><h2>Learning Curves and the Model-Selection Workflow in Practice</h2><span class="tag">Diagnosing generalisation</span></div>
+    <div class="card full">
+      <p>A learning curve plots training and validation error against the number of training examples (or, alternatively, against training iterations). Its shape tells you which action will help, and this is one of the most reliable exam questions because the answer can be reasoned out rather than memorised.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Curve shape</th><th>Diagnosis</th><th>Helpful actions</th><th>Useless actions</th></tr></thead>
+          <tbody>
+            <tr><td>Both errors high, small gap</td><td>High bias / underfitting</td><td>Add features, raise complexity, reduce regularisation, train longer</td><td>More data, bagging</td></tr>
+            <tr><td>Training low, validation high, gap shrinking with more data</td><td>High variance / overfitting</td><td>More data, regularisation, bagging, simplify</td><td>More features of the same kind</td></tr>
+            <tr><td>Both errors low, tiny gap</td><td>Good fit</td><td>Check test set once; consider deployment drift</td><td>Further tuning on the same data</td></tr>
+            <tr><td>Training error rises late while validation worsens</td><td>Overtraining</td><td>Early stopping, dropout, weight decay</td><td>Increasing epochs</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Worked reading of a curve</h3>
+      <p>At 100 training examples a model scores 8% training error and 26% validation error; at 500 examples it scores 14% training and 18% validation. The gap has closed from 18 points to 4 while the validation error dropped from 26% to 18%. This is a high-variance learner that benefits from data; collecting more examples is the highest-value next step. If instead the numbers were 22%/24% at 100 and 21%/23% at 500, the gap is small but both errors are high — more data will not help; the model is too simple and needs richer features or lower regularisation.</p>
+      <div class="def"><b>Complete model-selection workflow:</b> (1) reserve a test set and never touch it during tuning; (2) choose a metric and an operating threshold from the application's error costs; (3) run nested k-fold CV over model families and hyperparameters; (4) read the learning curves to decide whether to invest in data or in features; (5) refit the selected configuration on all training data; (6) evaluate once on the test set and report the metric with a confidence interval; (7) monitor performance after deployment for covariate or concept drift. Each step corresponds to a distinct marking point in a long-answer question.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">20</span><h2>From Course Concepts to Exam Answers — A Cross-Module Revision Map</h2><span class="tag">Revision aid</span></div>
+    <div class="card full">
+      <p>The five modules are not isolated topics; they are successive answers to the question "how do we learn a mapping from data and trust it?". Revision is faster when you can state the common thread and then specialise.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Recurring question</th><th>Where it appears</th><th>One-line answer</th></tr></thead>
+          <tbody>
+            <tr><td>What are we optimising?</td><td>M1 risk, M2 cost, M3 loss/backprop, M4 objective/likelihood, M5 metrics</td><td>Empirical risk (or likelihood) minus a complexity penalty</td></tr>
+            <tr><td>How do we avoid overfitting?</td><td>M2 Ridge/Lasso, M3 margin/regularisation, M4 pruning/components, M5 CV/ensembles</td><td>Constrain capacity or average many models; choose the knob by CV</td></tr>
+            <tr><td>How do we handle uncertainty?</td><td>M1 Bayes/MLE/MAP, M2 probabilities, M4 latent variables, M5 confidence intervals</td><td>Probabilities and distributions, not single numbers</td></tr>
+            <tr><td>How do we evaluate?</td><td>M2 train/test, M3 margins, M4 silhouette, M5 full metrics</td><td>Held-out data, a metric matched to the task, and an uncertainty estimate</td></tr>
+            <tr><td>What happens with little data?</td><td>M1 priors/semi-supervised, M2 NB, M3 simple models, M5 bootstrap</td><td>Use prior structure, prefer low-variance models, resample for estimates</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Formula sheet to reconstruct from memory:</b> Bayes P(H|D) ∝ P(D|H)P(H); MLE recipes (θ̂ = h/n, λ̂ = x̄, λ̂ = 1/x̄, μ̂ = x̄, σ̂² = Σ(x−x̄)²/n); cost J = (1/2m)Σ(h−y)²; normal equation θ = (XᵀX)⁻¹Xᵀy; sigmoid σ(z) = 1/(1+e<sup>−z</sup>) and cross-entropy; NB argmax P(C)ΠP(xᵢ|C); entropy −Σp log₂p and gain = H(S) − Σ(|Sᵥ|/|S|)H(Sᵥ); perceptron w ← w + η(t−y)x; backprop δ = (y−t)f′(z) and ∂E/∂w = δa; SVM margin 2/‖w‖ and dual with K(xᵢ,xⱼ); k-means J = Σ‖x−μ‖²; PCA covariance eigenvectors and variance fraction; confusion-matrix metrics, F1, AUC, CV error, bias² + variance + noise.</div>
+      <div class="def"><b>Final advice:</b> in every numerical question, show the formula first, substitute numbers on the next line, and state the result with units where applicable. Partial marks are awarded for the method even if the arithmetic slips. In every descriptive question, define the term, give one equation, state an assumption or limitation, and link to another module. This structure works across all five modules and converts recognition into marks.</div>
+    </div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-5.html">← Prev: M5.2 · Ensembles &amp; CV</a>
+    <a class="next" href="exam-guide.html">Next: Exam Techniques →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="question-bank.html">Papers</a></div>
+  </div>
+</footer>
+
+
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

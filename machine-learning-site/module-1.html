@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · ML Paradigms, Bayesian Formulation &amp; Estimation</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+<style>
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:700px;line-height:1.55}
+  .hero .meta-row{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+  .hero .chip{display:inline-block;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-2);border:1px solid var(--line)}
+  .hero .chip.red{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+  @media (max-width:780px){.hero h1{font-size:25px}.hero .lede{font-size:14.5px}}
+  .formula{display:block;background:color-mix(in srgb,var(--ink) 6%,var(--paper));border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 20px;margin:18px 0;overflow-x:auto;color:var(--ink);font-size:15.5px;line-height:1.9;text-align:center;white-space:pre-wrap;-webkit-overflow-scrolling:touch}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
+      <a href="module-1.html" class="active">M1 · Paradigms</a>
+      <a href="module-2.html">M2 · Supervised</a>
+      <a href="module-3.html">M3 · NN &amp; SVM</a>
+      <a href="module-4.html">M4 · Unsupervised</a>
+      <a href="module-5.html">M5 · Classification</a>
+      <a href="exam-guide.html">Exam Techniques</a>
+      <a href="question-bank.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 1 · Overview of Machine Learning · 7 hours · Comprehensive edition</span>
+    <h1>ML Paradigms, Bayesian Thinking &amp; Parameter Estimation</h1>
+    <p class="lede">The complete Module 1: the four learning paradigms, semi-supervised and reinforcement learning, Bayes' theorem with worked diagnostic examples, and the full MLE/MAP derivations for Bernoulli, Poisson, exponential and Gaussian models — with every step of the arithmetic shown.</p>
+    <div class="meta-row">
+      <span class="chip red">Supervised</span>
+      <span class="chip">Unsupervised</span>
+      <span class="chip">Semi-supervised</span>
+      <span class="chip">Reinforcement</span>
+      <span class="chip">Bayes</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What Is Machine Learning?</h2><span class="tag">Definition</span></div>
+    <div class="card full">
+      <p>Machine learning is a branch of artificial intelligence that focuses on developing models and algorithms
+      that let computers <b>learn from data</b> without being explicitly programmed for every task. In simple terms:
+      ML teaches a system to think and understand like a human by learning patterns from examples, rather than
+      following a fixed rule written by a person.</p>
+      <p>That is the core shift: traditional software says <i>"if X then do Y"</i>; machine learning says
+      <i>"here are many examples of X and the correct Y — figure out the rule yourself."</i> The model is the
+      learned rule, and it is <b>trained</b> on data, then used to make predictions or decisions on new, unseen
+      data.</p>
+      <div class="def"><b>Key idea:</b> the system improves with experience (data). The more representative the data,
+      the better the model generalises to situations it has not seen before.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>The Three Core Types of Machine Learning</h2><span class="tag">Paradigms at a glance</span></div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">S</span>Supervised Learning</h3>
+        <p>Trains models on <b>labelled</b> data to predict or classify new, unseen data. Each training example
+        comes with the correct answer (the label), so the model learns a mapping from inputs to outputs.</p>
+        <p class="def" style="margin-top:6px">Sub-types: <b>Classification</b> (predict discrete labels/categories) and
+        <b>Regression</b> (predict continuous numerical values).</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">U</span>Unsupervised Learning</h3>
+        <p>Finds patterns or groups in <b>unlabelled</b> data — there is no "correct answer" provided. The model
+        looks for structure on its own, such as clusters of similar items or ways to reduce many features to a
+        smaller set.</p>
+        <p class="def" style="margin-top:6px">Categories: <b>Clustering</b>, <b>Association Rule Mining</b>,
+        <b>Dimensionality Reduction</b>.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">R</span>Reinforcement Learning</h3>
+        <p>Learns through <b>trial and error</b> to maximise a reward. An agent takes actions in an environment,
+        receives feedback in the form of rewards or penalties, and gradually learns which actions lead to the best
+        long-term outcome.</p>
+        <p class="def" style="margin-top:6px">Ideal for <b>decision-making</b> tasks — e.g. game playing, robotics,
+        resource scheduling — where there is no fixed labelled dataset, just interaction and feedback.</p>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>Data used</th><th>Goal</th><th>Typical example</th></tr></thead>
+        <tbody>
+          <tr><td>Supervised</td><td>Labelled (input + correct output)</td><td>Learn input→output mapping</td><td>Predict house price; classify email as spam</td></tr>
+          <tr><td>Unsupervised</td><td>Unlabelled (input only)</td><td>Find hidden structure</td><td>Group customers by behaviour; reduce features</td></tr>
+          <tr><td>Reinforcement</td><td>Rewards from environment</td><td>Learn action policy to maximise reward</td><td>Learn to play a game; robot navigation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Unsupervised Learning — Three Categories</h2><span class="tag">Structure without labels</span></div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">C</span>Clustering</h3>
+        <p>Groups similar data points together so that items in the same group (cluster) are more alike than items
+        in other groups. There is no "correct" label — the grouping emerges from the data itself.</p>
+        <p class="def" style="margin-top:6px">Example: grouping customers by purchasing behaviour, or grouping
+        documents by topic. Common algorithms: k-means, hierarchical clustering, EM.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">A</span>Association Rule Mining</h3>
+        <p>Discovers <b>rules</b> that describe how items tend to appear together in data. An association rule says
+        "if X happens, Y tends to happen too" — useful for finding co-occurrence patterns.</p>
+        <p class="def" style="margin-top:6px">Classic example: market-basket analysis — "customers who buy bread
+        often also buy butter." Metrics: support, confidence, lift.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">D</span>Dimensionality Reduction</h3>
+        <p>Reduces the number of features (dimensions) in a dataset while trying to preserve the important
+        information. High-dimensional data is hard to work with and often contains redundant or correlated
+        features.</p>
+        <p class="def" style="margin-top:6px">Helps with visualisation, speed, and avoiding overfitting.
+        Example: Principal Component Analysis (PCA) — covered in detail in Module 4.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Reinforcement Learning — Learning by Reward</h2><span class="tag">Interaction + feedback</span></div>
+    <div class="card full">
+      <p>Reinforcement learning (RL) is different from supervised and unsupervised learning because it learns from
+      <b>interaction</b>. An <b>agent</b> acts in an <b>environment</b>, and after each action it receives a
+      <b>reward</b> (or penalty) — a numerical signal that tells it how good that action was.</p>
+      <p>The agent's goal is not to maximise the immediate reward, but the <b>cumulative</b> reward over time. This
+      makes RL suited to problems where a short-term sacrifice can lead to a better long-term outcome — exactly the
+      kind of sequential decision-making that shows up in games, robotics, and control systems.</p>
+      <div class="def"><b>Contrast with supervised learning:</b> in supervised learning you are given the correct
+      answer for each example. In RL you are given a reward signal that tells you how well you did, but not
+      necessarily the one best action. The agent must <b>explore</b> (try new actions) and <b>exploit</b> (use what
+      it already knows works) to learn the best policy.</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Aspect</th><th>Supervised</th><th>Reinforcement</th></tr></thead>
+          <tbody>
+            <tr><td>Feedback</td><td>Correct label for each example</td><td>Reward signal (not the "right" action)</td></tr>
+            <tr><td>Data source</td><td>Fixed labelled dataset</td><td>Interaction with environment over time</td></tr>
+            <tr><td>Goal</td><td>Predict/classify correctly</td><td>Learn a policy to maximise cumulative reward</td></tr>
+            <tr><td>Typical use</td><td>Classification, regression</td><td>Games, robotics, sequential decisions</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Semi-Supervised Learning</h2><span class="tag">Between the two</span></div>
+    <div class="card full">
+      <p>Semi-supervised learning sits between supervised and unsupervised learning. It uses a <b>mix of labelled
+      and unlabelled data</b> — typically a small amount of labelled data together with a much larger amount of
+      unlabelled data.</p>
+      <p>This is useful precisely because <b>labelling data is costly or limited</b>. Getting labels often requires
+      a human expert (e.g. a doctor labelling medical images, or someone transcribing speech), which is slow and
+      expensive. Meanwhile, raw unlabelled data (images, text, sensor readings) is often abundant and cheap.</p>
+      <div class="def"><b>Why it matters:</b> semi-supervised learning tries to get the benefit of labelled data
+      (the supervision) while also exploiting the structure in the large unlabelled set (the unsupervised part) to
+      improve the model. It is a practical answer to the real-world situation where labels are the bottleneck.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Bayesian Formulation — Thinking in Probabilities</h2><span class="tag">Uncertainty</span></div>
+    <div class="card full">
+      <p>The Bayesian formulation is the probabilistic way of thinking about learning. <b>Bayes' theorem</b>
+      explains how to update the probability of a hypothesis when new evidence is observed. In machine learning,
+      the "hypothesis" is often the model or the model's parameters, and the "evidence" is the data we observe.</p>
+      <p>At its heart, Bayesian learning combines <b>prior knowledge</b> with <b>observed data</b> to make better
+      decisions under uncertainty. Rather than producing a single fixed answer, it works with probabilities — how
+      likely a hypothesis is, given what we knew before and what we have now seen.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>What Bayesian formulation gives</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Handles uncertainty and noisy data effectively</td><td>Real data is rarely perfect; the Bayesian view quantifies rather than ignores uncertainty</td></tr>
+            <tr><td>Supports probabilistic interpretation of predictions</td><td>Instead of just "yes/no," the model can say how confident it is — essential for risk analysis and diagnosis</td></tr>
+            <tr><td>Enables learning even with limited data</td><td>By bringing in a prior (what we believe before seeing the data), useful learning is possible even when data is scarce</td></tr>
+            <tr><td>Key role in risk analysis and diagnosis</td><td>Probabilities are the natural language for "how likely is this diagnosis / failure / risk?"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Simple intuition:</b> Bayes' theorem is the mathematics of "updating your belief." You start
+      with a prior belief, see some evidence, and end with a posterior belief that combines both. In ML, this is the
+      foundation for methods like Bayesian learning and the MAP estimate.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Mathematical Formulation of Bayes' Theorem</h2><span class="tag">The formula</span></div>
+    <div class="card full">
+      <p>Bayes' theorem relates conditional probabilities. In the context of machine learning it is usually written
+      as:</p>
+      <p style="text-align:center;font-size:16px;font-weight:700;margin:14px 0;color:var(--accent-ink)">P(H | D) = P(D | H) · P(H) / P(D)</p>
+      <div class="stack" style="margin-top:6px">
+        <div class="card">
+          <h3><span class="idx">P(H | D)</span>Posterior</h3>
+          <p>The probability of the hypothesis <b>H</b> after observing the data <b>D</b>. This is what we want to
+          compute — our updated belief after seeing the evidence.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">P(D | H)</span>Likelihood</h3>
+          <p>The probability of observing the data <b>D</b> if the hypothesis <b>H</b> were true. It measures how
+          well the hypothesis explains the data.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">P(H)</span>Prior</h3>
+          <p>The probability of the hypothesis <b>before</b> seeing the data — our initial belief, based on prior
+          knowledge or assumptions.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">P(D)</span>Evidence</h3>
+          <p>The probability of the data overall. It acts as a normalising constant so the posterior sums to 1. In
+          many ML settings it does not depend on the hypothesis and can be treated as a constant.</p>
+        </div>
+      </div>
+      <div class="def"><b>Reading it in words:</b> the posterior (updated belief) is proportional to the likelihood
+      (how well the hypothesis fits the data) times the prior (what we believed before). Bayes' theorem gives the
+      exact way to combine them.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Connecting the Paradigms to Estimation</h2><span class="tag">Why this matters for M2</span></div>
+    <div class="card full">
+      <p>The paradigms on this page are the <b>what</b>; parameter estimation (covered in the next module) is the
+      <b>how</b> for the supervised and Bayesian parts. In particular:</p>
+      <ul>
+        <li><b>Supervised learning</b> needs a way to fit a model to labelled data — that is estimation: given data,
+        find the parameters (weights, probabilities, tree splits) that best explain it.</li>
+        <li><b>Maximum Likelihood Estimation (MLE)</b> asks: which parameter values make the observed data most
+          probable? It is a core, general method for fitting models.</li>
+        <li><b>Maximum A Posteriori (MAP)</b> extends MLE by including a prior — it is the Bayesian version,
+          combining the data (likelihood) with prior belief (prior) to get the most probable parameters.</li>
+        <li><b>The Bayesian formulation</b> is the bigger picture: learning as reasoning about probabilities of
+          hypotheses and parameters given data.</li>
+      </ul>
+      <div class="def"><b>Bridge to Module 2:</b> the next module takes these ideas and works them out concretely —
+      MLE for specific distributions (binomial, Poisson, exponential, normal), MAP with priors, and the point vs.
+      interval estimation distinction. If the paradigms here feel abstract, the worked examples in Module 2 are
+      where they become concrete.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>MLE &amp; MAP — Worked Example (Coin Toss)</h2><span class="tag">From the handwritten notes / CO questions</span></div>
+    <div class="card full">
+      <p><b>MLE</b> finds the parameter values that maximise the probability of the observed data. <b>MAP</b> additionally multiplies by a prior and maximises the posterior.</p>
+      <div class="qbox">
+        <h4>Posterior (Bayes)</h4>
+        <p class="eq">\[P(\theta \mid D) = \frac{P(D \mid \theta)\,P(\theta)}{P(D)}\]</p>
+        <h4>Estimators</h4>
+        <p class="eq">\[\hat{\theta}_{\text{MLE}}=\arg\max_{\theta}P(D\mid\theta)\cdot\hat{\theta}_{\text{MAP}}=\arg\max_{\theta}P(\theta\mid D)=\arg\max_{\theta}P(D\mid\theta)\,P(\theta)\]</p>
+      </div>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">10</span><h2>Setup &amp; the Recipe</h2><span class="tag">Method</span></div>
+    <div class="card full">
+      <p>Given i.i.d. samples x₁…xₙ from a distribution with parameter θ, the <b>likelihood</b> is the joint density
+      viewed as a function of θ:</p>
+      <div class="eq">\[L(\theta)=P(D\mid\theta)=\prod_{i=1}^{n}p(x_i\mid\theta)\]</div>
+      <p>The <b>MLE</b> maximizes it; in practice we maximize the easier log-likelihood:</p>
+      <div class="eq">\[\ell(\theta)=\sum_i\ln p(x_i\mid\theta),\quad\hat{\theta}_{\text{MLE}}=\arg\max_{\theta}\ell(\theta)\]</div>
+      <div class="def"><b>Recipe (every derivation below):</b> ① write p(x|θ); ② take ln; ③ differentiate w.r.t. θ;
+      ④ set = 0; ⑤ solve. Derivatives of sums turn products into clean linear equations.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">11</span><h2>Poisson (count data)</h2><span class="tag">Derivation</span></div>
+    <div class="card full">
+      <p>For counts with rate λ &gt; 0, p(x|λ) = e<sup>−λ</sup> λ<sup>x</sup> / x!. Log-likelihood:</p>
+      <div class="eq">\[\ell(\lambda)=\sum\bigl[-\lambda+x_i\ln\lambda-\ln(x_i!)\bigr]=-n\lambda+\bigl(\sum x_i\bigr)\ln\lambda+\text{const}\]</div>
+      <p>dℓ/dλ = −n + (Σx<sub>i</sub>)/λ = 0 &nbsp;⟹&nbsp; <b>λ̂ = (1/n) Σ x<sub>i</sub> = x̄</b>.</p>
+      <p><b>Worked:</b> events per hour observed as 3, 5, 4, 6, 2 → x̄ = 20/5 = 4 → λ̂ = 4 events/hour.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">12</span><h2>Exponential (waiting times)</h2><span class="tag">Derivation</span></div>
+    <div class="card full">
+      <p>For positive waiting times with rate λ &gt; 0, p(x|λ) = λ e<sup>−λx</sup>. Log-likelihood:</p>
+      <div class="eq">\[\ell(\lambda)=n\ln\lambda-\lambda\sum x_i\]</div>
+      <p>dℓ/dλ = n/λ − Σx<sub>i</sub> = 0 &nbsp;⟹&nbsp; <b>λ̂ = n / Σ x<sub>i</sub> = 1 / x̄</b>.</p>
+      <p><b>Worked:</b> mean waiting time x̄ = 5 min → λ̂ = 1/5 = 0.2 per minute. (Note: for exponential, the MLE of λ
+      is the reciprocal of the sample mean — the opposite of Poisson.)</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">13</span><h2>Gaussian / Normal (two parameters)</h2><span class="tag">Derivation</span></div>
+    <div class="card full">
+      <p>For N(μ, σ²), p(x) = (1/√(2πσ²)) e<sup>−(x−μ)²/(2σ²)</sup>. Log-likelihood (dropping constants):</p>
+      <div class="eq">\[\ell(\mu,\sigma^{2})=-\frac{n}{2}\ln\sigma^{2}-\frac{1}{2\sigma^{2}}\sum(x_i-\mu)^{2}\]</div>
+      <p>Differentiate w.r.t. μ, then w.r.t. σ²:</p>
+      <div class="eq">\[\frac{\partial\ell}{\partial\mu}=\frac{1}{\sigma^{2}}\sum(x_i-\mu)=0\;\Longrightarrow\;\hat{\mu}=\bar{x}=\frac{1}{n}\sum x_i\]</div>
+      <div class="eq">\[\frac{\partial\ell}{\partial\sigma^{2}}=-\frac{n}{2\sigma^{2}}+\frac{1}{2\sigma^{4}}\sum(x_i-\mu)^{2}=0\;\Longrightarrow\;\hat{\sigma}^{2}=\frac{1}{n}\sum(x_i-\bar{x})^{2}\]</div>
+      <p><b>Worked:</b> samples 2, 4, 6, 8 → x̄ = 5; σ̂² = [(−3)²+(−1)²+1²+3²]/4 = 20/4 = 5. So the MLE is the
+      <b>sample mean</b> and the <b>sample variance (dividing by n)</b>.</p>
+      <div class="def"><b>MLE vs unbiased variance:</b> the MLE uses 1/n (biased); the usual "unbiased" estimator uses
+      1/(n−1). The syllabus MLE result is the 1/n form — know both and which is which.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">14</span><h2>MAP — Adding a Prior</h2><span class="tag">Contrast</span></div>
+    <div class="card full">
+      <p>MAP maximizes the posterior instead of just the likelihood:</p>
+      <div class="eq">\[\hat{\theta}_{\text{MAP}}=\arg\max_{\theta}\bigl[\ell(\theta)+\ln P(\theta)\bigr]\]</div>
+      <p>The prior P(θ) acts as a regularizer. With a <b>Gaussian prior</b> on μ, N(μ₀, τ²), the MAP mean becomes a
+      shrinkage estimate:</p>
+      <div class="eq">\[\hat{\mu}_{\text{MAP}}=\frac{\sum x_i/\sigma^{2}+\mu_{0}/\tau^{2}}{n/\sigma^{2}+1/\tau^{2}}\]</div>
+      <p>As the prior tightens (τ²→0) μ̂→μ₀; as data grows (n→∞) μ̂→x̄ — the prior loses influence. This is exactly the
+      role of regularization in regression (M2).</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Distribution</th><th>MLE</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Bernoulli</td><td>θ̂ = h/n</td><td>empirical frequency</td></tr>
+            <tr><td>Poisson</td><td>λ̂ = x̄</td><td>mean count</td></tr>
+            <tr><td>Exponential</td><td>λ̂ = 1/x̄</td><td>reciprocal mean</td></tr>
+            <tr><td>Gaussian</td><td>μ̂ = x̄, σ̂² = (1/n)Σ(x−x̄)²</td><td>sample mean / variance</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="head"><span class="num">15</span><h2>Bias of Estimators</h2><span class="tag">Note</span></div>
+      <div class="card full">
+        <p>A good estimator should be <b>consistent</b> (converges to the truth as n→∞) and, ideally, <b>unbiased</b>. The MLE mean μ̂ = x̄ is unbiased: E[x̄] = μ. But the MLE variance σ̂² = (1/n)Σ(x−x̄)² is <b>slightly biased</b> — its expectation is (n−1)/n · σ², so it underestimates σ². The usual fix is the <b>unbiased sample variance</b> s² = (1/(n−1))Σ(x−x̄)². This is the only place MLE and the "textbook" variance differ; everything else (means, rates, λ) is unbiased. (Bias–variance of <i>predictors</i> is covered in M5.)</p>
+      </div>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">16</span><h2>The Formal Learning Setup — What Is Being Learned?</h2><span class="tag">Foundations</span></div>
+    <div class="card full">
+      <p>The informal definition of machine learning ("learning from data without being explicitly programmed") becomes precise once we name four objects. Every algorithm in this course — a Naive Bayes classifier, a linear regression, an SVM, a k-means clustering — is an instance of the same skeleton.</p>
+      <ul>
+        <li><b>Instance space X</b> — the set of all possible inputs (a feature vector x ∈ ℝᵈ, an image, an email).</li>
+        <li><b>Output space Y</b> — the set of possible answers: ℝ for regression, {0, 1} or {C₁ … Cₖ} for classification.</li>
+        <li><b>Hypothesis class H</b> — the family of functions we are willing to search: lines h(x) = w·x + b, trees, networks, hyperplanes.</li>
+        <li><b>Loss function L(y, h(x))</b> — the price paid for predicting h(x) when the truth is y. Learning is the search for the h ∈ H with the smallest expected loss.</li>
+      </ul>
+      <div class="formula">\[R(h)=\mathbb{E}_{(x,y)\sim P}\bigl[L(y,h(x))\bigr]\qquad \hat h=\arg\min_{h\in\mathcal H}\; \hat R(h),\quad \hat R(h)=\frac{1}{n}\sum_{i=1}^{n}L(y_i,h(x_i))\]</div>
+      <p>R(h) is the <b>true risk</b>; R̂(h) is the <b>empirical risk</b> computed on the sample. The whole of supervised learning rests on the hope that the two are close — that a model which does well on the data we have will also do well on data we do not have. That hope is formalised by the law of large numbers and, more sharply, by concentration inequalities: for a finite hypothesis class, with probability at least 1 − δ,</p>
+      <div class="formula">\[R(h)\;\le\;\hat R(h)+\sqrt{\frac{\ln|\mathcal H|+\ln(1/\delta)}{2n}}\]</div>
+      <p>The extra term is the <b>generalisation gap</b>. It shrinks as n grows, which is the mathematical reason more data helps, and it grows with |H|, which is the mathematical reason overly flexible models overfit. Keep this inequality in mind whenever an examiner asks "why does regularisation / more data / a simpler model help?" — all three are ways of controlling the two quantities in the square root.</p>
+      <div class="def"><b>Three losses you must recognise:</b> squared loss L = (y − h(x))² for regression; 0–1 loss L = 1[h(x) ≠ y] for classification; cross-entropy L = −y log h(x) − (1 − y) log(1 − h(x)) for probabilistic classification. Squared error and cross-entropy are smooth and differentiable; 0–1 loss is not, which is why we optimise surrogates instead of accuracy directly.</div>
+      <div class="def"><b>Exam writing tip:</b> when asked "what is machine learning?", do not stop at the slogan. Write the four objects (X, Y, H, L), the empirical-risk formula, and one sentence on the generalisation gap. That converts a 2-mark definition into a 5-mark answer.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">17</span><h2>Supervised Learning in Detail — Labels, Noise and the Two Tasks</h2><span class="tag">Paradigm 1</span></div>
+    <div class="card full">
+      <p>Supervised learning means the training set is <b>labelled</b>: we are given pairs (xᵢ, yᵢ), i = 1 … n, drawn from an unknown joint distribution P(X, Y). The goal is a function h that, given a new x, predicts y. The word "supervised" refers to the presence of the correct answer y — the teacher's signal that tells the learner when it is wrong.</p>
+      <p>The signal is rarely perfect. Real labels contain <b>noise</b>: a radiologist may disagree with another on a borderline scan, a user may click an ad by accident. We model this as y = f(x) + ε where ε is random. This noise places a floor on achievable error — the <b>Bayes error rate</b> — and is the "irreducible error" that reappears in the bias–variance decomposition of Module 5.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Aspect</th><th>Regression</th><th>Classification</th></tr></thead>
+          <tbody>
+            <tr><td>Output space</td><td>Y = ℝ (continuous)</td><td>Y = {c₁ … cₖ} (discrete)</td></tr>
+            <tr><td>Example</td><td>House price, temperature, demand</td><td>Spam / ham, digit 0–9, diagnosis</td></tr>
+            <tr><td>Standard loss</td><td>Squared error (y − ŷ)²</td><td>0–1 or cross-entropy</td></tr>
+            <tr><td>Decision rule</td><td>Output the number ŷ directly</td><td>Score each class, take the maximum</td></tr>
+            <tr><td>Bayes-optimal predictor</td><td>E[Y | x] (conditional mean)</td><td>argmax_c P(Y = c | x)</td></tr>
+            <tr><td>Module where it is developed</td><td>Module 2, sections on linear regression</td><td>Modules 2, 3, 5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="formula">\[\text{Regression target: } f^*(x)=\mathbb{E}[Y\mid x]\qquad \text{Classification target: } f^*(x)=\arg\max_c P(Y=c\mid x)\]</div>
+      <p>These two identities are worth memorising because they explain the choice of loss. The conditional mean minimises expected squared error (a quick derivation: differentiate E[(Y − a)²] with respect to a and set to zero, giving a = E[Y]). The most probable class minimises expected 0–1 loss. When a classifier outputs a probability p̂(x) rather than a bare label, <b>calibration</b> asks whether p̂ really equals the true P(Y = 1 | x); a model can rank cases perfectly yet be badly calibrated, which is why ROC/AUC and Brier score answer different questions.</p>
+      <div class="def"><b>Assumption to state explicitly:</b> supervised learning assumes training and test data are drawn from the <i>same</i> distribution (the i.i.d. assumption). If the world changes between training and deployment — <b>covariate shift</b> or <b>concept drift</b> — even a model with tiny training error can fail. Whenever an exam asks for "assumptions / limitations", this is a high-value sentence.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">18</span><h2>Unsupervised Learning in Detail — Objectives, Association Rules, Reduction</h2><span class="tag">Paradigm 2</span></div>
+    <div class="card full">
+      <p>Unsupervised learning receives only x — no y. Since there is no external "correct answer" to optimise against, we must define an internal notion of what counts as a good structure. Every unsupervised algorithm is therefore <b>an objective function plus a search procedure</b>, and the objective encodes our subjective idea of what "structure" means.</p>
+      <div class="formula">\[\text{k-means: } J=\sum_{k=1}^{K}\sum_{x_i\in C_k}\lVert x_i-\mu_k\rVert^{2}\qquad \text{GMM/EM: } \max_\theta\prod_{i=1}^{n}\sum_{k=1}^{K}\pi_k\,\mathcal N(x_i\mid\mu_k,\Sigma_k)\]</div>
+      <p>The first objective rewards tight, spherical groups measured by squared distance; the second rewards data that is likely under a mixture of Gaussians. Change the objective and you change what the algorithm "discovers" — this is why the choice of similarity measure in Module 4 matters so much.</p>
+      <h3>Association rules — the metrics worked out</h3>
+      <p>An association rule has the form X ⇒ Y, read "if a transaction contains itemset X it tends also to contain Y". Given N transactions, the three standard metrics are:</p>
+      <div class="formula">\[\operatorname{supp}(X\Rightarrow Y)=\frac{\#(X\cup Y)}{N},\qquad \operatorname{conf}(X\Rightarrow Y)=\frac{\#(X\cup Y)}{\#(X)},\qquad \operatorname{lift}=\frac{\operatorname{conf}(X\Rightarrow Y)}{P(Y)}=\frac{P(Y\mid X)}{P(Y)}\]</div>
+      <p><b>Worked example.</b> In N = 1000 transactions, bread appears 300 times, butter 200 times, and both appear 120 times. Then support(bread ⇒ butter) = 120/1000 = 0.12 (12% of all baskets contain both); confidence = 120/300 = 0.40 (40% of bread buyers also buy butter); lift = 0.40 / (200/1000) = 0.40 / 0.20 = <b>2.0</b>. A lift of 2 means buying bread doubles the tendency to buy butter relative to the baseline — a genuine association. Lift = 1 means independence; lift &lt; 1 means the items actually discourage each other. Confidence alone can mislead: if butter were in 90% of baskets, a confidence of 0.9 might simply reflect a popular item, and lift would reveal that.</p>
+      <div class="def"><b>Edge cases for association rules:</b> very low support rules are usually noise and are discarded with a <i>minimum support</i> threshold; the number of candidate itemsets grows exponentially (2ᵈ for d items), which is why Apriori uses the downward-closure property — any frequent itemset must have all of its subsets frequent. Rare-item rules with high confidence are often artefacts of a tiny denominator, so always report support alongside confidence.</div>
+      <h3>Dimensionality reduction — the geometry</h3>
+      <p>If d features are highly correlated, the data effectively lives on a lower-dimensional surface embedded in ℝᵈ. Principal Component Analysis (Module 4) finds the directions of largest variance and projects onto them; the projection keeps the geometry that matters and discards the redundancy. Formally, with centred data matrix X (n × d) and covariance S = XᵀX/(n − 1), PCA solves</p>
+      <div class="formula">\[\max_{\lVert w\rVert=1} w^{T}Sw \quad\Longrightarrow\quad Sw=\lambda w\]</div>
+      <p>so the optimal directions are eigenvectors of S and the variance captured by each is the corresponding eigenvalue. This is a clean example of the "objective + search" pattern: the objective is variance retained, the search is eigendecomposition.</p>
+      <div class="def"><b>Exam writing tip:</b> for "explain unsupervised learning", give one concrete objective for each family (within-cluster sum of squares for k-means, likelihood for EM, variance for PCA, support/confidence/lift for association rules). That shows you know these are not just informal ideas but well-defined optimisation problems.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">19</span><h2>Semi-Supervised Learning — Assumptions, Algorithms and a Worked Trace</h2><span class="tag">Paradigm 3</span></div>
+    <div class="card full">
+      <p>Let the labelled set be L = {(xᵢ, yᵢ)}ᵢ₌₁ⁿ with n small, and the unlabelled set U = {xⱼ}ⱼ₌₁ᵐ with m ≫ n. Semi-supervised learning trains on both. It can only work because of an extra assumption linking the unlabelled points to the labels — without such an assumption, no algorithm can beat chance when labels are scarce. The three classical assumptions are:</p>
+      <ul>
+        <li><b>Smoothness assumption:</b> points that are close in input space are likely to share a label.</li>
+        <li><b>Cluster assumption:</b> points in the same cluster are likely to share a label (decision boundaries should lie in low-density regions).</li>
+        <li><b>Manifold assumption:</b> high-dimensional data lies on a low-dimensional manifold; distance along the manifold is more meaningful than Euclidean distance.</li>
+      </ul>
+      <p><b>Self-training (self-labelling)</b> is the simplest algorithm. Train a classifier on L; use it to predict pseudo-labels for U; add the most confident unlabelled points (with their pseudo-labels) to L; retrain; repeat.</p>
+      <pre><code>input: labelled L, unlabelled U, confidence threshold τ, rounds T
+for t = 1 .. T:
+    fit classifier h on L
+    for each x in U:
+        p = h(x)
+        if max_c p(c|x) &gt;= τ: add (x, argmax_c p(c|x)) to L; remove x from U
+    if no point added: break
+return h</code></pre>
+      <div class="def"><b>Worked trace.</b> Suppose L has 2 labelled documents (one spam, one ham) and U has 1000 unlabelled emails. The first classifier is weak, but suppose it predicts spam with confidence 0.97 for 20 emails containing an unusual word cluster. With τ = 0.95 those 20 enter L, and the second classifier now has 22 labelled examples. If the assumption holds (that word cluster really is spam), accuracy climbs; if the cluster was a harmless newsletter, the error is amplified — this is <b>confirmation bias</b>, the central failure mode of self-training. Use a high threshold and keep the original labels untouched.</div>
+      <p>Two more principled variants: <b>co-training</b> assumes two conditionally independent feature views (e.g. page text and anchor text); each view's classifier labels confident points for the other. <b>Graph-based label propagation</b> builds a similarity graph over L ∪ U and lets labels diffuse along edges, solving</p>
+      <div class="formula">\[F^{*}=\arg\min_{F}\;\frac{1}{2}\sum_{i,j}w_{ij}(F_i-F_j)^{2}+\mu\sum_{i\in L}\ell(F_i,y_i)\]</div>
+      <p>where the first term enforces smoothness over the graph and the second keeps the fit anchored to the real labels. Setting Fᵢ = yᵢ for labelled nodes gives the harmonic solution; energy minimises when each unlabelled node's label estimate is the weighted average of its neighbours — a discrete Laplace equation.</p>
+      <div class="def"><b>When semi-supervised helps / hurts:</b> it helps when unlabelled data is abundant, labels are expensive (medical imaging, speech transcription), and the cluster/smoothness assumptions genuinely hold. It hurts when the unlabelled set has a different distribution, contains outliers that create misleading clusters, or when a wrong pseudo-label is confidently reinforced. Always validate on a held-out <i>labelled</i> set.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">20</span><h2>Reinforcement Learning — MDPs, Bellman Equations and Q-Learning</h2><span class="tag">Paradigm 4</span></div>
+    <div class="card full">
+      <p>Reinforcement learning formalises learning from interaction. The environment is a <b>Markov Decision Process</b>, a five-tuple (S, A, P, R, γ):</p>
+      <ul>
+        <li>S — set of states; A — set of actions;</li>
+        <li>P(s′ | s, a) — transition probability (the Markov property: the future depends only on the current state and action);</li>
+        <li>R(s, a, s′) — expected immediate reward;</li>
+        <li>γ ∈ [0, 1) — discount factor that trades present against future reward.</li>
+      </ul>
+      <p>The <b>return</b> from time t is the discounted sum Gₜ = Σₖ₌₀∞ γᵏ rₜ₊ₖ₊₁. A <b>policy</b> π(a | s) maps states to action probabilities. The state-value and action-value functions are</p>
+      <div class="formula">\[V^{\pi}(s)=\mathbb{E}_{\pi}\bigl[G_t\mid s_t=s\bigr],\qquad Q^{\pi}(s,a)=\mathbb{E}_{\pi}\bigl[G_t\mid s_t=s,a_t=a\bigr]\]</div>
+      <p>Applying the law of total expectation to the first reward and the continuation value gives the <b>Bellman expectation equations</b>:</p>
+      <div class="formula">\[V^{\pi}(s)=\sum_a \pi(a\mid s)\sum_{s'}P(s'\mid s,a)\bigl[R(s,a,s')+\gamma V^{\pi}(s')\bigr]\]</div>
+      <div class="formula">\[Q^{*}(s,a)=\mathbb{E}_{s'}\Bigl[R(s,a,s')+\gamma\max_{a'}Q^{*}(s',a')\Bigr]\qquad\text{(Bellman optimality for Q)}\]</div>
+      <p><b>Q-learning</b> turns the optimality equation into a stochastic, model-free update. After observing (s, a, r, s′):</p>
+      <div class="formula">\[Q(s,a)\;\leftarrow\;Q(s,a)+\alpha\Bigl[\underbrace{r+\gamma\max_{a'}Q(s',a')}_{\text{target}}\;-\;Q(s,a)\Bigr]\]</div>
+      <p>The bracket is the <b>temporal-difference error</b>: the difference between the new estimate and the old one. α is the learning rate. Notice the structural similarity to the perceptron and to logistic-regression updates seen later: <i>new = old + learning-rate × (target − current)</i>. All three are instances of stochastic approximation.</p>
+      <h3>Worked Q-value update</h3>
+      <p>Two states, s₁ and s₂. From s₁, action a₁ gives r = 2 and lands in s₂; from s₂, action a₂ gives r = 5 and terminates. Let γ = 0.8, α = 0.5, and initialise all Q = 0. First update the terminal transition: Q(s₂, a₂) ← 0 + 0.5[5 + 0.8·0 − 0] = <b>2.5</b>. Then the s₁ transition: Q(s₁, a₁) ← 0 + 0.5[2 + 0.8·max(2.5, 0) − 0] = 0.5[2 + 2.0] = <b>2.0</b>. Repeating these updates with many samples drives Q toward the true discounted returns; the greedy policy then picks the action with the largest Q.</p>
+      <div class="def"><b>Exploration vs exploitation:</b> always taking the current best action (<i>exploitation</i>) can lock the agent into a suboptimal policy because untried actions may be better. ε-greedy chooses a random action with probability ε and the greedy action otherwise. Decaying ε from, say, 1.0 to 0.05 explores early and exploits later. This is the RL counterpart of the bias–variance trade-off: exploration reduces the bias caused by insufficient experience; exploitation reduces the variance of the learned policy.</div>
+      <div class="def"><b>How RL differs from supervised learning — exam version:</b> supervised learning receives the correct output for every example and is given a fixed dataset; RL receives only a scalar reward, often delayed, and the data is generated by the agent's own actions (the training distribution depends on the current policy). This is why RL must handle credit assignment and exploration, and why it is used for sequential decisions (games, robotics, scheduling) rather than one-shot prediction.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">21</span><h2>Bayes' Theorem — Full Derivation and a Worked Diagnostic Test</h2><span class="tag">Probability engine</span></div>
+    <div class="card full">
+      <p>Bayes' theorem is not a separate assumption; it is an algebraic rearrangement of the definition of conditional probability. From P(A | B) = P(A ∩ B)/P(B) we get P(A ∩ B) = P(A | B)P(B); swapping A and B gives P(B ∩ A) = P(B | A)P(A). Equating the two expressions for the same joint probability yields</p>
+      <div class="formula">\[P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)},\qquad P(B)=\sum_j P(B\mid A_j)P(A_j)\quad\text{(law of total probability)}\]</div>
+      <p>Substituting the second line into the first gives the form used all semester, with the hypothesis H and data D:</p>
+      <div class="formula">\[P(H\mid D)=\frac{P(D\mid H)\,P(H)}{\sum_{h'}P(D\mid h')P(h')}\;\propto\;P(D\mid H)\,P(H)\]</div>
+      <p>The denominator does not depend on H, so when we only need to <i>compare</i> hypotheses we can drop it and work with the unnormalised product likelihood × prior. This single observation is why Naive Bayes (Module 2) and MAP estimation need no evidence term.</p>
+      <h3>Worked example — a medical screening test</h3>
+      <p>A disease has prevalence P(D⁺) = 0.01. A test has sensitivity P(T⁺ | D⁺) = 0.99 and specificity P(T⁻ | D⁻) = 0.95, so the false-positive rate is P(T⁺ | D⁻) = 0.05. A patient tests positive. What is P(diseased | positive)?</p>
+      <div class="formula">\[P(T^{+})=0.99(0.01)+0.05(0.99)=0.0099+0.0495=0.0594\]</div>
+      <div class="formula">\[P(D^{+}\mid T^{+})=\frac{0.0099}{0.0594}=0.1\overline{6}\approx 16.7\%\]</div>
+      <p>Despite a "99% accurate" test, a positive result implies only about a one-in-six chance of disease. The reason is the tiny prior: false positives from the 99% healthy population (4.95% of all people) vastly outnumber true positives from the 1% diseased population (0.99%). This is the <b>base-rate fallacy</b>, and it is the single most important intuition to carry into Bayesian classification.</p>
+      <div class="def"><b>Repeat with a second independent positive test:</b> treat the posterior 0.1667 as the new prior. P(T⁺ | D⁺) = 0.99, P(T⁺ | D⁻) = 0.05, so the new posterior is 0.99·0.1667 / [0.99·0.1667 + 0.05·0.8333] = 0.165 / (0.165 + 0.0417) ≈ 0.798. Two positives push belief to about 80%. Bayes updating is sequential: today's posterior is tomorrow's prior.</div>
+      <div class="def"><b>Connection to classification and evaluation (Module 5):</b> sensitivity is recall/TPR, specificity is 1 − FPR, and PPV (positive predictive value) is precision. The calculation above is exactly the relationship between precision, recall, prevalence and false-positive rate. When an examiner links Bayes' theorem to the confusion matrix, this is the bridge.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">22</span><h2>MLE Derivation Recipes — Bernoulli, Binomial and the Shape of Likelihood</h2><span class="tag">Worked estimation</span></div>
+    <div class="card full">
+      <p>The likelihood principle says: given data, prefer the parameter value under which that data was most probable. Formally L(θ) = Πᵢ p(xᵢ | θ) for i.i.d. observations, and the MLE is θ̂ = argmax L(θ). Maximising L is equivalent to maximising ℓ(θ) = log L(θ) because log is strictly increasing; the log converts products into sums and powers into coefficients, which is what makes the derivatives tractable.</p>
+      <h3>Bernoulli / binomial — full derivation</h3>
+      <p>A coin comes up heads with probability θ. Code heads as x = 1, tails as x = 0, so p(x | θ) = θˣ(1 − θ)¹⁻ˣ. For n independent tosses with h heads and n − h tails:</p>
+      <div class="formula">\[L(\theta)=\binom{n}{h}\theta^{h}(1-\theta)^{n-h},\qquad \ell(\theta)=\text{const}+h\ln\theta+(n-h)\ln(1-\theta)\]</div>
+      <div class="formula">\[\frac{d\ell}{d\theta}=\frac{h}{\theta}-\frac{n-h}{1-\theta}=0\;\Longrightarrow\;h(1-\theta)=(n-h)\theta\;\Longrightarrow\;h=n\theta\;\Longrightarrow\;\hat\theta_{\mathrm{MLE}}=\frac{h}{n}\]</div>
+      <div class="formula">\[\frac{d^{2}\ell}{d\theta^{2}}=-\frac{h}{\theta^{2}}-\frac{n-h}{(1-\theta)^{2}}&lt;0\]\]</div>
+      <p>The negative second derivative confirms a maximum (the log-likelihood is concave). <b>Worked:</b> 7 heads in 10 tosses gives θ̂ = 7/10 = 0.7. The log-likelihood at 0.7 is 10·? — more precisely 7 ln 0.7 + 3 ln 0.3 + ln(120) ≈ 7(−0.3567) + 3(−1.2040) + 4.7875 = −2.4969 − 3.6120 + 4.7875 = <b>−1.3214</b> (including the binomial coefficient), versus −1.665 at θ = 0.5, confirming the maximum sits at 0.7.</p>
+      <h3>MAP with a Beta prior</h3>
+      <p>Put a Beta(α, β) prior on θ, whose density is proportional to θᵅ⁻¹(1 − θ)ᵝ⁻¹. Multiplying likelihood by prior and taking logs gives ℓ + (α − 1)ln θ + (β − 1)ln(1 − θ), so</p>
+      <div class="formula">\[\hat\theta_{\mathrm{MAP}}=\frac{h+\alpha-1}{n+\alpha+\beta-2}\qquad\text{and the posterior mean}=\frac{h+\alpha}{n+\alpha+\beta}\]</div>
+      <p><b>Worked:</b> with a symmetric Beta(2, 2) prior (which gently prefers a fair coin), h = 7, n = 10: θ̂<sub>MAP</sub> = (7 + 1)/(10 + 2) = 8/12 = <b>0.6667</b>; the posterior mean is (7 + 2)/(10 + 4) = 9/14 ≈ <b>0.6429</b>. As n grows the data term dominates and MAP, MLE and the posterior mean converge; when n is tiny the prior dominates. This is the same shrinkage behaviour as Ridge regression, with the prior playing the role of the penalty.</p>
+      <div class="def"><b>Edge cases:</b> if h = 0, the MLE is θ̂ = 0, a degenerate estimate that assigns zero probability to any future head. Laplace smoothing (add-one, equivalent to a Beta(2,2) prior) avoids this — the same trick that rescues Naive Bayes. If h = n the symmetric problem occurs at the other end. MAP with a proper prior never produces a degenerate 0 or 1.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">23</span><h2>Poisson, Exponential and Gaussian — Derivations with Second Derivatives and Checks</h2><span class="tag">Worked estimation</span></div>
+    <div class="card full">
+      <h3>Poisson — count data</h3>
+      <p>p(x | λ) = e<sup>−λ</sup>λˣ/x!, so ℓ(λ) = −nλ + (Σxᵢ)ln λ − Σ ln(xᵢ!). Differentiating gives dℓ/dλ = −n + (Σxᵢ)/λ and d²ℓ/dλ² = −(Σxᵢ)/λ² &lt; 0 (for positive counts): a maximum at λ̂ = x̄. <b>Worked:</b> counts 3, 5, 4, 6, 2 give Σx = 20, n = 5, λ̂ = 4 events/hour. The model assumes mean = variance (equidispersion); if the sample variance greatly exceeds the mean the Poisson model is inadequate and a negative-binomial model is preferred — a classic assumption check.</p>
+      <h3>Exponential — waiting times</h3>
+      <p>p(x | λ) = λe<sup>−λx</sup> for x ≥ 0, so ℓ(λ) = n ln λ − λΣxᵢ, dℓ/dλ = n/λ − Σxᵢ, d²ℓ/dλ² = −n/λ² &lt; 0, giving λ̂ = 1/x̄. <b>Worked:</b> a mean wait of 5 minutes gives λ̂ = 0.2 per minute. Notice the contrast with Poisson: the rate is the mean count but the <i>reciprocal</i> of the mean waiting time. A common exam slip is to write λ̂ = x̄ for the exponential — do not.</p>
+      <div class="formula">\[P(X&gt;s+t\mid X&gt;s)=\frac{e^{-\lambda(s+t)}}{e^{-\lambda s}}=e^{-\lambda t}=P(X&gt;t)\]</div>
+      <p>This is the <b>memorylessness</b> property: the probability of waiting another t minutes does not depend on how long you have already waited. It is unique to the exponential among continuous distributions and is the reason the exponential is the natural model for inter-arrival times in a Poisson process.</p>
+      <h3>Gaussian — two parameters and the bias of σ̂²</h3>
+      <p>For N(μ, σ²):</p>
+      <div class="formula">\[\ell(\mu,\sigma^{2})=-\frac{n}{2}\ln(2\pi\sigma^{2})-\frac{1}{2\sigma^{2}}\sum_{i}(x_i-\mu)^{2}\]</div>
+      <div class="formula">\[\frac{\partial\ell}{\partial\mu}=\frac{1}{\sigma^{2}}\sum_i(x_i-\mu)=0\Rightarrow\hat\mu=\bar x;\qquad \frac{\partial\ell}{\partial\sigma^{2}}=-\frac{n}{2\sigma^{2}}+\frac{1}{2\sigma^{4}}\sum_i(x_i-\bar x)^{2}=0\Rightarrow\hat\sigma^{2}=\frac{1}{n}\sum_i(x_i-\bar x)^{2}\]</div>
+      <p><b>Worked:</b> samples 2, 4, 6, 8 give μ̂ = 5 and σ̂² = [(−3)² + (−1)² + 1² + 3²]/4 = (9 + 1 + 1 + 9)/4 = 20/4 = <b>5</b>. Why is the MLE variance biased? Write Σ(xᵢ − x̄)² = Σ(xᵢ − μ)² − n(x̄ − μ)². Taking expectations, E[Σ(xᵢ − μ)²] = nσ² and E[n(x̄ − μ)²] = n·(σ²/n) = σ², so E[Σ(xᵢ − x̄)²] = (n − 1)σ² and therefore</p>
+      <div class="formula">\[\mathbb E[\hat\sigma^{2}_{\mathrm{MLE}}]=\frac{n-1}{n}\sigma^{2}\neq\sigma^{2},\qquad s^{2}=\frac{1}{n-1}\sum_i(x_i-\bar x)^{2}\ \text{is unbiased}\]</div>
+      <p>The factor (n − 1)/n is the loss of one degree of freedom from estimating μ. With n = 4 the MLE variance is 75% of σ². Note the conceptual distinction to examine: this is bias of an <i>estimator</i> (Module 1), not the bias term of the bias–variance decomposition of a <i>predictor</i> (Module 5). Same word, different question.</p>
+      <div class="def"><b>Consistency and efficiency:</b> all four MLEs above are consistent — as n → ∞ they converge in probability to the true parameter. Among consistent estimators, the MLE is asymptotically efficient: its variance achieves the Cramér–Rao lower bound 1/(n I(θ)), where I(θ) = −E[∂²ℓ/∂θ²] is Fisher information. You do not need to derive the bound in the exam, but naming it shows you understand why MLE is the default estimation method.</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Distribution</th><th>Parameter</th><th>MLE</th><th>Log-likelihood</th><th>Key assumption / check</th></tr></thead>
+          <tbody>
+            <tr><td>Bernoulli / binomial</td><td>θ = P(head)</td><td>h/n</td><td>h ln θ + (n − h) ln(1 − θ)</td><td>Independent identical trials</td></tr>
+            <tr><td>Poisson</td><td>λ = rate</td><td>x̄</td><td>−nλ + (Σx) ln λ</td><td>Mean ≈ variance; events independent</td></tr>
+            <tr><td>Exponential</td><td>λ = rate</td><td>1/x̄</td><td>n ln λ − λΣx</td><td>x ≥ 0; memorylessness</td></tr>
+            <tr><td>Gaussian</td><td>μ, σ²</td><td>x̄, (1/n)Σ(x − x̄)²</td><td>−(n/2)ln σ² − Σ(x − μ)²/(2σ²)</td><td>Continuous, symmetric, unbounded</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">24</span><h2>Point vs Interval Estimation, MAP Shrinkage and the Bridge to Regression</h2><span class="tag">Synthesis</span></div>
+    <div class="card full">
+      <p>A <b>point estimate</b> is a single number (θ̂ = 0.7); an <b>interval estimate</b> is a range with a stated confidence, e.g. a 95% confidence interval x̄ ± 1.96σ/√n for a normal mean with known σ. The interval carries information the point cannot: its width shrinks as 1/√n, so doubling precision costs four times the data. A Bayesian <b>credible interval</b> differs in interpretation — it is a statement about the parameter given the data, P(θ ∈ [a, b] | D), whereas a frequentist confidence interval is a statement about the long-run behaviour of the interval-construction procedure.</p>
+      <p>MAP estimation connects the Bayesian view to regularised regression. With a Gaussian prior μ ~ N(μ₀, τ²) and n observations with known variance σ², the posterior mean (and MAP, which coincide for a Gaussian) is</p>
+      <div class="formula">\[\hat\mu_{\mathrm{MAP}}=\frac{\sum_i x_i/\sigma^{2}+\mu_0/\tau^{2}}{n/\sigma^{2}+1/\tau^{2}}=\frac{n\tau^{2}}{n\tau^{2}+\sigma^{2}}\,\bar x+\frac{\sigma^{2}}{n\tau^{2}+\sigma^{2}}\,\mu_0\]</div>
+      <p>This is a weighted average of the data mean and the prior mean. As τ² → ∞ (flat prior) it tends to x̄; as τ² → 0 (tight prior) it tends to μ₀; as n → ∞ the data dominates. <b>Worked:</b> σ² = 4, τ² = 1, μ₀ = 0, n = 4, x̄ = 5 gives weight on data = 4·1/(4·1 + 4) = 0.5, so μ̂ = 2.5 — exactly halfway between the data and the prior. Compare with Ridge regression: adding λ||w||² to a least-squares objective is equivalent to MAP estimation with a Gaussian prior on w of variance 1/(2λ). Lasso's λΣ|w| corresponds to a Laplace prior. Regularisation is not an ad-hoc trick — it is Bayesian shrinkage in disguise.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>Objective</th><th>Prior</th><th>Behaviour with little data</th></tr></thead>
+          <tbody>
+            <tr><td>MLE</td><td>maximize P(D | θ)</td><td>implicitly uniform</td><td>Can be extreme or degenerate (θ̂ = 0)</td></tr>
+            <tr><td>MAP</td><td>maximize P(D | θ)P(θ)</td><td>any proper distribution</td><td>Shrinks toward the prior mode</td></tr>
+            <tr><td>Posterior mean</td><td>E[θ | D]</td><td>any proper distribution</td><td>Averages over parameter uncertainty</td></tr>
+            <tr><td>Full Bayes</td><td>integrate over P(θ | D)</td><td>any proper distribution</td><td>Predictions average over all plausible θ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Exam writing tip — "distinguish MLE and MAP":</b> write one line of algebra (MLE maximises likelihood; MAP maximises likelihood × prior, or log-likelihood + log-prior), then one worked parameter (a coin with h = 7, n = 10 → MLE 0.7, MAP 0.67 under Beta(2,2)), then one conceptual sentence (MAP = MLE + regularisation; with a flat prior they coincide). That is a complete 5-mark answer.</div>
+      <div class="def"><b>Module map for revision:</b> the estimation tools here reappear as the training procedures of later modules — linear regression's least squares is MLE under Gaussian noise (Module 2), logistic regression is MLE under Bernoulli labels (Module 2), EM is MLE with latent variables (Module 4), and PCA can be derived as MLE in a Gaussian latent-variable model (Module 4). Recognising the same recipe in different clothes is the fastest way to reduce exam load.</div>
+    </div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="index.html">← Prev: Home</a>
+    <a class="next" href="module-1.html">Next: M1.2 · Bayesian Estimation →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="question-bank.html">Papers</a></div>
+  </div>
+</footer>
+
+
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

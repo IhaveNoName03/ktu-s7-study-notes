@@ -126,6 +126,18 @@
     var acc = (c.brand && c.brand[1]) || "#E0241B";
     S("--on-accent", luminance(acc) > 0.6 ? (c.bg || "#111418") : "#ffffff");
 
+
+    /* Contrast guards: keep secondary/accent text readable in every palette.
+       Blend toward a high-contrast target until WCAG 4.5:1 is met. */
+    function hexRgb(h){h=String(h||"").trim().replace(/^#/,"");if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];if(h.length<6)return null;var r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);return isNaN(r)?null:[r,g,b];}
+    function rgbHex(a){return "#"+a.map(function(v){var s=Math.round(Math.max(0,Math.min(255,v))).toString(16);return s.length<2?"0"+s:s;}).join("");}
+    function mixHex(a,b,t){var x=hexRgb(a),y=hexRgb(b);if(!x||!y)return a;return rgbHex(x.map(function(v,i){return v+(y[i]-v)*t;}));}
+    function contrastHex(a,b){var x=hexRgb(a),y=hexRgb(b);if(!x||!y)return 0;function L(v){var s=v.map(function(c){c=c/255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);});return .2126*s[0]+.7152*s[1]+.0722*s[2];}var l1=L(x),l2=L(y);return (Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);}
+    function ensureContrast(fg,bgs,target,min){if(!fg)return fg;for(var i=0;i<=20;i++){var m=mixHex(fg,target,i/20);if(bgs.every(function(bg){return contrastHex(m,bg)>=min;}))return m;}return mixHex(fg,target,1);}
+    var ink1=(c.text&&c.text[1])||"#111418";
+    if(c.text){S("--ink-2",ensureContrast(c.text[2],[c.bg,c.bgAlt,c.bgElv],ink1,4.5));S("--muted",ensureContrast(c.text[3],[c.bg,c.bgAlt,c.bgElv],ink1,4.5));}
+    if(c.brand){var soft=c.brand.soft||c.bgAlt,toward=luminance(soft)>0.5?ink1:"#ffffff";S("--accent-ink",ensureContrast(c.brand[2]||c.brand[1],[soft,c.bgAlt,c.bgElv],toward,4.5));}
+
     root.setAttribute("data-theme", themeName);
     root.setAttribute("data-mode", mode);
     if (mode === "amoled") root.setAttribute("data-amoled", "true");
@@ -310,6 +322,15 @@
       list.appendChild(it);
     });
     panel.appendChild(list);
+
+    var reset = document.createElement("button");
+    reset.className = "theme-reset"; reset.type = "button";
+    reset.textContent = "Reset to default ↺";
+    reset.addEventListener("click", function (e) {
+      e.stopPropagation(); setTheme("swiss");
+      setTimeout(function () { setMode("light"); }, 320);
+    });
+    panel.appendChild(reset);
 
     btn.addEventListener("click", function (e) {
       e.stopPropagation();

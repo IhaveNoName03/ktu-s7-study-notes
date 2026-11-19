@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 · Unsupervised Learning — Clustering &amp; Dimensionality Reduction</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+<style>
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
+  .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
+  .qbox p{margin:0}
+  .qbox .eq{text-align:center;font-size:16px;font-weight:700;margin:8px 0;color:var(--accent-ink);font-family:var(--mono),monospace}
+  .qbox .eq span{color:var(--accent)}
+  .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
+  .def b{color:var(--accent-ink)}
+  .formula{display:block;background:color-mix(in srgb,var(--ink) 6%,var(--paper));border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 20px;margin:18px 0;overflow-x:auto;color:var(--ink);font-size:15.5px;line-height:1.9;text-align:center;white-space:pre-wrap;-webkit-overflow-scrolling:touch}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
+      <a href="module-1.html">M1 · Paradigms</a>
+      <a href="module-2.html">M2 · Supervised</a>
+      <a href="module-3.html">M3 · NN &amp; SVM</a>
+      <a href="module-4.html" class="active">M4 · Unsupervised</a>
+      <a href="module-5.html">M5 · Classification</a>
+      <a href="exam-guide.html">Exam Techniques</a>
+      <a href="question-bank.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 4 · Unsupervised Learning · 7 hours · Comprehensive edition</span>
+    <h1>Clustering, EM &amp; Dimensionality Reduction</h1>
+    <p class="lede">The complete Module 4: similarity measures, hierarchical and partitional clustering, Gaussian mixtures and Expectation–Maximisation, and Principal Component Analysis — with worked distance calculations, linkage tables, EM iterations and a full eigen-decomposition.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Similarity Measures</h2><span class="tag">How "close" is close?</span></div>
+    <div class="card full">
+      <p>Clustering is built on a notion of <b>similarity</b> (or, equivalently, <b>distance</b>) between data points. To decide which points belong together we need a way to measure
+      how alike two feature vectors are. Different tasks call for different measures; picking the right one is part of the job.</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">|x − y|<sub>1</sub></span>Manhattan distance</h3>
+          <p>Also called <b>L1 distance</b> or <b>city-block distance</b>. For two points <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b> it is</p>
+          <p class="eq">\[D(a,b) = |x_2-x_1| + |y_2-y_1|\]</p>
+          <p>It measures distance along a grid — like walking city blocks. It is <b>robust to outliers</b> because it does not square the coordinate differences, so a single large
+          coordinate difference does not dominate.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">|x − y|<sub>2</sub></span>Euclidean distance</h3>
+          <p>The straight-line distance — the <b>L2 norm</b>. For <b>a = (x₁, y₁)</b> and <b>b = (x₂, y₂)</b>:</p>
+          <p class="eq">\[D(a,b) = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}\]</p>
+          <p>This is the most common default. It is sensitive to large differences (because of the square) and to the <b>scale</b> of each feature, so features are often normalised
+          first so that no single feature dominates.</p>
+        </div>
+      </div>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">(Σ |xᵢ − yᵢ|<sup>p</sup>)<sup>1/p</sup></span>Minkowski distance</h3>
+          <p>A family that includes Manhattan (p=1) and Euclidean (p=2) as special cases. For general <b>p</b>:</p>
+          <p class="eq">\[D_p(a,b)=\Bigl(\sum_i|x_i-y_i|^{p}\Bigr)^{1/p}\]</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">cosine similarity</span></h3>
+          <p>Measures the <b>angle</b> between two vectors rather than their absolute distance. For vectors <b>x</b> and <b>y</b>:</p>
+          <p class="eq">\[\cos\theta = \frac{x\cdot y}{\lVert x\rVert\cdot\lVert y\rVert}\]</p>
+          <p>Two vectors pointing the same direction have cosine similarity 1 even if they are far apart in magnitude. This is useful when <b>magnitude is not important</b> — e.g.
+          comparing document term-frequency vectors, where a longer document is not "more similar" just because its counts are larger.</p>
+        </div>
+      </div>
+
+      <div class="def"><b>Which to use for images?</b> For comparing feature vectors of two images, the best choice depends on the features. <b>Euclidean distance</b> is a strong default for
+      dense, normalised feature vectors (e.g. pixel intensities, CNN embeddings) because it captures overall visual similarity. <b>Cosine similarity</b> is preferred when the direction of the
+      feature vector matters more than its scale (e.g. bag-of-visual-words or normalised embeddings). Manhattan distance is a robust alternative when outliers are a concern. The justification
+      is always: "the features are X, so the distance that treats X correctly is Y."</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Clustering — The Big Picture</h2><span class="tag">Groups without labels</span></div>
+    <div class="card full">
+      <p>Clustering partitions a set of unlabelled data points into <b>clusters</b> — groups of points that are more similar to each other than to points in other groups. There is no "correct"
+      answer provided; the algorithm discovers the grouping from the data itself.</p>
+      <p>Two broad families appear in this syllabus:</p>
+      <div class="stack" style="margin-top:10px">
+        <div class="card">
+          <h3><span class="idx">HAC</span>Hierarchical Agglomerative Clustering</h3>
+          <p>Builds a <b>hierarchy</b> of clusters, bottom-up. Each point starts as its own cluster; the two closest clusters are merged repeatedly until one cluster remains (or until a
+          desired number is reached). The result can be drawn as a <b>dendrogram</b> — a tree showing the merge sequence and at what distance each merge happened.</p>
+          <p class="def" style="margin-top:6px">"Agglomerative" = bottom-up (merge). "Divisive" = top-down (split), less common. HAC does not need the number of clusters <b>k</b> up front — you
+          can cut the dendrogram at any level to get a clustering.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">k-means</span>Partitional (k-means) Clustering</h3>
+          <p>Divides the data into exactly <b>k</b> clusters in <b>one level</b> (no hierarchy). It is iterative: start with k initial centroids, assign each point to the nearest centroid,
+          recompute each centroid as the mean of its assigned points, repeat until stable.</p>
+          <p class="def" style="margin-top:6px">Fast and simple, but you must choose <b>k</b> in advance, the result depends on the initial centroids, and it tends to find <b>spherical</b> clusters
+          of similar size.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Hierarchical Agglomerative Clustering</h2><span class="tag">Bottom-up, dendrogram</span></div>
+    <div class="card full">
+      <p>Agglomerative clustering starts with every point in its own cluster and merges the closest pair of clusters step by step. The key design choice is the <b>linkage</b> — how to measure
+      the distance between two <b>clusters</b> (each of which may contain many points).</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">Single</span>Single linkage</h3>
+          <p>The distance between two clusters is the <b>minimum</b> distance between any point in one and any point in the other.</p>
+          <p class="def" style="margin-top:6px"><b>Strength:</b> can find clusters of <b>arbitrary shape</b> — clusters can be chained together by a thin path of close points.</p>
+          <p class="def" style="margin-top:4px"><b>Weakness:</b> sensitive to noise and outliers (a single stray point can bridge two clusters), and can produce long, straggly clusters.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Complete</span>Complete linkage</h3>
+          <p>The distance between two clusters is the <b>maximum</b> distance between any point in one and any point in the other.</p>
+          <p class="def" style="margin-top:6px"><b>Strength:</b> tends to produce <b>compact, tight</b> clusters — the merge distance is the worst-case distance, so clusters stay close together.</p>
+          <p class="def" style="margin-top:4px"><b>Weakness:</b> can be sensitive to outliers; may split natural large clusters.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Average</span>Average linkage</h3>
+          <p>The distance between two clusters is the <b>average</b> of all pairwise distances between their points.</p>
+          <p class="def" style="margin-top:6px"><b>Strength:</b> a compromise between single and complete — less sensitive to outliers than single, less rigid than complete.</p>
+          <p class="def" style="margin-top:4px"><b>Weakness:</b> more computation than single (all pairwise distances), but generally a robust, balanced choice.</p>
+        </div>
+      </div>
+
+      <div class="def"><b>How to read the dendrogram:</b> the vertical axis is the distance at which clusters merge. To get a flat clustering with a chosen number of clusters, cut the dendrogram
+      horizontally at the appropriate height — everything joined below the cut is one cluster. Cutting higher gives fewer, larger clusters; cutting lower gives more, smaller clusters.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>K-Means Clustering</h2><span class="tag">The workhorse</span></div>
+    <div class="card full">
+      <p>K-means is the most widely used clustering algorithm. It partitions the data into exactly <b>k</b> clusters by iteratively refining k <b>centroids</b> (the representative centre of each
+      cluster) and the assignment of points to the nearest centroid.</p>
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">Algorithm</span>The k-means steps</h3>
+          <ol>
+            <li><b>Choose k initial centroids</b> — often by picking k points that are far apart (a better start than random).</li>
+            <li><b>Assign</b> each point to the cluster whose centroid is nearest (by the chosen distance measure).</li>
+            <li><b>Update</b> each centroid to be the <b>mean</b> of the points now assigned to it.</li>
+            <li><b>Repeat</b> steps 2 and 3 until the assignments stop changing (convergence).</li>
+          </ol>
+          <div class="def" style="margin-top:8px"><b>Why it converges:</b> each iteration reduces (or keeps equal) the total within-cluster distance — the sum of distances from each point to its cluster centroid.
+          Since this value can only decrease and is bounded below by zero, the algorithm must eventually stop.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Tip</span>Choosing initial centroids</h3>
+          <p>A poor start can lead to a bad local optimum. A good heuristic: pick the first centroid randomly, then pick each next centroid as the point <b>farthest</b> from the already-chosen
+          centroids. This spreads the initial centres out and usually leads to a better final clustering.</p>
+          <div class="def" style="margin-top:8px"><b>Tip from the syllabus model paper:</b> "Try using initial cluster centers as far apart as possible" — this is exactly the far-apart initialisation heuristic.</div>
+        </div>
+      </div>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th></th><th>Strength</th><th>Weakness</th></tr></thead>
+          <tbody>
+            <tr><td>K-means</td>
+              <td>Simple, fast, scales to large datasets, easy to implement, widely understood</td>
+              <td>Must choose k in advance; result depends on initial centroids (local optimum); assumes roughly spherical, similarly-sized clusters; sensitive to outliers; needs numeric features (uses means)</td>
+            </tr>
+            <tr><td>HAC</td>
+              <td>No need to choose k up front; produces a full hierarchy (dendrogram); flexible linkage choices; can capture non-spherical shapes (with single linkage)</td>
+              <td>More expensive (O(n²) or worse); dendrogram interpretation can be subjective; single linkage sensitive to noise; complete linkage can be inflexible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Expectation-Maximisation (EM) for Soft Clustering</h2><span class="tag">Probabilistic groups</span></div>
+    <div class="card full">
+      <p>K-means is <b>hard</b> clustering — each point belongs to exactly one cluster. <b>EM (Expectation-Maximisation)</b> is <b>soft</b> (or probabilistic) clustering: each point gets a
+      <b>probability</b> of belonging to each cluster, rather than a firm assignment. EM is most commonly described for <b>Gaussian Mixture Models (GMMs)</b>, where the data is modelled as a
+      mixture of several Gaussian distributions.</p>
+      <p>EM is designed for exactly the situation the syllabus names: "find a maximum likelihood setting of the parameters of a model when some of the data is missing." In clustering, the "missing
+      data" is the <b>cluster membership</b> — we do not know which point came from which component, so we treat the memberships as latent (hidden) variables and estimate them alongside the model
+      parameters.</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">E-step</span>Expectation</h3>
+          <p>Given the current guess of the model parameters (the means, covariances, and mixing weights of the Gaussians), compute the <b>probability</b> (responsibility) that each point
+          belongs to each cluster. This is the "expected" cluster membership, given what we currently believe about the model.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">M-step</span>Maximisation</h3>
+          <p>Given the responsibilities from the E-step, <b>re-estimate</b> the model parameters — update the means, covariances, and mixing weights to maximise the likelihood of the data
+          under the current soft assignments. This is the "maximisation" of the expected complete-data log-likelihood.</p>
+        </div>
+      </div>
+
+      <p>The two steps repeat: E uses the current parameters to assign soft memberships; M uses those memberships to update the parameters. Each iteration increases the likelihood — EM is a
+      <b>hill-climbing</b> algorithm that is guaranteed to converge to a (local) maximum of the likelihood.</p>
+
+      <div class="def"><b>Does EM converge?</b> Yes — the likelihood increases (or stays flat) at every iteration and is bounded above, so EM converges to a stationary point. However, it converges to a
+      <b>locally</b> optimal set of parameters, not necessarily global. The result depends on the initial parameters (just as k-means depends on its initial centroids). Multiple random restarts are
+      commonly used to reduce the chance of a poor local optimum.</div>
+      <div class="def"><b>EM vs k-means:</b> k-means is almost a special case of EM for Gaussian mixtures where every cluster has the same spherical (identity) covariance and the assignments are hard
+      (each point's responsibility is 1 for one cluster, 0 for the rest). EM is the generalisation: soft assignments, full covariance matrices, and a proper probabilistic model.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Dimensionality Reduction — Principal Component Analysis (PCA)</h2><span class="tag">Compress without losing the gist</span></div>
+    <div class="card full">
+      <p>Many datasets have dozens or hundreds of features, and many of those features are <b>correlated</b> — they carry overlapping information. <b>Principal Component Analysis (PCA)</b> is a
+      technique that finds a new set of <b>uncorrelated</b> features (the principal components) that are linear combinations of the original features, ordered so that the first few capture most of
+      the variation in the data. We can then keep only the first few components and <b>discard the rest</b>, reducing dimensionality while losing as little information as possible.</p>
+
+      <div class="stack" style="margin-top:12px">
+        <div class="card">
+          <h3><span class="idx">What PCA does</span></h3>
+          <p>PCA finds the directions (principal components) in which the data varies the most, and projects the data onto those directions. The <b>first principal component</b> is the direction of
+          <b>largest variance</b>; the second is the direction of largest variance <b>orthogonal</b> to the first; and so on.</p>
+          <div class="def" style="margin-top:8px"><b>Which eigenvalue indicates the direction of largest variance?</b> The <b>largest</b> eigenvalue. Each principal component has an associated eigenvalue that
+          measures how much variance that component captures. The component with the largest eigenvalue is the first principal component — the direction along which the data is most spread out.</div>
+        </div>
+        <div class="card">
+          <h3><span class="idx">How to use it</span></h3>
+          <p>(1) Standardise the features (so scale does not dominate). (2) Compute the covariance matrix of the data. (3) Find its <b>eigenvalues and eigenvectors</b>. (4) Sort components by
+          eigenvalue, largest first. (5) Keep the top k components and project the data onto them. The kept components are your reduced-dimension representation.</p>
+          <div class="def" style="margin-top:8px"><b>Why it helps:</b> reduces storage and computation, removes redundant/correlated features, can reduce overfitting, and lets you visualise high-dimensional data
+          in 2 or 3 dimensions. The trade-off is some information loss — but PCA loses the <i>least</i> information for a given number of dimensions.</div>
+        </div>
+      </div>
+
+      <div class="def"><b>PCA in one line:</b> rotate the data to a new coordinate system where the axes are the directions of decreasing variance, then drop the axes with the smallest variance.
+      The new axes (principal components) are <b>uncorrelated</b> by construction, and are ordered by how much of the data's spread they explain. It is an unsupervised method — it does not use class
+      labels, only the structure of the input features.</div>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">07</span><h2>The Idea</h2><span class="tag">Concept</span></div>
+    <div class="card full">
+      <p>Given d-dimensional data, PCA finds d orthogonal directions (principal components) ordered by how much
+      variance they capture. Project onto the first k components to get a k-dimensional representation that keeps
+      as much variance as possible.</p>
+      <div class="eq">\[Z=W^{T}X\]</div>
+      <p>where the columns of W are the top-k eigenvectors of the data's covariance matrix, and Z is the reduced data.</p>
+      <div class="def"><b>Why reduce?</b> fewer features → faster training, less overfitting, and you can plot 2-D/3-D to see structure. PCA is unsupervised — it only looks at variance, not labels.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Covariance &amp; Eigen-decomposition</h2><span class="tag">Math</span></div>
+    <div class="card full">
+      <p>Steps of PCA:</p>
+      <ol>
+        <li>Center the data (subtract the mean of each feature).</li>
+        <li>Compute the covariance matrix Σ = (1/n) X<sup>T</sup> X.</li>
+        <li>Eigen-decompose Σ = V Λ V<sup>T</sup>; eigenvectors V are the principal components.</li>
+        <li>Sort eigenvectors by eigenvalue Λ (variance along that component), keep the top k.</li>
+        <li>Project: Z = V<sub>k</sub><sup>T</sup> X.</li>
+      </ol>
+      <div class="eq">\[\text{variance along component }j=\lambda_j\quad\Bigl(\text{fraction kept}=\frac{\sum_{j\le k}\lambda_j}{\sum_{\text{all}}\lambda_j}\Bigr)\]</div>
+      <div class="def"><b>Choosing k:</b> keep enough components to retain, say, 95% of total variance. A scree plot (eigenvalue vs index) shows the "elbow" where extra components add little.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>PCA vs Clustering (M4 family)</h2><span class="tag">Compare</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>PCA (this page)</th><th>Clustering (m4-1)</th></tr></thead>
+          <tbody>
+            <tr><td>Goal</td><td>Compress / rotate features</td><td>Group similar points</td></tr>
+            <tr><td>Output</td><td>Lower-dim coordinates</td><td>Cluster labels</td></tr>
+            <tr><td>Uses labels?</td><td>No (unsupervised)</td><td>No (unsupervised)</td></tr>
+            <tr><td>Often combined?</td><td>PCA → then cluster in low-D</td><td>k-means on reduced data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">10</span><h2>Similarity and Distance — Four Measures Worked on the Same Pair</h2><span class="tag">Foundations of clustering</span></div>
+    <div class="card full">
+      <p>Every clustering algorithm needs a definition of "close". Let a = (1, 2) and b = (4, 6). The coordinate differences are 3 and 4. Then:</p>
+      <div class="formula">\[\text{Manhattan }(L_1):\;|4-1|+|6-2|=3+4=7\]</div>
+      <div class="formula">\[\text{Euclidean }(L_2):\;\sqrt{3^{2}+4^{2}}=\sqrt{9+16}=\sqrt{25}=5\]</div>
+      <div class="formula">\[\text{Minkowski }p=3:\;(3^{3}+4^{3})^{1/3}=(27+64)^{1/3}=91^{1/3}\approx 4.498\]</div>
+      <div class="formula">\[\text{Cosine: }\frac{a\cdot b}{\lVert a\rVert\lVert b\rVert}=\frac{1\cdot4+2\cdot6}{\sqrt{5}\,\sqrt{52}}=\frac{16}{16.125}=0.9923\]</div>
+      <p>As p increases, Minkowski distance is increasingly dominated by the largest coordinate difference; as p → ∞ it becomes the Chebyshev (max) distance. Cosine similarity ignores magnitude: scaling a by 10 leaves 0.9923 unchanged, whereas Euclidean distance becomes 50. That is precisely why cosine is used for document vectors — a long document is not automatically more similar than a short one — and Euclidean for dense normalised embeddings where magnitude carries information.</p>
+      <h3>Why scaling changes the clustering</h3>
+      <p>Suppose feature 1 is height in metres (range 1.5–2.0) and feature 2 is annual income in rupees (range 150,000–2,000,000). Euclidean distance is dominated by income; the height feature effectively disappears. Standardising each feature to z = (x − μ)/σ gives every feature unit variance and a fair contribution. An <i>un-normalised</i> k-means on such data is essentially clustering on income alone — a concrete answer to "what assumptions does k-means make?".</p>
+      <div class="def"><b>Rule of thumb for exam answers:</b> Euclidean for compact, spherical clusters of comparable scale; Manhattan when outliers should not dominate; cosine for direction-based data (text, normalised embeddings); Minkowski when you want a tunable family. State the reason in one sentence — "cosine is invariant to magnitude, which matters for term-frequency vectors" — rather than just naming the metric.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">11</span><h2>Hierarchical Clustering — Linkage Rules Worked on Five Points</h2><span class="tag">HAC</span></div>
+    <div class="card full">
+      <p>Agglomerative clustering begins with n singleton clusters and repeatedly merges the closest pair. "Closest" depends on <b>linkage</b>: single = minimum pairwise distance, complete = maximum pairwise distance, average = mean pairwise distance. Take five one-dimensional points {1, 2, 8, 9, 20}.</p>
+      <pre><code>start: {1} {2} {8} {9} {20}
+step 1: closest pair (1,2) at distance 1  -&gt; {1,2} {8} {9} {20}
+step 2: closest pair (8,9) at distance 1  -&gt; {1,2} {8,9} {20}
+step 3: compare {1,2} with {8,9}:
+        single   = min(|1-8|,|1-9|,|2-8|,|2-9|) = 6
+        complete = max(7,8,6,7) = 8
+        average  = (7+8+6+7)/4 = 7
+        {8,9} with {20}: single 11, complete 12, average 13
+        -&gt; merge {1,2} and {8,9} (distance 6 / 8 / 7 depending on linkage)
+step 4: merge with {20}: single 11, complete 19, average ~14.25
+finish: one cluster containing all five points</code></pre>
+      <p>The merge sequence is stored as a <b>dendrogram</b>: the vertical axis records the distance at which each merge occurred. Cut the tree at a height between 6 and 11 to obtain exactly two clusters {1,2,8,9} and {20}; cut below 6 to obtain three clusters {1,2}, {8,9} and {20}. This is the practical advantage of HAC over k-means: you choose the number of clusters after seeing the tree, not before.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Linkage</th><th>Cluster distance</th><th>Strength</th><th>Weakness</th></tr></thead>
+          <tbody>
+            <tr><td>Single</td><td>min d(x, y)</td><td>Finds elongated, chained, non-spherical clusters</td><td>One stray point can bridge two clusters (chaining effect)</td></tr>
+            <tr><td>Complete</td><td>max d(x, y)</td><td>Compact, tightly bound clusters</td><td>Breaks large natural clusters; outlier-sensitive</td></tr>
+            <tr><td>Average</td><td>mean d(x, y)</td><td>Balanced compromise, robust</td><td>More computation; can be biased toward spherical shapes</td></tr>
+            <tr><td>Ward</td><td>increase in within-cluster SSE</td><td>Minimises variance of merges; crisp clusters</td><td>Assumes roughly spherical, convex clusters</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Complexity:</b> naive agglomerative clustering stores an n × n distance matrix — O(n²) memory — and updates it after each merge, costing O(n³) in the simplest implementation (O(n² log n) with a priority queue). This is why k-means scales better to large n. When asked "which clustering method for a million points?", answer k-means or mini-batch k-means, not HAC.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">12</span><h2>K-Means — Objective, Worked Iterations and Failure Modes</h2><span class="tag">Partitional clustering</span></div>
+    <div class="card full">
+      <p>K-means alternates two steps that both decrease the same objective: the within-cluster sum of squares J = Σₖ Σ<sub>x∈Cₖ</sub> ‖x − μₖ‖². Assignment reduces J for fixed centroids; the update μₖ = mean(Cₖ) is the exact minimiser of Σ<sub>x∈Cₖ</sub> ‖x − μ‖² for fixed assignments (differentiate and set to zero). Since J ≥ 0 and decreases monotonically, the algorithm must converge — but to a <i>local</i> optimum.</p>
+      <h3>Worked run</h3>
+      <p>Points {1, 2, 4, 8, 9, 10}, k = 2, initial centroids μ₁ = 2, μ₂ = 9.</p>
+      <pre><code>assign:  -&gt; 2 : {1,2,4} (distances 1,0,2)
+        -&gt; 9 : {8,9,10} (distances 1,0,1)
+update: μ1 = (1+2+4)/3 = 7/3 = 2.333 ; μ2 = (8+9+10)/3 = 9
+assign again: {1,2,4} still nearest 2.333 ; {8,9,10} still nearest 9
+converged.
+J = (1-2.333)^2 + (2-2.333)^2 + (4-2.333)^2 + (8-9)^2 + 0 + (10-9)^2
+  = 1.778 + 0.111 + 2.778 + 1 + 0 + 1 = 6.667</code></pre>
+      <p>If the initial centroids had been 4 and 8 the assignment would be {1,2,4} and {8,9,10}? With μ₁ = 4, μ₂ = 8: 1→4 (3 vs 7), 2→4, 4→4, 8→8, 9→8 (1 vs 5), 10→8 (2 vs 6): same partition, same optimum here. But on other datasets a poor start can trap k-means in a bad local minimum; the syllabus hint "choose initial centres as far apart as possible" addresses this. <b>k-means++</b> makes it probabilistic: pick the first centre uniformly, then choose each subsequent centre with probability proportional to D(x)², the squared distance to the nearest centre already chosen. This spreads centres out while remaining random.</p>
+      <div class="def"><b>Assumptions and edge cases:</b> features must be numeric and scaled; clusters are implicitly spherical and of similar size (k-means minimises squared distance to a mean); an empty cluster must be handled (re-seed it at the farthest point); non-convex shapes are poorly handled; outliers pull centroids because means are not robust (k-medians with L1 is the robust variant). Choosing k: run k = 1 … 10 and plot J against k — the "elbow" where improvements flatten — or use silhouette score, which combines cluster cohesion and separation.</div>
+      <div class="def"><b>K-means vs HAC — a compact answer:</b> k-means needs k in advance, is fast (O(nkdi)), assumes spherical clusters, and can restart from different seeds; HAC needs no k up front, yields a dendrogram and flexible shapes with single linkage, but costs O(n²) memory and cannot revise earlier merges. Use k-means for scale, HAC when the hierarchy itself is informative (e.g. biological taxonomy).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">13</span><h2>Expectation–Maximisation — The Gaussian Mixture Updates Worked Through</h2><span class="tag">Soft clustering</span></div>
+    <div class="card full">
+      <p>A Gaussian Mixture Model assumes each datum came from one of K normal components with mean μₖ, covariance Σₖ and mixing weight πₖ. The density is p(x) = Σₖ πₖ N(x | μₖ, Σₖ). The difficulty is that the component label zᵢ of each point is unobserved (a latent variable), so the log-likelihood log Πᵢ Σₖ πₖ N(xᵢ | μₖ, Σₖ) has a sum inside a log and cannot be maximised directly. EM handles this by treating the missing labels as parameters to be estimated in the E-step and then re-estimating the model in the M-step.</p>
+      <div class="formula">\[\text{E-step: }\quad \gamma(z_{ik})=P(z_i=k\mid x_i,\theta)=\frac{\pi_k\,\mathcal N(x_i\mid\mu_k,\Sigma_k)}{\sum_{j=1}^{K}\pi_j\,\mathcal N(x_i\mid\mu_j,\Sigma_j)}\]</div>
+      <div class="formula">\[\text{M-step: }\quad N_k=\sum_i\gamma_{ik},\qquad \pi_k=\frac{N_k}{n},\qquad \mu_k=\frac{\sum_i\gamma_{ik}x_i}{N_k},\qquad \Sigma_k=\frac{\sum_i\gamma_{ik}(x_i-\mu_k)(x_i-\mu_k)^T}{N_k}\]</div>
+      <h3>Two iterations with four data points</h3>
+      <p>Data x = {0.0, 0.1, 5.0, 5.1}, K = 2, initial μ = (0, 5), σ = 1 for both components and π = (0.5, 0.5). At x = 0.0 the likelihood under component 1 is N(0 | 0, 1) = 0.3989 while under component 2 it is N(0 | 5, 1) = 1.49 × 10⁻⁶, so γ(z₁₁) ≈ 1.0. Similarly γ ≈ 1.0 for x = 0.1 and γ ≈ 0 for the two points near 5. The M-step then gives N₁ = 2, N₂ = 2, π = (0.5, 0.5), μ₁ = (0.0 + 0.1)/2 = <b>0.05</b> and μ₂ = (5.0 + 5.1)/2 = <b>5.05</b>. The second E-step gives the same responsibilities (even more confidently) and the algorithm has converged. Soft clustering differs from hard k-means when points are ambiguous: a point at x = 2.5 would receive γ ≈ 0.5 for each component and would contribute half of itself to each mean — something k-means cannot express.</p>
+      <div class="def"><b>Why EM always improves the likelihood:</b> Jensen's inequality applied to log Σₖ πₖ N(xᵢ | θₖ) produces a lower bound that equals the true log-likelihood at the current parameters. The E-step constructs this bound (it is tight at the current θ); the M-step maximises it. Therefore log L(θ<sup>(t+1)</sup>) ≥ log L(θ<sup>(t)</sup>). Because the likelihood is bounded above, EM converges — to a <b>local</b> maximum, not necessarily the global one. Multiple random restarts and choosing the run with the highest final likelihood are standard.</div>
+      <div class="def"><b>EM vs k-means:</b> k-means assigns each point hard to one cluster and uses Euclidean distance to a mean; EM assigns soft responsibilities and uses a full probabilistic density with covariance. If all covariances are forced equal and spherical (Σₖ = σ²I) and responsibilities are hardened to 0/1, EM reduces essentially to k-means. So k-means is the limiting special case — a useful unifying statement for exams.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">14</span><h2>Principal Component Analysis — Full Eigen-Decomposition of a 2-D Dataset</h2><span class="tag">Dimensionality reduction</span></div>
+    <div class="card full">
+      <p>PCA finds orthogonal directions of maximum variance. For centred data X (each column has mean zero), the covariance matrix is S = XᵀX/(n − 1). Its eigenvectors vⱼ (ordered by eigenvalue λⱼ) are the principal components, and the coordinates in the new basis are Z = XV. The fraction of total variance retained by the first k components is Σⱼ≤ₖλⱼ / Σⱼλⱼ.</p>
+      <h3>Worked 2-D example</h3>
+      <p>Four points: (1, 2), (2, 1), (3, 4), (4, 3). The mean is (2.5, 2.5); centred points are (−1.5, −0.5), (−0.5, −1.5), (0.5, 1.5), (1.5, 0.5). Using the 1/n convention for simplicity,</p>
+      <div class="formula">\[S=\frac{1}{4}\sum_i x_i^{c}(x_i^{c})^{T}=\begin{bmatrix}1.25&amp;0.75\\0.75&amp;1.25\end{bmatrix}\]</div>
+      <p>Solve det(S − λI) = (1.25 − λ)² − 0.5625 = 0, giving λ = 1.25 ± 0.75, so λ₁ = <b>2.0</b> and λ₂ = <b>0.5</b>. For λ₁ = 2, (S − 2I)v = 0 gives −0.75v₁ + 0.75v₂ = 0 → v₁ = v₂, so v₁ = (1, 1)/√2 = (0.7071, 0.7071). For λ₂ = 0.5 the eigenvector is (1, −1)/√2. The first component explains 2/(2 + 0.5) = <b>80%</b> of the variance; the second only 20%.</p>
+      <div class="formula">\[z_i=x_i^{c}\cdot v_1:\quad (-1.5-0.5)/\sqrt2=-1.414,\ (-0.5-1.5)/\sqrt2=-1.414,\ (0.5+1.5)/\sqrt2=1.414,\ (1.5+0.5)/\sqrt2=1.414\]</div>
+      <p>Projecting onto one dimension gives Z = (−1.414, −1.414, 1.414, 1.414). Reconstructing with x̂ = mean + z v₁ gives (1.5, 1.5), (1.5, 1.5), (3.5, 3.5), (3.5, 3.5): each point is replaced by its projection onto the line y = x, losing only the 20% of variation perpendicular to that line. This is the geometry of "compressing while keeping the gist".</p>
+      <div class="def"><b>Eigenvalue = variance claim, justified:</b> the variance of the projected data is Var(Xv) = vᵀSv. Maximising this subject to ‖v‖ = 1 via a Lagrange multiplier gives Sv = λv, and at the optimum the variance equals λ. So the largest eigenvalue <i>is</i> the variance along its eigenvector. This is the derivation behind the statement in the notes.</div>
+      <div class="def"><b>Assumptions and edge cases:</b> PCA is linear — it cannot unfold a curved (non-linear) manifold; kernel PCA addresses that. It maximises variance, not class separability, so it can discard a low-variance direction that carries the label (LDA would keep it). It is sensitive to scaling, so standardise first. Eigenvector signs are arbitrary — flipping a component is equally valid. Missing values must be imputed. For n &lt; d use the kernel trick or SVD on the n × n Gram matrix rather than forming the d × d covariance.</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Step</th><th>Operation</th><th>Output</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Standardise / centre</td><td>X̃</td><td>Remove scale and offset effects</td></tr>
+            <tr><td>2</td><td>Covariance matrix</td><td>S = X̃ᵀX̃/(n − 1)</td><td>Captures correlations</td></tr>
+            <tr><td>3</td><td>Eigendecomposition</td><td>(λⱼ, vⱼ)</td><td>Finds directions of variance</td></tr>
+            <tr><td>4</td><td>Sort and pick top k</td><td>Vₖ</td><td>Keeps most information</td></tr>
+            <tr><td>5</td><td>Project</td><td>Z = X̃Vₖ</td><td>Compressed representation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">15</span><h2>Module 4 Synthesis — Choosing k, Evaluating Clusters and Linking to Other Modules</h2><span class="tag">Exam synthesis</span></div>
+    <div class="card full">
+      <p>Unsupervised methods have no labels, so "accuracy" is unavailable. Evaluation must be internal (compactness, separation, likelihood) or external if labels happen to exist (adjusted Rand index, normalised mutual information). The elbow method plots within-cluster dispersion J against k and chooses the bend; the silhouette score for a point is (b − a)/max(a, b) where a is mean distance to its own cluster and b to the nearest other cluster — values near +1 are good, near −1 indicate a wrong assignment.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>Output</th><th>Needs k?</th><th>Shape</th><th>Complexity</th><th>Probabilistic?</th></tr></thead>
+          <tbody>
+            <tr><td>k-means</td><td>Hard labels + centroids</td><td>Yes</td><td>Spherical</td><td>O(nkdi)</td><td>No</td></tr>
+            <tr><td>HAC</td><td>Dendrogram / labels</td><td>No (cut later)</td><td>Depends on linkage</td><td>O(n²)–O(n³)</td><td>No</td></tr>
+            <tr><td>EM / GMM</td><td>Soft memberships + densities</td><td>Yes</td><td>Elliptical (full Σ)</td><td>O(nkd·iters)</td><td>Yes</td></tr>
+            <tr><td>PCA</td><td>Low-dimensional coordinates</td><td>k components</td><td>Linear subspace</td><td>O(nd²)</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A typical pipeline combines them: standardise features → PCA to remove correlation and noise → cluster in the reduced space (k-means or HAC) → inspect the silhouette scores and visualise in 2-D. PCA before clustering often improves both speed and cluster quality because distance in a decorrelated, lower-dimensional space is more meaningful.</p>
+      <div class="def"><b>Connections to exam topics:</b> EM is the same maximum-likelihood machinery as Module 1, with missing labels as latent variables. PCA's eigendecomposition is the linear-algebra twin of SVM's dual (both reduce a learning problem to inner products/eigenvalues). Clustering is the unsupervised counterpart of the classification of Modules 2 and 5 — same feature space, no labels. Regularisation and the bias–variance trade-off reappear as the choice of covariance constraints in GMMs and the number of components in PCA.</div>
+      <div class="def"><b>Exam writing tip:</b> when asked to "compare clustering algorithms", tabulate five rows — assumption, input parameters, output, complexity, failure mode — rather than writing prose. For PCA, always state the four-step algorithm (centre, covariance, eigenvectors, project) and the variance-retention formula; then add one numeric eigenvalue example to show the arithmetic. Marks are usually split evenly between the conceptual steps and the computation.</div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="head"><span class="num">16</span><h2>Validating Clusters — Silhouette Scores Worked Out</h2><span class="tag">Choosing k</span></div>
+    <div class="card full">
+      <p>Because clustering is unsupervised, we cannot score it against labels. Internal validation asks whether clusters are compact (points close to their own centroid) and well separated (far from other clusters). The elbow method plots J(k) and looks for the bend; the silhouette coefficient is more quantitative. For point i, let a(i) be its mean distance to other points in its own cluster and b(i) the mean distance to the nearest other cluster; then</p>
+      <div class="formula">\[s(i)=\frac{b(i)-a(i)}{\max\{a(i),b(i)\}},\qquad \overline{s}=\frac{1}{n}\sum_i s(i)\]</div>
+      <p>s near +1 means well clustered, near 0 means on a boundary, negative means probably assigned to the wrong cluster. Sweep k and choose the value with the largest mean silhouette.</p>
+      <h3>Worked one-point calculation</h3>
+      <p>One-dimensional points clustered as C₁ = {1, 2, 3} and C₂ = {8, 9, 10}. For point x = 2, a = (|2−1| + |2−3|)/2 = (1 + 1)/2 = 1. The nearest other cluster's mean distance is b = (|2−8| + |2−9| + |2−10|)/3 = (6 + 7 + 8)/3 = 7. So s = (7 − 1)/max(1, 7) = 6/7 ≈ <b>0.857</b> — a well-clustered point. If the two clusters were {1,2,3} and {4,5,6}, b = (2+3+4)/3 = 3 and s = (3−1)/3 = 0.667, still positive but weaker. A point exactly between two clusters would have a ≈ b and s ≈ 0.</p>
+      <div class="def"><b>External validation when labels exist:</b> homogeneity/completeness, adjusted Rand index (chance-corrected pair-counting agreement) and normalised mutual information compare cluster assignments with known classes. Never use these to choose k during an unsupervised task — they require the very labels you do not have; they are only for post-hoc evaluation in a benchmark.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">17</span><h2>Beyond Plain PCA — SVD, Reconstruction Error, Whitening and PCA vs LDA</h2><span class="tag">Advanced reduction</span></div>
+    <div class="card full">
+      <p>PCA is usually implemented with <b>singular value decomposition</b> rather than by explicitly forming the covariance matrix: factor the centred data as X = UΣVᵀ, where the columns of V are the eigenvectors of XᵀX and the squares of the singular values σⱼ² are proportional to the eigenvalues. This is numerically stable and works even when n &lt; d (the SVD costs O(nd·min(n,d))). The reconstruction obtained by keeping the top k components is X̂ = U<sub>k</sub>Σ<sub>k</sub>V<sub>k</sub>ᵀ, and the squared reconstruction error equals the sum of the discarded singular values squared: ‖X − X̂‖²<sub>F</sub> = Σ<sub>j&gt;k</sub> σⱼ². Choosing k to retain 95% of Σⱼσⱼ² is exactly the variance-retention rule.</p>
+      <div class="formula">\[X=U\Sigma V^{T},\qquad \text{fraction of variance kept}=\frac{\sum_{j=1}^{k}\lambda_j}{\sum_{j=1}^{d}\lambda_j}=\frac{\sum_{j=1}^{k}\sigma_j^{2}}{\sum_{j=1}^{d}\sigma_j^{2}}\]</div>
+      <p><b>Whitening</b> goes one step further: after projection, divide each component by √λⱼ so every retained dimension has unit variance. This removes second-order correlations completely and is often used as a preprocessing step for algorithms sensitive to scale.</p>
+      <div class="def"><b>PCA vs LDA:</b> PCA is unsupervised and maximises total variance; LDA is supervised and maximises the ratio of between-class to within-class scatter (Fisher's criterion), so it can find a low-variance direction that separates classes. LDA can extract at most C − 1 components for C classes, while PCA can extract up to d. When labels exist and the goal is classification, try LDA; when the goal is compression or visualisation without labels, use PCA.</div>
+      <div class="def"><b>Non-linear alternatives:</b> kernel PCA maps data into a high-dimensional feature space via a kernel and performs PCA there, capturing non-linear structure at the cost of an n × n Gram matrix; t-SNE and UMAP are visualisation methods that preserve local neighbourhoods rather than global variance; autoencoders learn a non-linear encoder/decoder with a narrow bottleneck. All are legitimate answers to "what if the data lies on a curved manifold?" — the assumption where plain PCA fails.</div>
+      <div class="def"><b>Final PCA warning:</b> PCA components are linear combinations of features and can be hard to interpret; the sign of a component is arbitrary; and a high variance direction need not be a predictive one. Always report the variance retained and, if the reduced data feeds a classifier, validate the whole pipeline with cross-validation (fit PCA inside each fold, not before splitting).</div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="head"><span class="num">18</span><h2>Other Clustering Families — DBSCAN, Spectral Clustering and Their Trade-offs</h2><span class="tag">Beyond k-means/HAC</span></div>
+    <div class="card full">
+      <p>k-means assumes spherical clusters; HAC commits early to merges. Two other families appear in practice and are useful answers when an examiner asks how to handle non-spherical data. <b>DBSCAN</b> (Density-Based Spatial Clustering of Applications with Noise) groups together points that are densely connected, using two parameters: ε, the neighbourhood radius, and minPts, the minimum number of points required to call a region dense. A point is <b>core</b> if at least minPts points lie within ε; a <b>border</b> point is within ε of a core point; everything else is labelled noise. Clusters are maximal sets of density-connected points.</p>
+      <pre><code>DBSCAN(X, eps, minPts):
+    label every point UNVISITED
+    for each unvisited point p:
+        neighbours = points within eps of p
+        if |neighbours| &lt; minPts: label p as NOISE; continue
+        create a new cluster C; expand the seed set with neighbours
+        while seed set is not empty:
+            q = pop a point from the seed set
+            if q was NOISE: relabel q as border and add to C
+            if q already clustered: continue
+            add q to C; find its eps-neighbours
+            if |neighbours(q)| &gt;= minPts: push new neighbours into the seed set
+    return clusters + noise points</code></pre>
+      <div class="def"><b>Worked intuition:</b> consider a crescent-and-disk arrangement. k-means, forced to use two centroids, cuts the crescent in half; DBSCAN with a well-chosen ε follows the dense crescent as one cluster and the disk as another, and flags scattered points as noise. Advantages: no need to specify k, arbitrarily shaped clusters, explicit outlier detection. Disadvantages: sensitivity to ε and minPts, and difficulty with clusters of widely varying density — a single global ε cannot suit a sparse and a dense cluster at once.</div>
+      <p><b>Spectral clustering</b> takes a different route. Build a similarity graph whose edge weight wᵢⱼ encodes the closeness of points i and j, compute the graph Laplacian L = D − W (D being the degree matrix), and cluster the eigenvectors corresponding to the smallest eigenvalues of the normalised Laplacian. The intuition is that the leading eigenvectors embed the graph so that points connected by strong similarities lie close together; k-means in that embedding then respects the graph's connected components rather than Euclidean balls.</p>
+      <div class="formula">\[L=D-W,\qquad D_{ii}=\sum_j w_{ij},\qquad \min_{Z}\ \operatorname{Tr}(Z^{T}LZ)\ \text{s.t.}\ Z^{T}Z=I\]</div>
+      <div class="def"><b>Cost comparison:</b> spectral clustering needs an n × n similarity matrix and an eigen-decomposition — O(n³) worst case — so it is unsuitable for very large n. It shines on moderate datasets with complicated, non-convex structure. A practical pipeline is: construct a k-nearest-neighbour graph (sparse), compute a few eigenvectors with an iterative solver, then run k-means on the embedding. This same "graph → embedding → cluster" pattern reappears in semi-supervised label propagation (Module 1).</div>
+      <div class="def"><b>Choosing among the four families:</b> k-means for large, roughly spherical data when speed matters; HAC when you want a hierarchy or do not know k; DBSCAN when clusters are irregular and noise must be identified; spectral clustering for moderate-sized data with complex connectivity. Always visualise the result or inspect a validation index — no clustering algorithm can be trusted without checking its assumptions against the data.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">19</span><h2>Choosing the Number of Components — BIC, AIC and the Elbow Worked</h2><span class="tag">Model order</span></div>
+    <div class="card full">
+      <p>Both GMM/EM and PCA require choosing a model order: the number of mixture components K or the number of principal components k. Cross-validation is awkward for unsupervised learning because there are no labels to predict; instead we use information criteria or variance-based heuristics.</p>
+      <div class="formula">\[\mathrm{AIC}=2p-2\ln \hat L,\qquad \mathrm{BIC}=p\ln n-2\ln \hat L\]</div>
+      <p>Here p is the number of free parameters and L̂ the maximised likelihood. Both penalise complexity; BIC's penalty grows with log n and is consistent (it selects the true model as n → ∞ under regularity conditions), while AIC targets predictive accuracy.</p>
+      <h3>Worked GMM selection</h3>
+      <p>Suppose fitting K = 1, 2, 3 one-dimensional Gaussians to n = 200 points gives log-likelihoods −412, −355 and −350. Each component has a mean and a variance (2 parameters) plus one mixing weight that sums to one (K − 1 free), so p = 3K − 1. Then BIC(1) = 2·ln200 + 824 = 10.6 + 824 = 834.6; BIC(2) = 5·ln200 + 710 = 26.5 + 710 = 736.5; BIC(3) = 8·ln200 + 700 = 42.4 + 700 = 742.4. The minimum is at K = 2 — the third component improves the fit by only 5 log-units while costing 3·ln200 ≈ 15.9. Without the penalty one would wrongly take K = 3.</p>
+      <h3>Worked PCA elbow</h3>
+      <p>For a dataset the first six eigenvalues are 8.1, 3.4, 0.9, 0.4, 0.2 and 0.1, summing to <b>13.1</b>. The cumulative variance retained is 8.1/13.1 = 61.8% after one component, (8.1 + 3.4)/13.1 = 87.8% after two, and (8.1 + 3.4 + 0.9)/13.1 = 94.7% after three, reaching 97.7% at four. To hit a 95% target we keep four components, or three if 94.7% is accepted as close enough. The scree plot drops steeply for the first two eigenvalues and flattens afterwards, suggesting an elbow around k = 2 or 3; the exact cutoff depends on the application's tolerance for information loss.</p>
+      <div class="def"><b>Why the penalty works:</b> adding parameters always increases the likelihood, even on pure noise, because the model can memorise sampling fluctuations. BIC charges p·ln n for that freedom, so an added component must buy a likelihood improvement larger than the charge. This is the same philosophy as Ridge/Lasso in supervised learning (Module 2) and pruning in decision trees (Module 2): prefer the simplest model that explains the data adequately — Occam's razor made quantitative.</div>
+      <div class="def"><b>Exam writing tip:</b> for "how many clusters/components?", mention three routes — domain knowledge, an internal index (silhouette / elbow / BIC), and stability across resamples — and state that the answer is a modelling decision rather than a fact handed down by the data. That nuance typically earns the top band.</div>
+    </div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-4.html">← Prev: M4.2 · PCA &amp; Dimensionality</a>
+    <a class="next" href="module-5.html">Next: M5 · Classification &amp; Assessment →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="question-bank.html">Papers</a></div>
+  </div>
+</footer>
+
+
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

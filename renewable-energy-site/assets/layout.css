@@ -398,7 +398,7 @@ tbody tr:hover{background:color-mix(in srgb, var(--accent) 12%, var(--paper))}
 }
 .eq .katex-display{margin:0}
 .eq .katex-display > .katex{white-space:nowrap}
-.eq .katex{font-size:1.08em}
+.eq .katex{font-size:1.28em}
 /* label + formula on one line, e.g. "Entropy:  <math>" */
 .eq .katex-display{display:block}
 /* keep scrollbars unobtrusive */

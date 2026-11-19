@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 · Covering Tracks, Logging & Privilege Escalation</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav"><a href="index.html">Home</a><a href="../index.html">All subjects</a><a href="module-1.html">M1 · Foundations</a><a href="module-2.html">M2 · Recon &amp; Attacks</a><a href="module-3.html">M3 · Vulnerabilities</a><a href="module-4.html">M4 · Net / System</a><a href="module-5.html" class="active">M5 · Tracks</a><a href="exam-guide.html">Exam Techniques</a><a href="question-bank.html">Papers</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 5 · Complete Module (1 topic expanded)</span>
+  <h1>Covering Tracks, Logging &amp; Privilege Escalation</h1>
+  <p class="lede">The after-access layer: how intruders erase evidence and hide files, what event logs record and how to protect them, how passwords are cracked and privileges escalated, how persistence survives a reboot, and how a defender rebuilds the timeline and responds to the incident.</p>
+  <div class="meta-row">
+    <span class="chip red">Anti-forensics</span><span class="chip">Event logs</span><span class="chip">Data hiding</span><span class="chip">Password cracking</span><span class="chip">Privilege escalation</span><span class="chip">Persistence</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- COVERING TRACKS -->
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Covering Tracks &amp; Hiding</h2>
+      <span class="tag">Anti-forensics</span></div>
+    <div class="card full">
+      <p>After gaining access, an attacker erases evidence — disables auditing, clears logs, modifies
+      logs/registry, removes created files/folders. This extends the "maintaining access" phase.</p>
+      <div class="stack">
+        <div class="card"><h4>Hiding malicious processes</h4><p>Run under genuine OS process names; Task Manager shows disproportionate resource use. <b>Covert channels</b> tunnel traffic in overlooked protocols (DNS/ICMP) — indicator = large ICMP/DNS volumes, zone transfers.</p></div>
+        <div class="card"><h4>Why it matters</h4><p>Anti-forensics slows incident response and lets the attacker keep access. Defenders rely on logging integrity (see §04).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENT LOGGING -->
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Event Logging</h2>
+      <span class="tag">What gets recorded</span></div>
+    <div class="card full">
+      <p>An <b>event log</b> is a file of OS/app/device usage. The six default Windows categories:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Category</th><th>Records</th></tr></thead>
+          <tbody>
+            <tr><td>Application</td><td>Events logged by applications/devs</td></tr>
+            <tr><td>System</td><td>OS and driver events</td></tr>
+            <tr><td>Security</td><td>Logon, file deletion per audit policy</td></tr>
+            <tr><td>Directory Service</td><td>Domain controllers only</td></tr>
+            <tr><td>DNS Server</td><td>DNS servers only</td></tr>
+            <tr><td>File Replication Service</td><td>Domain controllers only</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Event Viewer shows date/time, username, computer, source, type. The <b>Security log</b> specifically tracks: Account logon, Account management, Directory service access, Logon, Object access, Policy change, Privilege use, Process tracking, System events.</p>
+      <div class="def"><b>Defense note:</b> attackers target Windows event logs (anti-forensic, MITRE ATT&amp;CK T1070) to slow response by clearing/tampering with them.</div>
+    </div>
+  </div>
+
+  <!-- DEFENSES -->
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Defenses Against Log &amp; Accounting Attacks</h2>
+      <span class="tag">Hardening</span></div>
+    <div class="stack">
+      <div class="card"><h4>Activate logging</h4><p>Turn on auditing so events are actually captured.</p></div>
+      <div class="card"><h4>Proper permissions</h4><p>Restrict who can read/modify logs.</p></div>
+      <div class="card"><h4>Separate logging server</h4><p>Ship logs off-box (SIEM) so local tampering loses the copy.</p></div>
+      <div class="card"><h4>Encrypt log files</h4><p>Prevent casual reading/modification.</p></div>
+      <div class="card"><h4>Append-only logs</h4><p>Make deletion/editing impossible without privilege.</p></div>
+      <div class="card"><h4>Write-once media</h4><p>Store logs where they cannot be rewritten.</p></div>
+    </div>
+  </div>
+
+  <!-- HIDING EVIDENCE -->
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Hiding Evidence on Host &amp; Network</h2>
+      <span class="tag">Data hiding</span></div>
+    <div class="card full">
+      <p>A <b>covert channel</b> hides data while it moves. <b>Data-hiding techniques:</b> hidden partitions,
+      file extensions, hidden attribute, bit-shifting, encryption, password protection.</p>
+      <div class="stack">
+        <div class="card"><h4>File manipulation</h4><p>Names/extensions/hidden attribute (e.g. common with FAT systems; place sensitive info on free space).</p></div>
+        <div class="card"><h4>Disk manipulation</h4><p>Hidden partitions; mark a good cluster bad using Norton Disk Edit — type <code>B</code> in the FAT entry for that cluster.</p></div>
+        <div class="card"><h4>Bit-shifting</h4><p>Old technique: shift bit patterns to alter byte values so files look like binary executable code. Tool: Hex Workshop.</p></div>
+        <div class="card"><h4>Steganography</h4><p>"Hidden writing" — insert data into images/text docs (S-Tools, DPEnvelope, jpgx). Very hard to spot without prior knowledge.</p></div>
+        <div class="card"><h4>Encryption</h4><p>Password/passphrase protects files; recovery is hard without it. <b>Key escrow</b> lets data be recovered if a passphrase is forgotten or key corrupted.</p></div>
+        <div class="card"><h4>Cracking encrypted files</h4><p>Needs expert + powerful computers, or persuading the suspect to reveal the password.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM HACKING / PASSWORDS -->
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>System Hacking: Password Cracking</h2>
+      <span class="tag">The kill-chain end</span></div>
+    <div class="card full">
+      <p><b>System hacking</b> = using technical skills to gain access, exploit vulns, and conceal activity.
+      The system-hacking cycle (6 steps):</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>#</th><th>Step</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Enumeration</td></tr>
+            <tr><td>2</td><td>Cracking passwords</td></tr>
+            <tr><td>3</td><td>Escalating privileges</td></tr>
+            <tr><td>4</td><td>Executing applications</td></tr>
+            <tr><td>5</td><td>Hiding files</td></tr>
+            <tr><td>6</td><td>Covering tracks</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Passwords by character class: letters only · numbers only · special only · letters+numbers · letters+special · special+numbers · all three.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Administrator password guessing</h4>
+      <ul>
+        <li>If <b>NetBIOS TCP/139</b> is open, the most effective break-in is password guessing.</li>
+        <li>Connect to an enumerated share (<code>IPC$</code> or <code>C$</code>) and try username/password.</li>
+        <li>Default <code>Admin$</code>, <code>C$</code>, <code>%Systemdrive%</code> shares are a good starting point.</li>
+      </ul>
+      <div class="def"><b>Password sniffing:</b> instead of guessing, sniff credentials off the wire as users log in, then replay them to gain access.</div>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Manual cracking steps</h4>
+      <ol>
+        <li>Find a valid user account (Administrator or Guest).</li>
+        <li>Create a list of possible passwords.</li>
+        <li>Rank passwords high to low probability.</li>
+        <li>Key in each password; repeat until success.</li>
+      </ol>
+      <p>Automated: dictionary or brute-force tools.</p>
+    </div>
+  </div>
+
+  <!-- PRIVILEGE ESCALATION -->
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Privilege Escalation</h2>
+      <span class="tag">Footprint → root</span></div>
+    <div class="card full">
+      <p>Gaining elevated rights beyond what's assigned — via a bug, misconfiguration, or weak access
+      control. <b>Five primary methods:</b> Credential exploitation · Vulnerabilities &amp; exploits ·
+      Misconfigurations · Malware · Social engineering.</p>
+      <div class="stack">
+        <div class="card"><h3><span class="idx">H</span>Horizontal</h3><p>Access rights of another account with <b>similar</b> privileges ("account takeover"). Lower-level accounts broaden the attacker's sphere — basic lateral movement.</p></div>
+        <div class="card"><h3><span class="idx">V</span>Vertical</h3><p>Move from low to <b>higher</b> privilege (e.g. via a buffer overflow) to gain admin/root. Also called a privilege-elevation attack.</p></div>
+      </div>
+      <div class="def">Attack chain: gain entry → surveil → <b>escalate</b> → clean up (mask source IP, delete logs). Any evidence of presence = an Indicator of Compromise (IoC).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Hiding &amp; Anti-Forensics in Practice</h2>
+      <span class="tag">Techniques</span></div>
+    <div class="card full">
+      <div class="stack">
+        <div class="card"><h4>NTFS Alternate Data Streams</h4><p><code>type secret.txt &gt; legit.exe:hidden.txt</code> hides data in a file's stream — invisible in normal dir listings.</p></div>
+        <div class="card"><h4>Timestomping</h4><p>Altering file MAC times to match legit files and dodge "recently changed" filters.</p></div>
+        <div class="card"><h4>Hiding evidence by altering event logs</h4><p>Attackers target Windows event logs (anti-forensic, MITRE T1070) to slow response — clearing them (<code>wevtutil cl &lt;log&gt;</code>) or editing events to erase their own IOAs. This is the syllabus's "hiding evidence by altering event log."</p></div>
+        <div class="card"><h4>Rootkits</h4><p>Kernel/user-mode code that hides processes, files, and network connections from the OS.</p></div>
+      </div>
+      <div class="def">Defender counter: collect logs off-box (so local wipe loses the copy), use file-integrity monitoring, and snapshot system state for comparison.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Privilege Escalation — Concrete Paths</h2>
+      <span class="tag">Linux / Windows</span></div>
+    <div class="stack">
+      <div class="card"><h4>Linux</h4><ul>
+        <li>Misconfigured <code>sudo</code> (NOPASSWD on shells)</li>
+        <li>SUID binaries (<code>find / -perm -4000</code>)</li>
+        <li>Writable cron / service files</li>
+        <li>Kernel exploit for unpatched local CVE</li>
+      </ul></div>
+      <div class="card"><h4>Windows</h4><ul>
+        <li>Token theft / <code>incognito</code> (Steal-Token)</li>
+        <li>UAC bypass via auto-elevating binaries</li>
+        <li>Weak service perms (unquoted path)</li>
+        <li>DLL hijacking in app directories</li>
+      </ul></div>
+    </div>
+    <div class="def"><b>Defender view — intrusion timeline:</b> alert &rarr; identify IoC &rarr; contain (isolate host) &rarr; eradicate (remove persistence) &rarr; recover (rebuild from trusted image) &rarr; review (close the gap).</div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">E1</span><h2>Anti-Forensics and the Attacker's Endgame</h2><span class="tag">Deep dive · anti-forensics</span></div>
+    <div class="card full">
+      <p>Once an attacker has a foothold, their priority changes from getting in to staying in and avoiding attribution. <b>Covering tracks</b> is the collection of techniques used to remove, obscure, or falsify evidence of the intrusion. It is the final phase of the classic kill chain and is mapped in MITRE ATT&amp;CK to the <b>defence evasion</b> tactic, with indicator removal and clearing of event logs as specific techniques. The motivation is practical: a defender who can reconstruct the attack can identify the entry point, close it, and attribute the activity; an attacker who hides the trail can return later through the same door.</p>
+      <p>Anti-forensics attacks the <b>integrity and availability of evidence</b> rather than the confidentiality of data. The attacker disables auditing, clears or edits logs, alters timestamps, hides files in alternate streams or slack space, removes tools, and may tunnel communications through protocols that monitoring ignores. Each action leaves a second-order trace: disabling auditing produces its own event, a cleared log has a suspicious gap, and a file whose modification time predates the operating system's installation is impossible. Perfect concealment is hard; the attacker is usually trying to delay discovery long enough to finish the objective.</p>
+      <p>The defender's response is to make evidence <b>hard to destroy and easy to correlate</b>. Logs are shipped off the host as they are produced, so wiping the local copy does not erase the central one. Clocks are synchronised with NTP so events from many systems line up. File-integrity monitoring detects changes to critical files, and endpoint telemetry records process creation even when an application log is cleared. These controls assume the host is compromised and therefore protect the evidence outside it.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Anti-forensic action</th><th>Evidence it removes</th><th>Second-order trace</th><th>Defender control</th></tr></thead>
+        <tbody>
+          <tr><td>Clear event log</td><td>Login and process history</td><td>Gap in time, audit-disabled event</td><td>Off-box forwarding, append-only store</td></tr>
+          <tr><td>Timestomping</td><td>When files changed</td><td>Dates inconsistent with other events</td><td>Timeline correlation, integrity hashes</td></tr>
+          <tr><td>Delete dropped tools</td><td>Presence of malware</td><td>Process execution records, hashes</td><td>EDR telemetry, process auditing</td></tr>
+          <tr><td>Hide in alternate stream</td><td>File contents in listings</td><td>Stream names, unusual file sizes</td><td>ADS-aware scanning tools</td></tr>
+          <tr><td>Covert channel</td><td>Command and control traffic</td><td>High DNS/ICMP volume, odd payloads</td><td>Egress filtering, traffic analytics</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The key insight is that anti-forensics targets evidence, not data confidentiality. State that covering tracks destroys the <i>audit trail</i>, then give two examples and two countermeasures.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E2</span><h2>Windows Event Logging in Depth</h2><span class="tag">Deep dive · evidence</span></div>
+    <div class="card full">
+      <p>An <b>event log</b> is a structured record of activity produced by the operating system, an application, or a device. Windows organises logs into categories, and knowing which category records what is essential for an investigator. The <b>Application</b> log holds events written by programs; the <b>System</b> log holds operating-system and driver events; the <b>Security</b> log holds audited events such as logons and file access; and on domain controllers the <b>Directory Service</b>, <b>DNS Server</b>, and <b>File Replication Service</b> logs hold role-specific records. PowerShell and Windows Defender have their own operational logs that are frequently decisive in investigations.</p>
+      <p>The Security log is subdivided into categories that map directly to attacker behaviour: account logon and account management, logon events, object access, policy change, privilege use, process tracking, directory service access, and system events. A failed logon burst appears here; so does the creation of a new user, a change to audit policy, and the clearing of the log itself. <b>Event Viewer</b> displays the time, source, event ID, and user, and can filter and export events. Event IDs are the shorthand investigators use: a 4624 records a successful logon, 4625 a failure, 4688 a process creation, and 1102 the clearing of the Security log.</p>
+      <p>The <b>maximum log size</b> and retention policy determine how much history survives. A small log that overwrites old entries may have lost the evidence by the time an analyst looks. Forwarding events to a central collector as they occur removes that dependency. Investigators also check the <b>audit policy</b> itself: an attacker who disables auditing generates a policy-change event, but if logs are small that record may be overwritten quickly.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Log category</th><th>Typical events</th><th>Investigative value</th></tr></thead>
+        <tbody>
+          <tr><td>Security</td><td>Logons, account changes, policy changes</td><td>Who accessed what and when</td></tr>
+          <tr><td>System</td><td>Service starts, driver failures</td><td>Persistence and crash evidence</td></tr>
+          <tr><td>Application</td><td>Program-specific errors</td><td>Application-layer failures</td></tr>
+          <tr><td>PowerShell Operational</td><td>Script block and command text</td><td>Fileless attacks, encoded commands</td></tr>
+          <tr><td>Directory Service</td><td>Replication and object changes (DC)</td><td>Domain-level attacker actions</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Worked event sequence</h4>
+      <pre><code>4625  failed logon for user "a.sharma" x 40 from 10.0.0.9
+4624  successful logon, same user, LogonType 10 (remote interactive)
+4688  process created: powershell.exe -enc ...   (encoded command)
+4688  process created: schtasks.exe /create ...   (persistence)
+1102  Security log cleared                         &lt;-- anti-forensics
+
+The clearing event is itself proof that someone tried to hide activity.
+Because logs were forwarded, the first four events survive on the collector.</code></pre>
+    </div>
+    <div class="def"><b>Exam tip:</b> Name at least three of the six default Windows categories and give one Security-log subcategory. Add that the act of clearing the log is itself an event — a favourite high-level point.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E3</span><h2>Linux and Centralised Logging</h2><span class="tag">Deep dive · visibility</span></div>
+    <div class="card full">
+      <p>Linux systems produce text logs under <code>/var/log</code>. <b>auth.log</b> or <b>secure</b> records authentication and sudo use, <b>syslog</b> or <b>messages</b> records general system events, and application daemons keep their own files. <b>journald</b> adds structured, indexed logging with metadata that survives reboots when configured to persist. The <b>audit daemon</b> (auditd) watches files, commands, and system calls against rules and produces high-fidelity records suitable for compliance. Web servers write access and error logs that reveal scanning and injection attempts.</p>
+      <p>Centralised logging follows a simple architecture: agents or native forwarders on each host send events over a protected channel to a collector, which normalises and stores them in a <b>SIEM</b>. The SIEM correlates events across hosts — combining a failed logon, an impossible-travel alert, and a new process on one timeline — which is something no single host can do. It also enforces retention policies and restricts access so that investigators can trust the archive.</p>
+      <p>Time synchronisation is a hidden dependency of all of this. If one host's clock is wrong by minutes, correlation places events in the wrong order and the story disappears. NTP or an authenticated time source should be mandatory on every system, and timestamps should be recorded in a standard offset. Log integrity can be further protected with signed records or a write-once store.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Centralised logging architecture</div>
+      <pre><code>  [ Host A ] --(agent)---\
+  [ Host B ] --(agent)----+---&gt; [ Collector ] ---&gt; [ SIEM ] ---&gt; [ Analyst ]
+  [ Network devices ]-----/         |                   |
+                                    v                   v
+                          [ Write-once archive ]   [ Alerts / cases ]
+
+  NTP synchronises every clock so the timeline is coherent.
+  The attacker can wipe Host A, but cannot reach the collector.</code></pre>
+      <p class="dcap">The central collector is the answer to local log tampering: the host may be fully under the attacker's control, but the copy already shipped off-box is not.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> For "how do you defend logs?", give four controls — enable auditing, restrict permissions, forward off-box, and make storage append-only or write-once — and add NTP so timelines remain valid.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E4</span><h2>Defending Log and Accounting Integrity</h2><span class="tag">Deep dive · hardening</span></div>
+    <div class="card full">
+      <p>Logs are only useful if they are complete and trustworthy. Six controls protect them. <b>Activate logging</b> with an audit policy that covers logon, object access, policy change, and process creation; a log that is not enabled records nothing. <b>Restrict permissions</b> so ordinary users and service accounts cannot read or modify log files. <b>Separate the logging server</b> so a compromised host cannot reach the stored copy. <b>Encrypt log files</b> in transit and at rest to prevent casual reading and tampering. Use <b>append-only storage</b> so records cannot be edited or deleted without high privilege. For the strongest guarantee, use <b>write-once media</b> or object-lock storage where deletion is impossible until retention expires.</p>
+      <p>These controls address different attacks. Permissions stop a user from clearing their own trail. Forwarding stops an administrator-level attacker who owns the local machine. Append-only storage stops an attacker who reaches the collector but lacks the privilege to change its policy. Encryption and signatures reveal modification. A programme that implements only one of the six leaves a clear path around it.</p>
+      <p>Detection rules should watch the log system itself. An event 1102 in Windows, a sudden stop in syslog forwarding, a gap in the sequence of records, or a change to audit policy are all strong indicators. Monitoring the monitor is not paranoia; it is the recognition that anti-forensics is a normal step in a skilled intrusion.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Control</th><th>Attack it defeats</th><th>Limitation</th></tr></thead>
+        <tbody>
+          <tr><td>Enable auditing</td><td>No record of the action</td><td>Generates volume that must be tuned</td></tr>
+          <tr><td>Restrict permissions</td><td>Local user edits log</td><td>Administrator can still override</td></tr>
+          <tr><td>Off-box forwarding</td><td>Local wipe</td><td>Needs network and agent health</td></tr>
+          <tr><td>Append-only / object lock</td><td>Deletion on the collector</td><td>Requires storage support and policy</td></tr>
+          <tr><td>Encryption and signatures</td><td>Quiet modification</td><td>Does not prevent deletion</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The most complete sentence is "ship logs off the host as they are generated, to append-only storage, with synchronised clocks." It covers tampering, deletion, and correlation in one line.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E5</span><h2>Hidden Processes and Covert Channels</h2><span class="tag">Deep dive · concealment</span></div>
+    <div class="card full">
+      <p>An attacker who has executed code wants it to keep running without appearing in the list of processes. Classic approaches run malicious code under the name of a genuine system process, inject it into a legitimate process's memory, or hide it with a <b>rootkit</b> that alters what the operating system reports. A rootkit at user level hooks API calls so a directory listing omits certain files; a kernel-level rootkit can hide processes, drivers, and network connections from every tool that relies on the same operating-system interfaces. The indicator is a mismatch: a CPU or network usage pattern that does not correspond to any visible process, or two tools that disagree about what is running.</p>
+      <p>A <b>covert channel</b> carries data through a mechanism not intended for communication. DNS is a favourite because outbound DNS is rarely blocked: the attacker encodes commands in subdomain labels and receives answers from a server they control. ICMP tunnels place data in ping payloads. Timing channels vary the interval between otherwise normal packets. These channels are attractive because they blend into allowed traffic, but they have signatures — unusually long subdomain names, high query volumes to one domain, large ICMP payloads, or regular beaconing intervals.</p>
+      <p>Defences are layered. Egress filtering limits which protocols may leave the network, and DNS filtering blocks known-bad domains. Threat hunting compares process telemetry from different sources, such as the kernel and an endpoint agent, to reveal rootkit discrepancies. Endpoint detection watches for process injection and unusual parent-child relationships. Because covert channels rely on being overlooked, visibility and analytics matter more than a single blocking rule.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>How it hides</th><th>Indicator</th><th>Detection</th></tr></thead>
+        <tbody>
+          <tr><td>Process-name masquerade</td><td>Copied genuine process name</td><td>Wrong path or parent process</td><td>Process lineage validation</td></tr>
+          <tr><td>Process injection</td><td>Code runs inside a legitimate process</td><td>Unexpected memory regions</td><td>EDR behavioural monitoring</td></tr>
+          <tr><td>Rootkit</td><td>OS reports filtered results</td><td>Tools disagree; hidden connections</td><td>Cross-view comparison, kernel telemetry</td></tr>
+          <tr><td>DNS tunnelling</td><td>Data in query names</td><td>Long labels, high query volume</td><td>DNS analytics, egress control</td></tr>
+          <tr><td>ICMP tunnel</td><td>Data in ping payload</td><td>Large or frequent ICMP packets</td><td>Firewall rules, traffic analytics</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> A covert channel hides <i>the communication</i>; a rootkit hides <i>the artefacts</i>. Keeping those two ideas separate makes a long answer much clearer.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E6</span><h2>Data-Hiding Techniques in Depth</h2><span class="tag">Deep dive · concealment</span></div>
+    <div class="card full">
+      <p>Hiding data is different from encrypting it: the goal is that nobody thinks to look. <b>NTFS alternate data streams</b> let a file carry additional named streams invisible in a normal directory listing; a text file can hide a whole payload in a stream attached to an innocent image. <b>Timestomping</b> changes a file's modified, accessed, and created times so it blends into a folder of old files. <b>Slack space</b> is the unused remainder of a disk cluster, and data written there does not appear in the file's size. <b>Steganography</b> embeds information in the least significant bits of an image or the whitespace of a document, so the carrier looks unchanged to a human.</p>
+      <p><b>Encryption</b> is the strongest protection because without the key the data is unreadable even when found, but it has a drawback: encrypted files look suspicious. <b>Key escrow</b> addresses recovery — a copy of the key is held by a trusted authority so data can be recovered if a passphrase is forgotten or a key is lost — but the escrow agent becomes a high-value target and a privacy concern. Cracking encrypted files generally requires either substantial computing power against a weak password or obtaining the passphrase from the owner.</p>
+      <p>Detection uses specialised tools. Alternate-stream scanners list named streams; file-integrity monitoring catches unexpected changes; timeline analysis finds files whose timestamps contradict the activity around them; steganalysis looks for statistical anomalies in images; and entropy measurement flags files that look random. The practical lesson is that hiding raises the cost of discovery but rarely removes it, so layered logging and integrity monitoring remain valuable.</p>
+    </div>
+    <div class="card full">
+      <h4>Worked alternate-data-stream example</h4>
+      <pre><code>C:\&gt; type secret.txt &gt; holiday.jpg:hidden.txt
+
+  Directory listing shows:  holiday.jpg    245,760 bytes
+  But the file also carries a named stream "hidden.txt" containing secret.txt.
+  Copying the file to a non-NTFS drive strips the stream; forensic tools
+  that enumerate ADS reveal it.
+
+  Defender: include ADS-aware scanning in the endpoint checks and alert on
+  streams attached to executable or image files.</code></pre>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>Where data hides</th><th>Detection method</th></tr></thead>
+        <tbody>
+          <tr><td>Alternate data stream</td><td>Named stream of a file</td><td>ADS enumeration tools</td></tr>
+          <tr><td>Timestomping</td><td>File metadata</td><td>Timeline analysis, MAC time comparison</td></tr>
+          <tr><td>Slack space</td><td>Unused cluster space</td><td>Forensic carving of unallocated space</td></tr>
+          <tr><td>Steganography</td><td>Image or document bits</td><td>Statistical steganalysis</td></tr>
+          <tr><td>Encryption</td><td>Plain sight, unreadable</td><td>Entropy checks, key recovery</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Keep the distinction clear: steganography hides the <i>existence</i> of a message; encryption hides its <i>meaning</i>. Combining the two is common in real malware.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E7</span><h2>Password Cracking in Depth</h2><span class="tag">Deep dive · credentials</span></div>
+    <div class="card full">
+      <p>Cracking is the recovery of a password from a stored hash or by repeated online attempts. <b>Online cracking</b> tries logins against the live service and is limited by rate limiting, lockout, and user behaviour. <b>Offline cracking</b> uses a stolen hash database and can run as fast as the hardware allows, because nobody can lock a file. The strength of the hash function determines the cost: fast general-purpose hashes allow billions of guesses on a GPU, while deliberate password hashes such as bcrypt, scrypt, and Argon2 are tuned to be slow and memory-hungry.</p>
+      <p>A <b>salt</b> is a random value stored with each hash. Because every user gets a different salt, identical passwords produce different hashes, so a cracked password does not reveal everyone who chose the same value and precomputed <b>rainbow tables</b> become useless. Attackers compensate with wordlists, mutation rules that add common digits and symbols, and hardware acceleration. <b>Pass-the-hash</b> attacks skip cracking entirely by reusing a captured hash where the protocol accepts it, which is why credential guard and restricting local administrator reuse matter.</p>
+      <p>The manual method taught in the syllabus is deliberately simple: find a valid account, build a ranked list of likely passwords, try each one, and repeat. Automated attacks scale the same idea with dictionaries and rule sets. Defences are length-based password policy, screening against known-breached passwords, unique passwords enforced by a manager, slow salted hashing on the server, multi-factor authentication, and monitoring for many failures or one password tried across many accounts.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Requires</th><th>Defence</th></tr></thead>
+        <tbody>
+          <tr><td>Online guessing</td><td>Live login endpoint</td><td>Rate limits, lockout, MFA, alerts</td></tr>
+          <tr><td>Dictionary / rules</td><td>Wordlist and leaked hashes</td><td>Long passphrases, breached-password screening</td></tr>
+          <tr><td>Rainbow table</td><td>Unsalted fast hashes</td><td>Unique random salts</td></tr>
+          <tr><td>GPU brute force</td><td>Fast hash, weak password</td><td>Slow password hashing, high work factor</td></tr>
+          <tr><td>Pass-the-hash</td><td>Captured hash, compatible protocol</td><td>Restrict admin reuse, credential protection</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The phrase "salted, slow password hashes" answers most defensive questions on offline cracking. Add MFA for the online case and note that password length matters more than symbol complexity.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E8</span><h2>The System Hacking Cycle</h2><span class="tag">Deep dive · end to end</span></div>
+    <div class="card full">
+      <p>The system-hacking cycle ties together the whole course in six steps: <b>enumeration</b>, <b>password cracking</b>, <b>privilege escalation</b>, <b>executing applications</b>, <b>hiding files</b>, and <b>covering tracks</b>. Enumeration collects the names and shares; cracking turns a name into a session; escalation turns a session into administrative power; execution runs the attacker's tools; hiding preserves them; covering tracks removes the evidence. Each step maps to an earlier module and each produces indicators a defender can detect.</p>
+      <p>Administrator password guessing is a classic version of the second step. If NetBIOS over TCP port 139 is open, an attacker can attempt logins against the administrative shares — <code>IPC$</code>, <code>C$</code>, <code>Admin$</code>, and the system drive — and a default or unchanged password gives immediate access. Manual guessing starts with a valid account such as Administrator or Guest, builds a prioritised list, and tries entries in order. Automated tools perform the same process with dictionaries. The defensive lessons are to rename or disable default accounts, enforce strong unique passwords, close unnecessary ports, and alert on repeated failures against administrative shares.</p>
+    </div>
+    <div class="card full">
+      <h4>Worked end-to-end scenario</h4>
+      <pre><code>1 ENUMERATE   SMB null session -> users: a.sharma, svc_backup; share "Finance"
+2 CRACK       Offline NTLM hashes -> svc_backup = "Summer2019!" (dictionary rule)
+3 ESCALATE    svc_backup is a local admin; token theft yields SYSTEM
+4 EXECUTE     Drop a scheduled task that runs a PowerShell downloader hourly
+5 HIDE        Payload stored in an NTFS alternate stream of a benign image
+6 COVER       Clear the Security log and timestomp the image file
+
+Detections along the way:
+  null session attempt, failed logins, new local-admin membership,
+  schtasks creation at odd hours, ADS stream, 1102 log-clear event,
+  and off-box logs that survive the local wipe.</code></pre>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Cycle step</th><th>Attacker goal</th><th>Best indicator</th><th>Best control</th></tr></thead>
+        <tbody>
+          <tr><td>Enumeration</td><td>Find names and shares</td><td>Repeated directory queries</td><td>Disable null sessions, restrict protocols</td></tr>
+          <tr><td>Cracking</td><td>Obtain credentials</td><td>Failed logon bursts</td><td>MFA, slow hashes, lockout</td></tr>
+          <tr><td>Escalation</td><td>Gain admin rights</td><td>New privileged membership</td><td>Least privilege, privileged monitoring</td></tr>
+          <tr><td>Execution</td><td>Run tools</td><td>Unusual child processes</td><td>EDR, allow-listing</td></tr>
+          <tr><td>Hiding</td><td>Preserve tools</td><td>ADS streams, odd timestamps</td><td>Integrity monitoring</td></tr>
+          <tr><td>Covering</td><td>Remove evidence</td><td>Log gaps, 1102 events</td><td>Off-box append-only logging</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> This six-step cycle is a ready-made fourteen-mark structure. For each step, write the attacker action, one indicator, and one control, then conclude that layered logging makes the final step ineffective.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E9</span><h2>Privilege Escalation in Depth</h2><span class="tag">Deep dive · from user to admin</span></div>
+    <div class="card full">
+      <p>Privilege escalation is obtaining rights beyond those assigned to the account. <b>Vertical</b> escalation moves upward, from an ordinary user to administrator or root; <b>horizontal</b> escalation moves sideways into another account with similar rights, which is the basis of lateral movement. The five common causes are stolen or weak credentials, exploitable vulnerabilities, misconfigurations, malware, and social engineering. In almost every case the underlying problem is that the system trusts something it should verify — a token, a file permission, or a service configuration.</p>
+      <p>On Linux, frequent paths include <code>sudo</code> rules that allow a shell without a password, SUID binaries that run with the owner's privileges and can be abused to spawn a root shell, world-writable cron or service files, and unpatched local kernel vulnerabilities. Enumerating with <code>find / -perm -4000</code> and reviewing <code>sudo -l</code> are standard first steps. On Windows, paths include token theft from another logged-on user, UAC bypass through auto-elevating binaries, weak service permissions such as an unquoted service path or a replaceable binary, DLL hijacking in a writable application directory, and excessive rights on domain accounts.</p>
+      <p>Defence starts with prevention: no users in the administrators group by default, patching, application allow-listing, and reviewed sudo or delegated-rights configuration. Detection comes from monitoring privileged-group membership changes, new services, unusual process parents, and administrative activity from ordinary accounts. The principle of least privilege is what makes escalation hard: if a compromised account has almost no rights, there is nowhere to climb.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Platform</th><th>Path</th><th>Why it works</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>Linux</td><td>NOPASSWD sudo shell</td><td>Policy grants full shell rights</td><td>Remove wildcards, require password</td></tr>
+          <tr><td>Linux</td><td>Abusable SUID binary</td><td>Runs as root with attacker input</td><td>Audit SUID, remove unnecessary bits</td></tr>
+          <tr><td>Linux</td><td>Writable cron or service</td><td>Attacker controls executed file</td><td>Correct ownership and permissions</td></tr>
+          <tr><td>Windows</td><td>Token theft</td><td>A high-privilege token is present</td><td>Restrict logons, credential guard</td></tr>
+          <tr><td>Windows</td><td>Unquoted service path</td><td>Attacker plants a binary earlier in path</td><td>Quote paths, lock directories</td></tr>
+          <tr><td>Windows</td><td>DLL hijacking</td><td>Application loads attacker DLL first</td><td>Signed binaries, safe search order</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Always define vertical and horizontal escalation first, then give one Linux and one Windows example. Finish with least privilege as the preventive control and monitoring of privileged-group changes as the detective one.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E10</span><h2>Persistence After Escalation</h2><span class="tag">Deep dive · maintaining access</span></div>
+    <div class="card full">
+      <p>Escalation is useful only if the access survives a reboot or a password change, so attackers add <b>persistence</b> mechanisms. On Windows these include entries in the Run registry keys, scheduled tasks, new services, startup-folder shortcuts, WMI event subscriptions, and domain-level changes such as a new account or a golden ticket. On Linux they include cron jobs, systemd units, modified shell profiles, and authorised SSH keys. Each mechanism has a matching detection source: Sysmon and Security event ID 4698 for scheduled tasks, registry monitoring for Run keys, auditd rules for cron and profile changes, and identity reviews for new privileged accounts.</p>
+      <p>Persistence is closely related to covering tracks but is not the same. Persistence ensures the attacker can return; covering tracks ensures nobody learns they were there. An attacker who achieves the first without the second is noisy but durable; one who achieves the second without the first is hidden but may lose access after a reboot. Skilled attackers do both, which is why incident response must search for persistence even when logs appear clean.</p>
+      <p>The defensive approach is to treat change as suspicious. Baseline the set of services, scheduled tasks, startup entries, and privileged accounts, then alert on additions. Restrict who can create services or write to startup locations. After an incident, rebuild from a trusted image rather than merely deleting the discovered artefacts — an attacker may have more than one mechanism.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Mechanism</th><th>Platform</th><th>Where it hides</th><th>Detection</th></tr></thead>
+        <tbody>
+          <tr><td>Scheduled task</td><td>Windows</td><td>Task scheduler library</td><td>Event 4698, task inventory baseline</td></tr>
+          <tr><td>Run key</td><td>Windows</td><td>Registry</td><td>Registry monitoring</td></tr>
+          <tr><td>WMI subscription</td><td>Windows</td><td>WMI repository</td><td>Sysmon WMI events</td></tr>
+          <tr><td>Cron / systemd</td><td>Linux</td><td>/etc and user unit files</td><td>auditd, file-integrity monitoring</td></tr>
+          <tr><td>SSH authorized key</td><td>Linux</td><td>User home directory</td><td>File-integrity monitoring</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> In an incident-response answer, state "search for persistence and rebuild from trusted media." Simply deleting the discovered malware is not enough if another mechanism remains.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E11</span><h2>Covering Tracks, Step by Step</h2><span class="tag">Deep dive · anti-forensics</span></div>
+    <div class="card full">
+      <p>A typical track-covering sequence begins by disabling or reducing auditing, then clearing or editing the event logs that recorded the intrusion, then deleting or timestomping dropped files, then removing accounts and tools, and finally restoring any configuration that was changed. In Windows a log can be cleared with <code>wevtutil cl &lt;logname&gt;</code>; in Linux an attacker may truncate <code>/var/log/secure</code> or delete shell history. Each action is detectable: disabling auditing and clearing a log are themselves events, truncation creates an obvious gap, and deleted files leave artifacts in the filesystem.</p>
+      <p>Attackers make predictable mistakes. They clear the Security log but forget the PowerShell or Defender operational log. They timestomp a payload but leave its creation time in the Master File Table inconsistent. They delete a tool but forget the scheduled task that launches it. They work quickly and generate anomalies that stand out against normal behaviour. The defender's advantage is that an intrusion touches many systems, and the attacker must hide all of the traces; the defender needs to find only one.</p>
+      <p>The operational response is to collect volatile evidence first, preserve the original logs, compare multiple telemetry sources, and build a timeline. File-integrity monitoring and off-box forwarding mean the attacker's local cleanup has no effect on the central copy. The investigation should finish with a gap analysis: which logs were missing, which control failed, and what change will close it.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Action</th><th>Command / effect</th><th>Artifact left behind</th></tr></thead>
+        <tbody>
+          <tr><td>Disable auditing</td><td>Change audit policy</td><td>Policy-change event</td></tr>
+          <tr><td>Clear Security log</td><td><code>wevtutil cl Security</code></td><td>Event 1102; gap in timeline</td></tr>
+          <tr><td>Truncate Linux log</td><td>Empty or delete file in /var/log</td><td>Missing records; inode timestamps</td></tr>
+          <tr><td>Timestomp</td><td>Set MAC times to old values</td><td>Inconsistency with MFT and other logs</td></tr>
+          <tr><td>Delete tooling</td><td>Remove executable</td><td>Process creation records, hashes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The best answer to "how do attackers cover tracks and how do you stop them?" gives a sequence of attacker actions, a matching artifact for each, and one architectural control — off-box append-only logging — that defeats the whole sequence.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E12</span><h2>Detection, Response, and Exam Guidance</h2><span class="tag">Consolidation</span></div>
+    <div class="card full">
+      <p>Module 5 is the defender's view of the attack endgame. The attacks are anti-forensics, hiding, credential theft, and escalation; the defences are trustworthy logging, integrity monitoring, least privilege, endpoint telemetry, and a rehearsed incident-response process. The connecting idea is that every attacker action changes something: a log is cleared, a timestamp moves, a token is used from a new location, a new service appears. Detection is the practice of noticing those changes, and response is the practice of acting before the attacker finishes the objective.</p>
+      <p><b>What to write for three marks:</b> give three labelled points. For "three ways attackers hide evidence", write alternate data streams, timestomping, and steganography, each with a six-word description. <b>What to write for fourteen marks:</b> define the terms, use the six-step system-hacking cycle as a structure, give a worked command or timeline, provide a table of techniques and indicators, explain both preventive and detective controls, and close with the incident-response phases.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Topic</th><th>Three-mark version</th><th>Fourteen-mark addition</th></tr></thead>
+        <tbody>
+          <tr><td>Covering tracks</td><td>Define and give two examples</td><td>Sequence, artifacts, off-box countermeasure</td></tr>
+          <tr><td>Event logs</td><td>List three Windows categories</td><td>Subcategories, event IDs, forwarding design</td></tr>
+          <tr><td>Privilege escalation</td><td>Define vertical and horizontal</td><td>Linux and Windows paths plus detections</td></tr>
+          <tr><td>Password cracking</td><td>Online versus offline</td><td>Salting, slow hashes, worked estimate</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Module glossary</h4>
+      <p><b>Anti-forensics</b> — techniques that remove or falsify evidence. <b>Covert channel</b> — communication through an unintended mechanism. <b>Alternate data stream</b> — hidden data attached to an NTFS file. <b>Timestomping</b> — altering file timestamps. <b>Steganography</b> — hiding the existence of a message. <b>Salt</b> — random data added before hashing a password. <b>Vertical escalation</b> — moving to higher privilege; <b>horizontal</b> — moving to another account at the same level. <b>Persistence</b> — a mechanism that survives reboot. <b>IoC</b> — an indicator of compromise. <b>Order of volatility</b> — collecting fragile evidence first.</p>
+    </div>
+    <div class="def"><b>Final exam tip:</b> End every Module 5 answer with the defender's architectural answer — centralised, append-only logging with synchronised clocks and endpoint telemetry — because it defeats hiding, escalation concealment, and track removal at the same time.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E13</span><h2>Investigation Scenarios</h2><span class="tag">Worked practice</span></div>
+    <div class="card full">
+      <h4>Scenario A — the cleared log that did not disappear</h4>
+      <p>An administrator notices that the Security log on a file server ends abruptly at 02:14. The local log shows no events after that time, and the maximum size has not been reached. Rather than assuming the server simply stopped logging, the analyst checks the collector. It holds hundreds of events from the same host after 02:14, including a 4688 process creation for a script interpreter and a 4624 logon with an unusual account. The timeline from the collector shows that someone ran <code>wevtutil cl Security</code> moments after the suspicious process started. Because forwarding was configured, the attacker wiped only the local copy. The investigation proceeds from the surviving central records, the host is isolated, and the account is disabled. <b>Lesson:</b> a gap in a local log is an indicator, not the end of the evidence.</p>
+      <h4>Scenario B — the password that was never cracked</h4>
+      <p>A user reports that files in a shared folder were encrypted overnight. The obvious suspicion is that an attacker cracked the user's password, but the authentication logs show only normal logins from the usual device. Further analysis finds that the user had authenticated to a compromised workstation earlier in the day, and a high-privilege token from that session was reused to access the share. No offline cracking was required; the attacker rode an existing authenticated session. The response therefore includes revoking all tokens, rebuilding the workstation, reviewing where privileged accounts are allowed to log on, and training users not to enter credentials on shared systems. <b>Lesson:</b> not every credential attack involves guessing passwords; token reuse bypasses the whole cracking problem.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Worked scenarios earn marks when you state what the analyst checked, what the evidence showed, and which control would have prevented it. Use the pattern "symptom → evidence → root cause → control" for each one.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E14</span><h2>Revision Checklist and Common Mistakes</h2><span class="tag">Exam technique</span></div>
+    <div class="card full">
+      <p>Before the exam, be able to do the following without notes: name the six default Windows event-log categories and three Security-log subcategories; explain the difference between horizontal and vertical privilege escalation with one example each; describe at least four data-hiding techniques and one detection method for each; explain why salting and slow hashes defeat offline cracking; recite the six steps of the system-hacking cycle; and state the six incident-response phases in order. For each item, attach one indicator and one control so that every definition is usable in an application question.</p>
+      <p>Common mistakes are predictable. Students often say "encryption" when the question is about hiding existence, confuse clearing a log with preventing logging, describe a rootkit as a password-cracking tool, forget that covering tracks generates its own events, and answer a privilege-escalation question with generic antivirus advice. Another frequent error is to treat event logs as a single undifferentiated file; naming the category and subcategory shows that you understand where evidence lives. Finally, many answers omit the defender's architectural control — off-box, append-only logging with synchronised time — which is the strongest closing point available in this module.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+        <tbody>
+          <tr><td>"Encryption hides the file"</td><td>Encryption hides meaning; steganography hides existence</td></tr>
+          <tr><td>"Clearing logs stops logging"</td><td>Clearing removes records; disabling auditing stops new ones</td></tr>
+          <tr><td>"Rootkits steal passwords"</td><td>Rootkits hide processes, files and connections</td></tr>
+          <tr><td>"Escalation means installing malware"</td><td>Escalation means gaining rights beyond those assigned</td></tr>
+          <tr><td>"Local logs are enough"</td><td>Forward them off-box to append-only storage</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Spend the last revision session on the pairings — attack, indicator, control. They convert recall into marks faster than rereading prose.</div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-4.html">&larr; Module 4 · Network &amp; System Defense</a>
+    <a class="next" href="exam-guide.html">Exam Techniques &rarr;</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div><span class="brand2">Study Notes</span> · Covering tracks, event logs, data hiding, password cracking, privilege escalation and response.</div>
+    <div><a href="index.html">Home</a> · <a href="exam-guide.html">Next module</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

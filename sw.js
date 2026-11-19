@@ -14,7 +14,7 @@
    Bump VERSION on every deploy or clients keep the old bundle forever.
    =========================================================================== */
 
-const VERSION = "s7-v8";
+const VERSION = "s7-v26";
 const CORE = VERSION + "-core";
 
 /* Everything needed to read any page with no network.
@@ -28,16 +28,12 @@ const SUBJECTS = [
 ];
 
 const PAGES = {
-  "ethical-hacking-site":
-    ["index", "m-t1", "m1-1", "m1-2", "m1-3", "m2-1", "m2-2", "m2-3", "m3-1", "m4-1", "m5-1", "papers",
-    "exam-hub", "exam-a", "exam-b", "exam-c", "exam-d", "exam-syllabus", "exam-coverage", "exam-cheatsheet"],
+  "ethical-hacking-site": ["index", "exam-guide", "question-bank", "solved-papers", "module-1", "module-2", "module-3", "module-4", "module-5"],
   "renewable-energy-site":
     ["index", "m-t1", "m1-1", "m1-2", "m1-3", "m2-1", "m2-2", "m3-1", "m4-1", "m5-1", "papers"],
   "industrial-safety-site":
     ["index", "m-t1", "m1-1", "m2-1", "m3-1", "m3-2", "m4-1", "m5-1", "papers"],
-  "machine-learning-site":
-    ["index", "m-t1", "m1-1", "m1-2", "m2-1", "m2-2", "m3-1", "m3-2", "m4-1", "m4-2", "m5-1", "m5-2", "papers",
-    "exam-hub", "exam-a", "exam-b", "exam-c", "exam-cheatsheet"]
+  "machine-learning-site": ["index", "exam-guide", "question-bank", "solved-papers", "module-1", "module-2", "module-3", "module-4", "module-5"]
 };
 
 const FONTS = [

@@ -5,6 +5,38 @@
   var prefersReduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- On-page TOC for long merged pages ---------- */
+  (function () {
+    if (document.querySelector(".toc")) return;
+    function inChrome(el) {
+      return !!el.closest(".topbar, footer, nav, .toc, .moddd-panel, .themepanel");
+    }
+    var hs = [].slice.call(document.querySelectorAll("h2")).filter(function (h) { return !inChrome(h); });
+    if (hs.length < 4) {
+      hs = [].slice.call(document.querySelectorAll("h3.q-title")).filter(function (h) { return !inChrome(h); });
+    }
+    if (hs.length < 4) return;
+    var d = document.createElement("details"); d.className = "toc";
+    var s = document.createElement("summary");
+    s.textContent = "On this page (" + hs.length + " sections)"; d.appendChild(s);
+    var ol = document.createElement("ol");
+    hs.forEach(function (h, i) {
+      if (!h.id) h.id = "sec-" + i;
+      var li = document.createElement("li"), a = document.createElement("a");
+      a.href = "#" + h.id; a.textContent = h.textContent.trim().slice(0, 90);
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var off = (document.querySelector(".topbar") || { offsetHeight: 0 }).offsetHeight + 8;
+        window.scrollTo({ top: h.getBoundingClientRect().top + window.scrollY - off,
+                          behavior: prefersReduced ? "auto" : "smooth" });
+      });
+      li.appendChild(a); ol.appendChild(li);
+    });
+    d.appendChild(ol);
+    var first = hs[0];
+    first.parentNode.insertBefore(d, first);
+  })();
+
   /* ---------- Reading progress bar ---------- */
   var bar = document.createElement("div");
   bar.className = "progressbar";
@@ -77,9 +109,13 @@
       var tog=document.createElement("button"); tog.className="navtoggle"; tog.setAttribute("aria-label","Menu"); tog.textContent="Menu"; topbar.appendChild(tog);
     }
     if(!nav) return;
-    var modLinks=items.slice(1).map(function(it){
-      return '<a href="'+it[0]+'"'+(it[0]===activeHref?' class="active"':'')+'>'+it[1]+'</a>';
-    }).join("");
+    function navLink(it,featured){
+      var cls=(it[0]===activeHref?'active':'')+(featured?' featured':'');
+      return '<a href="'+it[0]+'"'+(cls?' class="'+cls.trim()+'"':'')+'>'+it[1]+'</a>';
+    }
+    var topicItems=items.slice(1,-2), examItems=items.slice(-2);
+    var modLinks='<div class="moddd-label">Topic notes</div>'+topicItems.map(function(it){return navLink(it,false);}).join("")+
+      '<div class="moddd-label">Exam resources</div>'+examItems.map(function(it){return navLink(it,it[0]==="exam-hub.html");}).join("");
     nav.innerHTML='<span class="navhead">Browse</span>'+
       '<a href="index.html" class="home'+(activeHref==="index.html"?' active':'')+'">Home</a>'+
       '<a href="../index.html" class="allsubj">All subjects</a>'+
@@ -204,7 +240,7 @@
   (function () {
     var root = document.documentElement;
     if (prefersReduced) return;            // reduced-motion: keep everything static
-    root.classList.add("motion");
+    root.classList.remove("motion");
 
     // Scroll-reveal: fade + rise once when scrolled into view
     var revealEls = [].slice.call(document.querySelectorAll(".section,.card,.scard,.stat,.qbox,.def,.tablewrap"));

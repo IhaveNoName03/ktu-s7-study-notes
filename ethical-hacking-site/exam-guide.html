@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Guide · Ethical Hacking</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<link rel="stylesheet" href="assets/exam-content.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a><a href="../index.html">All subjects</a><a href="module-1.html">M1 · Basics</a><a href="module-2.html">M2 · Recon</a><a href="module-3.html">M3 · Vuln/Attacks</a><a href="module-4.html">M4 · Net/Sys</a><a href="module-5.html">M5 · Tracks</a><a href="exam-guide.html" class="active">Exam Guide</a><a href="question-bank.html">Question Bank</a><a href="solved-papers.html">Solved Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Revision · Strategy · Coverage</span>
+  <h1>The Exam Guide</h1>
+  <p class="lede">Exam technique, a one-page cheat sheet, every core definition, ten high-value comparisons, the complete 60-topic coverage map and a module-by-module deep revision plan — everything needed to convert notes into marks.</p>
+  <div class="meta-row"><span class="chip">CCT 401</span><span class="chip">60 topics</span><span class="chip">60/60 mapped</span><span class="chip">5 modules</span><span class="chip">Exam technique</span></div>
+</section>
+
+<div class="wrap">
+<div class="card full" style="margin-bottom:24px">
+<h3>Everything about the exam in one place</h3>
+<p>This guide merges three earlier revision pages: the exam-technique notes (how questions are set, how to match an answer to the marks, and the recurring comparison pairs), the one-page cheat sheet (security components, penetration-testing frameworks, the attack taxonomy and the incident-response steps), and the full 60-topic coverage map that links every syllabus topic to a worked answer in the question bank or solved papers. New revision sections at the end give a module-by-module deep dive, thirty compulsory 3-mark drill answers, a diagram checklist and a two-day plan.</p>
+<p><a href="question-bank.html">Practice with the Question Bank →</a> · <a href="solved-papers.html">Read the four Solved Papers →</a></p>
+</div>
+  <!-- ====== HOW THE EXAM WORKS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>How questions are set</h2><span class="tag">Read the examiner</span></div>
+    <div class="card full">
+      <p>Most questions in this course fall into one of a few shapes. Spotting the shape before you write
+      saves time and stops you answering the wrong thing:</p>
+      <ul>
+        <li><b>Define / explain a term</b> — the examiner wants the meaning, in your own words, with one
+          concrete angle (what it protects, what breaks it, how it's done).</li>
+        <li><b>List the types / phases / categories</b> — ordered, enumerated, with a short note per item
+          so it reads as a list, not a dump.</li>
+        <li><b>Compare two things</b> — the examiner is checking you know the boundary between them.
+          A two-column table with the same axes for both is the cleanest way to show it.</li>
+        <li><b>Describe an attack / a process / a system</b> — narrative, step by step, from start to
+          outcome, with the "why" at each step, not just a list of buzzwords.</li>
+        <li><b>Discuss advantages and limitations</b> — both sides, explicitly. A one-sided "it's great"
+          answer loses marks; the limitation is often where the marks live.</li>
+        <li><b>"With a neat diagram"</b> — labels matter more than artistic quality. A labelled
+          schematic that shows the flow or layout the question names scores; a pretty but unlabelled one
+          doesn't. See the diagrams built into each module page — they're exactly the shapes examiners
+          expect.</li>
+      </ul>
+      <div class="def">The single most useful reflex: <b>rephrase the question in plain English</b>
+      before you write. "Explain DoS" is really "what is it, how does it work, why does it break
+      availability, what's an example?" If you answer each of those, you've covered the mark scheme.</div>
+    </div>
+  </div>
+
+  <!-- ====== DEFINITIONS TO KEEP READY ====== -->
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Core definitions to keep ready</h2><span class="tag">Part A material</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Term</th><th>What to say (short, precise)</th></tr></thead>
+        <tbody>
+          <tr><td>Information security</td><td>Protecting information and systems from unauthorised access, use, disclosure, disruption, modification, or destruction — so the CIA goals are met.</td></tr>
+          <tr><td>CIA triad</td><td>Confidentiality, Integrity, Availability — the three properties every control is judged against.</td></tr>
+          <tr><td>Threat</td><td>A potential cause of an unwanted incident — a person, event, or thing with the capability and intent (or chance) to harm a system.</td></tr>
+          <tr><td>Vulnerability</td><td>A weakness an attacker can exploit — in software, a config, a process, or a person.</td></tr>
+          <tr><td>Exploit</td><td>The technique or code that takes advantage of a vulnerability.</td></tr>
+          <tr><td>Attack</td><td>An action that harms confidentiality, integrity, or availability.</td></tr>
+          <tr><td>Risk</td><td>Likelihood × impact — the chance something bad happens, times how bad it would be.</td></tr>
+          <tr><td>Penetration testing</td><td>An authorised, simulated attack to find real vulnerabilities before an attacker does — scoped, time-boxed, and reported.</td></tr>
+          <tr><td>Footprinting</td><td>The first recon phase — collecting public and passive information about a target to map what's exposed.</td></tr>
+          <tr><td>Sniffing</td><td>Capturing network traffic to read data meant for others — breaks confidentiality on plaintext channels.</td></tr>
+          <tr><td>Social engineering</td><td>Manipulating people into breaking security procedures or giving up information — "human hacking."</td></tr>
+          <tr><td>Honeypot</td><td>A decoy system that looks like a real target to attract and study attackers — used for detection, research, and diversion.</td></tr>
+          <tr><td>Malware</td><td>Malicious software (virus, worm, trojan, ransomware, rootkit, bot) — the payload of many attacks.</td></tr>
+          <tr><td>Non-repudiation</td><td>A party cannot deny an action they took — achieved with digital signatures and strong audit trails.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">When a 3-mark "define" question appears, give the meaning in one sentence, then add one
+    line that shows you know what breaks it or how it's done. That second line is often where the third
+    mark comes from.</div>
+  </div>
+
+  <!-- ====== THE RECURRING PAIRS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Recurring comparisons to have ready</h2><span class="tag">Two-column tables</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Pair</th><th>Why it shows up</th><th>Axes to compare</th></tr></thead>
+        <tbody>
+          <tr><td>White hat vs Black hat vs Grey hat</td><td>Hacker classes — definitions come up early and in papers.</td><td>Intent, permission, legality, after finding a vuln</td></tr>
+          <tr><td>Footprinting vs scanning vs enumeration</td><td>The three recon sub-phases are easily confused.</td><td>Passive vs active, what info is gathered, when in the kill chain</td></tr>
+          <tr><td>Virus vs Worm</td><td>Both are malware but spread differently — a classic 5-mark compare.</td><td>Needs a host, spreads on its own, human action required</td></tr>
+          <tr><td>Symmetric vs Asymmetric encryption</td><td>Cryptography basics.</td><td>One key vs two, speed, key distribution, typical use</td></tr>
+          <tr><td>Hash vs Encryption</td><td>Both "scramble" data but serve different goals.</td><td>One-way vs reversible, purpose (integrity vs confidentiality)</td></tr>
+          <tr><td>DoS vs DDoS</td><td>Availability attack with different scale and origin.</td><td>Single source vs many, botnet, mitigation difficulty</td></tr>
+          <tr><td>Phishing vs Spear phishing vs Whaling</td><td>Social engineering by target scope.</td><td>Broadcast vs targeted vs executive</td></tr>
+          <tr><td>Replay vs MITM vs Sniffing</td><td>Different integrity/confidentiality attacks.</td><td>Capture only, capture+modify, re-send old data</td></tr>
+          <tr><td>Firewall vs IDS vs IPS</td><td>Perimeter and monitoring tech.</td><td>Block vs detect, inline vs passive, false-positive handling</td></tr>
+          <tr><td>Cover tracks via log clearing vs log editing vs disabling</td><td>Module 5 — ways to hide evidence.</td><td>Delete all, alter records, stop logging; why each is detectable</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">Having a ready two-column table for each pair is worth more than memorising one long
+    paragraph — it's faster to write and easier for the examiner to award marks against.</div>
+  </div>
+
+  <!-- ====== ANSWER BY MARKS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>How to match your answer to the marks</h2><span class="tag">Marks-aware</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Marks</th><th>What the examiner expects</th><th>What to write</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>A tight definition or short list — enough to show you know the term, not a full essay.</td>
+            <td>One sentence of meaning, then one line with an angle (what breaks it, how it's done, one example). Stop when you've said the thing.</td>
+          </tr>
+          <tr>
+            <td>5–7</td>
+            <td>A comparison, a short process, or a "list with notes."</td>
+            <td>Three to five headed points, each with a one-line reason. If it's a compare, use a small table. A worked mini-example helps here.</td>
+          </tr>
+          <tr>
+            <td>10–14</td>
+            <td>A full answer: definition, principle, sub-points, a comparison or diagram if asked, and both advantages and limitations.</td>
+            <td>Lead with the definition, then build structured sub-sections (a/b/c or a table), then close with limits and an example. "With a neat diagram" means a labelled schematic of the shape the question names — draw the one on the module page.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Don't pad.</b> Repeating the same point in different words wastes time and can read as
+    uncertainty. If the question is 3 marks, a 3-mark answer that is accurate beats a 10-mark answer that
+    wanders.</div>
+  </div>
+
+  <!-- ====== DO'S AND DON'TS ====== -->
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Do's and don'ts in the exam</h2><span class="tag">Practical</span></div>
+    <div class="stack">
+      <div class="card">
+        <h4>Do</h4>
+        <ul>
+          <li>Rephrase the question in plain English before writing.</li>
+          <li>Lead a long answer with a definition or one-line framing.</li>
+          <li>Use a two-column table when a question says "compare" or two things are naturally paired.</li>
+          <li>Give one concrete example or scenario — it usually anchors a mark that a bare list misses.</li>
+          <li>If the question asks for "advantages and limitations," give both, labelled.</li>
+          <li>If it says "with a neat diagram," draw the labelled schematic from the module — labels count.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Don't</h4>
+        <ul>
+          <li>Pad with buzzwords you can't explain — a misused term reads as guessing.</li>
+          <li>Answer a "compare" as two separate lists with no connecting axis.</li>
+          <li>Stop at the advantages when the question asks for limitations too.</li>
+          <li>Run on past the marks — a 3-mark answer shouldn't be half a page.</li>
+          <li>Leave a "diagram" out because you can't draw well — labels on a schematic are what score, not artistry.</li>
+          <li>Mix up pairs that are frequently swapped (virus/worm, symmetric/asymmetric, IDS/IPS) — those are exactly where a trick question lives.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== HOW TO USE THESE NOTES ====== -->
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>How to use these notes</h2><span class="tag">Study flow</span></div>
+    <div class="card full">
+      <p>Read a module page top to bottom once to get the shape — the headings are the skeleton, the tables
+      are the comparisons, and the worked examples are the parts that usually earn marks. Then:</p>
+      <ul>
+        <li><b>For definitions:</b> use the core-definitions table on this page (02) as a checklist — can you
+          say each one in one sentence? If not, that's a gap to close before the exam.</li>
+        <li><b>For comparisons:</b> rehearse the recurring pairs in section 03 from memory — write the table
+          out once, then close the notes and try again.</li>
+        <li><b>For attacks and processes:</b> narrate them aloud in your own words, step by step, with the
+          "why" at each step. If you can't say what breaks (CIA goal) or how detection works, go back to the
+          module page.</li>
+        <li><b>For "with a neat diagram":</b> redraw the labelled schematic on the module page — flat-plate
+          collector, solar cell, OTEC loop, tidal basin, wind turbine, fuel cell, machine guard, fire-class
+          wheel, HAZOP flow. Labels matter more than neatness.</li>
+        <li><b>For full answers:</b> use the question bank on <a href="question-bank.html">papers.html</a> as
+          practice — try one, then read the model answer and note what it included that you missed.</li>
+      </ul>
+      <div class="def">The goal isn't to memorise this whole site word-for-word. It's to be able to
+      <b>rebuild</b> each module's key tables and a labelled diagram from memory, and to narrate each attack
+      and process in your own words with the CIA property and an example attached.</div>
+    </div>
+  </div>
+<h2>Information security basics</h2>
+<div class="table-wrap"><table><thead><tr><th>Component</th><th>Meaning</th><th>Exam phrasing</th></tr></thead><tbody>
+<tr><td>Confidentiality</td><td>Only authorised parties can read the data</td><td>Encryption, access control, sniffing attacks</td></tr>
+<tr><td>Integrity</td><td>Data is not altered without authorisation</td><td>Hashing, digital signatures, MITM tampering</td></tr>
+<tr><td>Availability</td><td>Systems and data are accessible when needed</td><td>DoS/DDoS, backups, redundancy</td></tr>
+<tr><td>Authenticity</td><td>Proof of identity of a user or system</td><td>Passwords, certificates, biometrics</td></tr>
+<tr><td>Non-repudiation</td><td>A party cannot deny having performed an action</td><td>Digital signatures, audit logs, timestamps</td></tr>
+<tr><td>Accountability</td><td>Actions are traceable to an identity</td><td>Logging, monitoring, unique user IDs</td></tr>
+</tbody></table></div>
+<h2>Penetration testing — frameworks and steps</h2>
+<div class="formula">PTES phases: pre-engagement → intelligence gathering → threat modelling → vulnerability
+analysis → exploitation → post-exploitation → reporting
+OSSTMM: operational security methodology — scope, channels (human/physical/wireless/communications),
+indicators of trust, controls, process/visibility, ten commandments of hygiene.
+NIST SP 800-115: planning → discovery → attack → reporting (with remediation).
+OWASP: risk-focused web testing — information gathering, configuration, authentication,
+session management, input validation, error handling, business logic, etc.</div>
+<p><strong>Types:</strong> black-box (zero knowledge), white-box (full knowledge), grey-box (partial); external vs internal; automated vs manual; covert vs overt.</p>
+<h2>Attack taxonomy — quick map</h2>
+<div class="table-wrap"><table><thead><tr><th>Attack</th><th>Layer / target</th><th>One-line mechanism</th><th>Main defence</th></tr></thead><tbody>
+<tr><td>Social engineering (phishing, pretexting, piggybacking, shoulder surfing, dumpster diving)</td><td>Humans</td><td>Exploits trust, curiosity or carelessness</td><td>Training, policy, badges, shredding, screen filters</td></tr>
+<tr><td>Footing / scanning / enumeration</td><td>Recon</td><td>Collects IPs, ports, services, users, shares</td><td>Minimise exposure, patch, IDS, firewall rules</td></tr>
+<tr><td>Virus / worm / Trojan / backdoor</td><td>Host</td><td>Malware replicates or opens a hidden entry</td><td>AV/EDR, updates, least privilege</td></tr>
+<tr><td>DoS / DDoS</td><td>Availability</td><td>Exhaust bandwidth, connections or resources</td><td>Rate limiting, filtering, redundancy, scrubbing</td></tr>
+<tr><td>Sniffing / MITM / ARP or DNS spoofing</td><td>Network</td><td>Intercept or redirect traffic</td><td>Encryption, dynamic ARP inspection, DNSSEC, switch port security</td></tr>
+<tr><td>Session hijacking</td><td>Web session</td><td>Steal or predict session token</td><td>HTTPS, secure cookies, token rotation, logout</td></tr>
+<tr><td>SQL injection / XSS / buffer overflow</td><td>Web/app</td><td>Untrusted input changes query, script or memory</td><td>Parameterised queries, output encoding, bounds checks, WAF</td></tr>
+<tr><td>Brute force / password cracking</td><td>Authentication</td><td>Guess credentials offline or online</td><td>Lockout, MFA, salted slow hashes, strong passwords</td></tr>
+<tr><td>Privilege escalation (vertical / horizontal)</td><td>Post-access</td><td>Gain higher rights or another user's rights</td><td>Least privilege, patching, UAC, monitoring</td></tr>
+<tr><td>Log tampering / covering tracks</td><td>Evidence</td><td>Delete, alter, encrypt or spoof logs</td><td>Centralised immutable logging, WORM storage, time sync, file integrity</td></tr>
+</tbody></table></div>
+<div class="pitfall"><strong>Common trap.</strong> "Elements of information security" (CIA + authenticity, non-repudiation, accountability) is not the same as "six security challenges" (complexity, connectivity, third parties, insider threat, evolving threats, compliance). Read the exact wording.</div>
+<h2>Reconnaissance toolkit</h2>
+<div class="formula">Passive: Google dorks, WHOIS, DNS records, public records, social media, job ads
+Active: nmap (ports/services/OS), ping, traceroute, netcat, banner grabbing,
+        vulnerability scanners (Nessus, OpenVAS), enumeration (users, shares, SNMP)</div>
+<h2>Incident response — six steps</h2>
+<div class="formula">1. Preparation   2. Identification   3. Containment   4. Eradication
+5. Recovery      6. Lessons learned</div>
+<h2>Exam-writing rules</h2>
+<ul>
+<li>For "compare/differentiate", write a two-column table with at least four rows and end with a one-line conclusion.</li>
+<li>For "explain the process/steps", number every step and state what happens at each stage.</li>
+<li>For attack questions, always add a countermeasure paragraph — examiners award marks for defence.</li>
+<li>For "with figure/illustrate", draw a labelled ASCII block diagram; an unlabelled arrow diagram loses marks.</li>
+<li>Define the term first, even in a 3-marker, then explain the mechanism, then give one example.</li>
+</ul>
+<div class="note">Links jump straight to the relevant answer. Use the top search box (<kbd>/</kbd>) to find a term across all pages.</div>
+<h2>Module 1</h2><div class="table-wrap"><table><thead><tr><th>Syllabus topic</th><th>Answered at</th></tr></thead><tbody><tr><td>Elements of Information Security</td><td><a href="question-bank.html#q2">Model paper · Elements of information security</a></td></tr><tr><td>Authenticity and Non-Repudiation</td><td><a href="solved-papers.html#d-q2">Paper d · Non-repudiation</a></td></tr><tr><td>Security Challenges</td><td><a href="solved-papers.html#a-q7">Paper a · Security challenges with routers</a></td></tr><tr><td>Effects of Hacking</td><td><a href="solved-papers.html#c-q12">Paper c · OSSTMM vs NIST &amp; Effects of Hacking</a></td></tr><tr><td>Types of Hacker / Ethical Hacker</td><td><a href="solved-papers.html#d-q1">Paper d · Hacker vs Ethical Hacker</a></td></tr><tr><td>Role of Security and Penetration Tester</td><td><a href="solved-papers.html#a-q2">Paper a · Role of a penetration tester</a></td></tr><tr><td>OSSTMM</td><td><a href="solved-papers.html#a-q11">Paper a · OSSTMM modules &amp; OWASP risks (Module I)</a></td></tr><tr><td>NIST</td><td><a href="solved-papers.html#b-q12">Paper b · NIST functions &amp; effects of hacking</a></td></tr><tr><td>OWASP</td><td><a href="solved-papers.html#a-q11">Paper a · OSSTMM modules &amp; OWASP risks (Module I)</a></td></tr><tr><td>Categories of Penetration Test</td><td><a href="solved-papers.html#b-q11">Paper b · Hacker categories &amp; penetration testing types</a></td></tr><tr><td>Vulnerability Assessment</td><td><a href="solved-papers.html#a-q12">Paper a · Security challenges &amp; vulnerability assessment (Module I)</a></td></tr></tbody></table></div><h2>Module 2</h2><div class="table-wrap"><table><thead><tr><th>Syllabus topic</th><th>Answered at</th></tr></thead><tbody><tr><td>Tools for Foot Printing</td><td><a href="solved-papers.html#c-q13">Paper c · Footprinting Tools &amp; Piggybacking</a></td></tr><tr><td>Competitive Intelligence</td><td><a href="solved-papers.html#d-q13">Paper d · Module II — Q13 (OR Q14)</a></td></tr><tr><td>Google Hacking</td><td><a href="solved-papers.html#d-q3">Paper d · Google Hacking</a></td></tr><tr><td>Scanning</td><td><a href="solved-papers.html#a-q14">Paper a · Proxy vs packet firewalls &amp; footprinting scans (Module II)</a></td></tr><tr><td>Enumeration</td><td><a href="solved-papers.html#b-q14">Paper b · Trojans vs backdoors &amp; enumeration</a></td></tr><tr><td>Trojans and Backdoors</td><td><a href="solved-papers.html#b-q14">Paper b · Trojans vs backdoors &amp; enumeration</a></td></tr><tr><td>Viruses and Worms</td><td><a href="solved-papers.html#a-q13">Paper a · Viruses vs worms &amp; DoS attacks (Module II)</a></td></tr><tr><td>Proxy and Packet Filtering</td><td><a href="solved-papers.html#a-q14">Paper a · Proxy vs packet firewalls &amp; footprinting scans (Module II)</a></td></tr><tr><td>Denial of Service</td><td><a href="solved-papers.html#d-q16">Paper d · Module III — Q16 (OR Q15)</a></td></tr><tr><td>Sniffer / Sniffing</td><td><a href="solved-papers.html#d-q6">Paper d · Network Sniffing</a></td></tr><tr><td>Shoulder Surfing</td><td><a href="solved-papers.html#b-q4">Paper b · Preventing shoulder surfing</a></td></tr><tr><td>Dumpster Diving</td><td><a href="solved-papers.html#a-q4">Paper a · Preventive measures for dumpster diving</a></td></tr><tr><td>Piggybacking</td><td><a href="solved-papers.html#b-q13">Paper b · Footprinting and piggybacking</a></td></tr></tbody></table></div><h2>Module 3</h2><div class="table-wrap"><table><thead><tr><th>Syllabus topic</th><th>Answered at</th></tr></thead><tbody><tr><td>Vulnerability Data Resources / Exploit Databases</td><td><a href="solved-papers.html#b-q16">Paper b · Vulnerability databases &amp; session hijacking</a></td></tr><tr><td>Network Sniffing and Its Types</td><td><a href="question-bank.html#q5">Model paper · Network sniffing</a></td></tr><tr><td>MITM and ARP Attacks</td><td><a href="solved-papers.html#b-q15">Paper b · MITM attacks &amp; DHCP/DNS spoofing</a></td></tr><tr><td>Denial of Service Attacks</td><td><a href="solved-papers.html#a-q13">Paper a · Viruses vs worms &amp; DoS attacks (Module II)</a></td></tr><tr><td>Session Hijacking with MITM</td><td><a href="solved-papers.html#b-q16">Paper b · Vulnerability databases &amp; session hijacking</a></td></tr><tr><td>DNS Spoofing / Manipulating DNS Records</td><td><a href="solved-papers.html#b-q15">Paper b · MITM attacks &amp; DHCP/DNS spoofing</a></td></tr><tr><td>DHCP Spoofing</td><td><a href="solved-papers.html#b-q15">Paper b · MITM attacks &amp; DHCP/DNS spoofing</a></td></tr><tr><td>Remote Exploitation / Remote Services</td><td><a href="solved-papers.html#a-q15">Paper a · Remote attack classifications &amp; brute force (Module III)</a></td></tr><tr><td>Brute Force Attacks</td><td><a href="solved-papers.html#a-q15">Paper a · Remote attack classifications &amp; brute force (Module III)</a></td></tr><tr><td>Attacking SMTP</td><td><a href="solved-papers.html#a-q16">Paper a · Network sniffers &amp; SMTP confidentiality breach (Module III)</a></td></tr><tr><td>Attacking SQL Servers</td><td><a href="#gap-attacking-sql-servers">Answered on this page ↓</a></td></tr><tr><td>Testing for Weak Authentication</td><td><a href="solved-papers.html#d-q16">Paper d · Module III — Q16 (OR Q15)</a></td></tr></tbody></table></div><h2>Module 4</h2><div class="table-wrap"><table><thead><tr><th>Syllabus topic</th><th>Answered at</th></tr></thead><tbody><tr><td>Routers</td><td><a href="solved-papers.html#a-q17">Paper a · Routers vs honeypots &amp; web server operation (Module IV)</a></td></tr><tr><td>Firewall and Honeypots</td><td><a href="solved-papers.html#a-q17">Paper a · Routers vs honeypots &amp; web server operation (Module IV)</a></td></tr><tr><td>IDS and IPS</td><td><a href="solved-papers.html#d-q8">Paper d · IDS vs IPS</a></td></tr><tr><td>Web Filtering</td><td><a href="solved-papers.html#d-q17">Paper d · Module IV — Q17 (OR Q18)</a></td></tr><tr><td>Vulnerability / Penetration Testing</td><td><a href="solved-papers.html#c-q2">Paper c · Vulnerability Assessment in Penetration Testing</a></td></tr><tr><td>Session Hijacking</td><td><a href="solved-papers.html#b-q16">Paper b · Vulnerability databases &amp; session hijacking</a></td></tr><tr><td>Web Server</td><td><a href="solved-papers.html#a-q17">Paper a · Routers vs honeypots &amp; web server operation (Module IV)</a></td></tr><tr><td>SQL Injection</td><td><a href="question-bank.html#q7">Model paper · SQL injection</a></td></tr><tr><td>Cross-Site Scripting</td><td><a href="solved-papers.html#d-q7">Paper d · Cross-Site Scripting (XSS)</a></td></tr><tr><td>Exploit Writing</td><td><a href="solved-papers.html#c-q18">Paper c · Buffer Overflow &amp; Writing an Exploit</a></td></tr><tr><td>Buffer Overflow</td><td><a href="solved-papers.html#c-q18">Paper c · Buffer Overflow &amp; Writing an Exploit</a></td></tr><tr><td>Reverse Engineering</td><td><a href="solved-papers.html#c-q17">Paper c · Routers, Firewalls &amp; Reverse Engineering</a></td></tr><tr><td>Email Hacking</td><td><a href="solved-papers.html#b-q18">Paper b · Reverse engineering &amp; e-mail hacking</a></td></tr><tr><td>Incident Handling and Response</td><td><a href="solved-papers.html#b-q17">Paper b · Incident response &amp; Bluetooth hacking</a></td></tr><tr><td>Bluetooth Hacking</td><td><a href="solved-papers.html#b-q17">Paper b · Incident response &amp; Bluetooth hacking</a></td></tr><tr><td>Mobile Phone Hacking</td><td><a href="solved-papers.html#a-q18">Paper a · Cross-site scripting &amp; compromised mobile phone (Module IV)</a></td></tr></tbody></table></div><h2>Module 5</h2><div class="table-wrap"><table><thead><tr><th>Syllabus topic</th><th>Answered at</th></tr></thead><tbody><tr><td>Covering Tracks and Hiding</td><td><a href="solved-papers.html#b-q19">Paper b · Covering tracks &amp; event log categories</a></td></tr><tr><td>Event Logging</td><td><a href="question-bank.html#q10">Model paper · Event logging</a></td></tr><tr><td>Hiding Evidence by Altering Event Log</td><td><a href="solved-papers.html#a-q9">Paper a · Hiding evidence by altering logs</a></td></tr><tr><td>Defences Against Log and Accounting File Attacks</td><td><a href="solved-papers.html#d-q20">Paper d · Module V — Q20 (OR Q19)</a></td></tr><tr><td>Hiding Evidence on the Network</td><td><a href="solved-papers.html#c-q20">Paper c · Hiding Network Evidence &amp; Covering Tracks</a></td></tr><tr><td>Password Cracking</td><td><a href="solved-papers.html#c-q19">Paper c · Hiding Files &amp; Covering Tracks; Password Cracking</a></td></tr><tr><td>Privilege Escalation</td><td><a href="solved-papers.html#a-q19">Paper a · Hiding files &amp; privilege escalation (Module V)</a></td></tr><tr><td>Hiding Files</td><td><a href="solved-papers.html#a-q19">Paper a · Hiding files &amp; privilege escalation (Module V)</a></td></tr></tbody></table></div>
+<h2>Topics answered here (not asked directly in papers A–D)</h2>
+<section class="q" id="gap-attacking-sql-servers"><div class="q-head"><span class="q-no">EXTRA</span><h3 class="q-title">Attacking SQL Servers</h3><span class="marks">syllabus gap</span></div><details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Why it matters.</strong> Database servers are high-value targets: they hold credentials, financial data and personal records. The syllabus lists attacking SQL servers under Module III (network attacks) because weak service configuration and unpatched database software let an attacker move from a compromised host to the data layer.</p>
+<span class="subhead">Attack surface and common paths</span>
+<ol class="step-list">
+<li><strong>Service discovery</strong> — port scanning finds the database listener (SQL Server default TCP 1433, named-instance UDP 1434; MySQL 3306, PostgreSQL 5432) and banner grabbing reveals version and edition.</li>
+<li><strong>Weak authentication</strong> — default or blank <em>sa</em> accounts, reused credentials and saved connection strings; attackers try credential stuffing and dictionary attacks, often with the public <code>sqlcmd</code>/client tools.</li>
+<li><strong>SQL injection through an application</strong> — a web front-end that concatenates user input into a query lets the attacker read or modify tables, enumerate the schema via <code>INFORMATION_SCHEMA</code>, and sometimes escalate to OS commands through database features such as <code>xp_cmdshell</code> if enabled.</li>
+<li><strong>Unpatched services and misconfiguration</strong> — known CVEs in the database engine, enabled extended stored procedures, overly broad service accounts and unrestricted network access from any host.</li>
+<li><strong>Post-exploitation</strong> — dump password hashes, map the network through linked servers, pivot to other hosts, and exfiltrate data; the attacker then covers tracks by clearing SQL Agent and Windows event logs.</li>
+</ol>
+<span class="subhead">Defensive controls</span>
+<ul>
+<li>Parameterised queries / stored procedures and input validation in every application that touches the database — this removes the injection path entirely.</li>
+<li>Least privilege: remove <em>sa</em>-equivalent use for applications, disable <code>xp_cmdshell</code> and unnecessary features, isolate the DB in a separate VLAN behind a firewall.</li>
+<li>Strong authentication, credential rotation, MFA for administrative access, and encryption of connection strings and data at rest.</li>
+<li>Patch management, vulnerability scanning, database activity monitoring, and centrally shipped immutable logs with alerting on failed logins and bulk reads.</li>
+</ul>
+<div class="exam-tip"><strong>Exam tip.</strong> Structure the answer as <em>discover → authenticate/inject → escalate → pivot → cover tracks → defend</em>. Mention at least one concrete port (1433) and one concrete hardening step (parameterised queries, disable xp_cmdshell) — both earn marks.</div></div></details></section><section class="q" id="gap-exploit-writing"><div class="q-head"><span class="q-no">EXTRA</span><h3 class="q-title">Exploit Writing</h3><span class="marks">syllabus gap</span></div><details class="ans"><summary>Answer</summary><div class="ans-body">
+<p><strong>Definition.</strong> Exploit writing is the process of developing a reliable piece of code or script that takes advantage of a specific vulnerability to produce a deliberate outcome — arbitrary code execution, privilege escalation, denial of service or information disclosure. In ethical hacking it is done in an authorised lab to prove that a vulnerability is real and to guide remediation.</p>
+<span class="subhead">Typical workflow</span>
+<ol class="step-list">
+<li><strong>Research the vulnerability</strong> — read the advisory/CVE, affected versions and the vulnerable code path; identify the exact flaw (e.g. unchecked buffer copy, use-after-free, unsanitised query).</li>
+<li><strong>Reproduce in a controlled lab</strong> — install the vulnerable version on an isolated VM, confirm the crash or faulty behaviour, and capture it with a debugger.</li>
+<li><strong>Understand the trigger</strong> — determine the input structure, offsets, required protocol sequence and any authentication needed; for memory bugs find the return address or function pointer to overwrite.</li>
+<li><strong>Develop the payload</strong> — build the input that triggers the flaw; for code execution choose a shellcode/payload matched to architecture and OS, handle bad characters and available space, and avoid DEP/ASLR with a ROP chain or an information leak where necessary.</li>
+<li><strong>Test reliability</strong> — run repeatedly against multiple patched/unpatched builds, tune for different service packs or languages, and ensure the exploit does not damage data.</li>
+<li><strong>Document and report</strong> — record steps to reproduce, impact, CVSS score, affected versions and the remediation; provide a proof-of-concept only to the authorised owner.</li>
+</ol>
+<span class="subhead">Risks and ethics</span>
+<p>An exploit is double-edged: the same code that validates a finding can be repurposed by attackers, and a buggy exploit can crash production systems. Written authorisation, scope boundaries, isolated testing and secure handling of PoCs are mandatory. Under KTU/CCT401 ethics questions, state that exploit development is permitted only with consent and that disclosure follows responsible-reporting timelines.</p>
+<div class="pitfall"><strong>Common mistake.</strong> Do not describe exploit writing as merely "running Metasploit". Using a framework module is <em>exploitation</em>; writing an exploit means analysing the flaw and producing or adapting the payload yourself. The syllabus expects that distinction.</div>
+<div class="exam-tip"><strong>Exam tip.</strong> Finish with the mitigation side: patching, ASLR/DEP, stack canaries, bounds checking, least privilege and IDS/IPS signatures. That converts a 6-mark description into a full 8-mark answer.</div></div></details></section>
+<div class="exam-tip"><strong>Revision rule.</strong> If a topic appears in only one paper, it is still examinable — the ESE takes two questions from every module, and the model paper shows the exact phrasing pattern. Cover the whole syllabus table, not just repeated questions.</div>
+
+<div class="section" id="blueprint">
+  <div class="head"><span class="num">07</span><h2>The exam blueprint, decoded</h2><span class="tag">Plan first</span></div>
+  <div class="card full">
+    <p>Knowing the syllabus is not the same as knowing the paper. The CCT401 end-semester examination is a three-hour, 100-mark paper built from five modules, and the same arithmetic is repeated in every one of the four solved papers and in the official model paper. Part A carries 30 marks: two 3-mark questions are set from each module and <em>all ten must be attempted</em>. Part B carries 70 marks: two 14-mark questions are set from each module and the candidate answers <em>any one</em> per module, so five full answers are written. The total is 10 × 3 + 5 × 14 = 100. Because Part A is compulsory, its ten short answers must be accurate and fast; there is no opportunity to skip a weak module there.</p>
+    <p>Work backwards from the marks. At three hours for 100 marks you have roughly 1.8 minutes per mark. A 3-mark answer should take about 5–6 minutes including reading; a 14-mark answer about 25 minutes. Ten short answers plus five long answers consume about 185 minutes of a 180-minute paper — so the only way to stay inside the clock is to know the short answers cold and to have a fixed template for the long ones. This is why the cheat-sheet tables and the recurring-pairs table above are worth memorising: they remove the thinking time from the easiest 30 marks.</p>
+    <p>The internal tests use a different but related pattern: 50 marks, with Part A containing five 3-mark questions (answer all, 15 marks) and Part B containing seven 7-mark questions (answer any five, 35 marks). Continuous internal evaluation adds attendance and assignment marks for a total of 50. The 30/30/40Remember–Understand–Apply split in the assessment pattern tells you that recall and explanation dominate: a well-structured definition plus a correct example earns a large share of the marks, and pure application questions are the minority.</p>
+    <div class="tablewrap"><table><thead><tr><th>Paper part</th><th>Questions</th><th>Marks</th><th>Rule</th><th>Target time</th></tr></thead><tbody>
+      <tr><td>Part A</td><td>2 from each of 5 modules</td><td>10 × 3 = 30</td><td>Answer all</td><td>~5 min each</td></tr>
+      <tr><td>Part B</td><td>2 from each of 5 modules</td><td>5 × 14 = 70</td><td>Answer any one per module</td><td>~25 min each</td></tr>
+      <tr><td>Total</td><td>10 short + 5 long</td><td>100</td><td>3 hours</td><td>~180 min</td></tr>
+    </tbody></table></div>
+    <div class="def">A practical consequence: in Part B you may <b>choose</b> your stronger question in each module. In Part A you cannot. That is why the 3-mark drill at the end of this guide matters more than it looks — those thirty short answers are guarantees, not options.</div>
+  </div>
+</div>
+
+<div class="section" id="module1-depth">
+  <div class="head"><span class="num">08</span><h2>Module 1 — what the examiner is testing</h2><span class="tag">8 hours</span></div>
+  <div class="card full">
+    <p>Module 1 is a definitions-and-frameworks module. Every Part A question from this module asks either for the elements of information security, the stages of hacking, a hacker category, or a role. The high-mark questions ask for security challenges, the role of a penetration tester, vulnerability assessment, and a comparison of the three penetration-testing methodologies.</p>
+    <p><strong>Elements and non-repudiation.</strong> The CIA triad is the minimum answer; a complete answer adds authenticity (proof that an entity is who it claims), non-repudiation (proof that an action occurred, normally with digital signatures and audit logs), accountability (each action maps to a unique identity) and access control. The frequent trap is confusing the seven <em>elements</em> with the six <em>security challenges</em> — complexity, connectivity, third-party risk, insider threat, rapidly evolving threats and regulatory compliance. They are different lists and both are examinable.</p>
+    <p><strong>Hacker classes.</strong> White hat (authorised, ethical), black hat (malicious, unauthorised), grey hat (mixed), plus script kiddie, hacktivist, insider and red team. The axis to state is permission and intent, not skill: a grey hat may be highly skilled but lacks authorisation, while a novice with a downloaded tool is still a script kiddie. The ethical hacker works inside a signed rules-of-engagement document that fixes scope, timing, permitted techniques and emergency contacts.</p>
+    <p><strong>The three methodologies.</strong> OSSTMM is a detailed operational-security standard organised around channels (human, physical, wireless, communications) and indicators of trust. NIST SP 800-115 is a four-step process — planning, discovery, attack, reporting — that is easy to write under exam conditions. PTES is the seven-phase lifecycle: pre-engagement, intelligence gathering, threat modelling, vulnerability analysis, exploitation, post-exploitation and reporting. OWASP is web-application risk testing (injection, broken authentication, XSS, security misconfiguration and so on). When asked to compare, use the axes <em>scope, phase model, deliverable and typical audience</em>.</p>
+    <p><strong>Vulnerability assessment versus penetration testing.</strong> A vulnerability assessment discovers and ranks weaknesses with scanners and configuration reviews; a penetration test goes further and safely exploits them to prove real impact. The sequence is: define scope, discover assets, scan, validate false positives, rank by severity, remediate and retest. State that scanning alone is not a penetration test — that sentence often earns a mark.</p>
+    <div class="exam-tip"><strong>Exam tip.</strong> A 14-mark Module 1 answer should contain (1) a definition, (2) a numbered framework or comparison table, (3) one concrete tool or example, and (4) a limitation or ethical caveat. Both OSSTMM/NIST and PTES/OWASP comparisons have appeared in more than one paper.</div>
+  </div>
+</div>
+
+<div class="section" id="module2-depth">
+  <div class="head"><span class="num">09</span><h2>Module 2 — recon, malware and social attacks</h2><span class="tag">6 hours</span></div>
+  <div class="card full">
+    <p>Module 2 joins the reconnaissance toolkit to the human and host attack surface. The recurring 3-markers are footprinting, DoS versus DDoS, sniffing and brute force; the recurring 14-markers pair footprinting <em>tools</em> with social engineering, or ask about scanner activity in detail.</p>
+    <p><strong>Footprinting</strong> is passive and active information gathering. Passive techniques never send a packet to the target — WHOIS, DNS records, certificate transparency logs, archived web pages, search-engine dorks, job advertisements and social profiles. Active techniques touch the target — ping sweeps, port scans, traceroute, banner grabbing and DNS zone transfer attempts. Google hacking uses operators such as <code>site:</code>, <code>filetype:</code>, <code>inurl:</code> and <code>intitle:</code> to find exposed documents, admin portals and error pages. The result of good footprinting is a target map of domains, IP ranges, live hosts, open ports, services, versions, user names and e-mail addresses.</p>
+    <p><strong>Scanning and enumeration</strong> turn that map into a vulnerability list. Nmap reports ports, service versions and an operating-system guess; Nessus or OpenVAS match banners against vulnerability databases; enumeration pulls user lists, share names, SNMP community strings and routing tables. Always separate <em>what the scan found</em> from <em>what the attacker does with it</em>.</p>
+    <p><strong>Malware taxonomy.</strong> A virus attaches to a host file and needs a human to run it; a worm is self-propagating across the network; a Trojan hides inside a legitimate-looking program; a backdoor opens a hidden entry; ransomware encrypts data and demands payment; a rootkit hides processes and files; a logic bomb activates on a condition. Compare on <em>host requirement, propagation, payload and concealment</em>.</p>
+    <p><strong>Proxy and packet filtering</strong> sit at different layers. A proxy terminates a connection on behalf of a client and can inspect application data; a packet filter works at layers 3–4, allowing or denying packets by address, protocol and port. Stateful filtering tracks connection state, which stateless filtering does not.</p>
+    <p><strong>Social engineering</strong> targets people rather than code: phishing, spear phishing, whaling, vishing, smishing, pretexting, baiting, quid pro quo, shoulder surfing, piggybacking and dumpster diving. The two goals are to obtain information and to induce an action or gain access. The countermeasure set is training, policy, badges and visitor logs, shredding and secure disposal, screen filters, and a reporting culture — the so-called human firewall.</p>
+    <p><strong>DoS versus DDoS.</strong> DoS is a single-source attempt to exhaust bandwidth, connections, CPU or memory; DDoS orchestrates many compromised hosts (a botnet) so the traffic looks like ordinary clients. Mitigation: rate limiting, SYN cookies, ingress filtering (BCP 38), load balancing, redundancy, a CDN or scrubbing service, and an incident-response plan.</p>
+    <div class="pitfall"><strong>Common trap.</strong> "Sniffing" is capture only; "sniffing with ARP spoofing or MITM" also redirects or modifies traffic. Write the mechanism precisely — passive capture on a hub or SPAN port versus active manipulation of the ARP cache or DNS answers.</div>
+  </div>
+</div>
+
+<div class="section" id="module3-depth">
+  <div class="head"><span class="num">10</span><h2>Module 3 — network attack mechanics</h2><span class="tag">9 hours</span></div>
+  <div class="card full">
+    <p>Module 3 is the largest and most technical. Its questions ask how traffic is intercepted, redirected and hijacked, how services are attacked remotely, and where attackers obtain vulnerability information.</p>
+    <p><strong>Sniffing types.</strong> Classify by placement (software on a NIC in promiscuous mode, a hardware tap, a SPAN/mirror port, or a network-based IDS sensor) and by activity (passive capture versus active capture assisted by ARP poisoning, DHCP spoofing or DNS spoofing). Wireshark and tcpdump are the standard tools. Defences: full-duplex switched networks, dynamic ARP inspection, DHCP snooping, port security, encryption (TLS, SSH, VPN) and detection of promiscuous-mode interfaces.</p>
+    <p><strong>ARP and DNS spoofing.</strong> ARP has no authentication, so an attacker can advertise that a given IP maps to the attacker's MAC address and become a man-in-the-middle for the local segment. DNS spoofing or cache poisoning substitutes a different IP for a hostname, redirecting users to a replica site. Defences: dynamic ARP inspection with DHCP snooping binding tables, static entries for gateways, DNSSEC, DNS cache randomization, and TLS so that a redirected connection still fails certificate validation.</p>
+    <p><strong>DHCP spoofing.</strong> A rogue DHCP server replies before the legitimate one and supplies an attacker-controlled default gateway and DNS server. The victim's traffic then flows through the attacker. DHCP snooping on switches, trusted ports, short lease times and network access control are the standard defences.</p>
+    <p><strong>Session hijacking.</strong> The attacker steals or predicts a session token (cookie) and replays it to impersonate an authenticated user. Techniques include sniffing the cookie on an unencrypted channel, cross-site scripting, session fixation and prediction of weak tokens. Defences: HTTPS everywhere, the <code>Secure</code> and <code>HttpOnly</code> cookie flags, token rotation after login, short idle timeouts, re-authentication for sensitive actions, and binding the session to a client fingerprint.</p>
+    <p><strong>Brute force and weak authentication.</strong> Online guessing is throttled by account lockout, rate limiting, CAPTCHA and MFA; offline cracking is limited by salted, slow hashes (bcrypt, Argon2, PBKDF2). A password spray tries one common password across many accounts to avoid lockout; credential stuffing reuses credentials leaked elsewhere. The mitigation set is MFA, password managers, breached-password screening and monitoring for abnormal login patterns.</p>
+    <p><strong>Remote service attacks.</strong> SMTP abuse uses open relays for spam and phishing; SQL servers are found on TCP 1433 (or UDP 1434 for named instances), attacked through weak <em>sa</em> credentials and SQL injection, and can be escalated with features such as <code>xp_cmdshell</code>. Mitigations: disable or restrict the service, parameterise queries, remove default accounts, patch, segment the database into its own VLAN and log administrative activity.</p>
+    <p><strong>Vulnerability data sources.</strong> NVD is the authoritative US catalogue of CVEs with CVSS scores; CVE provides a common identifier; CERT/CC coordinates incident response and publishes advisories; ISACs share sector-specific information; OVAL is a standard for expressing vulnerability checks in machine-readable form so that scanners can test reliably. Distinguish a <em>known</em> vulnerability (public CVE, patch available) from a <em>zero-day</em> (unknown to the vendor, no patch).</p>
+    <div class="def"><b>Full-mark shape for a Module 3 question:</b> name the layer and the exact protocol weakness, number the steps of the attack, give one concrete tool or port, add a one-line comparison with the nearest related attack, and finish with at least three defences.</div>
+  </div>
+</div>
+
+<div class="section" id="module4-depth">
+  <div class="head"><span class="num">11</span><h2>Module 4 — protection systems and web attacks</h2><span class="tag">8 hours</span></div>
+  <div class="card full">
+    <p>Module 4 mixes defensive architecture with application-layer attacks. Expect one Part B question on routers/firewalls/IDS/honeypots, one on SQL injection or XSS, and short questions on buffer overflow, reverse engineering, email hacking and incident response.</p>
+    <p><strong>Routers and firewalls.</strong> A router forwards packets at layer 3 using a routing table; a firewall enforces a policy at layers 3–7, permitting or denying traffic by address, port, protocol, state or application identity. Router security challenges include weak default credentials, unpatched IOS, open management interfaces, SNMP community strings and misconfigured access lists; the controls are hardening templates, SSH-only management, out-of-band management, ACLs, logging and regular patching.</p>
+    <p><strong>Firewall generations.</strong> First generation: stateless packet filters. Second: stateful inspection. Third: application-level proxies. Fourth: next-generation firewalls with deep packet inspection and identity awareness. Fifth: cloud or virtual firewalls with threat intelligence and sandboxing. An IDS is passive and out-of-band — it detects and alerts; an IPS is inline and can block. The IPS therefore has to be tuned carefully to avoid false positives dropping legitimate traffic.</p>
+    <p><strong>Honeypots.</strong> A honeypot is a decoy that appears vulnerable to attract attackers. Production honeypots sit beside real services to improve detection with low false positives; research honeypots collect attacker tooling and behaviour. Low-interaction honeypots emulate services cheaply and are safe but capture little; high-interaction honeypots are real systems and capture rich data but require careful containment. Benefits: early warning, attacker intelligence, diversion and low false-positive alerting. Risks: maintenance cost and the possibility of being used as a pivot if poorly isolated.</p>
+    <p><strong>SQL injection and XSS.</strong> SQL injection inserts attacker-controlled input into a query so the database executes unintended commands; classes are in-band (error-based, union-based), inferential/blind (boolean and time-based) and out-of-band. The fix is parameterised queries (prepared statements) plus input validation and least-privilege database accounts. XSS executes attacker script in another user's browser: reflected (payload in the request, returned in the response), stored (payload saved on the server and served to every visitor) and DOM-based (client-side script writes untrusted data into the page). Defences: context-aware output encoding, Content Security Policy, <code>HttpOnly</code> cookies and sanitisation.</p>
+    <p><strong>Buffer overflow and exploit writing.</strong> A buffer overflow occurs when more data is written to a fixed-size buffer than it can hold, overwriting adjacent memory — potentially the return address — so execution can be redirected. Causes are unchecked copies (strcpy, gets), off-by-one errors and integer overflows. Defences: bounds checking, safe library calls, stack canaries, ASLR, DEP/NX, compiler fortification and fuzzing. Exploit writing is the disciplined process of reproducing a flaw in an isolated lab, finding the trigger and offset, building a reliable payload, testing across builds and documenting proof of concept for the owner.</p>
+    <p><strong>Incident response.</strong> The six steps are preparation, identification, containment, eradication, recovery and lessons learned. An expanded seven-step version adds analysis after detection. Containment is short-term (isolate the host) and long-term (block the account or segment the network); eradication removes the root cause; recovery restores from clean backups and validates; the post-incident report feeds back into controls.</p>
+    <div class="exam-tip"><strong>Exam tip.</strong> For every Module 4 attack question, close with a defence paragraph. The mark scheme consistently rewards countermeasures, and a missing defence paragraph is the most common reason a otherwise correct answer loses two or three marks.</div>
+  </div>
+</div>
+
+<div class="section" id="module5-depth">
+  <div class="head"><span class="num">12</span><h2>Module 5 — logging, evidence and anti-forensics</h2><span class="tag">6 hours</span></div>
+  <div class="card full">
+    <p>Module 5 asks what records a system keeps, how an attacker removes or forges them, and how a defender makes those records trustworthy. It is a short module but it appears in both Part A (event logging, hiding evidence) and Part B (altering logs, defences against log attacks, hiding evidence on a network).</p>
+    <p><strong>Event logging.</strong> An event log is a chronological record of OS, application and device activity — logons, failures, object access, process creation, policy changes and network connections. Windows defines six default categories: application, security, system, setup, forwarded events and directory service. Each record carries a timestamp, source, event ID and user context. Logs support detection, incident investigation, accountability, compliance and non-repudiation.</p>
+    <p><strong>Hiding evidence.</strong> On a host an attacker may delete records, edit individual entries, clear the entire log, change the system clock, hide files with the hidden/system attributes or NTFS alternate data streams, and hide processes with rootkits. On a network the attacker uses encryption and tunnelling, fragmentation, low-and-slow rates, spoofed addresses, covert channels in DNS or ICMP, and log flooding to bury the real events. Every technique has a footprint: a cleared log has a gap, a disabled agent generates a heartbeat alert, and a changed clock breaks correlation.</p>
+    <p><strong>Defences.</strong> The central principle is that logs must be outside the attacker's control: ship them immediately to a central SIEM or log server, store them on WORM or immutable media, synchronise time with NTP, restrict log-reader and log-clearer privileges, alert on agent silence and log gaps, and protect integrity with hashing or digital signatures. File-integrity monitoring, endpoint detection and network detection round out the control set.</p>
+    <p><strong>Covering tracks</strong> is the anti-forensic phase that follows an attack: disable auditing, clear or edit logs, remove accounts and tools, timestamps and artifacts, and restore changed files. It is the weakest link for an attacker precisely because it creates new, highly suspicious events.</p>
+    <div class="def"><b>One-line conclusion to use in Part B:</b> logging gives accountability and non-repudiation, but only centralised, time-synchronised, immutable logging survives a attacker who has already gained administrative rights.</div>
+  </div>
+</div>
+
+<div class="section" id="comparison-grid">
+  <div class="head"><span class="num">13</span><h2>Ten more high-value comparisons</h2><span class="tag">Two-column drill</span></div>
+  <div class="tablewrap"><table><thead><tr><th>Compare</th><th>First side</th><th>Second side</th><th>Closing line to write</th></tr></thead><tbody>
+    <tr><td>Virus / Worm</td><td>Needs a host file and human action</td><td>Self-propagates over the network</td><td>The worm's autonomous spread makes it faster and harder to contain.</td></tr>
+    <tr><td>Symmetric / Asymmetric</td><td>One shared key, fast, bulk data</td><td>Key pair, slower, key exchange and signatures</td><td>Protocols combine them: asymmetric to exchange a symmetric session key.</td></tr>
+    <tr><td>Hash / Encryption</td><td>One-way, fixed length, integrity</td><td>Reversible with a key, confidentiality</td><td>A hash proves data did not change; encryption hides what it says.</td></tr>
+    <tr><td>IDS / IPS</td><td>Out-of-band, detect and alert</td><td>Inline, detect and block</td><td>The IPS trades false-positive risk for the ability to stop an attack.</td></tr>
+    <tr><td>White / Grey / Black hat</td><td>Authorised, ethical</td><td>Unauthorised, malicious; grey in between</td><td>Permission and intent, not skill, define the class.</td></tr>
+    <tr><td>Footprinting / Scanning / Enumeration</td><td>Passive and active information gathering</td><td>Probing hosts, then extracting users and shares</td><td>Each phase narrows the target from a network to an identity.</td></tr>
+    <tr><td>Phishing / Spear phishing / Whaling</td><td>Broadcast lure</td><td>Targeted individual / targeted executive</td><td>Specificity raises success because the pretext can be personalised.</td></tr>
+    <tr><td>DoS / DDoS</td><td>Single source, blockable</td><td>Botnet, high volume, harder to filter</td><td>Distribution is the difference that changes the mitigation.</td></tr>
+    <tr><td>Reflected / Stored XSS</td><td>Payload in request, one victim</td><td>Payload stored, every visitor</td><td>Stored XSS has a wider blast radius and is usually rated more severe.</td></tr>
+    <tr><td>Horizontal / Vertical escalation</td><td>Same privilege level, another user</td><td>Higher privilege level</td><td>Both break least privilege; vertical escalation is usually the more damaging.</td></tr>
+  </tbody></table></div>
+  <div class="def">Write each row with the same three axes for both sides and end with the closing line. That is a complete 5–7 mark comparison in about 120 words.</div>
+</div>
+
+<div class="section" id="drill">
+  <div class="head"><span class="num">14</span><h2>Thirty 3-mark answers to know cold</h2><span class="tag">Part A drill</span></div>
+  <div class="card full">
+    <p>Answer each of these in one sentence of meaning plus one sentence of mechanism, example or consequence. They are the exact shape of the compulsory Part A questions.</p>
+    <ol class="step-list">
+      <li><b>CIA</b> — confidentiality, integrity, availability; the three properties every control is judged against.</li>
+      <li><b>Elements of InfoSec</b> — CIA plus authenticity, non-repudiation, accountability and access control.</li>
+      <li><b>Threat</b> — a potential cause of an unwanted incident with capability and intent.</li>
+      <li><b>Vulnerability</b> — a weakness in software, configuration, process or people that an exploit can use.</li>
+      <li><b>Risk</b> — likelihood multiplied by impact.</li>
+      <li><b>Hacking stages</b> — reconnaissance, scanning, gaining access, maintaining access, covering tracks.</li>
+      <li><b>Footprinting</b> — passive and active information gathering to map the attack surface.</li>
+      <li><b>Scanning</b> — finding live hosts, ports, services, versions and known vulnerabilities.</li>
+      <li><b>Enumeration</b> — extracting users, shares, groups and routes from a confirmed host.</li>
+      <li><b>Sniffing</b> — capturing traffic meant for others; passive capture breaks confidentiality.</li>
+      <li><b>Spoofing</b> — impersonating an identity or address to redirect or hide traffic.</li>
+      <li><b>MITM</b> — secretly relaying or altering communication between two parties.</li>
+      <li><b>DoS</b> — exhausting a resource so legitimate users are denied service.</li>
+      <li><b>DDoS</b> — the same effect produced by many botnet sources.</li>
+      <li><b>Brute force</b> — trying candidate credentials or keys until one succeeds.</li>
+      <li><b>Dictionary attack</b> — a wordlist instead of every possible combination.</li>
+      <li><b>SQL injection</b> — untrusted input changing a database query.</li>
+      <li><b>XSS</b> — attacker script executing in another user's browser.</li>
+      <li><b>Buffer overflow</b> — data exceeding a buffer and overwriting adjacent memory.</li>
+      <li><b>Privilege escalation</b> — gaining rights beyond those legitimately held.</li>
+      <li><b>Social engineering</b> — manipulating people into breaking security procedures.</li>
+      <li><b>Phishing</b> — a deceptive message that lures a victim to a fake site or action.</li>
+      <li><b>Dumpster diving</b> — recovering sensitive information from discarded material.</li>
+      <li><b>Shoulder surfing</b> — observing a screen or keyboard to steal information.</li>
+      <li><b>Honeypot</b> — a decoy system used to attract, detect and study attackers.</li>
+      <li><b>Firewall</b> — a policy-enforcing barrier between networks.</li>
+      <li><b>IDS</b> — detects and alerts on suspicious activity, out of band.</li>
+      <li><b>IPS</b> — detects and blocks suspicious activity, inline.</li>
+      <li><b>Event logging</b> — a chronological, attributable record of system activity.</li>
+      <li><b>Non-repudiation</b> — a party cannot deny an action, proved by signatures and logs.</li>
+    </ol>
+    <div class="exam-tip"><strong>Timing drill.</strong> Give yourself five minutes for any ten of these, in writing. If you cannot produce meaning plus one angle in thirty seconds, that term is a gap worth closing before the exam.</div>
+  </div>
+</div>
+
+<div class="section" id="diagrams">
+  <div class="head"><span class="num">15</span><h2>Diagram checklist</h2><span class="tag">Labels score</span></div>
+  <div class="card full">
+    <p>Questions that say "with a neat diagram" or "illustrate" are marked on labels and on the relationship between the labelled blocks, not on artistic quality. Redraw these ten shapes until you can reproduce them from memory:</p>
+    <ol class="step-list">
+      <li>The five-phase hacking chain, with active and passive reconnaissance separated.</li>
+      <li>The CIA triad with a control and an attack written against each side.</li>
+      <li>A footprint → scan → enumerate → exploit funnel showing how the target narrows.</li>
+      <li>A switched network with an attacker poisoning the ARP cache to become a MITM.</li>
+      <li>A DDoS picture showing a botnet, the handler, the reflected traffic and the victim.</li>
+      <li>A firewall/IDS/IPS placement diagram showing inline versus out-of-band monitoring.</li>
+      <li>A honeypot network with the decoy isolated from production.</li>
+      <li>The SQL injection flow from web form to parameterised query to database.</li>
+      <li>The six incident-response steps as a loop that feeds lessons learned back to preparation.</li>
+      <li>A log pipeline from host agent to central SIEM and WORM archive, with an alert on gaps.</li>
+    </ol>
+    <p>For each diagram write one caption sentence beneath it: "This shows … and the control point is …". That caption frequently earns a mark on its own because it proves you understand the flow rather than having copied a shape.</p>
+  </div>
+</div>
+
+<div class="section" id="final-plan">
+  <div class="head"><span class="num">16</span><h2>A 48-hour revision plan</h2><span class="tag">Last mile</span></div>
+  <div class="stack">
+    <div class="card"><h4>First day — rebuild the skeletons</h4>
+      <ul>
+        <li>Rewrite the core-definitions table and the thirty 3-mark drill answers from memory.</li>
+        <li>Draw the five-phase chain, the CIA triad and the recon funnel without looking.</li>
+        <li>Rebuild the ten comparison rows in the table above, two columns at a time.</li>
+        <li>Read one solved paper end to end and underline every defence paragraph.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Second day — timed answers and gaps</h4>
+      <ul>
+        <li>Write ten Part A answers in fifteen minutes and mark them against the cheat sheet.</li>
+        <li>Write three Part B answers in seventy-five minutes; check that each has definition, mechanism, example, comparison and countermeasures.</li>
+        <li>Use the topic map to identify any syllabus topic you have not answered, and answer it from the worked pages.</li>
+        <li>Sleep. Recall under exam conditions depends on consolidation, not on one more read-through.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="def">The whole strategy is compression: reduce each module to a table, a diagram and a five-step narrative, then practise rebuilding them. That is what the question bank and the solved papers at the other end of this site are for.</div>
+</div>
+
+<nav class="pagenav">
+  <a class="prev" href="module-5.html">Prev: M5 · Tracking &amp; covering</a>
+  <a class="next" href="question-bank.html">Next: Question Bank</a>
+</nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div>Study Notes · Exam Guide — Ethical Hacking (CCT 401, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="exam-guide.html">Exam Guide</a> · <a href="question-bank.html">Question Bank</a> · <a href="solved-papers.html">Solved Papers</a></div>
+  </div>
+</footer>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

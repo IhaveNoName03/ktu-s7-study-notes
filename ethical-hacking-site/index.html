@@ -9,6 +9,10 @@
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0E0F12">
 <link rel="stylesheet" href="assets/styles.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <style>
   .subj{ --maxw:1400px; --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
   body.subj{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6}
@@ -150,6 +154,8 @@ html.theme-vt .theme-panel{display:none !important}
 @media print{.ai-note{border:1px solid #000 !important;border-left:3px solid #000 !important;
   background:none !important;color:#000 !important}
   .ai-badge{background:#000 !important;color:#fff !important}}
+/* grid-overflow-fix */
+#grid .mcard,#examGrid .mcard{margin-left:0;margin-right:0}
 </style>
 </head>
 <body class="subj">
@@ -160,7 +166,7 @@ html.theme-vt .theme-panel{display:none !important}
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html" class="active">Home</a>
-      <a href="papers.html">Papers</a>
+      <a href="question-bank.html">Papers</a>
       <a href="../index.html">All subjects</a>
     </nav>
   </div>
@@ -192,7 +198,7 @@ html.theme-vt .theme-panel{display:none !important}
 </div>
 
 <div class="grid" id="grid">
-  <a class="mcard" href="m1-1.html" data-k="m1 foundations infosec hacker classes footprinting reconnaissance pentest osstmm nist owasp">
+  <a class="mcard" href="module-1.html" data-k="m1 foundations infosec hacker classes footprinting reconnaissance pentest osstmm nist owasp">
     <div class="idx">M1</div>
     <div class="main"><div class="code">Module 1</div><h3>Foundations</h3>
       <p class="desc">Information security concepts, hacker classes, the penetration-testing methodology, and footprinting &amp; reconnaissance.</p>
@@ -200,7 +206,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m2-1.html" data-k="m2 scanning enumeration sniffing mitm arp spoof wireshark">
+  <a class="mcard" href="module-2.html" data-k="m2 scanning enumeration sniffing mitm arp spoof wireshark">
     <div class="idx">M2</div>
     <div class="main"><div class="code">Module 2</div><h3>Scanning, Enumeration &amp; Sniffing</h3>
       <p class="desc">Network scanning and enumeration, packet sniffing and man-in-the-middle attacks (ARP spoofing), and defence with Wireshark.</p>
@@ -208,7 +214,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m3-1.html" data-k="m3 system hacking malware trojan virus ransomware rootkit backdoor dos ddos">
+  <a class="mcard" href="module-3.html" data-k="m3 system hacking malware trojan virus ransomware rootkit backdoor dos ddos">
     <div class="idx">M3</div>
     <div class="main"><div class="code">Module 3</div><h3>System Hacking &amp; Malware</h3>
       <p class="desc">Gaining and maintaining access — system hacking, malware (Trojans, viruses, ransomware, rootkits) and DoS/DDoS.</p>
@@ -216,7 +222,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m4-1.html" data-k="m4 session hijacking web attacks sql injection xss csrf ddos">
+  <a class="mcard" href="module-4.html" data-k="m4 session hijacking web attacks sql injection xss csrf ddos">
     <div class="idx">M4</div>
     <div class="main"><div class="code">Module 4</div><h3>Session Hijacking &amp; Web Attacks</h3>
       <p class="desc">Session hijacking and the major web-application attacks — SQL injection, XSS, CSRF — plus denial-of-service.</p>
@@ -224,7 +230,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m5-1.html" data-k="m5 covering tracks hiding event logging anti-forensics steganography privilege escalation password cracking">
+  <a class="mcard" href="module-5.html" data-k="m5 covering tracks hiding event logging anti-forensics steganography privilege escalation password cracking">
     <div class="idx">M5</div>
     <div class="main"><div class="code">Module 5</div><h3>Covering Tracks &amp; Privilege Escalation</h3>
       <p class="desc">Covering tracks and hiding evidence, event logging and log tampering, anti-forensics and steganography, password cracking and privilege escalation.</p>
@@ -232,13 +238,84 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard practice" href="m-t1.html" data-k="practice exam techniques question bank papers">
-    <div class="idx">·</div>
-    <div class="main"><div class="code">Practice</div><h3>Exam Techniques &amp; Papers</h3>
-      <p class="desc">Exam-techniques index and the past-paper question bank with marks-scaled answers.</p>
-      <div class="mods"><span>m-t1 Exam techniques</span><span>papers.html Question bank</span></div></div>
-    <span class="go">Open <span class="arr">→</span></span>
-  </a>
+  
+
+  
+</div>
+
+<div class="seclabel"><span class="no">§</span><span class="txt">Exam Resources</span><span class="line"></span></div>
+<div class="grid" id="examGrid">
+  <a class="mcard practice" href="exam-guide.html"><div class="idx">✦</div><div class="main"><div class="code">Exam technique</div><h3>Exam Guide</h3><p class="desc">Question patterns, mark schemes, 60-topic coverage map and quick-reference tables.</p></div><span class="go">Open →</span></a>
+  <a class="mcard practice" href="question-bank.html"><div class="idx">✦</div><div class="main"><div class="code">Question bank</div><h3>Question Bank</h3><p class="desc">Model paper, four KTU papers and internal-series questions with expanded model answers.</p></div><span class="go">Open →</span></a>
+  <a class="mcard practice" href="solved-papers.html"><div class="idx">✦</div><div class="main"><div class="code">Worked answers</div><h3>Solved Papers</h3><p class="desc">All four KTU papers — 112 answers at exam length, both OR options, plus a cross-paper topic index.</p></div><span class="go">Open →</span></a>
+</div>
+
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>How CCT 401 is examined</h2><span class="tag">blueprint</span></div>
+  <div class="card full">
+    <div class="tablewrap"><table>
+      <thead><tr><th>Part</th><th>Questions</th><th>Marks</th><th>What earns marks</th></tr></thead>
+      <tbody>
+        <tr><td>Part A</td><td>Q1–Q10, answer all</td><td>10 × 3 = 30</td><td>A precise definition, two or three elaborating points, one concrete example. About 120–180 words.</td></tr>
+        <tr><td>Part B</td><td>One full question from each of Modules I–V</td><td>5 × 14 = 70</td><td>Definition → mechanism → types/variants with a table → example → countermeasures → labelled diagram where asked. About 350–550 words.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Every module contributes exactly one 14-mark question, so skipping a module is never safe. Each Part B question offers an OR choice — decide in under a minute which sub-part you can structure best, then commit.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>The five modules at a glance</h2><span class="tag">map</span></div>
+  <div class="card full">
+    <div class="tablewrap"><table>
+      <thead><tr><th>Module</th><th>Page</th><th>Core ideas</th><th>High-yield exam questions</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td><a href="module-1.html">module-1.html</a></td><td>CIA triad, AAA, authenticity, non-repudiation, hacker classes, OSSTMM / NIST / OWASP, vulnerability assessment</td><td>Security challenges; types of penetration test; role of a penetration tester; effects of hacking</td></tr>
+        <tr><td>II</td><td><a href="module-2.html">module-2.html</a></td><td>Footprinting, Google hacking, scanning/enumeration, malware, Trojans/backdoors, proxy vs packet filtering, DoS, social engineering</td><td>Comparisons (virus/worm, Trojan/backdoor); footprinting tools; shoulder surfing, dumpster diving, piggybacking</td></tr>
+        <tr><td>III</td><td><a href="module-3.html">module-3.html</a></td><td>Exploit databases, sniffing, MITM, ARP/DNS/DHCP spoofing, session hijacking, brute force, weak authentication</td><td>MITM steps; ARP spoofing → DoS; sniffing types; exploit databases</td></tr>
+        <tr><td>IV</td><td><a href="module-4.html">module-4.html</a></td><td>Routers, firewalls, honeypots, IDS/IPS, web filtering, SQL injection, XSS, buffer overflow, reverse engineering, incident response</td><td>Proxy vs packet filtering; routers vs honeypots; XSS and mobile hacking; incident response</td></tr>
+        <tr><td>V</td><td><a href="module-5.html">module-5.html</a></td><td>Event logging, altering logs, log defences, covering tracks, password cracking, privilege escalation, hiding files</td><td>Log manipulation; vertical/horizontal escalation; hiding evidence on a network; defences for log files</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>Answer templates that actually score</h2><span class="tag">method</span></div>
+  <div class="card full">
+    <p><strong>3-mark answer.</strong> Sentence 1 defines the term. Sentences 2–3 give mechanism or two key properties. Sentence 4 gives one example or one defence. Do not write an essay — the examiner is checking recognition and one correct detail.</p>
+    <p><strong>14-mark answer.</strong> Open with a two-line definition. Then: (1) how it works, numbered; (2) types or variants as a table; (3) one worked example with named tools or ports; (4) impact on the CIA triad; (5) defensive controls; (6) a labelled diagram if the question says illustrate. Close with one sentence of evaluation — e.g. why a control reduces risk rather than removing it.</p>
+    <p><strong>Compare questions.</strong> A four-row table beats four paragraphs: dimension, option A, option B, and which is preferable in a given scenario. End with a one-line recommendation.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>Seven-step revision loop</h2><span class="tag">plan</span></div>
+  <div class="card full">
+    <ol>
+      <li>Read the module page once for structure, not memorisation — note the headings.</li>
+      <li>Write the 3-mark definitions for that module from memory; check against the page.</li>
+      <li>Practise one 14-mark answer per module under 12 minutes.</li>
+      <li>Open <a href="question-bank.html">Question Bank</a> and attempt the questions for that module without revealing answers.</li>
+      <li>Check <a href="solved-papers.html">Solved Papers</a> for how the same topic was worded in A–D.</li>
+      <li>Use <a href="exam-guide.html">Exam Guide</a> for the 60-topic coverage map and mark scheme.</li>
+      <li>Repeat after two days; spaced recall beats a single long reading session.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>Common mistakes</h2><span class="tag">pitfalls</span></div>
+  <div class="card full">
+    <ul>
+      <li>Describing an attack but never stating a countermeasure — you lose the defence marks.</li>
+      <li>Mixing up vertical escalation (higher privilege) with horizontal escalation (another user's scope).</li>
+      <li>Treating OSSTMM, NIST and OWASP as interchangeable; they are different scopes — operational security, process framework, and web-risk guidance.</li>
+      <li>Drawing an unlabelled diagram. Every box needs a label and every arrow a direction.</li>
+      <li>Memorising tool names without explaining what the tool reveals and what the defender should do next.</li>
+    </ul>
+  </div>
 </div>
 
 <div class="empty" id="empty">No modules match your search — try a broader term.</div>
@@ -265,10 +342,10 @@ html.theme-vt .theme-panel{display:none !important}
   } else { cards.forEach(function(c){c.classList.add('in');}); }
 </script>
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
-<script src="assets/theme-bridge.js"></script>
-<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
-<script src="assets/theme-config.js"></script>
-<script src="assets/theme-handler.js"></script>
+
+
+
+
 <script src="assets/app.js"></script>
 <script src="assets/read-progress.js"></script>
 <script>

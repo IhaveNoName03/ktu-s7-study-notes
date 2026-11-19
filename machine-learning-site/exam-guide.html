@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Guide · Machine Learning</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<link rel="stylesheet" href="assets/exam-content.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a><a href="../index.html">All subjects</a>
+      <a href="module-1.html">M1 · Paradigms</a>
+      <a href="module-2.html">M2 · Supervised</a>
+      <a href="module-3.html">M3 · NN &amp; SVM</a>
+      <a href="module-4.html">M4 · Unsupervised</a>
+      <a href="module-5.html">M5 · Classification</a>
+      <a href="exam-guide.html" class="active">Exam Guide</a>
+      <a href="question-bank.html">Question Bank</a>
+      <a href="solved-papers.html">Solved Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Exam prep · KTU CST413</span>
+  <h1>Exam Guide</h1>
+  <p class="lede">Exam technique, a complete formula sheet and seven worked derivation walkthroughs — merged from the exam-techniques page and the formula cheat sheet.</p>
+  <div class="meta-row"><span class="chip red">CST 413</span><span class="chip">7 derivations</span><span class="chip">Verified numerics</span></div>
+</section>
+
+<div class="wrap"><div class="exam-content">
+<div class="page-head"><p class="eyebrow">Merged study guide</p><h1>Exam Guide — Technique, Formulas &amp; Derivations</h1>
+<p class="lede">Everything you need to attack the KTU CST413 end-semester paper: how the marks are allocated, every formula and verified result from the three past papers, and step-by-step derivations of the computations examiners keep asking for.</p>
+<div class="meta"><span class="badge acc">Part A 30 + Part B 70</span><span class="badge">7 derivation walkthroughs</span><span class="badge">Verified numerics</span></div></div>
+<div class="note"><strong>Reading order.</strong> Sections 1–6 are the original exam-technique guidance and the formula cheat sheet; Section 7 adds the full derivation walkthroughs. Use <kbd>Ctrl+F</kbd> (or <kbd>/</kbd>) to jump to a topic.</div>
+</div>
+</div><div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>The Exam Structure</h2><span class="tag">Know the paper</span></div>
+    <div class="card full">
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Part</th><th>What's in it</th><th>Marks</th><th>How to answer</th></tr></thead>
+          <tbody>
+            <tr><td><b>Part A</b></td><td>10 questions, 2 from each module</td><td>10 × 3 = <b>30 marks</b></td><td>Answer <b>all</b>. Short, precise answers — definition, formula, one-line explanation. No rambling.</td></tr>
+            <tr><td><b>Part B</b></td><td>2 full questions per module (5 modules × 2 = 10 questions)</td><td>Pick <b>one from each module</b> × 14 = <b>70 marks</b></td><td>Choose the <b>easiest</b> full question from each module. Each has up to 2 sub-parts. Answer completely — show steps, draw diagrams where asked.</td></tr>
+            <tr><td><b>Total ESE</b></td><td>—</td><td><b>100 marks</b></td><td>3 hours duration.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def" style="margin-top:14px"><b>Marks split at a glance:</b> Part A = 30 marks (all 10 answered). Part B = 70 marks (5 chosen, one per module). Do <b>not</b> leave any Part A question blank — 3 marks each, and they are the easiest marks on the paper. For Part B, time-box each module's answer to about 25 minutes; a full 14-mark answer needs structure, not just prose.</div>
+      <div class="def"><b>Bloom's levels:</b> 30% Remember, 30% Understand, 40% Apply. That means a good chunk of the paper tests <b>application</b> — "compute this", "apply this algorithm to this data", "find the MLE for this distribution". Definitions alone will not carry you. Practice working through the CO questions (below) until the computations are automatic.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>How to Answer by Marks</h2><span class="tag">3-mark vs 14-mark</span></div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">3 marks</span>Part A — short answers</h3>
+        <p>Three marks means <b>three distinct points</b>, or a crisp definition + one-line explanation + tiny example. Aim for 4–6 lines.</p>
+        <div class="def" style="margin-top:8px"><b>What gets the marks:</b> a correct definition, the key idea stated in one sentence, and one concrete detail (a formula, a property, an example). Do not pad — the marker wants to see you know it, not that you can write about it. For "state", "define", "differentiate", "specify" — give exactly what is asked.</div>
+        <div class="def" style="margin-top:6px"><b>Typical 3-mark commands:</b> define, state, differentiate, mention, illustrate (with a one-line example), specify, compare (briefly).</div>
+      </div>
+      <div class="card">
+        <h3><span class="idx">14 marks</span>Part B — full answers</h3>
+        <p>Fourteen marks is a <b>structured</b> answer: step-by-step derivation or walkthrough, diagrams where the question asks for "illustrate" or "draw", tables for comparisons, and clearly labelled sub-answers (a, b, c).</p>
+        <div class="def" style="margin-top:8px"><b>What gets the marks:</b> the marker looks for <b>steps shown</b> (especially in computation questions), <b>correct final answers</b>, <b>diagrams</b> where asked, <b>comparison tables</b> for "differentiate/compare" questions, and <b>justification</b> for "why"/"discuss" parts. Show your work — even if the final number is wrong, clear steps earn partial marks.</div>
+        <div class="def" style="margin-top:6px"><b>Typical 14-mark commands:</b> explain, describe, derive, illustrate, find, compute, apply, compare (in depth), discuss, develop a classifier (case study).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Recurring Question Pairs</h2><span class="tag">What shows up again and again</span></div>
+    <div class="card full">
+      <p>Certain questions — or near-variants of them — appear across Part A and Part B, and across years. These are the pairs worth being fully ready for. The CO (Course Outcome) assessment questions below are the clearest signal of what the examiner likes to ask.</p>
+
+      <div class="def"><b>Pair 1 — MLE vs MAP, and "find the MLE for θ":</b> these show up in multiple forms: coin-toss MLE for θ (Part A + CO1-Q1), geometric distribution MLE (Part B Q12), Poisson λ (CO1-Q2), exponential λ (CO1-Q2 alternative), binomial MLE (Q11), normal mean MLE &amp; MAP (CO1-Q4, Q12b). You should be able to derive the MLE for any of these distributions from scratch — write the likelihood, take the log, differentiate, solve. Know the MAP version too (likelihood × prior, same steps).</div>
+
+      <div class="def"><b>Pair 2 — Naive Bayes parameter counting:</b> "How many parameters do you need for a Naive Bayes classifier with D binary attributes and K classes?" appears as CO2-Q2 and Part B Q11(b). The answer: for each class you need the prior P(class) and, for each of the D binary attributes, P(attribute=1 | class) — so K·(D+1) parameters (or K·D if priors are implicit). Be ready to count for the specific numbers given (3 classes, 3 binary attributes → 3×4 = 12, or 3×3 = 9 depending on whether you count the prior).</div>
+
+      <div class="def"><b>Pair 3 — Linear regression computation:</b> "Given training examples, find h(2) for θ₀=0, θ₁=1.5" (CO2-Q1, Q13a) and "find J(0,1)" (Q13a) and "what if J=0?" (Q13a). These are plug-and-chug: h(x)=θ₀+θ₁x; J=(1/2m)Σ(h−y)². Know that J=0 means perfect fit on the training set. Also ready for the gradient descent pseudo-code question (Q14b) — write the update rule, on-line vs batch.</div>
+
+      <div class="def"><b>Pair 4 — Decision trees / ID3 / information gain:</b> "Find the best attribute at the root using ID3" (Q14a) and "compute the information gain of the test hair color = blond" (Q13b). These need you to compute entropy and information gain by hand on small tables. Practice the steps: entropy of the full set, entropy after splitting on each attribute, gain = entropy_before − weighted_entropy_after, pick the max.</div>
+
+      <div class="def"><b>Pair 5 — SVM / kernel / support vectors:</b> "What are support vectors and list three properties" (CO3-Q1), "why use kernels instead of projecting directly?" (CO3-Q2), "extend SVM to use kernels" (CO3-Q3), "Gaussian kernel K(x,y)=e^{-||x-y||²}" (Q—model paper), "mapping to feature space implicitly defined by kernel" (Q15a), "soft margin as a constraint optimisation problem" (Q16b). Be ready to explain the kernel trick (compute dot products in high-D feature space without ever constructing the features), name properties of the SVM solution (sparsity — only support vectors matter; maximum margin; unique solution under certain conditions), and write the soft-margin formulation with slack variables.</div>
+
+      <div class="def"><b>Pair 6 — Neural network / activation / backprop:</b> "one way tanh is easier than logistic" (CO3-Q4), "ReLU vs tanh — advantage + disadvantage" (CO3-Q5, Q15c), "compute neuron output given inputs and weights" (Q15b), "basic idea of backpropagation" (Q16a). Compute a neuron's output: z = Σ wᵢxᵢ + b, output = f(z). Know the shapes of ReLU, sigmoid, tanh, and the pros/cons (ReLU: sparse, fast, no vanishing gradient for positive inputs — but dead neurons; sigmoid/tanh: smooth, bounded — but vanishing gradient).</div>
+
+      <div class="def"><b>Pair 7 — Clustering / distance / k-means / EM:</b> "which similarity measure for image feature vectors and why?" (CO4-Q1), "strength and weakness of k-means" (CO4-Q2, Part A Q8), "apply k-means to 8 points, k=3, Manhattan distance" (CO4-Q3, Q18), "hierarchical clustering — single linkage on a data set" (Q17a), "EM for Gaussian mixtures" (Q18b), "Euclidean/Manhattan/Minkowski distance between two tuples" (Q17b). Practice computing these distances by hand and running one or two iterations of k-means on paper.</div>
+
+      <div class="def"><b>Pair 8 — Classification measures / ROC / better classifier:</b> "precision, recall, accuracy from a 2×2 table — is it a good classifier?" (CO5-Q3, Q19a), "ROC space and ROC curve — which points are perfect/always-positive/always-negative and why?" (CO5-Q4, Q20b), "three classifiers A,B,C at (FPR,TPR) — which is perfect?" (CO5-Q5, Q20b variant), "classifier A 100% train/70% test vs B 70%/75% — which is better?" (CO5-Q3, Part A Q9, Q20a). The recurring theme: know that accuracy is misleading under imbalance, that (0,1) is the perfect ROC point, that the (1,1) point is "always positive" and (0,0) is "always negative".</div>
+
+      <div class="def"><b>Pair 9 — Bias–variance / high-bias model:</b> "how does bias–variance trade-off affect ML algorithms?" (Part A Q10, Q20a variant), "a model with high bias and low variance — what are its characteristics?" (Q20a). Know the decomposition: expected error = bias² + variance + irreducible noise. High bias = underfitting (too simple, stable but wrong); high variance = overfitting (fits noise, unstable); the trade-off is that complexity reduces bias but raises variance.</div>
+
+      <div class="def"><b>Pair 10 — Regularisation / Ridge vs Lasso:</b> "significance of regularisation, how Ridge differs from Lasso" (Q13c — "Explain the significance of regularization. How do Ridge differs from Lasso regularization?"). This is a 4-mark sub-question. Answer: regularisation prevents overfitting by penalising large weights; Ridge (L2) shrinks all weights, no feature selection; Lasso (L1) can zero out weights → feature selection. Know the penalty forms: λΣθ² vs λΣ|θ|.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>The Course Outcome Questions</h2><span class="tag">Practise these by heart</span></div>
+    <div class="card full">
+      <p>These are the 20 CO questions from the syllabus — the closest thing to a question bank the course gives you. Every one has appeared or could appear. Work through all of them, especially the computation ones, until you can do them without looking.</p>
+
+      <div class="def"><b>CO1 (Module 1 — estimation):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1">
+        <li>Coin tossed 100 times, 62 heads — MLE for θ (probability of heads). <i>Answer: θ̂ = 62/100 = 0.62.</i></li>
+        <li>x₁..xₙ iid from exponential exp(λ) — MLE for λ. <i>Answer: λ̂ = 1 / x̄ (the reciprocal of the sample mean).</i></li>
+        <li>Find MLE for θ from a given density (generic). <i>Approach: write likelihood L(θ)=Π f(xᵢ;θ), log-likelihood ℓ(θ), dℓ/dθ=0, solve.</i></li>
+        <li>MLE and MAP for mean of univariate normal, known variance σ², unknown mean μ, prior μ ~ N(ν, β²). What happens as N→∞? <i>Answer: MLE μ̂ = x̄. MAP μ̂ = ( (1/σ²)Σxᵢ + (1/β²)ν ) / ( N/σ² + 1/β² ). As N→∞, MAP → MLE → x̄ (the prior washes out).</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO2 (Module 2 — supervised learning):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="5">
+        <li>Linear regression, D≈100 independent attributes, N data points — closed form vs gradient descent? <i>Answer: prefer gradient descent — closed form requires inverting a D×D matrix (O(D³)), with D≈100 that is expensive and may be unstable. GD handles large D and large N better.</i></li>
+        <li>3-class problem, 3 binary attributes — how many parameters for Naive Bayes? <i>Answer: for each class, P(class) + for each of 3 binary attributes P(attr=1|class). With 3 classes: 3 priors + 3×3 = 9 conditional parameters, total 12 (or 9 if priors are implicit).</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO3 (Module 3 — NN &amp; SVM):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="7">
+        <li>What are support vectors? List three properties of the SVM solution. <i>Answer: support vectors are the training points that lie on or within the margin (the ones with non-zero α). Properties: (1) the solution depends only on support vectors (sparsity), (2) the margin is maximised (maximum-margin separator), (3) the solution is unique (for a given kernel and soft-margin constant) under standard conditions.</i></li>
+        <li>Why use kernels instead of projecting the data directly? <i>Answer: projecting into a high-dimensional feature space explicitly can be impossible (the space may be infinite-dimensional, e.g. RBF). Kernels compute the inner product in that space without ever constructing the features — the "kernel trick".</i></li>
+        <li>How can SVMs be extended to use kernels? <i>Answer: in the dual formulation, every occurrence of the input vectors appears only as a dot product xᵢ·xⱼ. Replacing that with K(xᵢ, xⱼ) gives a kernelised SVM — the same optimisation, but now operating implicitly in the feature space of K.</i></li>
+        <li>One way tanh is easier than logistic for optimisation. <i>Answer: tanh is zero-centred (output ranges −1 to +1, mean near 0), so the next layer's inputs are centred, which helps gradient flow; logistic outputs 0 to 1, so gradients can be consistently positive/negative, slowing learning.</i></li>
+        <li>ReLU vs tanh — one advantage and one disadvantage of ReLU. <i>Advantage: ReLU is sparse (negative inputs → 0) and has no vanishing gradient for positive inputs, so it trains faster and avoids saturation. Disadvantage: "dead ReLU" — a neuron whose weights put it in the negative region forever outputs 0 and stops learning; also not smooth at 0.</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO4 (Module 4 — unsupervised learning):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="12">
+        <li>Which similarity measure for image feature vectors? Justify. <i>Answer: typically Euclidean distance (or cosine similarity) — depends on the features. Euclidean for dense, normalised vectors; cosine when magnitude is irrelevant (e.g. bag-of-words / normalised embeddings). Justify by saying which property of the features each measure captures.</i></li>
+        <li>Strength and weakness of k-means. <i>Strength: simple, fast, scales, easy. Weakness: must choose k; sensitive to initial centroids (local optimum); assumes spherical, similar-sized clusters; sensitive to outliers; needs numeric features.</i></li>
+        <li>K-means on 8 points, k=3, initial clusters given, run until convergence, Manhattan distance. <i>Approach: compute centroid of each cluster, reassign each point to nearest centroid by Manhattan distance, recompute centroids, repeat until stable.</i></li>
+        <li>K-means on 8 location points, k=3, initial centres A₁, A₄, A₇, distance D(a,b)=|x₂−x₁|+|y₂−y₁|, find centres after second iteration. <i>Approach: assignment by Manhattan distance, recompute mean of each cluster, repeat once more (second iteration), report the three resulting centres.</i></li>
+      </ol>
+      </div>
+
+      <div class="def"><b>CO5 (Module 5 — classification assessment):</b>
+      <ol style="margin:8px 0 0 20px;padding:0" type="1" start="16">
+        <li>What is ensemble learning? Can an ensemble of linear classifiers learn a linearly non-separable set? <i>Answer: ensemble learning combines multiple base classifiers to get a better overall predictor. Yes — an ensemble of linear classifiers can combine several linear boundaries (by voting) to approximate a non-linear decision surface, so it can separate data no single line can.</i></li>
+        <li>Describe boosting. Relation to ensemble learning? <i>Answer: boosting trains base learners sequentially, each focusing on the examples previous learners got wrong, then combines them (weighted). It is a form of ensemble learning — specifically a sequential, error-focused ensemble strategy (vs bagging which is parallel and variance-reducing).</i></li>
+        <li>Classifier A: 100% train, 70% test. B: 70% train, 75% test. Which is better? Justify. <i>Answer: B is better — it generalises (75% test vs 70% test). A overfits (100% train but 70% test — huge gap). The test accuracy is what counts.</i></li>
+        <li>What are ROC space and ROC curve? Which points are perfect / always-positive / always-negative, and why? <i>Answer: ROC space plots FPR (x) vs TPR (y). ROC curve is TPR vs FPR across all thresholds. Perfect = (0,1): zero false positives, all true positives caught. Always-positive = (1,1): TPR=1 (all positives caught) but FPR=1 (everything flagged). Always-negative = (0,0): nothing flagged, nothing caught. The diagonal is random guessing.</i></li>
+        <li>Three classifiers A(0,1), B(1,1), C(1,0.5) in (FPR,TPR). Which is perfect? <i>Answer: A is perfect — (0,1) means zero false positives and all true positives caught. B always says YES (FPR=1,TPR=1). C always says YES but only catches half (FPR=1,TPR=0.5). Only A is perfect.</i></li>
+      </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Practical Exam Tips</h2><span class="tag">What the marker rewards</span></div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">Do</span></h3>
+        <ul>
+          <li><b>Write the formula first</b> in any computation question, then plug numbers. Marks often go to the formula even if the arithmetic slips.</li>
+          <li><b>Show each step</b> in MLE/MAP and k-means and ID3 — the marker awards partial credit per step.</li>
+          <li><b>Draw a small diagram</b> when the question says "illustrate" — even a rough one scores; a missing diagram on an "illustrate" question loses marks.</li>
+          <li><b>Use a table</b> for "compare/differentiate" questions — it is cleaner and the marker can tick each row.</li>
+          <li><b>State the answer plainly</b> in 3-mark questions — the first sentence should be the answer, then one line of explanation.</li>
+          <li><b>Time-box</b>: ~5 minutes per Part A question (30 marks / 10), ~25 minutes per Part B (70 marks / 5 modules).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="idx">Don't</span></h3>
+        <ul>
+          <li><b>Don't leave any Part A blank</b> — 3 marks is the easiest mark on the paper; even a correct definition gets 1–2.</li>
+          <li><b>Don't pick a Part B question you can't finish</b> over one you can — the "easiest full question per module" strategy beats the "coolest topic" strategy.</li>
+          <li><b>Don't write paragraphs for "state/define"</b> — the marker wants the fact, not the essay.</li>
+          <li><b>Don't forget units / notation</b> — write "θ̂ = 0.62", not just "0.62".</li>
+          <li><b>Don't confuse logistic regression (classification) with linear regression (regression)</b> — the names are similar, the tasks are not.</li>
+          <li><b>Don't claim a model is "good" on accuracy alone</b> when classes are imbalanced — say precision/recall/ROC.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>How to Use This Site for Revision</h2><span class="tag">A quick plan</span></div>
+    <div class="card full">
+      <p>The most efficient revision order is: (1) read each module page once, top to bottom, so the structure is in your head. (2) Go to the <b>Question Bank</b> and work the CO questions one module at a time — try to answer before toggling the model answer. (3) Revisit the recurring pairs list above and make sure you can write each answer cold. (4) For computation-heavy topics (MLE, k-means, ID3, neuron output, distances), do the numbers on paper, not just read them. (5) In the last pass, skim the module pages' <b>key definitions</b> (the ones in <b>bold</b>) — those are the 3-mark material.</p>
+      <div class="def"><b>3-hour exam pacing:</b> first 30 minutes on Part A (all 10, aim to finish in 25 so you have buffer). Then 25 minutes on each of the 5 Part B answers (125 minutes). Leaves ~10 minutes to review. If a Part B is running long, move on — a finished good answer beats a half-finished hard one.</div>
+    </div>
+  </div>
+
+  <nav class="pagenav">
+    <a class="prev" href="module-5.html">← Prev: M5 · Classification &amp; Assessment</a>
+    <a class="next" href="question-bank.html">Next: Question Bank →</a>
+  </nav>
+
+</div><div class="wrap">
+<div class="exam-content">
+
+<div class="page-head"><p class="eyebrow">One-page reference</p><h1>Cheat Sheet — Formulas & Final Answers</h1><p class="lede">Every formula, computed result and decision rule across all three past papers. Use <kbd>/</kbd> to find a topic.</p><div class="meta"><span class="badge acc">3 papers · 5 modules</span><span class="badge">Verified numerics</span></div></div><h2>Core formulas</h2>
+<div class="table-wrap"><table><thead><tr><th>Topic</th><th>Formula</th></tr></thead><tbody>
+<tr><td>Sigmoid neuron</td><td>y = 1 / (1 + e<sup>−(w·x+b)</sup>)</td></tr>
+<tr><td>Manhattan / Euclidean / Chebyshev</td><td>Σ|xᵢ−yᵢ| / √Σ(xᵢ−yᵢ)² / max|xᵢ−yᵢ|</td></tr>
+<tr><td>Information gain</td><td>Gain(A) = Entropy(S) − Σᵥ(|Sᵥ|/|S|)·Entropy(Sᵥ), Entropy = −Σp log₂p</td></tr>
+<tr><td>Linear regression</td><td>b = (nΣxy−ΣxΣy)/(nΣx²−(Σx)²), a = ȳ − bx̄</td></tr>
+<tr><td>Bayes posterior</td><td>P(c|X) = P(c)·∏P(xᵢ|c) / Σⱼ[P(cⱼ)·∏P(xᵢ|cⱼ)]</td></tr>
+<tr><td>Precision / Recall / Accuracy</td><td>TP/(TP+FP) / TP/(TP+FN) / (TP+TN)/N</td></tr>
+<tr><td>F1 score</td><td>2·Precision·Recall/(Precision+Recall)</td></tr>
+<tr><td>SVM margin / primal</td><td>margin = 2/‖w‖ ; min ½‖w‖² s.t. yᵢ(w·xᵢ+b) ≥ 1</td></tr>
+<tr><td>TPR / FPR</td><td>TP/(TP+FN) / FP/(FP+TN)</td></tr>
+<tr><td>Error decomposition</td><td>error = bias² + variance + irreducible noise</td></tr>
+</tbody></table></div><h2>Module IV–V formulas</h2>
+<div class="table-wrap"><table><thead><tr><th>Topic</th><th>Formula</th></tr></thead><tbody>
+<tr><td>K-means objective / centre</td><td>J = ΣₖΣ_{x∈Cₖ} d(x,μₖ) ; μₖ = mean of points in Cₖ</td></tr>
+<tr><td>Single / complete linkage</td><td>minₐ,ᵦ d(a,b) / maxₐ,ᵦ d(a,b) between clusters</td></tr>
+<tr><td>Average linkage</td><td>meanₐ,ᵦ d(a,b) between clusters</td></tr>
+<tr><td>PCA covariance / eigen</td><td>S = ZᵀZ/(n−1) ; Sv = λv ; ratio = λᵢ/Σλ</td></tr>
+<tr><td>PCA projection</td><td>Y = ZW, W = [v₁…vₖ]</td></tr>
+<tr><td>AUC (Mann–Whitney)</td><td>P(random positive &gt; random negative); 0.5 = random</td></tr>
+<tr><td>Bootstrap OOB</td><td>(1 − 1/n)ⁿ → e⁻¹ ≈ 0.368</td></tr>
+<tr><td>AdaBoost weight / α</td><td>Dₜ₊₁(i) ∝ Dₜ(i)·exp(−αₜyᵢhₜ(xᵢ)) ; αₜ = ½ln((1−εₜ)/εₜ)</td></tr>
+<tr><td>Ensemble variance</td><td>σ²[ρ + (1−ρ)/B]</td></tr>
+<tr><td>CV estimate</td><td>êrr = (1/k)Σᵢ L(fᵢ, foldᵢ)</td></tr>
+</tbody></table></div><h2>Short derivations</h2>
+<div class="deriv"><strong>MLE of a Bernoulli p.</strong> L(p) = ∏p^{xᵢ}(1−p)^{1−xᵢ} → ℓ = k ln p + (n−k) ln(1−p); set dℓ/dp = k/p − (n−k)/(1−p) = 0 ⇒ p̂ = k/n (sample mean).</div>
+<div class="deriv"><strong>K-means centre = mean.</strong> Minimise J = Σ_{x∈C}‖x−μ‖²; set ∂J/∂μ = −2Σ(x−μ) = 0 ⇒ μ = (1/|C|)Σx.</div>
+<div class="deriv"><strong>PCA direction.</strong> Maximise vᵀSv with ‖v‖=1; Lagrange gives 2Sv − 2λv = 0 ⇒ Sv = λv, max variance = λ₁.</div>
+<div class="deriv"><strong>Information gain.</strong> Split S into Sᵥ: expected remaining entropy = Σᵥ(|Sᵥ|/|S|)H(Sᵥ); gain = H(S) − that. Pick the maximum.</div><h2>Dec 2023 paper (C) — computed answers</h2>
+<div class="formula">Q5  z = 0.84  →  y = 0.6985
+Q7  Manhattan = 10 ; Euclidean = √58 ≈ 7.616 ; Chessboard = 7
+Q9  TP=16 FP=3 TN=10 FN=1 → precision 0.8421, recall 0.9412, accuracy 0.8667
+Q13a  ŷ = 5.2381 + 0.4571x → ŷ(4) = 7.0667
+Q13b  Pass score 0.0889 vs Fail score 0.0500 → PASS (posterior ≈ 0.64)
+Q14  Entropy(S)=0.9544 ; gains: Hair 0.4544, Eyes 0.3476, Height 0.0032 → split on HAIR
+Q17  After round 1 centres (2,10), (6,6), (1.5,3.5); after round 2 (3,9.5), (6.5,5.25), (1.5,3.5)
+Q18  Single linkage merges at 1, 2, 3 ; complete linkage merges at 1, 3, 6</div><h2>Dec 2022 paper (A) — computed answers</h2>
+<div class="formula">Q11a p̂ = 3/4 = 0.75 (HHHT)
+Q11b Poisson λ̂ = (14+26+25+13)/4 = 19.5
+Q11c geometric: L = p(1−p)^(x−1) → p̂ = 1/x
+Q12a geometric pmf θ(1−θ)^(x−1) → θ̂ = 1/x̄ ; die: p̂ = 8/40 = 0.2
+Q13a gains: Taxable 0.8813, Marital 0.2813, Refund 0.1916 → split on TAXABLE INCOME
+Q14b x on y: x̂ = −75 + 2.5y
+Q17 round-1 centres (2,10), (6,6), (1.5,3.5); final (11/3,9), (7,13/3), (1.5,3.5)
+Q18 covariance matrix [[14, −11], [−11, 23]] (means 8, 8.5)
+Q19 TP=3 FP=1 FN=2 TN=2 → acc 0.625, precision 0.75, recall 0.60, F1 0.667
+Q20 TP=40 FP=10 FN=15 TN=15 → precision 0.80, recall 0.727</div><h2>May 2023 paper (B) — computed answers</h2>
+<div class="formula">Q2 geometric MLE p̂ = 1/x̄
+Q4 ŷ = 12.4286 − 5.5129x + 0.7643x²
+Q11b MLE θ̂ = 0.5 (five θ-favouring and five (1−θ)-favouring observations)
+Q12b naive Bayes free parameters = 2 (priors) + 9 (conditionals) = 11 (21 in full table before constraints)
+Q13a gains: Age 0.60, Competition 0.1245, Type 0 → split on AGE
+Q13b ŷ = −0.6 + x
+Q14b h(2)=3 ; J(0,1)=0.5 ; J=0 ⇒ perfect fit
+Q15b z = 0.45 → sigmoid ≈ 0.6106
+Q17 k-means (k=2, far-apart init) converges to (2, 1.5) and (17/6, 23/6)
+Q18a data are collinear (y = 3x + 5) → one PC explains 100%, direction (1,3)/√10
+Q18b Euclidean √45 ≈ 6.708 ; Manhattan 11
+Q19 TP=620 FP=180 FN=380 TN=8820 → acc 0.944, precision 0.775, recall 0.62, FPR 0.02</div><h2>Exam rules of thumb</h2>
+<div class="table-wrap"><table><thead><tr><th>Question says…</th><th>Do this</th></tr></thead><tbody>
+<tr><td>"estimate parameter"</td><td>Write likelihood → log → derivative = 0 → check second derivative</td></tr>
+<tr><td>"first splitting attribute"</td><td>Compute entropy(S) and information gain for EVERY attribute; pick maximum</td></tr>
+<tr><td>"classify instance"</td><td>Compute unnormalised posterior score per class; pick largest, then normalise if asked</td></tr>
+<tr><td>"two rounds of K-means"</td><td>Assign → recompute centres → assign again → report centres after round 2</td></tr>
+<tr><td>"ROC points"</td><td>(0,1) perfect, (1,1) always positive, (0,0) always negative</td></tr>
+<tr><td>"bias high, variance low"</td><td>Underfitting: too simple, large training error, similar test error → add features/complexity</td></tr>
+<tr><td>"kernel function proof"</td><td>Show symmetry and positive semi-definiteness (ΣcᵢcⱼKᵢⱼ = ‖Σcᵢφ(xᵢ)‖² ≥ 0)</td></tr>
+</tbody></table></div><h2>Common mistakes</h2>
+<ul class="pitfall">
+<li><strong>K-means:</strong> iterating to convergence when only two rounds were asked — report centres after round 2, not the final ones.</li>
+<li><strong>K-means:</strong> forgetting to recompute centres <em>before</em> the second assignment; using initial centres twice.</li>
+<li><strong>Dendrogram:</strong> giving only the merge heights without redrawing the reduced distance matrix at each step.</li>
+<li><strong>Linkage:</strong> using min where complete linkage needs max — single chains (1,2,3), complete is compact (1,3,6).</li>
+<li><strong>PCA:</strong> skipping standardisation, so a large-scale feature dominates the covariance matrix.</li>
+<li><strong>ROC:</strong> quoting accuracy instead of TPR/FPR, or mixing up (1,1) always-positive with (0,1) perfect.</li>
+<li><strong>AUC:</strong> claiming 0.5 is good — it is random guessing.</li>
+<li><strong>CV:</strong> tuning hyperparameters on the test folds (optimistic bias); use nested CV.</li>
+<li><strong>Bootstrap:</strong> sampling without replacement — OOB ≈ 36.8% requires sampling <em>with</em> replacement.</li>
+<li><strong>Bagging vs boosting:</strong> swapping their effects — bagging lowers variance, boosting lowers bias.</li>
+<li><strong>MLE:</strong> differentiating the likelihood instead of the log-likelihood, or forgetting the normalising constant in Bayes.</li>
+</ul>
+
+<div class="card full" style="margin-top:34px">
+  <h3>Back to the question bank</h3>
+  <p><a href="question-bank.html">← Existing CCT401/CST413 question bank and topic notes</a> · <a href="solved-papers.html">All newly added solved papers</a></p>
+</div>
+</div>
+</div><div class="wrap">
+<div class="section">
+  <div class="head"><span class="num">07</span><h2>Worked Derivation Walkthroughs</h2><span class="tag">Show your steps</span></div>
+  <p>Every one of the following derivations has appeared in some form in the CST413 papers. The examiner awards marks for the <em>steps</em>, not just the final boxed result: write the objective, differentiate, set to zero, solve, and check the sign of the second derivative (or the inequality that defines the optimum). Work through these until each is automatic.</p>
+
+  <div class="card full">
+    <h3>7.1 &nbsp;Maximum Likelihood and MAP — the master derivation</h3>
+    <p><strong>Set-up.</strong> We have independent observations x₁,…,xₙ from a distribution with density or pmf p(x | θ) indexed by an unknown parameter θ. The joint probability of the sample, viewed as a function of θ with the data fixed, is the <em>likelihood</em> L(θ) = ∏ᵢ p(xᵢ | θ). Because a product of many small densities underflows, and because log is monotonic, we maximise the log-likelihood ℓ(θ) = log L(θ) = Σᵢ log p(xᵢ | θ) instead; the maximiser is identical.</p>
+    <div class="formula">Step 1  L(θ) = ∏_{i=1..n} p(xᵢ | θ)
+Step 2  ℓ(θ) = Σ_{i=1..n} log p(xᵢ | θ)
+Step 3  score: dℓ/dθ = 0        (solve for θ̂)
+Step 4  check d²ℓ/dθ² &lt; 0       (confirms a maximum)</div>
+    <p><strong>Worked instance — Bernoulli.</strong> With k successes in n trials, p(x | θ) = θˣ(1−θ)^(1−x), so L(θ) = θ^k(1−θ)^(n−k) and ℓ = k ln θ + (n−k) ln(1−θ). The score is k/θ − (n−k)/(1−θ) = 0, giving k(1−θ) = (n−k)θ, hence k = nθ and θ̂ = k/n — the sample proportion. The second derivative −k/θ² − (n−k)/(1−θ)² is negative, so this is the unique maximum.</p>
+    <p><strong>MAP is one line further.</strong> Bayes' theorem gives P(θ | D) = P(D | θ)P(θ)/P(D). Maximising the posterior therefore means maximising ℓ(θ) + log P(θ) — the same likelihood plus a prior term. For Gaussian data with unknown mean µ and prior µ ~ N(ν, β²):</p>
+    <div class="formula">ℓ(µ) + log p(µ) = −(1/2σ²)Σ(xᵢ−µ)² − (1/2β²)(µ−ν)² + const
+Differentiate: (1/σ²)Σ(xᵢ−µ) − (1/β²)(µ−ν) = 0
+µ̂_MAP = [Nσ⁻² x̄ + β⁻² ν] / [Nσ⁻² + β⁻²]</div>
+    <p>This is a precision-weighted average: the data mean x̄ carries weight N/σ² and the prior mean ν carries weight 1/β². As N → ∞ the first weight dominates and MAP → MLE; a flat prior (β² → ∞) gives MAP = MLE for any N. A Gaussian prior on weights is exactly a ridge (L2) penalty; a Laplace prior is a lasso (L1) penalty. <strong>Exam rule of thumb:</strong> small data plus prior knowledge → MAP; large data or no prior → MLE; always show the log and the score equation.</p>
+  </div>
+
+  <div class="card full">
+    <h3>7.2 &nbsp;Least squares and the normal equations</h3>
+    <p><strong>Objective.</strong> Fit ŷ = β₀ + β₁x by minimising the residual sum of squares S(β₀,β₁) = Σᵢ(yᵢ − β₀ − β₁xᵢ)². This is a convex quadratic, so setting both partial derivatives to zero gives a global minimum.</p>
+    <div class="formula">∂S/∂β₀ = −2Σ(yᵢ − β₀ − β₁xᵢ) = 0  ⇒  Σy = nβ₀ + β₁Σx
+∂S/∂β₁ = −2Σxᵢ(yᵢ − β₀ − β₁xᵢ) = 0 ⇒  Σxy = β₀Σx + β₁Σx²
+b₁ = (nΣxy − ΣxΣy) / (nΣx² − (Σx)²) = Σ(x−x̄)(y−ȳ)/Σ(x−x̄)²
+b₀ = ȳ − b₁x̄</div>
+    <p><strong>Matrix form.</strong> With a design matrix X whose rows are [1, xᵢ] and target vector y, the objective is ‖y − Xβ‖²; setting the gradient 2Xᵀ(Xβ − y) = 0 gives the <em>normal equations</em> XᵀXβ = Xᵀy, so β̂ = (XᵀX)⁻¹Xᵀy when XᵀX is invertible (which requires independent columns and N ≥ D). <strong>Worked check used in the papers:</strong> the line ŷ = 5.2381 + 0.4571x evaluated at x = 4 gives 7.0667; another paper gives ŷ = 0.785 + 0.425x and ŷ = −0.6 + 1.0X. Reproduce these by substituting sums into the b₁, b₀ formulas above, never by joining two points.</p>
+    <p><strong>Assumptions and traps.</strong> Ordinary least squares assumes linearity in the parameters, independent errors, constant error variance and (for inference) approximately normal errors. Squared error punishes large residuals heavily, so outliers matter; use robust/absolute-error alternatives if needed. <strong>Exam rule of thumb:</strong> use the deviation form Σ(x−x̄)(y−ȳ)/Σ(x−x̄)² for hand calculations with small tables, and the Σ form when only raw totals are supplied; both must agree.</p>
+  </div>
+
+  <div class="card full">
+    <h3>7.3 &nbsp;Information gain and the ID3 split</h3>
+    <p><strong>Entropy.</strong> For a target with class probabilities p_c, the impurity of a set S is H(S) = −Σ_c p_c log₂ p_c, measured in bits. A pure node has H = 0; a balanced binary split has H = 1 bit. <strong>Splitting.</strong> If attribute A partitions S into subsets Sᵥ, the expected entropy after splitting is Σᵥ(|Sᵥ|/|S|)H(Sᵥ), and the reduction in uncertainty is</p>
+    <div class="formula">Gain(A) = H(S) − Σᵥ (|Sᵥ|/|S|) H(Sᵥ)
+H(Sᵥ) = −Σ_c p(c|Sᵥ) log₂ p(c|Sᵥ)</div>
+    <p><strong>Walkthrough.</strong> (1) Count class frequencies at the node and compute H(parent). (2) For each candidate attribute, group rows by attribute value. (3) For each group compute its class entropy. (4) Weight each by the group's fraction of the parent and sum. (5) Subtract from the parent entropy; the largest gain becomes the root, and the same steps recurse at each child. <strong>Numeric illustration from the papers:</strong> with 100 professors, 150 staff and 750 students the prior is {0.10, 0.15, 0.75} and H ≈ 1.054 bits; splitting on 'blond' selects 400 people with mixture {0.25, 0.125, 0.625} (entropy ≈ 1.299) and 600 with {0, 1/6, 5/6} (entropy ≈ 0.650); the weighted remainder is 0.4×1.299 + 0.6×0.650 ≈ 0.910, so Gain ≈ 0.144 bits.</p>
+    <p><strong>Caveats worth one line each:</strong> high-branching attributes are favoured by raw gain (use gain ratio = Gain/SplitInfo); continuous attributes need threshold discretisation; greedy splitting does not guarantee the globally smallest tree. <strong>Exam rule of thumb:</strong> always weight children by <em>fractions</em>, use log₂ consistently, and never pick the attribute with the lowest child entropy by itself — it is the <em>reduction</em> that counts.</p>
+  </div>
+
+  <div class="card full">
+    <h3>7.4 &nbsp;SVM margin and the kernel trick</h3>
+    <p><strong>Geometry.</strong> A separating hyperplane is w·x + b = 0. The perpendicular distance from a point x to it is |w·x + b|/‖w‖. Because scaling (w,b) does not move the hyperplane, we may fix the functional margin to 1, requiring yᵢ(w·xᵢ + b) ≥ 1 for every labelled point. The closest points then sit at signed distance ±1/‖w‖ from the plane, so the total margin is <strong>2/‖w‖</strong>. Maximising this margin is the same as minimising ½‖w‖² subject to those inequalities — a convex quadratic program.</p>
+    <div class="formula">Primal (hard): min ½‖w‖²   s.t.  yᵢ(w·xᵢ + b) ≥ 1
+Lagrangian:   L = ½‖w‖² − Σαᵢ[yᵢ(w·xᵢ+b) − 1],  αᵢ ≥ 0
+∂L/∂w = 0  ⇒  w = Σαᵢ yᵢ xᵢ
+Dual:  max Σαᵢ − ½Σᵢⱼ αᵢαⱼyᵢyⱼ(xᵢ·xⱼ),  Σαᵢyᵢ = 0, αᵢ ≥ 0
+Decision:  sign(Σαᵢ yᵢ K(xᵢ,x) + b)</div>
+    <p><strong>Kernel trick.</strong> The dual contains the data only through dot products φ(xᵢ)·φ(xⱼ). A kernel K(x,z) evaluates that dot product in a feature space <em>implicitly</em>. The RBF kernel K = exp(−‖x−z‖²/2σ²) corresponds to an infinite-dimensional space; the polynomial kernel (x·z + c)^d corresponds to all monomials up to degree d. Valid kernels are symmetric and positive semi-definite (Mercer condition). Soft margin adds slack ξᵢ and the penalty CΣξᵢ, bounding 0 ≤ αᵢ ≤ C.</p>
+    <p><strong>Why it generalises and what to watch.</strong> Only support vectors have αᵢ &gt; 0, so the solution is sparse and insensitive to distant points; the large margin lowers capacity by structural risk minimisation. Tune C and γ = 1/(2σ²) by cross-validation, and scale features because RBF uses Euclidean distance. <strong>Exam rule of thumb:</strong> margin = 2/‖w‖, w = Σαᵢyᵢxᵢ, and "kernel replaces the dot product" — those three lines appear in almost every SVM question.</p>
+  </div>
+
+  <div class="card full">
+    <h3>7.5 &nbsp;K-means: why the centre is the mean</h3>
+    <p><strong>Objective.</strong> K-means minimises the within-cluster sum of squares J = Σₖ Σ_{x∈Cₖ} ‖x − μₖ‖² by alternating two steps: assign each point to the cluster with the nearest centre, then update each centre. <strong>The update derivation</strong> (the part examiners want) differentiates the cost for one cluster with assignments held fixed:</p>
+    <div class="formula">Jₖ = Σ_{x∈Cₖ} ‖x − μₖ‖²
+∂Jₖ/∂μₖ = −2 Σ_{x∈Cₖ} (x − μₖ) = 0
+⇒  |Cₖ| μₖ = Σ_{x∈Cₖ} x  ⇒  μₖ = (1/|Cₖ|) Σ_{x∈Cₖ} x</div>
+    <p>So the Euclidean centre is the arithmetic mean. <strong>If the metric is Manhattan</strong>, d = Σ|xⱼ − μⱼ|, the same minimisation is solved coordinate-wise by the <em>median</em> — a distinction the papers test explicitly. <strong>Algorithm:</strong> choose K and initial centres; assign by nearest distance; recompute centres; repeat until no assignment changes. Each step can only decrease J, and J ≥ 0, so convergence is guaranteed — but only to a local optimum.</p>
+    <p><strong>Worked shape from the papers.</strong> Points A1(2,10) … A8(4,9) with initial centres A1, A4 and A7 and Manhattan distance: after the first assignment and median update the centres are (3, 9.5), (6, 5) and (2, 4); a second round gives (4, 9), (6, 5) and (1.5, 3.5). <strong>Exam rule of thumb:</strong> Euclidean → mean, Manhattan → median; recompute centres <em>after</em> reassignment; show at least two iterations and state the final memberships; mention k-means++ and the elbow/silhouette method for choosing K.</p>
+  </div>
+
+  <div class="card full">
+    <h3>7.6 &nbsp;PCA: eigenvectors of the covariance matrix</h3>
+    <p><strong>Goal.</strong> Find the direction v (unit length) along which the centred data vary most. Let Z be the data matrix after subtracting each feature's mean, so the covariance matrix is S = ZᵀZ/(n−1), symmetric and positive semi-definite. The variance of the projection onto unit vector v is Var(Zv) = vᵀSv.</p>
+    <div class="formula">Maximise  vᵀSv   subject to  vᵀv = 1
+Lagrangian:  L = vᵀSv − λ(vᵀv − 1)
+∂L/∂v = 2Sv − 2λv = 0  ⇒  S v = λ v
+Largest variance = λ₁ ;  fraction explained = λᵢ / Σⱼλⱼ
+Projection onto k components:  Y = Z W,  W = [v₁ … vₖ]</div>
+    <p><strong>Walkthrough.</strong> (1) Centre (and usually standardise) the data; (2) form S = ZᵀZ/(n−1); (3) solve the eigenvalue equation Sv = λv; (4) sort eigenvalues descending; (5) keep the top k by cumulative explained variance and project. <strong>Why centre:</strong> PCA maximises variance about the mean; uncentred data would make the first component track the offset. <strong>Why standardise:</strong> otherwise a feature measured in large units dominates the covariance. <strong>Reading the result:</strong> the principal components are uncorrelated (orthogonal eigenvectors), and the explained-variance ratio tells you how much information survives the reduction; a scree-plot elbow or a 90% threshold chooses k.</p>
+    <p><strong>Linked numerics from the papers.</strong> For X1 = [4,8,13,7] and X2 = [11,4,5,14] the sample covariance matrix is [[14, −11], [−11, 23]] — note the negative off-diagonal, meaning the variables move in opposite directions; its eigenvectors would give the two principal axes. <strong>Exam rule of thumb:</strong> centre, covariance, eigen-decompose, sort, project, report ratio — and remember PCA is <em>unsupervised</em>; labels are not used.</p>
+  </div>
+
+  <div class="card full">
+    <h3>7.7 &nbsp;ROC and AUC: from a confusion matrix to a curve</h3>
+    <p><strong>Start with the confusion matrix.</strong> For a binary decision at a fixed threshold: TPR (sensitivity, recall) = TP/(TP+FN), FPR = FP/(FP+TN), precision = TP/(TP+FP), accuracy = (TP+TN)/N, F1 = 2·precision·recall/(precision+recall). ROC space puts FPR on the x-axis and TPR on the y-axis; sweeping the classifier's threshold from strict to lax traces the ROC curve.</p>
+    <div class="formula">Perfect prediction      (FPR, TPR) = (0, 1)
+Always positive         (1, 1)   — all positives caught, all negatives wrong
+Always negative         (0, 0)   — nothing flagged
+Random guessing         diagonal TPR = FPR
+AUC = P(score of random positive &gt; score of random negative)
+Mann–Whitney: AUC = [R₊ − n₊(n₊+1)/2] / (n₊ n₋)</div>
+    <p><strong>Deriving AUC by ranking.</strong> Sort all scores, sum the ranks of the positive examples to get R₊, subtract the minimum possible sum n₊(n₊+1)/2, and divide by the number of positive–negative pairs n₊n₋. The result counts the fraction of pairs in which the positive outranks the negative, which is exactly the area under the step-shaped ROC curve. AUC = 1 is perfect, 0.5 is chance, and below 0.5 means the ranking is inverted.</p>
+    <p><strong>Verified paper computations.</strong> For the flu test with TP = 16, FP = 3, TN = 10, FN = 1: precision 0.8421, recall 0.9412, accuracy 0.8667. Another verified sigmoid computation is z = 0.84 → y = 0.6985. <strong>Choosing an operating point:</strong> pick the threshold from the cost ratio of false negatives to false positives — high recall for screening, low FPR for spam filtering — rather than automatically using 0.5. <strong>Exam rule of thumb:</strong> swapping the axes or confusing TPR with precision is the classic error; write the four named corners and the AUC probability interpretation for full marks.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">08</span><h2>Exam-Day Execution: Templates, Timing and Traps</h2><span class="tag">Mark maximiser</span></div>
+  <div class="card full">
+    <h3>8.1 &nbsp;A 3-hour plan that actually fits</h3>
+    <p><strong>First 15 minutes — scan and allocate.</strong> Read the whole paper once. Circle the ten Part A questions you can answer immediately and, for each of the five modules in Part B, tick the option you would rather attempt. Write a rough time budget in the margin: roughly 15–18 minutes for all of Part A (about 90 seconds per 3-mark question) and about 25 minutes per chosen Part B question, leaving 15–20 minutes at the end for checking computations and adding missed points. <strong>Part A is cheapest marks on the paper</strong> — three marks for a definition and one line of explanation — so never leave one blank. If you are stuck, write the definition and the formula you do know; partial credit is awarded for correct fragments.</p>
+    <p><strong>Middle 150 minutes — Part B, one module at a time.</strong> Start each full question with a one-sentence statement of the principle, then the formula, then the substitution, then the numeric result with units where applicable, then a one-line interpretation. Examiners mark on a scheme that awards points for each of those stages, so a clean layout turns partial understanding into marks. Draw the requested diagram (neuron network, dendrogram, ROC space, decision tree, cluster plot) early — diagrams earn points on their own and remind you what the question is about. Where a question says 'both options' or asks for an OR pair, answer both; in these papers the second option is often the easier one.</p>
+    <p><strong>Final 15 minutes — verify, don't rewrite.</strong> Recompute every numerical answer once using a different route: check a slope from the deviation formula against the Σ form, check a covariance matrix is symmetric with a positive diagonal, check a probability lies in [0,1], check that an entropy is in bits and is non-negative, and check that a distance is non-negative. Verify that information gained equals parent entropy minus the weighted child entropies and never exceeds the parent entropy. A single arithmetic slip can cost an entire sub-part, and these checks take seconds.</p>
+  </div>
+  <div class="card full">
+    <h3>8.2 &nbsp;Answer templates worth memorising</h3>
+    <p><strong>Three-mark template.</strong> Line 1: definition in one sentence with the key technical word (e.g. 'maximum likelihood chooses the parameter that makes the observed sample most probable'). Line 2: the formula or the mechanism, written correctly with symbols defined. Line 3: one concrete detail — a number, a property, a named algorithm or a one-line example. That is three distinct marks in three lines; rambling past six lines rarely earns more.</p>
+    <p><strong>Fourteen-mark template.</strong> (i) Restate the given data in a table or list and state the assumption you are making (i.i.d. sampling, known variance, Manhattan rather than Euclidean, and so on). (ii) State the governing formula or objective. (iii) Show the derivation or substitution step by step with at least one intermediate value. (iv) Box or underline the final number and give it to four decimal places when the paper does. (v) Add one sentence of interpretation or a common-mistake warning. (vi) If the question has a (b) part, repeat the structure. <strong>Assumptions earn marks:</strong> saying 'using the sample covariance, dividing by n−1' or 'with the geometric support starting at 1' protects you if the examiner expected the other convention.</p>
+    <p><strong>Compare/contrast template.</strong> Draw a two-column table with rows for: task, output, loss or objective, metric, and one example. Then add one sentence stating the relationship between the two (for example, logistic regression is a classifier despite its name, and MAP reduces to MLE with a flat prior). A labelled table is faster to write and easier for a marker to award points against than prose.</p>
+  </div>
+  <div class="card full">
+    <h3>8.3 &nbsp;The recurring traps, collected</h3>
+    <ul>
+      <li><strong>MLE:</strong> differentiate the log-likelihood, not the product; the exponential rate is 1/x̄ while the Poisson mean is x̄; check the second derivative.</li>
+      <li><strong>MAP:</strong> add the log-prior; Gaussian prior means L2/ridge, Laplace means L1/lasso; MAP tends to MLE as N grows.</li>
+      <li><strong>Least squares:</strong> b = Σ(x−x̄)(y−ȳ)/Σ(x−x̄)², never divided by n; a = ȳ − bx̄; J = 0 means a perfect fit, not a good model.</li>
+      <li><strong>Entropy and gain:</strong> log₂ throughout; weight child entropies by |Sᵥ|/|S|; choose the largest gain, not the lowest child entropy.</li>
+      <li><strong>SVM:</strong> the total margin is 2/‖w‖; only support vectors have αᵢ &gt; 0; the kernel replaces dot products, not the constraints.</li>
+      <li><strong>K-means:</strong> Euclidean centres are means, Manhattan centres are medians; recompute centres after reassignment; convergence is local.</li>
+      <li><strong>PCA:</strong> centre first; S = ZᵀZ/(n−1); eigenvectors are directions, eigenvalues are variances; PCA is unsupervised.</li>
+      <li><strong>ROC:</strong> FPR on the x-axis, TPR on the y-axis; (0,1) is perfect, (1,1) is always-positive, (0,0) is always-negative; AUC = 0.5 is chance.</li>
+      <li><strong>Generalisation:</strong> judge by the test gap, not the training score; a 100%/70% model is overfitting and loses to a 70%/75% model.</li>
+    </ul>
+  </div>
+  <div class="card full">
+    <h3>8.4 &nbsp;Two-minute recall drill</h3>
+    <p>Without looking at the tables above, write down: the sigmoid of 0.84 (0.6985); the MLE of a Bernoulli parameter (k/n); the exponential MLE (1/x̄); the Manhattan, Euclidean and Chebyshev formulas; the least-squares slope formula; the entropy formula; the SVM margin (2/‖w‖); the k-means update (mean for L2, median for L1); the PCA eigen equation Sv = λv; and the precision, recall and accuracy formulas. Then check them against Sections 3 and 7. If you can reproduce all ten in under two minutes, the computational half of the paper is largely decided before you enter the hall. <strong>Final advice:</strong> the papers repeat the same core computations in different wrappers — the topic index and 'which numericals recur' table in <a href="solved-papers.html">Solved Papers</a> show exactly which ones. Practise those, and spend the remaining revision time on precise definitions for Part A.</p>
+  </div>
+</div>
+</div>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

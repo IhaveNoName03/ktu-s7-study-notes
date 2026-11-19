@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 · Information Security Foundations, Hackers & Penetration Testing</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+
+
+
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav"><a href="index.html">Home</a><a href="../index.html">All subjects</a><a href="module-1.html" class="active">M1 · Foundations</a><a href="module-2.html">M2 · Recon &amp; Attacks</a><a href="module-3.html">M3 · Vulnerabilities</a><a href="module-4.html">M4 · Net / System</a><a href="module-5.html">M5 · Tracks</a><a href="exam-guide.html">Exam Techniques</a><a href="question-bank.html">Papers</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 1 · Complete Module (3 topics merged)</span>
+  <h1>Information Security Foundations, Hackers & Penetration Testing</h1>
+  <p class="lede">The foundation of the whole course: the properties every control protects (CIA, AAA, non-repudiation), the people who attack systems and why, the kill chain every intrusion follows, and the disciplined practice of authorised penetration testing with its frameworks and reporting.</p>
+  <div class="meta-row">
+    <span class="chip red">CIA triad</span><span class="chip">AAA &amp; non-repudiation</span><span class="chip">Risk &amp; STRIDE</span><span class="chip">Hacker classes</span><span class="chip">Kill chain</span><span class="chip">Pen test</span><span class="chip">OWASP Top 10</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>The CIA Triad</h2><span class="tag">Core goals</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">C</span> Confidentiality</h3><p>Only authorized parties can <b>see</b> the data. Enforced by encryption, access control, least-privilege. Broken by disclosure, sniffing, shared creds.</p></div>
+      <div class="card"><h3><span class="idx">I</span> Integrity</h3><p>Data is accurate and unaltered by unauthorized parties. Enforced by hashing, checksums, signatures. Broken by tampering, MITM modification.</p></div>
+      <div class="card"><h3><span class="idx">A</span> Availability</h3><p>Authorized users can <b>access</b> data/systems when needed. Enforced by redundancy, patching, DDoS protection. Broken by DoS, ransomware, hardware failure.</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Property</th><th>Question it answers</th><th>Typical control</th></tr></thead>
+        <tbody>
+          <tr><td>Confidentiality</td><td>Who may read this?</td><td>Encryption, ACLs, VPN</td></tr>
+          <tr><td>Integrity</td><td>Has it been changed?</td><td>Hashing, digital signatures</td></tr>
+          <tr><td>Availability</td><td>Is it reachable now?</td><td>Redundancy, DDoS mitigation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">01b</span><h2>The CIA Triad — Visual</h2><span class="tag">Venn model</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · The CIA Triad</div>
+      <svg viewBox="0 0 560 260" role="img" aria-label="CIA triad venn diagram">
+        <g fill="none" stroke-width="2.5">
+          <circle cx="210" cy="120" r="90" stroke="var(--accent)" fill="var(--accent)" fill-opacity="0.10"/>
+          <circle cx="350" cy="120" r="90" stroke="var(--ink)" fill="var(--ink)" fill-opacity="0.10"/>
+          <circle cx="280" cy="180" r="90" stroke="var(--accent)" fill="var(--accent)" fill-opacity="0.10"/>
+        </g>
+        <text x="200" y="80" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">Confidentiality</text>
+        <text x="360" y="80" text-anchor="middle" class="lbl" fill="var(--ink)" font-weight="800">Integrity</text>
+        <text x="280" y="245" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">Availability</text>
+      </svg>
+      <p class="dcap">The three goals overlap — real controls usually serve more than one at once (e.g. encryption protects both Confidentiality and Integrity).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>AAA &amp; Other Goals</h2><span class="tag">Access &amp; accountability</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">A</span> Authentication</h3><p>Proving <b>who you are</b> — password, token, biometric, MFA.</p></div>
+      <div class="card"><h3><span class="idx">A</span> Authorization</h3><p>What you are <b>allowed to do</b> once identified — permissions, roles, least privilege.</p></div>
+      <div class="card"><h3><span class="idx">A</span> Accounting</h3><p>Logging/auditing <b>what you did</b> — the basis for event logs (see <a href="module-5.html">Module 5</a>).</p></div>
+      <div class="card"><h3><span class="idx">N</span> Non-repudiation</h3><p>A party cannot <b>deny</b> an action — achieved with digital signatures and strong audit trails.</p></div>
+    </div>
+    <div class="def">Other stated goals: <b>authenticity</b> (the subject is genuine), <b>possession</b> (control of a token/asset), <b>utility</b> (data is useful in its intended form), and <b>privacy</b> (personal data handled per expectation/law).</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Security Challenges &amp; Attacks</h2><span class="tag">The reality</span></div>
+    <div class="stack">
+      <div class="card"><h4>Challenges</h4><ul>
+        <li><b>Complexity</b> — large attack surface, interdependencies.</li>
+        <li><b>People</b> — the weakest link; social engineering.</li>
+        <li><b>Legacy systems</b> — unpatched, unsupported.</li>
+        <li><b>Usability vs security</b> — tighter security often hurts UX.</li>
+      </ul></div>
+      <div class="card"><h4>Common attack types</h4><ul>
+        <li>Phishing / social engineering</li>
+        <li>Malware (virus, worm, ransomware)</li>
+        <li>Denial of Service (DoS/DDoS)</li>
+        <li>Man-in-the-Middle (MITM)</li>
+        <li>Insider threat</li>
+        <li>Credential theft</li>
+      </ul></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Breaks which goal</th><th>Typical vector</th></tr></thead>
+        <tbody>
+          <tr><td>Packet sniffing</td><td>Confidentiality</td><td>Hub / ARP spoof on plaintext traffic</td></tr>
+          <tr><td>MITM modification</td><td>Integrity</td><td>ARP/DNS spoof, SSL strip</td></tr>
+          <tr><td>Ransomware / DDoS</td><td>Availability</td><td>Encrypted files / flood the service</td></tr>
+          <tr><td>Stolen credentials</td><td>Confidentiality + Auth</td><td>Phishing, brute force, replay</td></tr>
+          <tr><td>Log tampering</td><td>Accounting</td><td>Clear/edit event logs (Module 5)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Defense in depth:</b> layer multiple controls (perimeter + host + app + human) so no single failure compromises the whole system.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Threat Modeling &amp; Risk</h2><span class="tag">Thinking like a defender</span></div>
+    <div class="stack">
+      <div class="card"><p>Security work is about managing <b>risk</b>, not eliminating it. <b>Risk = Likelihood &times; Impact</b>: how probable an attack is, times how bad it would be. You spend effort where the product is highest.</p></div>
+      <div class="card"><h4>Spoofing</h4><p>Impersonating a user/system (fake identity).</p></div>
+      <div class="card"><h4>Tampering</h4><p>Altering data/code (breaks Integrity).</p></div>
+      <div class="card"><h4>Repudiation</h4><p>Denying an action was taken.</p></div>
+      <div class="card"><h4>Info disclosure</h4><p>Leaking data (breaks Confidentiality).</p></div>
+      <div class="card"><h4>Denial of service</h4><p>Breaking Availability.</p></div>
+      <div class="card"><h4>Elevation</h4><p>Gaining higher privileges than allowed.</p></div>
+    </div>
+    <div class="def"><b>Defense in depth in practice:</b> pair controls so one failure doesn't sink the ship — firewall + IDS + patching + training.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Effects of Hacking</h2><span class="tag">Why it matters</span></div>
+    <div class="stack">
+      <div class="card"><h4>Individuals</h4><ul>
+        <li>Identity theft, drained bank accounts, ruined credit</li>
+        <li>Loss of private photos/messages, blackmail</li>
+        <li>Device hijacked into a botnet (slow, used for attacks)</li>
+      </ul></div>
+      <div class="card"><h4>Organizations</h4><ul>
+        <li>Financial loss: ransom, fraud, recovery cost</li>
+        <li>Breach of customer data &rarr; fines (GDPR/IT Act), lawsuits</li>
+        <li>Reputation damage, loss of trust, downtime</li>
+        <li>Theft of trade secrets, regulatory penalties</li>
+      </ul></div>
+    </div>
+    <div class="def"><b>Why ethical hacking exists:</b> the same skills used to break in are used, with permission, to find and fix the gaps before criminals do.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Mapping Controls to CIA</h2><span class="tag">Worked examples</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Goal</th><th>Concrete control</th><th>How it protects</th></tr></thead>
+        <tbody>
+          <tr><td>Confidentiality</td><td>TLS, disk encryption, RBAC</td><td>Only the right key/role reads the data</td></tr>
+          <tr><td>Integrity</td><td>SHA-256 hashes, digital signatures</td><td>Any change is detectable and provable</td></tr>
+          <tr><td>Availability</td><td>Load balancers, offsite backups</td><td>Service survives failure or spike</td></tr>
+          <tr><td>Accountability</td><td>Centralized logging (SIEM)</td><td>Every action is attributable to a user</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Hacker Classes</h2>
+      <span class="tag">Who's who</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">W</span>White hat</h3><p>Ethical / authorized hacker — finds flaws to help defend. The role this course trains you for.</p></div>
+      <div class="card"><h3><span class="idx">B</span>Black hat</h3><p>Malicious — breaks in for personal gain, damage, or crime.</p></div>
+      <div class="card"><h3><span class="idx">G</span>Grey hat</h3><p>Neither fully good nor bad — may break in without permission but usually reports it.</p></div>
+      <div class="card"><h3><span class="idx">H</span>Hacktivist</h3><p>Hacks to push a political/social message (e.g. defacement for a cause).</p></div>
+      <div class="card"><h3><span class="idx">S</span>Script kiddie</h3><p>Uses ready-made tools/scripts without deep understanding.</p></div>
+      <div class="card"><h3><span class="idx">$</span>State-sponsored</h3><p>Funded by nations for espionage/sabotage; highly resourced.</p></div>
+      <div class="card"><h3><span class="idx">I</span>Insider / threat</h3><p>Trusted user who abuses access — employee, contractor, partner.</p></div>
+      <div class="card"><h3><span class="idx">!</span>Motivation</h3><p>Money, ideology, ego, entertainment, espionage, or simply the challenge.</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Class</th><th>Permission?</th><th>Intent</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>White hat</td><td>Yes (contract)</td><td>Defend</td><td>Internal security tester</td></tr>
+          <tr><td>Black hat</td><td>No</td><td>Harm / profit</td><td>Ransomware operator</td></tr>
+          <tr><td>Grey hat</td><td>No</td><td>Mixed</td><td>Discloses bug, no permission</td></tr>
+          <tr><td>Hacktivist</td><td>No</td><td>Activism</td><td>Site defacement</td></tr>
+          <tr><td>Script kiddie</td><td>No</td><td>Thrill / clout</td><td>Runs LOIC botnet</td></tr>
+          <tr><td>State-sponsored</td><td>No</td><td>Espionage</td><td>APT41-style campaign</td></tr>
+          <tr><td>Insider</td><td>Yes (abused)</td><td>Gain / revenge</td><td>Leaks customer DB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>The Hacking Kill Chain</h2>
+      <span class="tag">Phases</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">1</span>Reconnaissance</h3><p>Passive + active info gathering (footprinting, scanning) — map the target. See <a href="module-2.html">M2</a>.</p></div>
+      <div class="card"><h3><span class="idx">2</span>Scanning &amp; Enumeration</h3><p>Find live hosts, open ports, services, users. See <a href="module-2.html">M2</a>.</p></div>
+      <div class="card"><h3><span class="idx">3</span>Gaining access</h3><p>Exploit a vulnerability to get in (SQLi, buffer overflow, phishing). See <a href="module-3.html">M3</a>/<a href="module-4.html">M4</a>.</p></div>
+      <div class="card"><h3><span class="idx">4</span>Maintaining access</h3><p>Backdoors, rootkits, escalation — keep the door open. See <a href="module-5.html">M5</a>.</p></div>
+      <div class="card"><h3><span class="idx">5</span>Covering tracks</h3><p>Clear logs, hide files, wipe evidence. See <a href="module-5.html">M5</a>.</p></div>
+      <div class="card"><h3><span class="idx">+</span>Skills of a hacker</h3><p>Curiosity, scripting, networking, OS internals, patience, methodical note-taking.</p></div>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">What happens at each phase (worked view)</h4>
+      <ol>
+        <li><b>Reconnaissance</b> — attacker builds an attack-surface map: domains, IPs, staff, tech stack (no packets touch the target in passive recon).</li>
+        <li><b>Scanning &amp; Enumeration</b> — Nmap finds <code>10.0.0.5:443</code> open; banner grab shows outdated web server; SMTP <code>VRFY</code> lists valid usernames.</li>
+        <li><b>Gaining access</b> — attacker exploits the outdated server (or sends a phishing link) and lands a shell as a low-priv user.</li>
+        <li><b>Maintaining access</b> — drops a scheduled-task backdoor and escalates to admin so re-entry survives a reboot.</li>
+        <li><b>Covering tracks</b> — clears the Security event log and timestomps dropped files before leaving.</li>
+      </ol>
+      <div class="def">Mnemonic for the phases: <b>R</b>econ → <b>S</b>can → <b>G</b>ain → <b>M</b>aintain → <b>C</b>over (RSGMC). Every later module is one of these phases in detail.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Reconnaissance in Practice</h2>
+      <span class="tag">Phase 1, detailed</span></div>
+    <div class="card full">
+      <p>Before any exploit, an attacker maps the target. Two styles:</p>
+      <div class="stack">
+        <div class="card"><h4>Passive (low risk of detection)</h4><ul>
+          <li><b>OSINT</b> — WHOIS, DNS records, certificate transparency logs</li>
+          <li>Social media, job postings (tech stack leaks), LinkedIn</li>
+          <li>Search-engine dorking, archived sites (Wayback)</li>
+          <li>Shodan / passive DNS for exposed assets</li>
+        </ul></div>
+        <div class="card"><h4>Active (touches the target)</h4><ul>
+          <li>Port scanning, OS &amp; service fingerprinting</li>
+          <li>Banner grabbing, traceroute</li>
+          <li>More detectable — may trip IDS/IPS</li>
+        </ul></div>
+      </div>
+      <div class="def">The goal is an <b>attack surface map</b>: live hosts, open ports, versions, users, and the easiest entry (often a person, not a port).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Gaining &amp; Keeping a Foothold</h2>
+      <span class="tag">Phases 3–5</span></div>
+    <div class="stack">
+      <div class="card"><h4>Initial access</h4><p>Phishing link, a public exploit (e.g. unpatched web app), or stolen creds. The weakest link decides.</p></div>
+      <div class="card"><h4>Privilege &amp; persistence</h4><p>Escalate to admin/root, then plant a backdoor / scheduled task so re-entry survives a reboot.</p></div>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What Is a Penetration Test?</h2>
+      <span class="tag">Authorized attack</span></div>
+    <div class="card full">
+      <p>A <b>penetration test (pen test)</b> is an authorized, simulated attack on a system to evaluate
+      its security. Testers use the same tools/techniques as attackers to find and demonstrate the
+      business impact of weaknesses.</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Types by knowledge of the target</h4>
+      <div class="stack">
+        <div class="card"><h4>Black-box</h4><p>No internal knowledge — simulates an external attacker. Most realistic, slowest.</p></div>
+        <div class="card"><h4>White-box</h4><p>Full knowledge (source, arch, creds) — deepest coverage, fastest, highest assurance.</p></div>
+        <div class="card"><h4>Grey-box</h4><p>Partial knowledge — a balance of realism and efficiency.</p></div>
+      </div>
+      <div class="def"><b>Pen test vs vulnerability assessment:</b> a vuln assessment finds and lists weaknesses (often automated); a pen test goes further and <b>exploits</b> them to prove real impact.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Frameworks &amp; Standards</h2>
+      <span class="tag">Methodology</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">O</span>OSSTMM</h3><p>Open Source Security Testing Methodology Manual — covers Communications, Infrastructure, Applications, Wireless, and the Human (social engineering) channels.</p></div>
+      <div class="card"><h3><span class="idx">N</span>NIST SP 800-115</h3><p>Technical Guide to Information Security Testing and Assessment — planning, scanning, exploitation, reporting.</p></div>
+      <div class="card"><h3><span class="idx">W</span>OWASP</h3><p>Open Web Application Security Project — focuses on web app risk (the Top 10 below).</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>OWASP Top 10 (2021)</h2>
+      <span class="tag">Web risk</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Risk</th><th>One-line</th></tr></thead>
+        <tbody>
+          <tr><td>A01</td><td>Broken Access Control</td><td>Users act outside their allowed permissions</td></tr>
+          <tr><td>A02</td><td>Cryptographic Failures</td><td>Weak/ missing protection of data in transit/at rest</td></tr>
+          <tr><td>A03</td><td>Injection</td><td>Untrusted input sent to an interpreter (SQLi, XSS)</td></tr>
+          <tr><td>A04</td><td>Insecure Design</td><td>Missing or weak control design upstream</td></tr>
+          <tr><td>A05</td><td>Security Misconfiguration</td><td>Defaults left on, unnecessary features, open buckets</td></tr>
+          <tr><td>A06</td><td>Vulnerable &amp; Outdated Components</td><td>Known CVEs in libraries/frameworks</td></tr>
+          <tr><td>A07</td><td>Identification &amp; Authentication Failures</td><td>Weak login, session, credential handling</td></tr>
+          <tr><td>A08</td><td>Software &amp; Data Integrity Failures</td><td>Untrusted updates / insecure deserialization</td></tr>
+          <tr><td>A09</td><td>Security Logging &amp; Monitoring Failures</td><td>Not detecting / alerting on incidents</td></tr>
+          <tr><td>A10</td><td>Server-Side Request Forgery (SSRF)</td><td>App fetches attacker-controlled URLs</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">Worked mapping — kill chain to OWASP</h4>
+      <p>A pen test walks the same path an attacker would, and each step tends to trip specific OWASP risks:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Test phase</th><th>Likely OWASP finding</th></tr></thead>
+          <tbody>
+            <tr><td>Recon / scanning</td><td>A05 Security Misconfiguration (open admin, default creds)</td></tr>
+            <tr><td>Exploitation</td><td>A03 Injection (SQLi/XSS), A01 Broken Access Control</td></tr>
+            <tr><td>Auth testing</td><td>A07 Auth Failures (weak reset, session fix)</td></tr>
+            <tr><td>Dependencies check</td><td>A06 Vulnerable &amp; Outdated Components</td></tr>
+            <tr><td>Logging review</td><td>A09 Logging &amp; Monitoring Failures</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:8px"><b>Real example:</b> scanning <code>/api/user?id=1</code> and changing the id reveals another user's data → A01 Broken Access Control (IDOR). Fix: server-side ownership checks, not trusting the client parameter.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Phases &amp; Tools</h2>
+      <span class="tag">Execution</span></div>
+    <div class="stack">
+      <div class="card"><h4>Typical phases</h4><ol>
+        <li>Planning &amp; scoping (rules of engagement)</li>
+        <li>Reconnaissance (passive/active)</li>
+        <li>Scanning &amp; enumeration</li>
+        <li>Exploitation / gaining access</li>
+        <li>Post-exploitation (maintain, pivot)</li>
+        <li>Reporting &amp; remediation</li>
+      </ol></div>
+      <div class="card"><h4>Common tools</h4><ul>
+        <li><b>Nmap</b> — port/ host discovery</li>
+        <li><b>Metasploit</b> — exploitation framework</li>
+        <li><b>Burp Suite</b> — web app testing</li>
+        <li><b>Wireshark</b> — packet analysis</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04b</span><h2>Phases of Ethical Hacking — Visual</h2><span class="tag">Kill chain</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Penetration Test Lifecycle</div>
+      <svg viewBox="0 0 720 150" role="img" aria-label="Phases of ethical hacking flow">
+        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="currentColor"/></marker></defs>
+        <g font-family="inherit" font-size="12.5" font-weight="700" text-anchor="middle">
+          <rect class="box" x="10" y="50" width="120" height="44" rx="6"/><text x="70" y="77" class="lbl">1 · Plan &amp; Scope</text>
+          <line class="arrow" x1="130" y1="72" x2="158" y2="72"/>
+          <rect class="box" x="160" y="50" width="120" height="44" rx="6"/><text x="220" y="77" class="lbl">2 · Recon</text>
+          <line class="arrow" x1="280" y1="72" x2="308" y2="72"/>
+          <rect class="box" x="310" y="50" width="120" height="44" rx="6"/><text x="370" y="77" class="lbl">3 · Scan</text>
+          <line class="arrow" x1="430" y1="72" x2="458" y2="72"/>
+          <rect class="box" x="460" y="50" width="120" height="44" rx="6"/><text x="520" y="77" class="lbl">4 · Exploit</text>
+          <line class="arrow" x1="580" y1="72" x2="608" y2="72"/>
+          <rect class="box" x="610" y="50" width="100" height="44" rx="6"/><text x="660" y="77" class="lbl">5 · Report</text>
+        </g>
+        <g font-family="inherit" font-size="11" fill="var(--muted)" text-anchor="middle">
+          <text x="70" y="112">rules of engagement</text>
+          <text x="220" y="112">passive + active</text>
+          <text x="370" y="112">enumerate</text>
+          <text x="520" y="112">gain access</text>
+          <text x="660" y="112">findings + fix</text>
+        </g>
+      </svg>
+      <p class="dcap">A test runs as a controlled lifecycle: define the rules → gather intel → map the surface → exploit to prove impact → document and remediate. Post-exploitation (maintain/pivot) sits between 4 and 5.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Scoping &amp; Rules of Engagement</h2>
+      <span class="tag">Before you test</span></div>
+    <div class="card full">
+      <p>A real engagement is a written contract, not a spontaneous hack. Key clauses:</p>
+      <ul>
+        <li><b>Scope</b> — exact IPs, URLs, apps in (and out of) bounds.</li>
+        <li><b>Timing</b> — windows when testing is allowed.</li>
+        <li><b>Test type</b> — black/grey/white box agreed upfront.</li>
+        <li><b>Out-of-bounds</b> — no DoS, no real PII exfil, no social engineering unless permitted.</li>
+        <li><b>Reporting</b> — confidential delivery to a named contact.</li>
+      </ul>
+      <div class="def"><b>Pen test vs vulnerability assessment:</b> a vuln scan is automated and lists "you have CVE-X"; a pen test proves "CVE-X lets me reach domain admin," with business impact.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Sample Finding &amp; Report</h2>
+      <span class="tag">Deliverable</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Field</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Title</td><td>SQL injection in /login search parameter</td></tr>
+          <tr><td>Severity</td><td>Critical (CVSS 9.1)</td></tr>
+          <tr><td>Evidence</td><td>Boolean payload returned differing page lengths</td></tr>
+          <tr><td>Impact</td><td>Full read of users table</td></tr>
+          <tr><td>Remediation</td><td>Use parameterized queries + input validation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">E1</span><h2>Confidentiality in Depth</h2><span class="tag">Deep dive · mechanism</span></div>
+    <div class="card full">
+      <p>Confidentiality is the promise that information is disclosed only to those who are entitled to see it. It is the property most people think of first when they hear the word security, but in practice it is enforced by a chain of controls rather than one switch. The chain begins with <b>classification</b>: decide what is public, internal, confidential, and restricted, because you cannot protect what you have not labelled. It continues with <b>access control</b>, which decides who may read a given object, and ends with <b>cryptography</b>, which keeps data unreadable even if it is stolen.</p>
+      <p>Encryption protects data in two states. <b>Data at rest</b> is stored on a disk, database, or backup tape; full-disk encryption and file- or column-level encryption are typical controls. <b>Data in transit</b> crosses a network; TLS, IPsec, and SSH create an encrypted tunnel so a passive observer sees only ciphertext. <b>Symmetric encryption</b> uses one shared key (AES is the modern standard) and is fast, so it protects bulk data. <b>Asymmetric encryption</b> uses a public/private key pair (RSA, ECC) and is slower, so it is used to exchange symmetric keys and to prove identity rather than to encrypt large files.</p>
+      <p>Access-control models answer the question "who decides?" In a <b>discretionary</b> model (DAC) the owner of a resource grants permissions at their own discretion, which is flexible but weak. In a <b>mandatory</b> model (MAC) a central policy labels both subjects and objects and the system enforces the rule regardless of the owner, which is what military and government systems use. <b>Role-based access control</b> (RBAC) assigns permissions to roles rather than individuals, so a person inherits rights by joining a team and loses them by leaving it. <b>Attribute-based access control</b> (ABAC) makes decisions from attributes such as department, time of day, and device posture. In every model the guiding principle is <b>least privilege</b>: give each subject only the access it needs, for only as long as it needs it.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Control</th><th>State protected</th><th>What an attacker sees without it</th><th>What to write in an answer</th></tr></thead>
+        <tbody>
+          <tr><td>AES-256 disk encryption</td><td>At rest</td><td>Readable files if the laptop is stolen</td><td>Protects confidentiality; lost key means no recovery</td></tr>
+          <tr><td>TLS 1.3</td><td>In transit</td><td>Passwords and cookies in clear text</td><td>Encrypts the channel and authenticates the server</td></tr>
+          <tr><td>RBAC + least privilege</td><td>Both</td><td>Any user can read every record</td><td>Limits the blast radius of a stolen account</td></tr>
+          <tr><td>Data-loss prevention</td><td>In use / egress</td><td>Sensitive files emailed outside</td><td>Detects and blocks unauthorised export</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Attack and defence pair</h4>
+      <p><b>Attack:</b> an attacker on the same wireless network runs a packet capture and reads a login form submitted over plain HTTP, recovering the password. <b>Defence:</b> force HTTPS with HSTS, encrypt the radio link with WPA3, and teach users to check the padlock. If the attacker still obtains the password, MFA means the stolen secret alone cannot open the account. Notice how the defences stack: encryption removes the easy win, MFA removes the payoff, and monitoring catches the attempt.</p>
+      <p><b>Worked example.</b> A hospital laptop is stolen from a car. Because full-disk encryption is enabled, the thief sees only a login prompt; the patient records remain confidential. Because the device was also enrolled in a mobile-device-management system, it can be remotely wiped. If either control had been absent, the same theft would have become a reportable breach. This is why exam answers should name the control <i>and</i> the state of the data it protects.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> "Confidentiality" on its own is a weak answer. Write "confidentiality — enforced with encryption at rest and in transit, plus role-based least privilege; broken by sniffing, disclosure, or stolen credentials." That sentence earns marks because it names the goal, a concrete control, and a concrete failure mode.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E2</span><h2>Integrity and Non-Repudiation</h2><span class="tag">Deep dive · trust</span></div>
+    <div class="card full">
+      <p>Integrity means data is complete, accurate, and has not been altered by an unauthorised party. Where confidentiality is about <i>who can read</i>, integrity is about <i>whether the data can be trusted</i>. A bank balance that has been quietly changed from 100 to 10,000 is not a confidentiality problem — the customer can see it perfectly well — it is an integrity problem. Detecting integrity loss requires a way to compare the current state with a known-good state.</p>
+      <p>The simplest tool is a <b>hash function</b>. A hash takes input of any length and produces a fixed-length digest; changing even one character changes the digest completely. SHA-256 is the common modern choice, while older algorithms such as MD5 and SHA-1 are deprecated because collisions have been demonstrated. A hash by itself proves nothing about identity, because an attacker who can change the file can also recompute the hash. To make the check trustworthy, combine the hash with a secret: a <b>message authentication code</b> (HMAC) uses a shared secret, and a <b>digital signature</b> uses the sender's private key so anyone with the public key can verify it.</p>
+      <p><b>Non-repudiation</b> is the stronger promise that a party cannot deny having performed an action. Digital signatures provide it because only the holder of the private key could have produced the signature, assuming the key was not compromised. Audit trails provide a second form of non-repudiation: a tamper-evident log showing that a particular account, at a particular time, approved a transaction. In practice the two are combined. A signed contract plus a logged approval is much harder to repudiate than either alone.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Mechanism</th><th>Detects change?</th><th>Proves who changed it?</th><th>Typical use</th></tr></thead>
+        <tbody>
+          <tr><td>Plain hash (SHA-256)</td><td>Yes</td><td>No</td><td>Checksum for downloads and backups</td></tr>
+          <tr><td>HMAC</td><td>Yes</td><td>Only to shared-secret holders</td><td>API message authentication</td></tr>
+          <tr><td>Digital signature (RSA/ECDSA)</td><td>Yes</td><td>Yes, publicly verifiable</td><td>Software updates, contracts</td></tr>
+          <tr><td>Digest with timestamp and log</td><td>Yes</td><td>Yes, with an audit trail</td><td>Non-repudiation of transactions</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <p><b>Worked example.</b> A software vendor publishes version 2.1 together with a SHA-256 digest signed with its private key. A user downloads the installer over a compromised mirror that swaps in a trojan. The installer still runs, but its digest no longer matches, and verification fails because the attacker cannot forge the vendor's signature. Here integrity protects users who never met the vendor, and non-repudiation lets the vendor prove it never signed the malicious build.</p>
+      <p><b>Attack and defence pair.</b> An attacker performs a man-in-the-middle modification, rewriting a bank transfer recipient in transit. Defences: TLS to protect the channel, a signature or HMAC over the transaction, server-side validation that the recipient is on an approved list, and an out-of-band confirmation message. Each control is independent, so defeating one does not defeat the transaction.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> If a question mentions "has the file been changed?", answer <i>integrity</i> and name hashing or signatures. If it mentions "can the sender deny it?", answer <i>non-repudiation</i> and name digital signatures plus audit logs. Confusing these two is the most common loss of easy marks in Module 1.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E3</span><h2>Availability and Resilience</h2><span class="tag">Deep dive · uptime</span></div>
+    <div class="card full">
+      <p>Availability is the property that authorised users can reach the system and data when they need them. It is often measured as a percentage of uptime: 99.9 percent allows roughly nine hours of downtime a year, while 99.99 percent allows under an hour. Every extra "nine" costs disproportionately more, so an availability target must be justified by business need rather than chosen for its own sake.</p>
+      <p>Threats to availability are unusually varied. Hardware fails, power fails, software has bugs, and links get cut. A <b>denial-of-service</b> attack deliberately exhausts a resource such as bandwidth, connection state, CPU, or disk space. <b>Ransomware</b> removes access by encrypting data. Even a well-intentioned change can take a service offline. Because the causes differ, the defences must be layered: <b>redundancy</b> removes single points of failure, <b>backups</b> allow recovery after data loss, <b>load balancing</b> spreads traffic, and <b>capacity planning</b> keeps headroom for spikes.</p>
+      <p>Two concepts students often mix up are <b>redundancy</b> and <b>resilience</b>. Redundancy means having more than one of something — two power supplies, two links, two servers. Resilience is the wider ability to keep delivering service when something breaks, which includes redundancy but also failover procedures, graceful degradation, and the human processes that restore service. A second pair is <b>RAID</b>, which protects against disk failure but not against deletion or ransomware, and <b>backups</b>, which protect against deletion but are useless if they have never been restored.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Threat</th><th>Resource exhausted</th><th>Primary control</th><th>Secondary control</th></tr></thead>
+        <tbody>
+          <tr><td>Volumetric DDoS</td><td>Network bandwidth</td><td>Upstream scrubbing / anycast CDN</td><td>Rate limiting at the edge</td></tr>
+          <tr><td>SYN flood</td><td>Connection table</td><td>SYN cookies, state limits</td><td>Firewall thresholds</td></tr>
+          <tr><td>Ransomware</td><td>Access to data</td><td>Offline, immutable backups</td><td>EDR and least privilege</td></tr>
+          <tr><td>Hardware failure</td><td>Server / disk</td><td>RAID, clustering, failover</td><td>Monitoring and spares</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <p><b>Worked example.</b> An online shop expects a surge on a sale day. It puts a content-delivery network in front of the origin, uses autoscaling to add web servers, enables SYN cookies, and keeps database backups in a separate account. When a botnet floods the site, the CDN absorbs the volume, the origin never sees the traffic, and the sale goes ahead. The same design also survives a failed availability zone because the remaining zone takes over.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Availability answers should always mention <i>backups that have been tested by restoring them</i>. An untested backup is an assumption, not a control — a favourite distinction in fourteen-mark questions.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E4</span><h2>Authentication, Authorisation, Accounting</h2><span class="tag">Deep dive · AAA</span></div>
+    <div class="card full">
+      <p>AAA is the framework that turns a vague idea of "logging in" into three separable questions. <b>Authentication</b> asks "who are you?" and is answered with evidence: a password, a hardware token, a fingerprint, or a combination. <b>Authorisation</b> asks "what may you do?" and is answered by permissions attached to an account or role. <b>Accounting</b> asks "what did you do?" and is answered by logs. Keeping the three distinct matters because a failure in one is not a failure in the others: a valid user can be blocked by a permission error, and an unauthorised action can still be recorded perfectly.</p>
+      <p>Authentication evidence falls into three classic factors: <b>something you know</b> (password or PIN), <b>something you have</b> (smart card, token, phone), and <b>something you are</b> (biometric such as a fingerprint or iris). A fourth factor, <b>somewhere you are</b>, uses location as a condition. <b>Multi-factor authentication</b> combines two or more different factors; entering two passwords is not MFA because both are the same factor. App-based one-time codes or hardware keys are stronger than SMS, which is vulnerable to SIM-swap fraud. Biometrics are convenient but cannot be reset if compromised, so they are best paired with a device-bound key.</p>
+      <p>Authorisation makes its decision after identity is established. The safest pattern is least privilege with <b>separation of duties</b>, so no single person can both create a payee and approve the payment. <b>Implicit deny</b> means anything not explicitly allowed is refused, which is safer than allowing everything and then trying to list the exceptions. Accounting closes the loop: authentication and authorisation can be fooled, but well-protected logs let an investigator reconstruct what actually happened. That is why logs should be shipped off the host to a central system that the compromised account cannot edit.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Stage</th><th>Question</th><th>Example control</th><th>Common failure</th></tr></thead>
+        <tbody>
+          <tr><td>Authentication</td><td>Who are you?</td><td>Password plus TOTP app</td><td>Reused or weak password</td></tr>
+          <tr><td>Authorisation</td><td>What may you do?</td><td>RBAC, implicit deny</td><td>Excessive rights, no review</td></tr>
+          <tr><td>Accounting</td><td>What did you do?</td><td>Central syslog / SIEM</td><td>Local logs deleted by attacker</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <p><b>Worked scenario.</b> A contractor logs into a finance application. Authentication verifies a password and a hardware token. Authorisation allows read-only access to invoices but denies payment approval because their role lacks that permission. Accounting records the login, the queries, and the denied attempt. Later, an investigator uses those records to prove the contractor never had the ability to pay a fraudulent invoice. Each AAA stage contributes one piece of the evidence.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Students often write "authentication and authorisation are the same thing." They are not: authentication proves identity, authorisation grants rights. A three-mark question is usually won by stating that distinction in one sentence and giving an example of each.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E5</span><h2>Risk Management, Quantified</h2><span class="tag">Deep dive · decisions</span></div>
+    <div class="card full">
+      <p>Security is the management of risk, not its elimination. <b>Risk</b> is the possibility that a threat will exploit a vulnerability and cause harm. The working formula is <b>risk = likelihood × impact</b>. Likelihood asks how probable the event is, given exposure and attacker motivation; impact asks how bad the consequences would be, in money, time, reputation, or safety. An event that is certain but trivial and an event that is catastrophic but almost impossible may receive similar scores, which is why the two factors are written down separately before they are combined.</p>
+      <p><b>Qualitative</b> assessment ranks risks as low, medium, or high using judgement and a simple matrix. It is fast and needs no reliable loss data, but different assessors may score the same risk differently. <b>Quantitative</b> assessment assigns numbers: <b>single loss expectancy</b> (SLE) is the cost of one occurrence, <b>annual rate of occurrence</b> (ARO) is how often it happens in a year, and <b>annual loss expectancy</b> (ALE = SLE × ARO) is the expected yearly cost. A control is economically justified when its annual cost is less than the reduction in ALE it delivers.</p>
+      <p>Once risks are ranked, there are four standard treatments. <b>Avoid</b> the risk by not doing the activity, <b>reduce</b> or mitigate it with controls, <b>transfer</b> it to someone else through insurance or outsourcing, or <b>accept</b> it formally because the cost of treatment exceeds the loss. Acceptance must be a decision by the business owner, recorded and reviewed, not a silent hope that nothing happens. Residual risk is what remains after controls are applied, and it is the number that management should be asked to accept.</p>
+    </div>
+    <div class="card full">
+      <h4>Worked calculation</h4>
+      <pre><code>Risk: warehouse server room floods
+SLE  = cost of hardware + rebuilding + lost orders = 40,000 currency units
+ARO  = one flood every 10 years = 0.1
+ALE  = SLE x ARO = 40,000 x 0.1 = 4,000 per year
+
+Control: raised floor + leak sensor, installed and maintained = 900 per year
+Residual ALE with control (ARO falls to 0.02) = 40,000 x 0.02 = 800
+Benefit = 4,000 - 800 = 3,600 per year
+Cost    = 900 per year  -> benefit exceeds cost, so the control is justified</code></pre>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Treatment</th><th>Action</th><th>When appropriate</th></tr></thead>
+        <tbody>
+          <tr><td>Avoid</td><td>Do not perform the activity</td><td>Risk is catastrophic and avoidable</td></tr>
+          <tr><td>Reduce</td><td>Apply controls</td><td>Control cost is below expected saving</td></tr>
+          <tr><td>Transfer</td><td>Insurance or contract</td><td>Volatile, low-frequency, high-impact loss</td></tr>
+          <tr><td>Accept</td><td>Formal sign-off</td><td>Residual risk is within appetite</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> For a fourteen-mark risk question, write the formula, classify at least three risks in a table, show one numeric calculation, and finish with the four treatment options and who authorises acceptance. That structure is almost impossible to mark down.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E6</span><h2>STRIDE and Threat Modelling</h2><span class="tag">Deep dive · design</span></div>
+    <div class="card full">
+      <p>Threat modelling is the disciplined act of asking, before code is written, "how could this system be attacked?" STRIDE is a memorable six-part checklist. <b>Spoofing</b> violates authenticity by pretending to be another identity. <b>Tampering</b> violates integrity by altering data. <b>Repudiation</b> violates non-repudiation by denying an action. <b>Information disclosure</b> violates confidentiality. <b>Denial of service</b> violates availability. <b>Elevation of privilege</b> violates authorisation. The value of STRIDE is that it forces the reviewer to consider properties other than confidentiality, which is where most inexperienced designs are weak.</p>
+      <p>A threat model is usually built around a <b>data-flow diagram</b>. Draw the external entities, the processes, the data stores, and the trust boundaries between them, then walk each data flow and ask which STRIDE categories apply. An arrow that crosses a trust boundary deserves particular attention, because that is where the system stops trusting input. Each identified threat is recorded with its mitigation and an owner. An <b>attack tree</b> is a complementary view: the root is the attacker's goal, branches are alternative ways to reach it, and leaf nodes are the specific actions required.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · A minimal data-flow diagram with a trust boundary</div>
+      <pre><code>  [ User ] --(1: login creds)--> |== trust boundary ==|
+                                  | [ Web App ] --(2: query)--> [ DB ]
+                                  |        |                        |
+                                  |        +--(3: session cookie)---+
+                                  |== trust boundary ==|
+  [ Attacker ] --(4: forged cookie)--> [ Web App ]  X blocked by signature
+
+  Check each flow: 1 spoofing/tampering -> TLS + MFA
+                   2 injection         -> parameterised query
+                   3 disclosure        -> encrypt DB, limit columns
+                   4 elevation         -> signed, expiring session token</code></pre>
+      <p class="dcap">Every arrow crossing a boundary is a place where untrusted input enters. Listing the threats against each arrow turns a vague "is it secure?" question into a concrete checklist.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>STRIDE letter</th><th>Property attacked</th><th>Example in a web app</th><th>Example control</th></tr></thead>
+        <tbody>
+          <tr><td>S — Spoofing</td><td>Authenticity</td><td>Stolen session cookie</td><td>MFA, signed tokens, HTTPS</td></tr>
+          <tr><td>T — Tampering</td><td>Integrity</td><td>Modified price in a POST</td><td>Server-side validation, HMAC</td></tr>
+          <tr><td>R — Repudiation</td><td>Non-repudiation</td><td>"I never placed that order"</td><td>Audit log, digital signature</td></tr>
+          <tr><td>I — Information disclosure</td><td>Confidentiality</td><td>Error page dumps the schema</td><td>Generic errors, least privilege</td></tr>
+          <tr><td>D — Denial of service</td><td>Availability</td><td>Expensive query loop</td><td>Rate limits, query timeouts</td></tr>
+          <tr><td>E — Elevation</td><td>Authorisation</td><td>Ordinary user calls admin URL</td><td>RBAC checks on every request</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <p><b>Attack tree, worked.</b> Goal: read another customer's invoice. Branch A — guess the identifier; leaves: enumerate sequential IDs, automate with a script. Branch B — steal a session; leaves: XSS, phishing, sniffing on HTTP. Branch C — abuse a function; leaves: force password reset, call an export API with a changed account number. The defender cuts whole branches at once: unguessable identifiers and per-object authorisation defeat A, HttpOnly cookies and HTTPS defeat most of B, and server-side checks plus out-of-band verification defeat C. Drawing the tree reveals that one control (per-object authorisation) sits on several paths and is therefore worth prioritising.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> When asked to "apply a threat model," do not just list the six STRIDE letters. Apply each to a named component of the given system and propose a specific control; that is what converts a recall answer into an application answer.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E7</span><h2>Defense in Depth as an Architecture</h2><span class="tag">Deep dive · layering</span></div>
+    <div class="card full">
+      <p>Defense in depth is the principle that a single control should never be relied on to protect an asset. It comes from military thinking: an attacker who breaches the outer wall should meet a second wall, then a guarded inner door, then a locked safe. In information security the layers are typically <b>physical</b> (locks, badges, guards), <b>perimeter</b> (firewall, DDoS scrubbing), <b>network</b> (segmentation, IDS/IPS), <b>host</b> (patching, EDR, hardening), <b>application</b> (input validation, authentication, authorisation), and <b>data</b> (encryption, backups, DLP). A seventh layer, <b>people and process</b>, cuts across all of them through training and policy.</p>
+      <p>Two ideas make the principle precise. <b>Redundancy of control</b> means two controls address the same failure, such as a firewall and a host firewall both blocking a port. <b>Diversity of control</b> means different kinds of defence cover the same attack, such as patching a vulnerable service and also placing it behind an authentication gateway; an attacker who defeats a patch by finding a zero-day still faces the gateway. Diversity is more valuable than duplication because it breaks the assumption that one class of defence will always work.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Layered controls around one asset</div>
+      <pre><code>   +--------------------------------------------------+
+   | Layer 1  PERIMETER   firewall, DDoS scrubbing     |
+   | +----------------------------------------------+ |
+   | | Layer 2  NETWORK    VLANs, IDS/IPS, NAC        | |
+   | | +------------------------------------------+ | |
+   | | | Layer 3  HOST     patch, EDR, allow-list    | | |
+   | | | +--------------------------------------+  | | |
+   | | | | Layer 4  APP    authz, validation, MFA | | | |
+   | | | | +----------------------------------+  | | | |
+   | | | | | Layer 5  DATA  AES, backups, DLP  |  | | | |
+   | | | | |        [ CUSTOMER RECORDS ]      |  | | | |
+   | | | | +----------------------------------+  | | | |
+   | | | +--------------------------------------+  | | |
+   | | +------------------------------------------+ | |
+   | +----------------------------------------------+ |
+   +--------------------------------------------------+
+   People + process wrap every layer: training, policy, IR plan</code></pre>
+      <p class="dcap">A breach of one layer is an incident, not a catastrophe, provided the next layer detects or stops the attacker. Logging must span all layers so the correlation engine can see the story.</p>
+    </div>
+    <div class="card full">
+      <p><b>Worked breach scenario.</b> An attacker phishes a user and obtains a password. Layer 1 sees nothing, because the login comes from the internet like any other. Layer 2 flags an impossible-travel alert because the source country changed. Layer 3 would have blocked a known-bad binary, but the attacker used PowerShell. Layer 4 denies access to the finance role because the account is not a member. Layer 5 keeps the records encrypted, and the attempts are written to a central log. The user's mistake did not become a breach because four independent layers held. The correct exam conclusion is that defence in depth converts a single point of failure into a chain of checkpoints.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> For a question asking "why is defence in depth important?", give the layered list, then a scenario in which one layer fails and the next one saves the asset. The scenario is what proves you understand the principle rather than just the phrase.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E8</span><h2>The Hacker Landscape in Detail</h2><span class="tag">Deep dive · actors</span></div>
+    <div class="card full">
+      <p>The "hat" labels are shorthand for intent and permission, not for skill. A <b>white hat</b> works with written authorisation and reports findings to the owner. A <b>black hat</b> acts without permission for profit, damage, or curiosity. A <b>grey hat</b> may find a flaw without permission and then disclose it, sometimes responsibly and sometimes not; the ethical problem is that unauthorised testing is still illegal even when the motive is good. A <b>hacktivist</b> seeks publicity for a cause, a <b>script kiddie</b> relies on tools they do not understand, a <b>state-sponsored</b> actor works patiently for espionage or sabotage, and an <b>insider</b> already holds legitimate access that they abuse.</p>
+      <p>Motivation predicts behaviour, which is useful for defence. Financially motivated criminals want the fastest path to money: ransomware, fraud, and credential theft. Espionage actors want to stay hidden for months, so they favour low-and-slow techniques and living off the land. Hacktivists want an audience, so defacement and data leaks are likely. Insiders know where the valuable data is and what "normal" looks like, which makes them the hardest to detect; defences must therefore include least privilege, user-behaviour monitoring, and mandatory vacation or rotation so that abuse surfaces when another person takes over.</p>
+      <p>The legal line is authorisation. In most jurisdictions, accessing a computer without permission, even without causing damage, is an offence; so is possessing tools intended for such access. Ethical hacking differs from criminal hacking not in the toolkit but in the <b>scope, consent, and documentation</b> surrounding its use. A professional keeps a signed rules-of-engagement document, limits testing to named systems, records every action, and reports through agreed channels. Without those, the same command that earned a bonus in a consultancy can earn a criminal record.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Actor</th><th>Permission</th><th>Likely goal</th><th>Typical technique</th><th>Best countermeasure</th></tr></thead>
+        <tbody>
+          <tr><td>White hat</td><td>Yes, contracted</td><td>Improve defence</td><td>Scoping, scanning, reporting</td><td>Clear rules of engagement</td></tr>
+          <tr><td>Black hat</td><td>No</td><td>Profit or damage</td><td>Ransomware, fraud</td><td>MFA, backups, EDR</td></tr>
+          <tr><td>Hacktivist</td><td>No</td><td>Publicity for a cause</td><td>Defacement, leaks</td><td>Hardening, WAF, comms plan</td></tr>
+          <tr><td>State-sponsored</td><td>No</td><td>Espionage, sabotage</td><td>Spear-phishing, zero-days</td><td>Threat intel, segmentation</td></tr>
+          <tr><td>Insider</td><td>Yes, abused</td><td>Revenge or gain</td><td>Data exfiltration</td><td>Least privilege, DLP, logging</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> A question about "types of hackers" is not asking for jokes about colours. For each class, state permission, motivation, one technique, and one countermeasure. That four-part pattern scales to any mark allocation.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E9</span><h2>Kill Chain and ATT&amp;CK Thinking</h2><span class="tag">Deep dive · phases</span></div>
+    <div class="card full">
+      <p>The classic kill chain breaks an intrusion into five steps: reconnaissance, scanning and enumeration, gaining access, maintaining access, and covering tracks. A widely used expansion adds weaponisation and delivery before exploitation, and installation and command-and-control after it. Both models make the same central point: an attacker must pass through a sequence of stages, and each stage produces observable evidence. <b>Reconnaissance</b> may appear as repeated lookups of your domain. <b>Delivery</b> appears as a malicious email. <b>Exploitation</b> appears as an unusual process. <b>Installation</b> appears as a new scheduled task. <b>Command-and-control</b> appears as regular outbound connections to a rare domain.</p>
+      <p><b>MITRE ATT&amp;CK</b> organises known adversary behaviour into tactics (the "why" of a step) and techniques (the "how"). Its tactics — reconnaissance, initial access, execution, persistence, privilege escalation, defence evasion, credential access, lateral movement, collection, exfiltration, and impact — map closely onto the kill chain but are finer grained. Defenders use the framework to ask two questions: for each tactic, can we detect it, and can we prevent it? A gap in the matrix is a blind spot in the security programme.</p>
+      <p>The most important defensive idea is to <b>shift left</b>: detect as early in the chain as possible. Stopping a phishing email costs far less than rebuilding a domain after ransomware. Early detection also limits damage because the attacker has not yet established persistence. This is why reconnaissance telemetry, email filtering, and user reporting are worth as much as a sophisticated endpoint agent used only at the final stage.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Attacker action</th><th>Observable evidence</th><th>Control placed here</th></tr></thead>
+        <tbody>
+          <tr><td>Reconnaissance</td><td>Collect public data</td><td>Repeated DNS lookups, crawls</td><td>Reduce public surface, threat intel</td></tr>
+          <tr><td>Weaponisation / delivery</td><td>Build and send lure</td><td>Malicious attachment, link</td><td>Email filtering, sandboxing, training</td></tr>
+          <tr><td>Exploitation</td><td>Run payload</td><td>Unusual child process</td><td>Patching, EDR, least privilege</td></tr>
+          <tr><td>Installation</td><td>Add persistence</td><td>New service or scheduled task</td><td>Allow-listing, integrity monitoring</td></tr>
+          <tr><td>Command &amp; control</td><td>Contact attacker</td><td>Periodic outbound beacons</td><td>DNS filtering, egress monitoring</td></tr>
+          <tr><td>Actions on objectives</td><td>Steal or encrypt</td><td>Bulk reads, mass file changes</td><td>DLP, backups, anomaly detection</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> If asked how the kill chain helps defence, the highest-scoring point is that each phase creates indicators and offers a chance to break the chain. Illustrate with one early control and one late control and compare their cost.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E10</span><h2>Penetration Testing Practice</h2><span class="tag">Deep dive · engagement</span></div>
+    <div class="card full">
+      <p>A penetration test is a time-boxed, authorised attack designed to answer a business question: can a competent adversary reach an asset that matters, and how? Unlike a vulnerability scan, which produces a list of possible issues, a pen test chains weaknesses into a demonstrated path and states the business consequence. A finding that says "SQL injection exists" is a scan result; a finding that says "SQL injection lets an external user export the full customer table and reset any password" is a pen-test result.</p>
+      <p>The engagement begins long before scanning. <b>Scoping</b> names the exact in-scope IPs, domains, applications, and third parties, and records exclusions such as production payment systems or real customer data. <b>Rules of engagement</b> fix the testing window, the test type (black, grey, or white box), the contacts for escalation, the handling of discovered credentials, and the agreed definition of "stop." <b>Authorisation</b> must be written and signed by someone empowered to grant it; verbal permission over the phone is not enough. Without these documents, a tester is simply an intruder.</p>
+      <p>Execution follows a loop of plan, discover, exploit, document, and retest. Findings are rated with <b>CVSS</b>, a standardised 0-to-10 severity score that combines the attack vector, complexity, privileges required, user interaction, and the impact on confidentiality, integrity, and availability. Scores below 4.0 are low, 4.0 to 6.9 medium, 7.0 to 8.9 high, and 9.0 and above critical. Severity is not the same as business risk: a critical flaw on an isolated lab machine may matter less than a medium flaw on the public login page, so the report must discuss both the score and the exposure.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Test type</th><th>Information given</th><th>Strength</th><th>Weakness</th></tr></thead>
+        <tbody>
+          <tr><td>Black box</td><td>None</td><td>Realistic outsider view</td><td>Slow; may miss internal flaws</td></tr>
+          <tr><td>Grey box</td><td>Partial, e.g. credentials</td><td>Balances realism and speed</td><td>Assumes some access already</td></tr>
+          <tr><td>White box</td><td>Full, including source</td><td>Deepest coverage</td><td>Least like a real attacker</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>A finding, written properly</h4>
+      <pre><code>Title:     Broken object-level authorisation on /api/invoice/{id}
+Severity:  High (CVSS 8.1) - A01 Broken Access Control
+Evidence:  GET /api/invoice/1042 as user A returns user B's invoice
+Impact:    Any authenticated customer can read every other invoice
+Root cause: Server trusts the id parameter without an ownership check
+Fix:       Verify invoice.owner_id == session.user_id on every request
+Retest:    Cross-account request now returns HTTP 403; closed 2026-02-14</code></pre>
+      <p>Notice that the record includes evidence, impact, root cause, a specific fix, and a retest result. A report without the last two lines leaves the client with a problem but no closure.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Distinguish a vulnerability assessment from a penetration test in one sentence: the assessment finds and lists; the test exploits to prove impact and business consequence. Add that both require authorisation.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E11</span><h2>Frameworks Compared</h2><span class="tag">Deep dive · standards</span></div>
+    <div class="card full">
+      <p>Frameworks exist so that a test is repeatable and its results comparable. <b>OSSTMM</b> is a methodology manual organised around channels — communications, infrastructure, applications, wireless, and the human channel — and it emphasises measuring security rather than just listing findings. <b>NIST SP 800-115</b> is a technical guide that describes planning, information gathering, scanning, exploitation, and reporting with an emphasis on minimising risk to the target during testing. <b>OWASP</b> concentrates on web application risk; its Top 10 is a prioritised awareness document rather than a full testing methodology. <b>ISO/IEC 27001</b> is a certifiable management-system standard that requires risk assessment, controls, and continual improvement. <b>MITRE ATT&amp;CK</b> is a knowledge base of adversary behaviour used to reason about detection coverage.</p>
+      <p>These are complementary, not competing. A professional engagement might use ISO 27001 to understand the organisation's control environment, NIST 800-115 to structure the test, OWASP to choose web test cases, ATT&amp;CK to check detection coverage, and OSSTMM to ensure that physical and human channels are not forgotten. An exam answer that names the scope of each framework and says how they fit together demonstrates understanding, whereas a list of acronyms demonstrates only memorisation.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Framework</th><th>Primary focus</th><th>Best used for</th><th>Not intended for</th></tr></thead>
+        <tbody>
+          <tr><td>OSSTMM</td><td>All channels, measurement</td><td>Structuring a broad test</td><td>Web-specific test cases</td></tr>
+          <tr><td>NIST SP 800-115</td><td>Technical test process</td><td>Planning and safe execution</td><td>Certification</td></tr>
+          <tr><td>OWASP Top 10</td><td>Web application risk</td><td>Prioritising web findings</td><td>Network or physical testing</td></tr>
+          <tr><td>ISO/IEC 27001</td><td>Information security management</td><td>Organisational governance</td><td>Hands-on exploitation</td></tr>
+          <tr><td>MITRE ATT&amp;CK</td><td>Adversary behaviour</td><td>Detection gap analysis</td><td>Prescribing controls directly</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> If asked to "compare frameworks," use a table with four columns like the one above, then add one sentence explaining that they operate at different levels and are combined rather than chosen between.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E12</span><h2>What to Write for 3 Marks and for 14 Marks</h2><span class="tag">Exam technique</span></div>
+    <div class="card full">
+      <h4>Three-mark questions</h4>
+      <p>Three marks usually means three distinct points, so write three short labelled sentences. "The CIA triad is confidentiality, integrity, and availability" earns at most one mark; add the definition and one control for each component. Use the structure <i>term — meaning — control or failure mode</i>. Never spend more than four or five lines; the marks are for breadth, not depth.</p>
+      <h4>Fourteen-mark questions</h4>
+      <p>A long question rewards structure. Spend the first two lines defining the key terms, then give a table or numbered list covering at least six points, then add one worked example with concrete numbers or a named technology, then a short discussion of limitations or the defender's view, and finish with a conclusion that answers the exact wording of the question. Include at least one diagram or preformatted sketch if the topic is architectural. Markers award marks for accurate terminology, so use the precise words: <i>least privilege</i>, <i>non-repudiation</i>, <i>residual risk</i>, <i>defence in depth</i>.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Marks</th><th>Expected shape</th><th>Approximate length</th><th>What loses marks</th></tr></thead>
+        <tbody>
+          <tr><td>3</td><td>Three defined terms with one example each</td><td>4–6 lines</td><td>Writing only the acronym</td></tr>
+          <tr><td>7</td><td>Definition, list of six to eight points, one example</td><td>½ page</td><td>No example, mixed-up terms</td></tr>
+          <tr><td>14</td><td>Definitions, table, worked example, defender view, conclusion</td><td>1½–2 pages</td><td>Essay with no structure</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Glossary to close the module</h4>
+      <p><b>Threat</b> — a possible cause of harm. <b>Vulnerability</b> — a weakness that a threat can use. <b>Risk</b> — the chance that a threat will exploit a vulnerability and cause harm. <b>Control</b> — a measure that reduces risk. <b>Exploit</b> — code or a technique that takes advantage of a vulnerability. <b>Asset</b> — anything of value that needs protection. <b>Residual risk</b> — what remains after controls are applied. <b>Least privilege</b> — the minimum access needed to do a job. <b>Implicit deny</b> — anything not explicitly allowed is refused. <b>Non-repudiation</b> — proof that an action occurred and who performed it.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Memorise the distinction between threat, vulnerability, and risk with the sentence "a <i>threat</i> uses a <i>vulnerability</i> to create <i>risk</i>." It appears in almost every paper in some form.</div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="index.html">&larr; Home</a>
+    <a class="next" href="module-2.html">Module 2 · Recon, Attacks &amp; Social Engineering &rarr;</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div><span class="brand2">Study Notes</span> · Foundations, hacker landscape, kill chain and penetration testing.</div>
+    <div><a href="index.html">Home</a> · <a href="module-2.html">Next module</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

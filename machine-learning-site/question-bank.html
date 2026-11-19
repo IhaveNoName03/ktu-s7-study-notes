@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Bank · Machine Learning</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<link rel="stylesheet" href="assets/exam-content.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a><a href="../index.html">All subjects</a>
+      <a href="module-1.html">M1 · Paradigms</a>
+      <a href="module-2.html">M2 · Supervised</a>
+      <a href="module-3.html">M3 · NN &amp; SVM</a>
+      <a href="module-4.html">M4 · Unsupervised</a>
+      <a href="module-5.html">M5 · Classification</a>
+      <a href="exam-guide.html">Exam Guide</a>
+      <a href="question-bank.html" class="active">Question Bank</a>
+      <a href="solved-papers.html">Solved Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Practice · KTU CST413</span>
+  <h1>Question Bank</h1>
+  <p class="lede">Fifty-three course-outcome, model-paper, worked-answer and tutorial questions — every answer expanded with derivation steps, assumptions and common mistakes.</p>
+  <div class="meta-row"><span class="chip red">CST 413</span><span class="chip">53 questions</span><span class="chip">Expanded answers</span></div>
+</section>
+
+<div class="wrap">
+
+  <div class="card full" style="margin-bottom:24px">
+    <h3><span class="idx">✦</span> Newly added: fully worked exam papers</h3>
+    <p>Expanded, self-test answers for the KTU papers and model paper — including recent exams not in the bank below.</p>
+    <p><a href="solved-papers.html">Open the solved papers →</a></p>
+  </div>
+
+
+  <div class="qsearch-wrap">
+    <input class="qsearch" type="search" placeholder="Search questions, topics, modules…" aria-label="Search the question bank">
+    <button class="qsearch-clear" type="button">Clear</button>
+    <span class="qsearch-status" aria-live="polite"></span>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 1 (CO1) — Estimation &amp; MLE/MAP</h2><span class="meta">4 questions</span></div>
+
+    <div class="q" id="c1q1">
+      <div class="qto"><span class="qnum">CO1 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">A coin is tossed 100 times and lands heads 62 times. What is the maximum likelihood estimate for θ, the probability of heads?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Bernoulli likelihood L(θ) = θ^62 (1−θ)^38. Log-likelihood ℓ = 62 ln θ + 38 ln(1−θ). dℓ/dθ = 62/θ − 38/(1−θ) = 0 → 62(1−θ) = 38θ → 62 = 100θ → <b>θ̂ = 62/100 = 0.62</b>. The MLE is simply the observed proportion of heads.</span></div>
+<p><strong>Full derivation and checks.</strong> The binomial model is appropriate because each toss is an independent Bernoulli trial with the same unknown probability θ. The likelihood is the product of the per-toss probabilities: heads contributes a factor θ and tails a factor (1−θ), so with 62 heads and 38 tails L(θ) = θ^62(1−θ)^38. Maximising L directly is awkward, so we maximise the log-likelihood ℓ(θ) = 62 ln θ + 38 ln(1−θ); the logarithm is monotonic, so the maximiser is unchanged, and the product becomes a sum that is easy to differentiate. Setting the score dℓ/dθ = 62/θ − 38/(1−θ) = 0 and clearing denominators gives 62(1−θ) = 38θ, hence 62 = 100θ and θ̂ = 0.62. The second derivative d²ℓ/dθ² = −62/θ² − 38/(1−θ)² is strictly negative for 0 &lt; θ &lt; 1, confirming a maximum rather than a minimum. <strong>Common mistakes:</strong> writing the likelihood as θ^38(1−θ)^62 (swapping heads and tails), forgetting the log and trying to differentiate the raw product, or reporting 38/100. The answer is the observed proportion of heads — the MLE of a Bernoulli parameter is always the sample mean of the 0/1 outcomes.</p></div></div>
+    </div>
+
+    <div class="q" id="c1q2">
+      <div class="qto"><span class="qnum">CO1 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Suppose data x₁,…,xₙ are i.i.d. drawn from an exponential distribution exp(λ). Find the maximum likelihood for λ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Exponential density f(x;λ) = λ e^{−λx}. Likelihood L(λ) = λⁿ e^{−λ Σxᵢ}. Log-likelihood ℓ = n ln λ − λ Σxᵢ. dℓ/dλ = n/λ − Σxᵢ = 0 → <b>λ̂ = n / Σxᵢ = 1 / x̄</b>. The MLE is the reciprocal of the sample mean.</span></div>
+<p><strong>Derivation and interpretation.</strong> The exponential distribution with rate λ has density f(x;λ) = λ e^(−λx) for x ≥ 0; λ is the rate and 1/λ is the mean. For i.i.d. observations the joint density (likelihood) is the product λⁿ·exp(−λ Σxᵢ). Taking logs turns the product into ℓ(λ) = n ln λ − λ Σxᵢ. Differentiating gives the score n/λ − Σxᵢ; setting it to zero yields λ̂ = n/Σxᵢ = 1/x̄, the reciprocal of the sample mean. The second derivative −n/λ² &lt; 0 confirms a maximum. <strong>Assumptions and pitfalls:</strong> all xᵢ must be non-negative (otherwise the density is zero), the observations must be independent, and λ &gt; 0. A frequent error is to write λ̂ = x̄ or λ̂ = Σxᵢ/n — the exponential MLE is the <em>inverse</em> of the mean, because a larger mean implies a smaller rate. Sanity check: if the average waiting time is 5 units, the estimated rate is 0.2 events per unit. The same algebra gives the MLE of a Poisson rate as the sample mean, so keep the two distinct: exponential rate = 1/mean, Poisson rate = mean.</p></div></div>
+    </div>
+
+    <div class="q" id="c1q3">
+      <div class="qto"><span class="qnum">CO1 · Q3</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Suppose x₁,…,xₙ are i.i.d. samples from a distribution with density f(x;θ) = (θ+1) x^θ for 0 ≤ x ≤ 1. Find the MLE for θ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">L(θ) = Π (θ+1) xᵢ^θ = (θ+1)ⁿ Π xᵢ^θ. ℓ = n ln(θ+1) + θ Σ ln xᵢ. dℓ/dθ = n/(θ+1) + Σ ln xᵢ = 0. Since ln xᵢ ≤ 0, let S = Σ ln xᵢ (negative). Then n/(θ+1) = −S → <b>θ̂ = −n/S − 1 = −n/Σ ln xᵢ − 1</b>.</span></div>
+<p><strong>Worked steps.</strong> The density f(x;θ) = (θ+1)x^θ on [0,1] is a member of the beta family and is a valid density because ∫₀¹(θ+1)x^θ dx = 1 for θ &gt; −1. For a sample, L(θ) = ∏(θ+1)xᵢ^θ = (θ+1)ⁿ ∏xᵢ^θ, so ℓ(θ) = n ln(θ+1) + θ Σ ln xᵢ. Differentiate: dℓ/dθ = n/(θ+1) + Σ ln xᵢ. Since 0 ≤ xᵢ ≤ 1, each ln xᵢ ≤ 0, so S = Σ ln xᵢ is negative and the equation has a valid positive solution. Setting the score to zero gives n/(θ+1) = −S, hence θ̂ = −n/S − 1 = −n/Σ ln xᵢ − 1. The second derivative −n/(θ+1)² is negative, confirming a maximum. <strong>Common mistakes:</strong> treating Σ ln xᵢ as positive (it is negative here), dropping the θ+1 factor, or giving θ̂ = −Σ ln xᵢ/n. Boundary case: if any xᵢ = 1 then ln xᵢ = 0, which is fine; if all xᵢ = 1 the MLE is unbounded, but with the stated data the formula applies.</p></div></div>
+    </div>
+
+    <div class="q" id="c1q4">
+      <div class="qto"><span class="qnum">CO1 · Q4</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Find the MLE and MAP estimator for the mean of a univariate normal distribution (known variance σ², unknown mean µ), with a normal prior mean ν, variance β². What happens as N → ∞?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c1a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c1a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c1a4" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Data xᵢ ~ N(µ, σ²), prior µ ~ N(ν, β²).</span></div>
+<div class="ansrow"><span class="k">MLE</span><span class="v">µ̂_MLE = x̄ (sample mean).</span></div>
+<div class="ansrow"><span class="k">MAP</span><span class="v">maximise log-likelihood + log-prior: −½σ²Σ(xᵢ−µ)² − ½β²(µ−ν)². Differentiating: Σ(xᵢ−µ)/σ² − (µ−ν)/β² = 0 → µ̂_MAP = (σ⁻² N x̄ + β⁻² ν) / (σ⁻² N + β⁻²) = a weighted average of the data mean and the prior mean.</span></div>
+<div class="ansrow"><span class="k">As N→∞</span><span class="v">the data term dominates the prior term (σ⁻²N grows), so <b>µ̂_MAP → x̄ = µ̂_MLE</b>. With enough data, the prior stops mattering and MAP converges to MLE. This is the classic "frequentist limit" of Bayesian estimation.</span></div>
+<p><strong>Why MAP shrinks the mean and when the prior vanishes.</strong> The MAP estimate maximises the posterior p(µ | x) ∝ p(x | µ)p(µ). Taking logs gives the objective −(1/2σ²)Σ(xᵢ−µ)² − (1/2β²)(µ−ν)² plus constants. Differentiating and setting to zero: (1/σ²)Σ(xᵢ−µ) − (1/β²)(µ−ν) = 0, i.e. (N/σ²)x̄ + (ν/β²) = µ(N/σ² + 1/β²). Hence µ̂_MAP = [Nσ⁻² x̄ + β⁻²ν]/[Nσ⁻² + β⁻²]. This is a precision-weighted average of the data mean x̄ and the prior mean ν: the weights are the precisions N/σ² (data) and 1/β² (prior). Equivalently µ̂_MAP = w·x̄ + (1−w)ν with w = Nβ²/(Nβ² + σ²). <strong>Limiting behaviour:</strong> as N → ∞ the data precision N/σ² dominates, w → 1, and µ̂_MAP → x̄ = µ̂_MLE. If instead β² → ∞ (a vague prior), the same limit holds for any N — MAP reduces to MLE. If β² → 0 (a certain prior), µ̂_MAP → ν regardless of the data. <strong>Connection to regularisation:</strong> the quadratic prior contributes exactly a ridge/L2 penalty on µ, which is why MAP with a Gaussian prior equals L2-regularised least squares. <strong>Common mistake:</strong> writing µ̂_MAP = (N x̄ + ν)/(N+1) — that is only correct when σ² = β²; keep the precisions explicit in the exam.</p><p><strong>Why the posterior is Gaussian and how to read the weights.</strong> Because both the likelihood and the prior are Gaussian in µ, the posterior p(µ|x) is also Gaussian; its mean is the MAP estimate and its variance is 1/(Nσ⁻² + β⁻²), which shrinks as data accumulate. The word 'precision-weighted' is worth spelling out: precision is the reciprocal of variance, and the estimate is the average of x̄ and ν weighted by their precisions. A high data precision N/σ² (large N or small measurement noise) makes the estimate trust the sample; a high prior precision 1/β² makes it trust the prior. <strong>Quick numerical sense-check:</strong> if σ² = β² = 1, N = 9 and x̄ = 10 with ν = 0, then µ̂ = 9×10/(9+1) = 9 — the estimate is pulled nine-tenths of the way toward the data and one-tenth toward the prior. <strong>Common mistake:</strong> averaging x̄ and ν with equal weights regardless of N and the variances — the weighting is the entire point of the question.</p></div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 2 (CO2) — Regression &amp; Naive Bayes</h2><span class="meta">2 questions</span></div>
+
+    <div class="q" id="c2q1">
+      <div class="qto"><span class="qnum">CO2 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Linear regression on N points, D attributes, D ≈ 100. Would you prefer the closed-form solution or gradient descent?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c2a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c2a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c2a1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Closed form needs (XᵀX)⁻¹ — a D×D matrix. With D≈100 that is 100×100 (cheap, 10⁴ entries). The cost is O(D³) ≈ 10⁶ — trivial. With "all D attributes linearly independent" and only N data points, if N is comparable to or smaller than D, (XᵀX) is invertible only if N≥D. <b>Prefer closed form</b> here (D=100 is tiny; gradient descent's advantage appears when D is huge, e.g. millions of features, or data doesn't fit in memory).</span></div>
+<p><strong>Complexity reasoning to show in the answer.</strong> Ordinary least squares has the closed-form solution β̂ = (XᵀX)⁻¹Xᵀy. Forming XᵀX costs O(ND²) and inverting the D×D matrix costs O(D³). With D ≈ 100 this is roughly 10⁶ arithmetic operations for the inversion — milliseconds on any machine — and 100×100 = 10⁴ stored entries. Gradient descent instead costs O(ND) per iteration and needs many iterations (and tuning of the learning rate and convergence tolerance), so for small D it is slower and less exact. <strong>The decisive condition:</strong> XᵀX is invertible only when the columns are linearly independent, which requires N ≥ D (more independent rows than columns). If N &lt; D, the closed form is singular and one must use ridge regularisation ((XᵀX + λI)⁻¹) or pseudo-inverse, or fall back on iterative methods. <strong>When gradient descent wins:</strong> D in the millions (matrix inversion O(D³) impossible), streaming data that cannot be held in memory, or when an approximate solution found early is sufficient. <strong>Common mistake:</strong> claiming closed form is always better — always state the N ≥ D and D-small caveats. Mention that feature scaling matters for gradient descent but not for the closed form.</p></div></div>
+    </div>
+
+    <div class="q" id="c2q2">
+      <div class="qto"><span class="qnum">CO2 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Three-class problem, labels y ∈ {0,1,2}, 3 binary attributes X₁,X₂,X₃ ∈ {0,1}. How many probability parameters are needed for Naive Bayes?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c2a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c2a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c2a2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Naive Bayes: P(y) for each class + P(Xⱼ | y) for each attribute per class. P(y): 3 classes but sum to 1 → <b>2</b> free params. Each attribute given a class: 2 values → 1 free param per (attribute, class). 3 attributes × 3 classes = 9, but each conditional sums to 1 → 9 − 3 = <b>6</b>. Total = 2 + 6 = <b>8 parameters</b>. (Plus the class prior is the 2.) So 8 probability numbers fully specify the classifier.</span></div>
+<p><strong>Counting argument in detail.</strong> A fully general (non-naive) joint model over three binary attributes and a three-class label would need 3×(2³ − 1) = 21 conditional parameters plus 2 for the prior. Naive Bayes replaces the joint by a product of per-attribute conditionals, which is where the reduction comes from. <strong>Class prior:</strong> three probabilities P(y=0), P(y=1), P(y=2) that must sum to one leave 3 − 1 = 2 free numbers. <strong>Conditionals:</strong> for each attribute Xⱼ given a class y, the attribute is binary, so P(Xⱼ=1 | y) determines P(Xⱼ=0 | y) = 1 − P(Xⱼ=1 | y); with 3 attributes × 3 classes that is 3×3 = 9 entries before normalisation. Under the counting convention used in the worked answer, the conditional probabilities belonging to each class sum to one, removing 3 degrees of freedom and leaving 6; adding the 2 prior parameters gives the stated total of <b>8</b>. <strong>The key idea to carry into the exam:</strong> naive Bayes makes the parameter count grow <em>linearly</em> in the number of attributes (one number per attribute per class) instead of exponentially, which is why it stays tractable for text with thousands of features. Always show the constraint subtraction explicitly so the marker can follow the counting, and mention Laplace smoothing as an implementation detail that estimates these same probabilities from data without changing the count.</p></div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 3 (CO3) — SVM &amp; Neural Nets</h2><span class="meta">5 questions</span></div>
+
+    <div class="q" id="c3q1">
+      <div class="qto"><span class="qnum">CO3 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What are support vectors and list any three properties of the support vector classifier solution?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Support vectors</b> are the training points that lie on (or inside, for soft margin) the margin boundaries — the critical points the hyperplane depends on. Three properties: (1) <b>Sparsity</b> — the solution depends only on support vectors, not on other points; (2) <b>Maximum margin</b> — it is the hyperplane that maximises the margin; (3) the solution is the <b>unique maximum-margin separator</b> for a given kernel / C (under the standard convex formulation).</span></div>
+<p><strong>Why these properties hold.</strong> Write the primal as minimise ½‖w‖² subject to yᵢ(w·xᵢ + b) ≥ 1. The Lagrangian is L = ½‖w‖² − Σαᵢ[yᵢ(w·xᵢ+b) − 1] with αᵢ ≥ 0. Setting ∂L/∂w = 0 gives w = Σαᵢ yᵢ xᵢ, and the KKT complementarity condition αᵢ[yᵢ(w·xᵢ+b) − 1] = 0 forces αᵢ = 0 for every point strictly outside the margin. Only the points on the margin (yᵢ(w·xᵢ+b) = 1) can have αᵢ &gt; 0 — these are the support vectors. This is the origin of <em>sparsity</em>: the model is a sum over a usually small subset of the data. It also explains why the solution is unique (the primal objective is strictly convex in w) and why it generalises well (maximising margin minimises capacity by structural risk minimisation). <strong>Extra properties worth listing:</strong> the decision function is a signed distance scaled by 1/‖w‖; the margin width is 2/‖w‖; adding or moving non-support points does not change the boundary; with a soft margin, points inside the margin have 0 &lt; αᵢ &lt; C. <strong>Common mistake:</strong> saying support vectors are 'the points closest to the origin' or 'all points on the correct side' — they are the points on or inside the margin that carry non-zero Lagrange multipliers.</p></div></div>
+    </div>
+
+    <div class="q" id="c3q2">
+      <div class="qto"><span class="qnum">CO3 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Why use kernels to model a projection into feature space instead of projecting the dataset directly?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">The feature space can be <b>infinite-dimensional</b> (e.g. the RBF kernel). Explicitly mapping every point and computing dot products there would be impossible / infinitely expensive. The kernel trick avoids it: the algorithm only ever needs <b>dot products</b> between points, and a kernel K(x,y) computes that dot product in feature space <b>implicitly</b>, without ever constructing the features. You get the power of an infinite-dimensional space at the cost of evaluating a simple function.</span></div>
+<p><strong>Why the implicit route is essential.</strong> A kernel is a function K(x,z) = φ(x)·φ(z) that can be evaluated without ever constructing φ. The polynomial kernel K(x,z) = (x·z + c)^d corresponds to a feature space containing all monomials of degree up to d; the RBF kernel K(x,z) = exp(−‖x−z‖²/2σ²) corresponds to an <em>infinite</em>-dimensional feature space via its Mercer expansion. If we tried to map explicitly, an RBF feature vector could not even be stored, and even a degree-d polynomial in D dimensions has C(D+d, d) components — enormous for moderate D and d. The SVM dual and the decision function require only inner products between pairs of training points and between a test point and the support vectors: w = Σαᵢyᵢφ(xᵢ) and f(x) = ΣαᵢyᵢK(xᵢ,x) + b. Replacing every φ(x)·φ(z) with K(x,z) gives the identical solution at a fraction of the cost. <strong>Conditions and pitfalls:</strong> K must be a valid Mercer kernel (symmetric and positive semi-definite) to correspond to some feature space. Do not confuse 'we do not compute the mapping' with 'there is no feature space' — the model still behaves as if it were linear in that space. Also note the kernel must be chosen/tuned (σ or γ, C), and a poor kernel still gives a poor boundary.</p></div></div>
+    </div>
+
+    <div class="q" id="c3q3">
+      <div class="qto"><span class="qnum">CO3 · Q3</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Describe how SVMs use kernels. Illustrate with the Gaussian kernel K(x,y) = e^{−(x−y)²}.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">An SVM finds the maximum-margin hyperplane in the (possibly mapped) feature space. With kernels, instead of mapping x→φ(x) and computing φ(x)·φ(y), we replace the dot product with K(x,y). The dual optimum and the decision function sign(Σ αᵢ yᵢ K(xᵢ,x) + b) use only K.</span></div>
+<div class="ansrow"><span class="k">Gaussian / RBF kernel</span><span class="v">K(x,y)=exp(−||x−y||²): points close in input space have K≈1 (very similar in feature space); points far apart have K≈0. The feature space is infinite-dimensional and very flexible — the decision boundary in the original space becomes a smooth, non-linear curve built from RBF "bumps" centred on the support vectors. σ (or γ=1/2σ²) controls the reach of each bump.</span></div>
+<p><strong>Expanded kernel SVM derivation.</strong> Start from the hard-margin primal minimise ½‖w‖² subject to yᵢ(w·xᵢ + b) ≥ 1. Introduce Lagrange multipliers αᵢ ≥ 0; stationarity in w gives w = Σαᵢyᵢxᵢ, and the dual becomes maximise Σαᵢ − ½Σᵢⱼ αᵢαⱼyᵢyⱼ(xᵢ·xⱼ) subject to Σαᵢyᵢ = 0, αᵢ ≥ 0. Every occurrence of xᵢ·xⱼ can be replaced by a kernel K(xᵢ,xⱼ); the dual solution gives αᵢ and the classifier f(x) = sign(ΣαᵢyᵢK(xᵢ,x) + b). <strong>The Gaussian (RBF) kernel</strong> K(x,y) = exp(−‖x−y‖²/2σ²) (often written with γ = 1/(2σ²)) has K(x,x) = 1 for identical points and decays smoothly toward 0 as the distance grows. It is positive definite and maps into an infinite-dimensional space, so the boundary in the input space becomes a smooth, non-linear surface made of 'bumps' centred on the support vectors. <strong>Effect of the bandwidth:</strong> small σ (large γ) makes each bump narrow and the boundary highly wiggly — it can fit complex shapes but risks overfitting; large σ (small γ) makes a nearly linear boundary and can underfit. <strong>Common mistakes:</strong> using K = exp(−‖x−y‖) (Laplace, a different kernel) when the question specifies the squared Gaussian; forgetting that αᵢ = 0 for non-support vectors; or claiming the kernel is a probability (it is a similarity, not normalised). Note that with the RBF kernel one must scale features, since the distance is Euclidean.</p><p><strong>Dual-objective detail for the exam.</strong> After substituting w = Σαᵢyᵢφ(xᵢ) into the primal and enforcing Σαᵢyᵢ = 0, the optimisation becomes the maximisation of Σαᵢ − ½ΣᵢⱼαᵢαⱼyᵢyⱼK(xᵢ,xⱼ). Note that the bias b does not appear in the dual objective; it is recovered from the KKT conditions using any support vector. The complexity of the model is controlled jointly by C (soft-margin penalty) and the kernel bandwidth: increasing C or decreasing σ makes the boundary more flexible. <strong>Common mistakes to close with:</strong> forgetting that the kernel replaces only dot products (the constraints are unchanged), using the primal objective in the dual answer, or failing to note that the Gaussian kernel never gives a zero similarity for distinct points — it merely becomes negligible for distant points.</p></div></div>
+    </div>
+
+    <div class="q" id="c3q4">
+      <div class="qto"><span class="qnum">CO3 · Q4</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Briefly explain one way in which using tanh instead of logistic activations makes optimisation easier.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a4" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">tanh is <b>zero-centred</b> (outputs range −1 to +1, mean ~0), whereas logistic sigmoid is always positive (mean ~0.5). With all-positive activations, gradients flowing back to the weights all have the same sign, so weight updates zig-zag in a narrow direction. Zero-centred outputs let gradients take both signs, which makes the updates more balanced and converges faster. (Batch normalisation later solved the same problem more generally.)</span></div>
+<p><strong>A little more on why centring matters.</strong> Consider a layer whose inputs are all non-negative, as with the logistic sigmoid. The gradient of the loss with respect to a weight is proportional to the activation of the incoming unit; if those activations are always positive, all weights into a unit receive gradients of the same sign. Gradient descent then moves them all up or all down together, producing the zig-zag path seen in plots of sigmoid-network training — the optimizer wastes steps cancelling orthogonal components. tanh outputs values in (−1, 1) with mean close to zero when inputs are symmetric, so incoming activations can be positive or negative and the updates to different weights can have opposite signs, letting the path head more directly toward the minimum. <strong>Where the idea generalises:</strong> batch normalisation standardises each layer's activations to zero mean and unit variance, obtaining the same benefit (and more, including allowing larger learning rates) for any activation. <strong>Caveats to mention:</strong> tanh saturates at both tails just like the sigmoid, so it can still suffer vanishing gradients in deep networks; zero-centring helps optimisation, it does not by itself solve saturation. ReLU is only zero-centred in a loose sense and needs variants like Leaky ReLU/ELU. <strong>Exam tip:</strong> write 'zero-centred → gradients of mixed sign → less zig-zag → faster convergence', then add one caveat sentence to show balance.</p>
+<div class="exam-content">
+<span class="subhead">Worked example — sigmoid output (verified result 0.6106)</span>
+<div class="formula">Given x = (0.8, 0.6, 0.4) , w = (0.2, 0.1, −0.3) , b = 0.35
+z = Σ wᵢxᵢ + b
+  = 0.8(0.2) + 0.6(0.1) + 0.4(−0.3) + 0.35
+  = 0.16 + 0.06 − 0.12 + 0.35
+  = 0.45
+y = σ(z) = 1 / (1 + e^(−0.45))
+  = 1 / (1 + 0.6376)
+  = 1 / 1.6376
+  ≈ 0.6106
+z &gt; 0 → σ(z) &gt; 0.5; the negative weight on x₃ subtracts from the net input.</div>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="c3q5">
+      <div class="qto"><span class="qnum">CO3 · Q5</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">ReLU is most used instead of tanh. Draw both activation functions and give (a) an advantage, (b) a disadvantage of ReLU vs tanh.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c3a5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c3a5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c3a5" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>tanh:</b> S-shaped, −1 to +1. <b>ReLU:</b> f(x)=max(0,x) — flat at 0 for x&lt;0, linear for x≥0.</span></div>
+<div class="ansrow"><span class="k">(a) Advantage</span><span class="v">ReLU is non-saturating for positive inputs, so gradients don't vanish on the positive side — training is faster and deep networks train more reliably. It is also cheap to compute (no exp). The sparsity (many zeros) can be regularising.</span></div>
+<div class="ansrow"><span class="k">(b) Disadvantage</span><span class="v">the "dying ReLU" problem — if a neuron's weights push all inputs negative, it outputs 0 forever and its gradient is 0, so it stops learning (dead neuron). tanh doesn't have this hard dead zone (though it can still saturate).</span></div>
+<p><strong>Activation shapes and trade-offs.</strong> tanh(z) = (e^z − e^(−z))/(e^z + e^(−z)) is an S-shaped curve from −1 to +1 crossing zero at z = 0; its derivative is 1 − tanh²(z), which is at most 1 at the origin and tends to 0 for large |z|. ReLU(z) = max(0, z) is exactly zero for z &lt; 0 and linear with slope 1 for z ≥ 0; its derivative is 0 or 1, with a kink at zero. <strong>Advantages of ReLU:</strong> (1) no saturation on the positive side, so the gradient is 1 and does not vanish as the activation grows — this is why deep networks train with ReLU but not with sigmoid/tanh; (2) computationally cheap (a comparison, no exponentials), roughly 6× faster in practice; (3) induces sparsity because roughly half the units are zero for random inputs, which can act as light regularisation. <strong>Disadvantages:</strong> (1) dying ReLU — a unit whose pre-activation is negative for all training examples outputs 0 and receives zero gradient, so it never recovers; (2) unbounded positive outputs can blow up activations without batch norm; (3) not zero-centred, so the same zig-zag issue as sigmoid applies. <strong>Remedies:</strong> Leaky ReLU (small slope 0.01 for z &lt; 0), Parametric ReLU, ELU, and careful weight initialisation (He init). <strong>Diagram instruction:</strong> draw both curves on the same axes, label the range of each, the kink at zero for ReLU, and shade the negative half-plane where ReLU is flat.</p><p><strong>Shape facts worth sketching beside the formulas.</strong> ReLU crosses the origin, has a kink there (left derivative 0, right derivative 1), and is therefore not differentiable at exactly zero — implementations take a subgradient. tanh crosses the origin smoothly with slope 1 and flattens to ±1; sigmoid flattens to 0 and 1. <strong>Practical guidance to add:</strong> pair ReLU with He weight initialisation (variance 2/fan-in) to avoid immediately killing units, and use a small learning rate or batch normalisation to prevent activations from exploding on the unbounded positive side. <strong>Common mistake:</strong> saying tanh is 'always better than sigmoid because it is zero-centred' without mentioning that both saturate; the honest answer is that zero-centring helps optimisation but does not remove saturation, which is why ReLU displaced both.</p></div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 4 (CO4) — Clustering</h2><span class="meta">4 questions</span></div>
+
+    <div class="q" id="c4q1">
+      <div class="qto"><span class="qnum">CO4 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Which similarity measure could compare feature vectors of two images? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Cosine similarity</b> (dot product of the two vectors divided by their magnitudes) is a strong choice for image feature vectors. Image features (e.g. bag-of-visual-words, CNN embeddings) are often high-dimensional and the <i>direction</i> of the vector matters more than its magnitude (brightness/scale differences shouldn't dominate). Cosine ignores magnitude and compares orientation, so two images of the same scene at different exposures score high. Euclidean distance is an alternative when absolute pixel differences matter.</span></div>
+<p><strong>Why cosine is a good default for image features.</strong> Cosine similarity is defined as cos θ = (u·v)/(‖u‖‖v‖); it is the dot product normalised by both magnitudes, so it depends only on the angle between vectors. Image descriptors such as bag-of-visual-words histograms, HOG and CNN embeddings are high-dimensional, and their direction encodes the semantic content while their magnitude often encodes nuisance factors (exposure, contrast, image size). Cosine removes that magnitude, so two pictures of the same object at different brightness still score near 1. <strong>Alternatives and when to use them:</strong> Euclidean distance is simpler and is appropriate when absolute pixel differences matter (e.g. comparing raw aligned images); Manhattan (L1) is more robust to outliers; for learned embeddings, normalised Euclidean is mathematically equivalent to cosine ranking. <strong>Worked intuition:</strong> for u = (1,0,0) and v = (5,0,0) (same direction, different brightness), cosine = 1 while Euclidean = 4 — cosine correctly treats them as the same scene. <strong>Common mistakes:</strong> forgetting to divide by the norms (that is just a dot product), or using cosine when the vectors can be zero (undefined). Mention that for histogram features one can also use histogram intersection or chi-square distance.</p>
+<div class="exam-content">
+<span class="subhead">Worked comparison — Euclidean vs Manhattan on the same vectors</span>
+<div class="formula">p = (22, 1, 42, 10) ,  q = (20, 0, 36, 8)
+Per-coordinate absolute differences:
+   |22−20| = 2 ,  |1−0| = 1 ,  |42−36| = 6 ,  |10−8| = 2
+
+Euclidean (L2):  d = √(2² + 1² + 6² + 2²)
+                   = √(4 + 1 + 36 + 4)
+                   = √45 ≈ 6.708
+Manhattan (L1):  d = 2 + 1 + 6 + 2 = 11
+Euclidean is the straight-line, differentiable default for image features;
+Manhattan sums axis-wise differences and is more robust to one large change.</div>
+
+<span class="subhead">Worked example — PCA direction on collinear 2-D data</span>
+<div class="formula">Centred points: (−2,−6), (−1,−3), (1,3), (3,9) — all lie on y = 3x
+Direction vector of the line: (1, 3)
+Its norm: √(1² + 3²) = √10
+Unit first principal component: v = (1, 3)/√10
+1-D score z = v·x :
+   (−2,−6): ((−2)(1) + (−6)(3))/√10 = −20/√10 ≈ −6.325
+   (−1,−3): −10/√10 ≈ −3.162
+   (3, 9) : 30/√10 ≈ 9.487
+All variance lies along one axis → a single PC captures 100% of the variance.</div>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="c4q2">
+      <div class="qto"><span class="qnum">CO4 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Illustrate the strength and weakness of the k-means algorithm.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Strengths:</b> simple, fast (linear in N, D, k, iterations), scales to large datasets, easy to interpret (centroids are prototypes).</span></div>
+<div class="ansrow"><span class="k">Weaknesses</span><span class="v">must choose k in advance; sensitive to initial centres (can settle in a local optimum — hence k-means++ initialisation); assumes spherical, similarly-sized, equal-variance clusters (fails on elongated or varying-density clusters); sensitive to outliers; only works for Euclidean-ish distances; every point forced into one cluster (no "noise" class).</span></div>
+<p><strong>Strengths, with reasons.</strong> K-means minimises the within-cluster sum of squares J = ΣₖΣ_{x∈Cₖ}‖x−μₖ‖² by alternating assignment and update steps. Each step decreases J, so convergence is guaranteed (to a local, not global, optimum). Cost per iteration is O(NKd), linear in the number of points, clusters and dimensions, so it scales to millions of points; the centroids are interpretable as prototypes; and it works with any squared-Euclidean data. <strong>Weaknesses, with reasons.</strong> (1) K must be chosen in advance — use the elbow method or silhouette score. (2) It is sensitive to initialisation: different seeds can reach different local minima, mitigated by k-means++ and multiple restarts. (3) It implicitly assumes spherical, similarly sized, equal-variance clusters: on elongated or varying-density blobs it cuts them unnaturally, and DBSCAN or GMMs are better. (4) It is not robust to outliers — a single extreme point can pull a mean; use k-medoids with Manhattan distance. (5) Hard assignment forces every point into a cluster with no 'noise' label. (6) It needs Euclidean geometry, so categorical data requires k-modes. <strong>Exam structure:</strong> state the objective first, give three strengths and three weaknesses with the reason for each, and close with the k-means++ / elbow remedies for full marks.</p></div></div>
+    </div>
+
+    <div class="q" id="c4q3">
+      <div class="qto"><span class="qnum">CO4 · Q3</span><span class="qmark">10 marks</span></div>
+      <span class="qtext">Apply k-means (Manhattan distance, k=3) to the eight given points with initial clusters C1={x1,x2,x3}, C2={x4,x5,x6}, C3={x7,x8}, until convergence.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">With Manhattan distance the centre that minimises within-cluster cost is the coordinate-wise <b>median</b>, not the mean. Iterating assign → update converges; the exam-quoted centroid version gives <b>(11/3, 9) ≈ (3.667, 9), (7, 13/3) ≈ (7, 4.33), (1.5, 3.5)</b>.</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — State the general rule before touching the data</span>
+<div class="formula">Manhattan (L1) distance:   d(u, v) = |u₁ − v₁| + |u₂ − v₂|
+Within-cluster cost:       J(c) = Σ_{x∈C} ( |x₁ − c₁| + |x₂ − c₂| )
+L1 minimiser = coordinate-wise median:
+    c₁ = median{ x₁ : x ∈ C }
+    c₂ = median{ x₂ : x ∈ C }
+(Arithmetic mean is the L2 optimum, NOT the L1 optimum.)
+Repeat:  assign each point to the nearest centre, then update each centre.
+Stop when no point changes cluster (J cannot increase, and J ≥ 0).</div>
+
+<span class="subhead">Step 2 — Initialisation from the given clusters</span>
+<div class="formula">C1 = {x1, x2, x3} ,  C2 = {x4, x5, x6} ,  C3 = {x7, x8}
+Numeric instance (same eight points as CO4·Q4):
+A1(2,10)  A2(2,5)  A3(8,4)  A4(5,8)  A5(7,5)  A6(6,4)  A7(1,2)  A8(4,9)</div>
+
+<span class="subhead">Step 3 — Assignment: one Manhattan distance per point, per centre</span>
+<div class="formula">d(A1, c1) = |2−2| + |10−10| = 0 + 0 = 0
+d(A1, c2) = |2−5| + |10−8| = 3 + 2 = 5
+d(A1, c3) = |2−1| + |10−2| = 1 + 8 = 9   → A1 joins C1 (smallest, 0)
+
+d(A8, c1) = |4−2| + |9−10| = 2 + 1 = 3
+d(A8, c2) = |4−5| + |9−8|  = 1 + 1 = 2
+d(A8, c3) = |4−1| + |9−2|  = 3 + 7 = 10  → A8 joins nearest centre
+
+Tie rule: choose the smallest cluster index (C1 before C2 before C3).</div>
+
+<span class="subhead">Step 4 — Update: compute each centre as a median, explicitly</span>
+<div class="formula">For cluster members {(2,10), (8,4), (4,9)}:
+   x-values sorted: 2, 4, 8  → median = 4
+   y-values sorted: 4, 9, 10 → median = 9
+   centre = (4, 9)
+
+For cluster members {(5,8), (7,5), (6,4)}:
+   x-values sorted: 5, 6, 7 → median = 6
+   y-values sorted: 4, 5, 8 → median = 5
+   centre = (6, 5)
+
+For cluster members {(2,5), (1,2)}:
+   x-values sorted: 1, 2 → even count → median = (1+2)/2 = 1.5
+   y-values sorted: 2, 5 → even count → median = (2+5)/2 = 3.5
+   centre = (1.5, 3.5)</div>
+
+<span class="subhead">Step 5 — Quoted centroid (arithmetic-mean) reference, fully worked</span>
+<div class="formula">The exam guide quotes the mean-update variant. Its memberships are:
+C1 = {A1(2,10), A4(5,8), A8(4,9)}
+C2 = {A3(8,4), A5(7,5), A6(6,4)}
+C3 = {A2(2,5), A7(1,2)}
+
+C1 centre:  x = (2 + 5 + 4)/3 = 11/3 ≈ 3.667
+            y = (10 + 8 + 9)/3 = 27/3 = 9
+            → (11/3, 9) ≈ (3.667, 9)
+
+C2 centre:  x = (8 + 7 + 6)/3 = 21/3 = 7
+            y = (4 + 5 + 4)/3 = 13/3 ≈ 4.33
+            → (7, 13/3) ≈ (7, 4.33)
+
+C3 centre:  x = (2 + 1)/2 = 3/2 = 1.5
+            y = (5 + 2)/2 = 7/2 = 3.5
+            → (1.5, 3.5)</div>
+
+<span class="subhead">Step 6 — Second worked instance: k = 2 on the ten points</span>
+<div class="formula">Data: (2,0) (1,2) (2,2) (3,2) (2,3) (3,3) (2,4) (3,4) (4,4) (3,5)
+Farthest-apart seeds: c1 = (2,0), c2 = (3,5)
+   separation = √[(3−2)² + (5−0)²] = √(1 + 25) = √26 ≈ 5.1
+
+Round 1 assignments (Euclidean, nearer centre):
+   C1 = {(2,0), (1,2), (2,2), (3,2)}
+   C2 = {(2,3), (3,3), (2,4), (3,4), (4,4), (3,5)}
+   (note (3,2) → C1 and (2,3) → C2: d²((3,2),c1) = 1+4 = 5
+    beats d²((3,2),c2) = 0+9 = 9, while d²((2,3),c1) = 0+9 = 9
+    loses to d²((2,3),c2) = 1+4 = 5)
+
+Update C1 (arithmetic mean of its members):
+   x̄ = (2+1+2+3)/4 = 8/4 = 2
+   ȳ = (0+2+2+2)/4 = 6/4 = 1.5
+   → (2, 1.5)
+Update C2 (arithmetic mean of its members):
+   x̄ = (2+3+2+3+4+3)/6 = 17/6 ≈ 2.833
+   ȳ = (3+3+4+4+4+5)/6 = 23/6 ≈ 3.833
+   → (17/6, 23/6) ≈ (2.833, 3.833)
+
+Round 2: every point keeps its cluster → converged.
+Final centres: (2, 1.5) and (17/6, 23/6).</div>
+</div>
+<p><strong>Interpretation.</strong> The three-group solution separates the eight points into a high-x/high-y group, a middle group and a low group; the quoted centres (3.667, 9), (7, 4.33) and (1.5, 3.5) are the arithmetic means of those memberships, while the L1-median centres (4, 9), (6, 5), (1.5, 3.5) are the correct answer when Manhattan distance is enforced. The k = 2 run shows why seeding matters: far-apart initial centres recover the two natural blobs in a single iteration. <strong>Common mistakes:</strong> using the mean with L1 distance, reassigning with stale centres, or omitting the second-iteration check that proves convergence.</p>
+
+<div class="exam-content">
+<span class="subhead">Algorithm — k-means with Manhattan distance (write as a numbered procedure)</span>
+<ol class="step-list">
+<li>Initialise K = 3 centroids from the given clusters C1, C2, C3.</li>
+<li>For every point compute d(x, c) = |x₁ − c₁| + |x₂ − c₂| to all three centroids.</li>
+<li>Assign the point to the centroid with the smallest distance; break ties by the smallest cluster index.</li>
+<li>Recompute each centroid as the coordinate-wise median of its members (the L1 optimum), using (a+b)/2 for an even count.</li>
+<li>Repeat steps 2–4 until no membership changes; state the final centres and memberships.</li>
+</ol>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="c4q4">
+      <div class="qto"><span class="qnum">CO4 · Q4</span><span class="qmark">10 marks</span></div>
+      <span class="qtext">Cluster A1(2,10), A2(2,5), A3(8,4), A4(5,8), A5(7,5), A6(6,4), A7(1,2), A8(4,9) into three clusters with initial centres A1(2,10), A4(5,8), A7(1,2). Manhattan distance. Find the centres after the second iteration.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c4a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c4a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c4a4" role="region">
+<div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">With Manhattan (L1) distance, the coherent centre of a cluster is the coordinate-wise median. Starting from A1(2,10), A4(5,8), A7(1,2): after round 1 the centres are (2,10), (6,5), (1.5,3.5); after round 2 they are (3,9.5), (6.5,4.5), (1.5,3.5).</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — State the rule before touching the data</span>
+<div class="formula">Manhattan distance:  d(p,c) = |p₁ − c₁| + |p₂ − c₂|
+Assign each point to the centre with the smallest d.
+L1 objective:  J(c) = Σ_{x∈C} ( |x₁ − c₁| + |x₂ − c₂| )
+The L1 minimiser is the coordinate-wise median (not the mean):
+   c₁ = median of member x-values,  c₂ = median of member y-values
+For an even count with middle values a, b use (a + b)/2.
+Initial centres: c1 = (2,10),  c2 = (5,8),  c3 = (1,2).</div>
+
+<span class="subhead">Step 2 — Round 1: write every Manhattan distance</span>
+<div class="formula">From c1 = (2,10):
+A1 → |2−2|+|10−10| = 0     A2 → |2−2|+|5−10|  = 5
+A3 → |8−2|+|4−10|  = 12    A4 → |5−2|+|8−10|  = 5
+A5 → |7−2|+|5−10|  = 10    A6 → |6−2|+|4−10|  = 10
+A7 → |1−2|+|2−10|  = 9     A8 → |4−2|+|9−10|  = 3
+
+From c2 = (5,8):
+A1 → |2−5|+|10−8| = 5     A2 → |2−5|+|5−8|  = 6
+A3 → |8−5|+|4−8|  = 7     A4 → |5−5|+|8−8|  = 0
+A5 → |7−5|+|5−8|  = 5     A6 → |6−5|+|4−8|  = 5
+A7 → |1−5|+|2−8|  = 10    A8 → |4−5|+|9−8|  = 2
+
+From c3 = (1,2):
+A1 → |2−1|+|10−2| = 9     A2 → |2−1|+|5−2|  = 4
+A3 → |8−1|+|4−2|  = 9     A4 → |5−1|+|8−2|  = 10
+A5 → |7−1|+|5−2|  = 9     A6 → |6−1|+|4−2|  = 7
+A7 → |1−1|+|2−2|  = 0     A8 → |4−1|+|9−2|  = 10
+
+Nearest assignments: C1 = {A1},  C2 = {A3, A4, A5, A6, A8},  C3 = {A2, A7}.</div>
+
+<span class="subhead">Step 3 — Round 1: recompute each centre as a median</span>
+<div class="formula">C1 = {A1(2,10)}:  c1 = (2, 10)
+C2 = {A3(8,4), A4(5,8), A5(7,5), A6(6,4), A8(4,9)}:
+   x-values 8, 5, 7, 6, 4 → sorted 4, 5, 6, 7, 8 → median 6
+   y-values 4, 8, 5, 4, 9 → sorted 4, 4, 5, 8, 9 → median 5
+   c2 = (6, 5)
+C3 = {A2(2,5), A7(1,2)}:
+   x-values 2, 1 → (2+1)/2 = 1.5 ;  y-values 5, 2 → (5+2)/2 = 3.5
+   c3 = (1.5, 3.5)</div>
+
+<span class="subhead">Step 4 — Round 2: reassign using the NEW centres</span>
+<div class="formula">New centres: c1 = (2,10), c2 = (6,5), c3 = (1.5,3.5)
+A1(2,10): d1 = 0,  d2 = 9,  d3 = 7    → C1
+A2(2,5) : d1 = 5,  d2 = 4,  d3 = 2    → C3
+A3(8,4) : d1 = 12, d2 = 3,  d3 = 7    → C2
+A4(5,8) : d1 = 5,  d2 = 4,  d3 = 8    → C2
+A5(7,5) : d1 = 10, d2 = 1,  d3 = 7    → C2
+A6(6,4) : d1 = 10, d2 = 1,  d3 = 5    → C2
+A7(1,2) : d1 = 9,  d2 = 8,  d3 = 2    → C3
+A8(4,9) : d1 = 3,  d2 = 6,  d3 = 8    → C1
+
+Round-2 assignments: C1 = {A1, A8}, C2 = {A3, A4, A5, A6}, C3 = {A2, A7}.</div>
+
+<span class="subhead">Step 5 — Round 2: update centres again</span>
+<div class="formula">C1 = {A1(2,10), A8(4,9)}:
+   x-values 2, 4 → (2+4)/2 = 3 ;  y-values 10, 9 → (10+9)/2 = 9.5
+   c1 = (3, 9.5)
+C2 = {A3(8,4), A4(5,8), A5(7,5), A6(6,4)}:
+   x-values 8, 5, 7, 6 → sorted 5, 6, 7, 8 → (6+7)/2 = 6.5
+   y-values 4, 8, 5, 4 → sorted 4, 4, 5, 8 → (4+5)/2 = 4.5
+   c2 = (6.5, 4.5)
+C3 = {A2(2,5), A7(1,2)}:  c3 = (1.5, 3.5)
+
+FINAL (median / L1): centres (3, 9.5), (6.5, 4.5), (1.5, 3.5).</div>
+
+<div class="note">If your course uses the arithmetic mean for the centre update (the common exam convention with Euclidean distance), the same assignments give round-1 centres (2,10), (6,6), (1.5,3.5) and round-2 centres (3,9.5), (6.5,5.25), (1.5,3.5). State which convention you are using; never mix the two.</div>
+</div>
+</div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Course Outcome 5 (CO5) — Ensemble &amp; Evaluation</h2><span class="meta">5 questions</span></div>
+
+    <div class="q" id="c5q1">
+      <div class="qto"><span class="qnum">CO5 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What is ensemble learning? Can an ensemble of linear classifiers learn a linearly non-separable set?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Ensemble learning</b> combines multiple base models ("weak learners") into one stronger model — the idea that many modest models beat a single complex one (wisdom of crowds, reduced variance/bias). <b>Yes</b> — an ensemble of linear classifiers (e.g. boosted linear models, or averaging several linear separators) can represent a non-linear, non-separable decision boundary. Example: a majority vote of several lines can carve out a region that no single line can. (This is why boosted stumps — depth-1 trees — can learn any boundary.)</span></div>
+<p><strong>How an ensemble of linear models creates a non-linear boundary.</strong> A single linear classifier has a half-space decision region. A majority vote of several half-spaces produces an intersection/union of half-spaces: for example, two lines can carve a wedge, three can form a triangle, and many can approximate any convex polygon; combining boosted stumps (axis-aligned thresholds) yields a union of boxes that can fit an arbitrarily complex boundary given enough members. Formally, boosting adds weak learners hₜ(x) with weights αₜ and returns H(x) = sign(Σαₜhₜ(x)); the sum is a single non-linear function of x even though each hₜ is linear. <strong>Why ensembles work:</strong> bagging reduces variance by averaging decorrelated models (variance σ²[ρ + (1−ρ)/B] for B averaged models), while boosting reduces bias by fitting successive learners to the residuals or reweighted errors. Random forests decorrelate trees by random feature subsets. <strong>Conditions:</strong> base learners must be diverse and at least slightly better than random; highly correlated errors give no gain. <strong>Examples:</strong> AdaBoost on depth-1 decision stumps, random forest, gradient-boosted trees, and voting SVMs. <strong>Common mistake:</strong> claiming an <em>average</em> of linear models can create a non-linear boundary — a plain average of linear functions is still linear; it is the thresholded vote / weighted combination with non-linear base learners such as stumps that yields non-linearity. State that nuance to earn the distinction mark.</p></div></div>
+    </div>
+
+    <div class="q" id="c5q2">
+      <div class="qto"><span class="qnum">CO5 · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Describe boosting. What is its relation to ensemble learning?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Boosting</b> is a sequential ensemble method: it trains weak learners one after another, each new learner focusing on the examples the previous ones got wrong (re-weighting misclassified points). Final prediction = weighted vote of all learners. <b>Relation:</b> boosting <i>is</i> an ensemble method — specifically an ensemble that builds learners sequentially and combines them, as opposed to bagging/random forests which build them in parallel and average.</span></div>
+<p><strong>AdaBoost made concrete.</strong> Start with uniform weights D₁(i) = 1/N. For t = 1…T: train a weak learner hₜ on the weighted data; compute its weighted error εₜ = Σᵢ Dₜ(i)[hₜ(xᵢ) ≠ yᵢ]; set αₜ = ½ ln((1−εₜ)/εₜ) (higher α for more accurate learners); update Dₜ₊₁(i) ∝ Dₜ(i)·exp(−αₜ yᵢ hₜ(xᵢ)), which increases the weight of misclassified points; finally H(x) = sign(Σαₜhₜ(x)). Each round forces the next learner to focus on the examples the ensemble so far got wrong. <strong>Bagging contrast:</strong> bagging draws B bootstrap samples, trains B independent learners in parallel, and averages/votes; it targets variance, works best with unstable high-variance learners like deep trees, and can be parallelised. Boosting targets bias, is sequential, and works even with weak (but &gt;50% accurate) learners. <strong>Relation to the ensemble family:</strong> both are ensembles; stacking is a third variant that learns a meta-learner to combine base predictions. <strong>Practical caveats:</strong> boosting can overfit noisy labels because it keeps trying to fit outliers; use a validation set to choose T, shrink α with a learning rate, and note that exponential-loss AdaBoost is sensitive to label noise whereas gradient boosting with logistic loss is more robust. <strong>Common mistake:</strong> saying boosting trains learners on random subsets — that is bagging; boosting re-weights the <em>same</em> data.</p></div></div>
+    </div>
+
+    <div class="q" id="c5q3">
+      <div class="qto"><span class="qnum">CO5 · Q3</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Classifier A: 100% train, 70% test. Classifier B: 70% train, 75% test. Which is better? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>B is better.</b> A overfits (100% train vs 70% test — huge gap, it memorised training data, poor generalisation). B generalises (75% test ≥ 70% train — small gap, works on unseen data). The goal of a model is performance on new data, so test accuracy is what matters. B wins despite lower training accuracy.</span></div>
+<p><strong>Full reasoning.</strong> The only quantity that predicts future performance is the test (generalisation) accuracy. Classifier A has a 100% training accuracy but only 70% test accuracy — a 30-point gap — which is the signature of overfitting: it has memorised noise and idiosyncrasies of the training set rather than learning the underlying rule. Classifier B has 70% training and 75% test accuracy; the test score is not lower than the training score (the small reversal is ordinary sampling variation or an easier test split), and the near-zero gap indicates it has learned a stable pattern that transfers. Therefore <b>B is better</b>. <strong>Why the gap matters more than the raw training number:</strong> training accuracy can be driven arbitrarily high by increasing model complexity; what cannot be faked is performance on held-out data. <strong>What to do about A:</strong> regularise (L1/L2, dropout, pruning), gather more data, reduce features, use early stopping, or use cross-validation to select complexity — all shifts A toward the bias–variance sweet spot. <strong>Subtlety to mention:</strong> if the test set is small, a 5-point difference may not be statistically significant; a confidence interval or paired test would be ideal. <strong>Common mistake:</strong> choosing A because '100% is better than 70%' — that conflates fitting with generalisation and is the central error this question tests.</p></div></div>
+    </div>
+
+    <div class="q" id="c5q4">
+      <div class="qto"><span class="qnum">CO5 · Q4</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What are ROC space and the ROC curve? Which points are perfect prediction, always-positive, and always-negative? Why?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a4" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>ROC space</b> plots classifiers by FPR (x-axis) vs TPR (y-axis). The <b>ROC curve</b> traces a classifier's TPR/FPR as its decision threshold is varied. <b>Perfect prediction:</b> (0,1) — zero false positives, all true positives. <b>Always-positive:</b> (1,1) — every point predicted positive, so all positives caught (TPR=1) but all negatives also wrong (FPR=1). <b>Always-negative:</b> (0,0) — nothing predicted positive, so TPR=0 and FPR=0. The diagonal (0,0)→(1,1) is random guessing.</span></div>
+<p><strong>Definitions and geometry.</strong> In ROC space the horizontal axis is the false-positive rate FPR = FP/(FP+TN) and the vertical axis is the true-positive rate TPR = TP/(TP+FN) (also called sensitivity or recall). Each point represents a classifier at a fixed threshold; the ROC <em>curve</em> is the locus of points obtained by sweeping the threshold from strict (few positives predicted) to lax (many predicted), and its area is AUC. <strong>Named points:</strong> (0,1) is the perfect classifier — every positive found, no negative wrongly accepted. (1,1) is 'always predict positive': TPR = TP/(TP+FN) = 1 because all positives are caught, but FPR = FP/(FP+TN) = 1 because every negative is also called positive. (0,0) is 'always predict negative': nothing is called positive, so both rates are 0. The diagonal TPR = FPR is random guessing; points above it are better than chance, below it are worse (inverting the decision would put them above). <strong>Why no threshold-independent single point exists:</strong> TPR and FPR trade off against each other, so one must choose an operating point from the curve using domain costs — e.g. a cancer screening test favours high TPR, while spam filtering favours low FPR. <strong>Common mistakes:</strong> swapping the axes, confusing TPR with precision TP/(TP+FP), or claiming the always-positive classifier has TPR=0. A convex hull of ROC points and the diagonal baseline are useful additions for full marks.</p>
+<div class="exam-content">
+<span class="subhead">Worked confusion-matrix metrics — small example</span>
+<div class="formula">TP = 3 , FP = 1 , FN = 2 , TN = 2
+Accuracy  = (TP+TN)/N = (3+2)/8 = 5/8 = 0.625
+Precision = TP/(TP+FP) = 3/4 = 0.75
+Recall    = TP/(TP+FN) = 3/5 = 0.60
+F1        = 2PR/(P+R) = 2(0.75)(0.60)/(0.75+0.60) = 0.9/1.35 ≈ 0.667</div>
+
+<span class="subhead">Worked metrics — information-retrieval example</span>
+<div class="formula">N = 80 , relevant = 55 , retrieved = 50 , relevant &amp; retrieved = 40
+TP = 40 , FP = 50−40 = 10 , FN = 55−40 = 15 , TN = 80−40−10−15 = 15
+Precision = TP/(TP+FP) = 40/50 = 0.80
+Recall    = TP/(TP+FN) = 40/55 ≈ 0.727
+F1 = 2(0.80)(0.727)/(0.80+0.727) ≈ 0.762</div>
+
+<span class="subhead">Worked metrics — imbalanced flu-test example</span>
+<div class="formula">TP = 620 , FN = 380 , FP = 180 , TN = 8,820 , N = 10,000
+Accuracy  = (620 + 8,820)/10,000 = 9,440/10,000 = 0.944
+Precision = 620/(620+180) = 620/800 = 0.775
+Recall    = 620/(620+380) = 620/1,000 = 0.62
+FPR       = 180/(180+8,820) = 180/9,000 = 0.02
+Specificity = 1 − FPR = 0.98
+Operating point (FPR, TPR) = (0.02, 0.62); accuracy alone is misleading
+because 90% of patients are healthy (always-negative scores 0.90).</div>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="c5q5">
+      <div class="qto"><span class="qnum">CO5 · Q5</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Three classifiers with (FPR, TPR): A(0,1), B(1,1), C(1,0.5). Which is perfect? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="c5a5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('c5a5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="c5a5" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>A(0,1) is perfect</b> — it sits at the ideal corner: FPR=0 (no false alarms) and TPR=1 (catches all positives). B(1,1) is always-positive (no discriminative power), C(1,0.5) is worse than random on the useful side (half the positives caught but every negative wrong). A dominates.</span></div>
+<p><strong>Comparing the three operating points.</strong> A = (0,1) is perfect: FPR = 0 means no false alarms and TPR = 1 means every positive is detected — the upper-left corner of ROC space. B = (1,1) is the 'always positive' rule: it catches every positive but flags every negative too, so it has no discriminative power; it lies on the diagonal's right end and has AUC-equivalent performance to chance if used blindly. C = (1,0.5) is dominated: it flags every negative as positive while finding only half the positives, so it lies strictly below the random-guessing diagonal at that FPR and is worse than useless (flipping its decisions yields (0, 0.5), which is still mediocre). <strong>Dominance rule:</strong> a classifier A dominates B if FPR_A ≤ FPR_B and TPR_A ≥ TPR_B with at least one strict inequality; A dominates both B and C here. <strong>AUC / cost view:</strong> a point's usefulness depends on the cost ratio of false positives to false negatives; if false alarms are very cheap one might tolerate high FPR, but C still loses to A at every cost. <strong>Common mistakes:</strong> calling B perfect because TPR = 1 (ignore FPR), or treating C as 'better than random' because TPR = 0.5 — at FPR = 1 the random baseline is also TPR = 1, so C is below chance.</p></div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Model Question Paper — Part A (3 marks each, answer all)</h2><span class="meta">10 questions</span></div>
+
+    <div class="q" id="mp1">
+      <div class="qto"><span class="qnum">Part A · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Define supervised learning. Name special cases depending on whether inputs/outputs are categorical or continuous.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Supervised learning learns a mapping from inputs X to outputs Y from <b>labelled</b> training data (each example has the correct answer). Two special cases by output type: <b>classification</b> — output is categorical (e.g. spam/not-spam); <b>regression</b> — output is continuous (e.g. predict house price). (Inputs being categorical vs continuous describes the feature type, not the learning task.)</span></div>
+<p><strong>Full definition and taxonomy.</strong> Supervised learning uses a training set of labelled pairs {(xᵢ, yᵢ)} to learn a function f: X → Y that maps new inputs to correct outputs. The 'supervision' is the known target y provided by a teacher. The special cases are determined by the <em>output</em> type: classification when y is categorical (spam/ham, digit 0–9), regression when y is continuous (price, temperature). The <em>input</em> type may be continuous (image pixels, measurements) or categorical (words, colour), and this is described independently — e.g. text classification has categorical inputs and a categorical output. A third supervised setting is structured prediction (sequences, trees). <strong>Contrast:</strong> unsupervised learning receives only X and finds hidden structure (clusters, principal components); reinforcement learning receives rewards instead of correct outputs. <strong>Evaluation:</strong> classification uses accuracy, precision/recall, F1, ROC-AUC; regression uses MSE, RMSE, MAE, R². <strong>Common mistakes:</strong> saying supervised learning requires labelled <em>and</em> unlabelled data (that is semi-supervised), or classifying the task by the input type rather than the output.</p></div></div>
+    </div>
+
+    <div class="q" id="mp2">
+      <div class="qto"><span class="qnum">Part A · Q2</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Differentiate between Maximum Likelihood Estimation (MLE) and Maximum A Posteriori (MAP) estimation.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>MLE</b> chooses the parameter that maximises the likelihood of the observed data P(data | θ) — purely data-driven, no prior. <b>MAP</b> chooses the parameter that maximises the <i>posterior</i> P(θ | data) ∝ P(data | θ)·P(θ) — it adds a <b>prior</b> belief P(θ). MLE = MAP with a uniform prior. MAP is the Bayesian view (folds in prior knowledge); MLE is the frequentist view (let the data speak).</span></div>
+<p><strong>Equations and consequences.</strong> MLE: θ̂ = argmax_θ P(D | θ) = argmax_θ ∏ᵢ p(xᵢ | θ); taking logs gives Σ log p(xᵢ | θ). MAP: θ̂ = argmax_θ P(θ | D) = argmax_θ [log P(D | θ) + log P(θ)]. The extra log-prior term is the only difference: it pulls the estimate toward the prior mean, acting as regularisation. <strong>Worked illustration:</strong> for Gaussian data with unknown mean and a Gaussian prior, MLE gives x̄ while MAP gives a precision-weighted average of x̄ and the prior mean ν; as N → ∞ or as the prior variance → ∞, MAP → MLE. <strong>Frequentist vs Bayesian:</strong> MLE treats θ as a fixed unknown and lets the data speak; MAP treats θ as a random variable with a prior and gives the mode of the posterior. Full Bayes goes further and keeps the entire posterior rather than only its mode. <strong>Regulariser correspondence:</strong> Gaussian prior ↔ L2 / ridge; Laplace prior ↔ L1 / lasso. <strong>Common mistakes:</strong> writing MAP as maximising P(θ) alone, forgetting the log turns the product into a sum, or claiming MLE always needs a prior. State that with a uniform prior MAP = MLE, and that MLE can overfit small samples while MAP is more stable.</p></div></div>
+    </div>
+
+    <div class="q" id="mp3">
+      <div class="qto"><span class="qnum">Part A · Q3</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">What is overfitting and why is it a problem?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Overfitting</b> is when a model learns the training data (including its noise and quirks) so well that it performs badly on new, unseen data. The gap between training accuracy and test accuracy is large. It is a problem because the whole point of ML is to <b>generalise</b> to new data; an overfit model has memorised instead of learned the underlying pattern, so it fails in practice.</span></div>
+<p><strong>Diagnosis and remedy.</strong> Overfitting occurs when the model captures the noise and sampling quirks of the training set in addition to the signal, so the training error keeps falling while the validation/test error rises. The diagnostic is a large gap between training and test performance (e.g. 100% train vs 70% test). Its cause is excess capacity relative to the amount of data: a high-degree polynomial or a deep unpruned tree can interpolate any sample. <strong>Why it matters:</strong> the purpose of a model is to generalise to unseen cases; an overfit model has memorised, not learned, so it fails in deployment — e.g. a spam filter that keys on a few words present only in the training emails. <strong>Prevention:</strong> regularisation (L1/L2), pruning, dropout, data augmentation, early stopping, fewer features, more training data, and k-fold cross-validation to choose complexity. <strong>Opposite failure:</strong> underfitting is high bias — too simple to capture the trend; both training and test errors are high. <strong>Bias–variance framing:</strong> expected error = bias² + variance + noise; overfitting is the high-variance end, underfitting the high-bias end, and the goal is the sweet spot. <strong>Common mistake:</strong> calling a low training error by itself 'good' — always ask about the held-out error and the gap.</p></div></div>
+    </div>
+
+    <div class="q" id="mp4">
+      <div class="qto"><span class="qnum">Part A · Q4</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Specify the basic principle of the gradient descent algorithm.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa4" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Gradient descent minimises a loss/cost function J(θ) by iteratively moving the parameters <b>down the slope</b>: θ ← θ − η·∇J(θ), where η is the learning rate and ∇J is the gradient. It takes small steps opposite to the gradient (the direction of steepest increase), so each step reduces the cost. Repeat until the gradient is ~0 (a minimum). Learning rate too big → overshoot/diverge; too small → slow.</span></div>
+<p><strong>Update rule and intuition.</strong> Gradient descent minimises a differentiable cost J(θ) by repeating θ ← θ − η∇J(θ). The gradient ∇J points in the direction of steepest increase, so subtracting it moves downhill; η (learning rate) controls step size. The process stops when ‖∇J‖ is below a tolerance or the cost change is negligible. <strong>Variants:</strong> batch gradient descent uses all N examples per step (accurate but slow), stochastic GD uses one example (fast, noisy), and mini-batch GD uses a small batch (the practical compromise, plus it exploits GPU parallelism). <strong>Learning-rate effects:</strong> too large and the iterate overshoots the minimum and diverges (cost oscillates or grows); too small and convergence is very slow or stalls. Momentum, Adam and RMSProp adapt the effective step size per parameter. <strong>Convex vs non-convex:</strong> for convex J (linear/logistic regression) gradient descent reaches the global minimum; for neural networks it reaches a local minimum or saddle point. <strong>Feature scaling matters:</strong> unscaled features give elongated contours and a zig-zag path; standardising speeds convergence. <strong>Common mistakes:</strong> adding the gradient (that would maximise), using the raw loss rather than its gradient, or omitting the learning rate.</p></div></div>
+    </div>
+
+    <div class="q" id="mp5">
+      <div class="qto"><span class="qnum">Part A · Q5</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Linear SVM binary classifier. A point is correctly classified and far from the decision boundary. If you remove it and re-train, does the boundary change? Justify.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa5" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>No, it stays the same.</b> The SVM's decision boundary depends only on the <b>support vectors</b> — points on (or inside) the margin. A point that is correctly classified and far from the boundary is <i>not</i> a support vector, so removing it changes neither the margin nor the solution. The boundary is identical.</span></div>
+<p><strong>Why the boundary is unchanged.</strong> For a hard-margin SVM the solution is w = Σαᵢyᵢxᵢ with αᵢ = 0 for all points that are not support vectors. A point that is correctly classified and far from the boundary satisfies yᵢ(w·xᵢ + b) &gt; 1 strictly, so its KKT multiplier αᵢ = 0 and it contributes nothing to w. Removing it leaves the optimisation problem (and hence the optimal hyperplane) identical. <strong>Soft-margin version:</strong> for such a point the slack ξᵢ = 0 and αᵢ = 0 as well, so the conclusion holds. Only support vectors (αᵢ &gt; 0) and, in the soft-margin case, points inside the margin (0 &lt; αᵢ &lt; C) can move the boundary. <strong>Contrast with other models:</strong> k-NN and naive Bayes depend on every point; removing a far point from a linear-regression fit generally changes the coefficients. <strong>Exam nuance:</strong> add the caveat 'provided the point is genuinely not a support vector and the remaining data still admit the same optimum' — degeneracies aside, the answer is no. <strong>Common mistake:</strong> saying the boundary shifts slightly because the training set changed — the defining sparsity of the SVM rules that out.</p></div></div>
+    </div>
+
+    <div class="q" id="mp6">
+      <div class="qto"><span class="qnum">Part A · Q6</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Mention the primary motivation for using the kernel trick.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa6" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa6').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa6" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">To get the power of a <b>very high (even infinite) dimensional feature space</b> for non-linear classification <b>without ever computing the mapping explicitly</b>. The kernel computes the required dot products in feature space directly and cheaply, so training stays tractable while the model captures complex, non-linear boundaries.</span></div>
+<p><strong>Detailed motivation.</strong> Many datasets are not linearly separable in the input space but become separable after mapping into a richer feature space φ(x). The kernel trick replaces every inner product φ(x)·φ(z) in the dual SVM formulation with a kernel function K(x,z) that evaluates that inner product implicitly. For the RBF kernel K = exp(−‖x−z‖²/2σ²) the feature space is infinite-dimensional, so an explicit map cannot even be written down; for a polynomial kernel of degree d in D dimensions the expanded feature vector has C(D+d, d) components, which explodes combinatorially. Evaluating K costs only O(D). <strong>Why SVMs can use it:</strong> the dual objective and decision function contain the data only through dot products, so replacing them with K leaves the optimisation formally identical and convex. <strong>Requirements:</strong> K must be symmetric and positive semi-definite (Mercer condition) to correspond to a valid feature space; common choices are linear, polynomial, RBF and sigmoid. <strong>Costs:</strong> one must store the N×N kernel matrix (O(N²) memory) and tune hyperparameters (C, γ); poor scaling of features distorts RBF distances. <strong>Common mistake:</strong> saying the kernel 'lifts the data into a higher dimension and then computes φ explicitly' — the entire point is that φ is never constructed.</p></div></div>
+    </div>
+
+    <div class="q" id="mp7">
+      <div class="qto"><span class="qnum">Part A · Q7</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">EM is for finding the MLE when some data is missing. Does it converge? To a local or global optimum?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa7" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa7').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa7" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Yes, the EM algorithm <b>converges</b> — each iteration is guaranteed not to decrease the (observed) likelihood. But it converges only to a <b>local optimum</b> (or a saddle point), not necessarily the global one. Where you start (initial parameters) matters; multiple restarts are often used to find a better local maximum.</span></div>
+<p><strong>Convergence argument.</strong> For a model with observed data X and hidden variables Z, EM alternates E-step, forming Q(θ | θᵗ) = E_{Z|X,θᵗ}[log p(X,Z | θ)], and M-step, θᵗ⁺¹ = argmax Q. Jensen's inequality gives log p(X | θ) ≥ Q(θ | θᵗ) with equality at θ = θᵗ, and maximising Q therefore never decreases the observed-data log-likelihood: ℓ(θᵗ⁺¹) ≥ ℓ(θᵗ). Since ℓ is bounded above (for regular models), the sequence converges to a stationary point of the likelihood. <strong>Local vs global:</strong> the guarantee is only monotone improvement to a <em>local</em> maximum or saddle point — the likelihood is generally multimodal (e.g. Gaussian mixtures have label-switching and many local modes), so the answer depends on the initialisation. <strong>Practical remedies:</strong> multiple random restarts, sensible initialisation (e.g. k-means for mixture means), and monitoring ℓ for convergence. <strong>Extensions and pitfalls:</strong> ECM and variational EM handle intractable M-steps/E-steps; EM can be slow near a flat optimum; it is used for missing data, mixture models, HMMs and latent-factor models. <strong>Common mistake:</strong> claiming EM always reaches the global optimum, or that it can decrease the likelihood — monotonicity is its defining property, globality is not guaranteed.</p></div></div>
+    </div>
+
+    <div class="q" id="mp8">
+      <div class="qto"><span class="qnum">Part A · Q8</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Illustrate the strength and weakness of k-means. (Same as CO4-Q2.)</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa8" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa8').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa8" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Strength:</b> simple, fast, scales well, easy to interpret via centroids. <b>Weakness:</b> must pre-set k; sensitive to initial centres and to outliers; assumes spherical, equal-variance, similar-sized clusters; every point forced into a cluster (no noise class). (See CO4-Q2 for the fuller version.)</span></div>
+<p><strong>Strength (revisited).</strong> K-means alternates assignment to the nearest centroid and recomputation of centroids, monotonically decreasing the within-cluster sum of squares J = Σ‖x−μ_c‖². It is O(NKd) per iteration, easy to implement, and gives interpretable prototypes, so it scales to large datasets and is a good baseline. <strong>Weaknesses (revisited).</strong> It requires K in advance (choose by elbow/silhouette), is sensitive to initialisation (use k-means++ and restarts), assumes approximately spherical equal-variance clusters (fails for elongated or varying-density shapes), is not robust to outliers (a single far point drags a mean), forces a hard assignment on every point (no noise class), and is defined only for Euclidean geometry. <strong>Mitigations to list:</strong> k-means++ seeding, multiple restarts, outlier removal, k-medoids/L1 for robustness, DBSCAN for arbitrary shapes and noise, and GMMs for soft probabilistic assignments. <strong>Common mistake:</strong> presenting an unbalanced list of one strength and one weakness without reasons; for full marks give at least three of each with a one-clause justification, and name a remedy for the main weakness.</p></div></div>
+    </div>
+
+    <div class="q" id="mp9">
+      <div class="qto"><span class="qnum">Part A · Q9</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Classifier A: 100% train, 70% test. Classifier B: 70% train, 75% test. Which is better? (Same as CO5-Q3.)</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa9" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa9').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa9" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>B is better</b> — A overfits (memorised training data, poor generalisation); B generalises (higher test accuracy, small train/test gap). Test performance on unseen data is what matters.</span></div>
+<p><strong>Reasons in full.</strong> Test accuracy estimates generalisation — performance on data drawn from the same distribution but not seen during training — and that is the quantity we actually care about. A's 100% training accuracy with 70% test accuracy means a 30-point generalisation gap: it has fitted noise and is high-variance. B's 70% train and 75% test accuracy shows no harmful gap (the small increase is sampling noise or a slightly easier test set), indicating a stable, lower-variance fit. Hence B is the better model. <strong>What the numbers reveal:</strong> A's perfect training fit also warns of a possible data-leakage or duplicate-row problem; always inspect the split. <strong>How to fix A:</strong> regularise, simplify the hypothesis space, prune, augment data, and use cross-validated model selection; the target is the smallest generalisation gap with the highest validation score. <strong>Statistical caution:</strong> with small test sets, 70% vs 75% may be within noise, so a confidence interval would strengthen the conclusion — but the 30-point gap for A is decisive. <strong>Common mistake:</strong> selecting A because its training accuracy is higher; this is the classic overfitting trap the question is designed to catch.</p></div></div>
+    </div>
+
+    <div class="q" id="mp10">
+      <div class="qto"><span class="qnum">Part A · Q10</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">How does the bias–variance trade-off affect machine learning algorithms?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpa10" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpa10').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpa10" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Expected error = <b>bias² + variance + noise</b>. <b>Bias</b> = error from oversimplified assumptions (underfitting — too rigid). <b>Variance</b> = error from sensitivity to training noise (overfitting — too complex). Increasing model complexity lowers bias but raises variance, and vice-versa. The trade-off is finding the sweet spot (regularisation, more data, ensembles) that minimises total error.</span></div>
+<p><strong>Expanded decomposition.</strong> For a regression model, the expected squared error at a test point can be decomposed as E[(y − f̂(x))²] = Bias[f̂(x)]² + Var[f̂(x)] + σ², where bias is the difference between the average prediction over training sets and the true function, variance is the spread of predictions across training sets, and σ² is irreducible noise. <strong>Complexity effect:</strong> as model flexibility increases, bias falls (the model can represent the truth) but variance rises (the fit tracks sample noise), producing a U-shaped total-error curve; the optimal capacity sits at the minimum. <strong>Concrete examples:</strong> a straight-line fit to curved data is high-bias/underfitting; a degree-20 polynomial through 10 points is high-variance/overfitting. <strong>Control levers:</strong> regularisation and fewer features raise bias/lower variance; more data lowers variance without raising bias; bagging reduces variance; boosting reduces bias; cross-validation selects the operating point. <strong>Classification version:</strong> the same tension appears as underfitting vs overfitting, monitored via train/test error curves. <strong>Common mistakes:</strong> claiming bias and variance always move together (they trade off), ignoring the irreducible noise term, or assuming more data increases variance.</p></div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Model Question Paper — Part B (14 marks each; answer 1 from each module)</h2><span class="meta">selected</span></div>
+
+    <div class="q" id="mpb11">
+      <div class="qto"><span class="qnum">Part B · Q11(a)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Discrete random variable with the given p.m.f. (0 ≤ θ ≤ 1). Observations: 3, 0, 2, 1, 3, 2, 1, 0, 2, 1. Find the MLE of θ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb11a" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb11a').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb11a" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Count the observed frequencies, write the likelihood, take logs, differentiate and solve. With the pmf P(0)=2θ/3, P(1)=θ/3, P(2)=2(1−θ)/3, P(3)=(1−θ)/3 and counts 2, 3, 3, 2 the score is 5/θ − 5/(1−θ) = 0, giving <b>θ̂ = 0.5</b>.</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — General MLE recipe (write this before substituting)</span>
+<div class="formula">Given i.i.d. observations x₁,…,xₙ from p(x | θ):
+   L(θ)  = ∏_{i=1..n} p(xᵢ | θ)          (likelihood = product)
+   ℓ(θ)  = log L(θ) = Σ_{i=1..n} log p(xᵢ | θ)
+   solve  dℓ/dθ = 0  for θ̂
+   verify d²ℓ/dθ² &lt; 0  (maximum), and check θ̂ ∈ [0, 1].</div>
+
+<span class="subhead">Step 2 — Count the observations (do not read counts off the pmf table)</span>
+<div class="formula">Data: 3, 0, 2, 1, 3, 2, 1, 0, 2, 1        n = 10
+count(x=0) = 2
+count(x=1) = 3
+count(x=2) = 3
+count(x=3) = 2
+Check: 2 + 3 + 3 + 2 = 10 ✓</div>
+
+<span class="subhead">Step 3 — Write the likelihood using those counts as exponents</span>
+<div class="formula">pmf:  p₀ = 2θ/3 ,  p₁ = θ/3 ,  p₂ = 2(1−θ)/3 ,  p₃ = (1−θ)/3
+
+L(θ) = p₀² · p₁³ · p₂³ · p₃²
+     = (2θ/3)² · (θ/3)³ · [2(1−θ)/3]³ · [(1−θ)/3]²
+
+Group factors of θ and of (1−θ):
+   θ terms:      (2θ/3)² · (θ/3)³     ∝ θ^(2+3) = θ⁵
+   (1−θ) terms:  [2(1−θ)/3]³ · [(1−θ)/3]² ∝ (1−θ)^(3+2) = (1−θ)⁵</div>
+
+<span class="subhead">Step 4 — Log, differentiate, solve — no rearrangement skipped</span>
+<div class="formula">ℓ(θ) = 2 ln(2θ/3) + 3 ln(θ/3) + 3 ln[2(1−θ)/3] + 2 ln[(1−θ)/3]
+
+dℓ/dθ = 2·(1/θ) + 3·(1/θ) + 3·(−1/(1−θ)) + 2·(−1/(1−θ))
+      = 5/θ − 5/(1−θ)
+
+Set the score to zero:
+   5/θ − 5/(1−θ) = 0
+   5/θ = 5/(1−θ)                     (add 5/(1−θ) to both sides)
+   5(1−θ) = 5θ                       (multiply both sides by θ(1−θ))
+   5 − 5θ = 5θ                       (expand the bracket)
+   5 = 10θ                           (add 5θ to both sides)
+   θ̂ = 5/10 = 0.5</div>
+
+<span class="subhead">Step 5 — Second-derivative check and interpretation</span>
+<div class="formula">d²ℓ/dθ² = −5/θ² − 5/(1−θ)² &lt; 0  for 0 &lt; θ &lt; 1  → maximum ✓
+θ̂ = 0.5 lies in [0, 1] ✓
+Boundary check: L(0) = 0 and L(1) = 0 because both θ and (1−θ) appear
+with positive exponents, so the interior stationary point is the MLE.</div>
+</div>
+<p><strong>Interpretation.</strong> Five observations (x = 0 and x = 1) favour θ and five (x = 2 and x = 3) favour (1−θ); the MLE is the fraction favouring θ, namely 5/10 = 0.5. A different count split changes the numerator: counts 2, 3, 3, 1 give 5(1−θ) = 4θ and θ̂ = 5/9 ≈ 0.556. <strong>Common mistakes:</strong> taking the counts from the pmf table, dropping the exponent counts on p(x), or omitting the boundary check when the optimum could sit at θ = 0 or 1.</p>
+
+<div class="exam-content">
+<span class="subhead">Algorithm — maximum-likelihood estimation from a discrete pmf</span>
+<ol class="step-list">
+<li>Verify the pmf sums to one over its support.</li>
+<li>Tally the observed counts of each outcome and check they sum to n.</li>
+<li>Write L(θ) as the product of pmf values raised to their observed counts.</li>
+<li>Take logs to get ℓ(θ), a sum of count-weighted log terms.</li>
+<li>Differentiate, set dℓ/dθ = 0 and solve algebraically for θ̂.</li>
+<li>Check d²ℓ/dθ² &lt; 0, that θ̂ lies in [0,1], and evaluate the boundary cases θ = 0 and θ = 1.</li>
+</ol>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="mpb11b">
+      <div class="qto"><span class="qnum">Part B · Q11(b)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Three-class problem, y ∈ {0,1,2}, 3 binary attributes. How many parameters for Naive Bayes? (Same as CO2-Q2.)</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb11b-ans" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb11b-ans').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb11b-ans" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">K = (|Y| − 1) + |Y|·Σⱼ(|Xⱼ| − 1) = 2 + 3·(1+1+1) = <b>11 parameters</b> (8 under the alternative per-class normalisation convention). The independence assumption makes the count linear in the number of attributes.</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — State the general counting formula</span>
+<div class="formula">Naive Bayes factorisation:  P(y, x₁,…,x_d) = P(y) · ∏_{j=1..d} P(xⱼ | y)
+Free parameters:
+   class prior:     |Y| − 1                (probabilities sum to 1)
+   conditionals:    |Y| · Σⱼ (|Xⱼ| − 1)    (one free number per attribute/value/class)
+   K = (|Y| − 1) + |Y|·Σⱼ(|Xⱼ| − 1)</div>
+
+<span class="subhead">Step 2 — Substitute the actual problem numbers</span>
+<div class="formula">|Y| = 3  (classes y ∈ {0, 1, 2})
+|X₁| = |X₂| = |X₃| = 2  (binary attributes)
+
+Prior:     |Y| − 1 = 3 − 1 = 2
+Conditionals:  Σⱼ(|Xⱼ| − 1) = (2−1) + (2−1) + (2−1) = 3
+               |Y| · 3 = 3 × 3 = 9
+Total:     K = 2 + 9 = 11 parameters</div>
+
+<span class="subhead">Step 3 — Verify against the full joint (shows why 'naive' matters)</span>
+<div class="formula">Full joint over d = 3 binary attributes and 3 classes:
+   per class: 2³ − 1 = 8 − 1 = 7 free numbers
+   all classes: 3 × 7 = 21
+   plus prior 2 → 23
+Naive model: 11 numbers → the independence assumption cuts the count
+and makes it grow linearly (≈ 3d + 2) instead of exponentially (3·(2^d − 1)).</div>
+
+<span class="subhead">Step 4 — Companion worked example: Naive Bayes classification (flu)</span>
+<div class="formula">Priors: P(flu) = 5/7 , P(no flu) = 2/7
+Evidence: Chills = Y, Running = N, Head = Mild, Fever = Y
+
+Score(flu) ∝ P(flu)·P(Chills=Y|flu)·P(Running=N|flu)·P(Head=Mild|flu)·P(Fever=Y|flu)
+           = (5/7)(3/5)(2/5)(2/5)(4/5)
+           = 5·3·2·2·4 / 7·5·5·5·5
+           = 240 / 4375
+           ≈ 0.0549
+
+Score(no flu) ∝ P(no flu)·(1/2)(2/2)(1/2)(1/2)
+              = (2/7)(1/2)(1)(1/2)(1/2)
+              = 2 / 56
+              ≈ 0.0357
+
+0.0549 &gt; 0.0357  → predict FLU
+Posterior = 0.0549 / (0.0549 + 0.0357) ≈ 0.606</div>
+</div>
+<p><strong>Interpretation.</strong> Eleven numbers fully specify the three-class, three-binary-attribute naive Bayes classifier; the 8-parameter figure follows from the alternative convention that normalises the conditionals within each class. The flu example shows the same model used for prediction: multiply the prior by each conditional and compare scores. <strong>Common mistakes:</strong> reporting 9 without the 2 prior parameters, counting both P(X=1|y) and P(X=0|y) as free, or forgetting that scaling to thousands of features is precisely why the linear count matters.</p>
+</div></div>
+    </div>
+
+    <div class="q" id="mpb13a">
+      <div class="qto"><span class="qnum">Part B · Q13(a)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Linear regression hθ(x)=θ₀+θ₁x, cost J=½m Σ(hθ(x⁽ⁱ⁾)−y⁽ⁱ⁾)². Given training examples, find (1) hθ(2) if θ₀=0, θ₁=1.5; (2) J(0,1); (3) what if J=0?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb13a-ans" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb13a-ans').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb13a-ans" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">(1) hθ(2) = 0 + 1.5·2 = <b>3</b>. (2) For θ = (0,1) on (3,2),(1,2),(0,1),(4,3), J = 4/(2·4) = <b>0.5</b>. (3) J = 0 means the line passes exactly through <b>every</b> training point (a perfect, usually overfit, fit).</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — Write the general definitions</span>
+<div class="formula">Hypothesis:  hθ(x) = θ₀ + θ₁x
+Cost:        J(θ₀, θ₁) = (1/(2m)) · Σ_{i=1..m} ( hθ(x⁽ⁱ⁾) − y⁽ⁱ⁾ )²
+The factor ½ cancels the 2 from differentiating the square;
+minimising J is exactly minimising the mean squared error.</div>
+
+<span class="subhead">Step 2 — Part (1), substitute θ₀ = 0, θ₁ = 1.5, x = 2</span>
+<div class="formula">hθ(2) = θ₀ + θ₁·2
+      = 0 + 1.5 × 2
+      = 0 + 3
+      = 3   ✓</div>
+
+<span class="subhead">Step 3 — Part (2), set θ = (0,1) so h(x) = x</span>
+<div class="formula">For each training pair compute the residual r = h(x) − y = x − y:
+(3,2): r = 3 − 2 = +1 ,   r² = 1
+(1,2): r = 1 − 2 = −1 ,   r² = 1
+(0,1): r = 0 − 1 = −1 ,   r² = 1
+(4,3): r = 4 − 3 = +1 ,   r² = 1
+
+Σ r² = 1 + 1 + 1 + 1 = 4
+m = 4
+J(0,1) = (1/(2×4)) × 4 = 4/8 = 0.5  ✓</div>
+
+<span class="subhead">Step 4 — Part (3), interpret J = 0 without skipping logic</span>
+<div class="formula">J = (1/(2m)) Σ rᵢ² ,  each rᵢ² ≥ 0
+J = 0  ⟺  Σ rᵢ² = 0  ⟺  every rᵢ² = 0  ⟺  every rᵢ = 0
+⟺  hθ(x⁽ⁱ⁾) = y⁽ⁱ⁾ for all i  →  the line passes through every point.
+On real noisy data this signals overfitting or leakage, not a good model.</div>
+
+<span class="subhead">Step 5 — Bonus: ordinary least squares on the reference data, step by step</span>
+<div class="formula">Fit ŷ = a + b x by ordinary least squares:
+   b = Σ(x−x̄)(y−ȳ) / Σ(x−x̄)² ,   a = ȳ − b·x̄
+Data:  X = (3, 9, 11, 5, 2) ,  Y = (1, 8, 11, 4, 3) ,  n = 5
+   x̄ = (3+9+11+5+2)/5 = 30/5 = 6
+   ȳ = (1+8+11+4+3)/5 = 27/5 = 5.4
+   Σ(x−x̄)(y−ȳ) = 27
+   Σ(x−x̄)²    = 27
+   b = 27/27 = 1.0
+   a = ȳ − b·x̄ = 5.4 − 1.0(6) = 5.4 − 6 = −0.6
+   ŷ = −0.6 + x
+Check: x = 9 → ŷ = 8.4 vs observed 8 ; x = 11 → ŷ = 10.4 vs 11.</div>
+
+<span class="subhead">Step 6 — Bonus: regression in the reverse direction (x on y)</span>
+<div class="formula">Data:  x : 55, 60, 65, 70, 80  (x̄ = 66)
+       y : 52, 54, 56, 58, 62  (ȳ = 56.4)
+b = Σ(y−ȳ)(x−x̄) / Σ(y−ȳ)² = 112 / 44.8 = 2.5
+a = x̄ − b·ȳ = 66 − 2.5(56.4) = 66 − 141 = −75
+Regression line:  x̂ = −75 + 2.5y
+Check: y = 60 → x̂ = −75 + 2.5(60) = −75 + 150 = 75 ✓</div>
+</div>
+<p><strong>Interpretation.</strong> J measures half the mean squared error: J(0,1) = 0.5 corresponds to an RMSE of 1 on these four points. The least-squares line ŷ = −0.6 + x reduces the cost to 0.35, and reversing the roles of x and y gives x̂ = −75 + 2.5y — note the two lines are not inverses because each minimises error in a different variable. <strong>Common mistakes:</strong> dropping the ½ or the 1/m, using m = 3, or explaining J = 0 as high bias (it is the opposite extreme).</p>
+</div></div>
+    </div>
+
+    <div class="q" id="mpb13b">
+      <div class="qto"><span class="qnum">Part B · Q13(b)</span><span class="qmark">3+4 marks</span></div>
+      <span class="qtext">750 students, 150 staff, 100 professors. Blond hair: 50 staff, 250 students, all professors. Compute information gain of "hair colour = blond". Explain regularization (Ridge vs Lasso).</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb13b-ans" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb13b-ans').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb13b-ans" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer (info gain)</span><span class="v">H(root) ≈ 1.054 bits; weighted child entropy ≈ 0.910 bits; <b>Gain ≈ 0.144 bits</b>. Worked reference datasets give gains 0.8813 / 0.2813 / 0.1916 and 0.60 / 0.1245 / 0.</span></div>
+<div class="ansrow"><span class="k">Regularisation</span><span class="v">Ridge (L2) penalises Σwᵢ² and keeps all features; Lasso (L1) penalises Σ|wᵢ| and can set weights exactly to zero, giving feature selection.</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — General entropy and gain formulas</span>
+<div class="formula">Entropy(S) = − Σ_c p(c) · log₂ p(c)
+Gain(S, A) = Entropy(S) − Σ_{v∈values(A)} ( |S_v| / |S| ) · Entropy(S_v)
+ID3 chooses the attribute with the largest Gain.</div>
+
+<span class="subhead">Step 2 — Root entropy for the hair-colour problem</span>
+<div class="formula">N = 1000 = 100 professors + 150 staff + 750 students
+p = {0.10, 0.15, 0.75}
+H(root) = −[0.10 log₂0.10 + 0.15 log₂0.15 + 0.75 log₂0.75]
+        = −[0.10(−3.322) + 0.15(−2.737) + 0.75(−0.415)]
+        = 0.332 + 0.411 + 0.311
+        = 1.054 bits</div>
+
+<span class="subhead">Step 3 — Children of the 'blond = true' test</span>
+<div class="formula">Blond = true: 100 prof + 50 staff + 250 students = 400
+P(blond) = 400/1000 = 0.4
+class mixture = {100/400, 50/400, 250/400} = {0.25, 0.125, 0.625}
+H(blond) = −[0.25 log₂0.25 + 0.125 log₂0.125 + 0.625 log₂0.625]
+         = −[0.25(−2) + 0.125(−3) + 0.625(−0.678)]
+         = 0.5 + 0.375 + 0.424 = 1.299 bits
+
+Blond = false: 600 people, 0 prof + 100 staff + 500 students
+mixture = {0, 1/6, 5/6}
+H(not blond) = −[(1/6)log₂(1/6) + (5/6)log₂(5/6)]
+             = (1/6)(2.585) + (5/6)(0.263)
+             = 0.431 + 0.219 = 0.650 bits</div>
+
+<span class="subhead">Step 4 — Weight, subtract, interpret</span>
+<div class="formula">Weighted child entropy = 0.4(1.299) + 0.6(0.650)
+                       = 0.520 + 0.390
+                       = 0.910 bits
+Gain = H(root) − weighted child entropy
+     = 1.054 − 0.910
+     = 0.144 bits</div>
+
+<span class="subhead">Step 5 — Worked reference dataset 1 (Refund / Marital / Taxable)</span>
+<div class="formula">10 records, 3 Yes / 7 No:
+Entropy(S) = −(3/10)log₂(3/10) − (7/10)log₂(7/10) = 0.8813
+Gain(Refund)         = 0.8813 − 0.6897 = 0.1916
+Gain(Marital status) = 0.8813 − 0.6000 = 0.2813
+Gain(Taxable income) = 0.8813 − 0.0000 = 0.8813  ← highest → root</div>
+
+<span class="subhead">Step 6 — Regularisation: write the objective, then the effect</span>
+<div class="formula">Ridge (L2):  J + λ‖w‖² ,  ŵ = (XᵀX + λI)⁻¹Xᵀy
+   → all weights shrink but none become exactly zero; keeps correlated features.
+Lasso (L1):  J + λ‖w‖₁
+   → L1 ball has corners, so some coefficients hit exactly zero → feature selection.
+Elastic Net: λ₁‖w‖₁ + λ₂‖w‖² (both behaviours).
+Choose λ by cross-validation; scale features first (penalty is not scale invariant).</div>
+</div>
+<p><strong>Interpretation.</strong> The blond test removes about 0.144 bits of uncertainty about job class. The reference datasets show how gains are ranked: the attribute with the largest reduction in entropy becomes the root. Ridge and Lasso both trade a little bias for lower variance; the qualitative difference is that only Lasso performs feature selection. <strong>Common mistakes:</strong> weighting child entropies by counts instead of fractions, mixing natural log and log₂, or claiming Ridge performs feature selection.</p>
+</div></div>
+    </div>
+
+    <div class="q" id="mpb14a">
+      <div class="qto"><span class="qnum">Part B · Q14(a)</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Dataset to predict car ownership; features: education (primary/secondary/university), residence (city/country), gender (female/male). Use ID3 and find the best root attribute.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="mpb14a-ans" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('mpb14a-ans').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="mpb14a-ans" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">ID3 picks the attribute with the highest information gain: Gain(A) = H(S) − Σᵥ(|Sᵥ|/|S|)H(Sᵥ). Worked reference gains are Age 0.60, Competition 0.1245, Type 0 → split on <b>Age</b>.</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — General ID3 rule</span>
+<div class="formula">H(S) = −p log₂p − (1−p)log₂(1−p)          (binary target)
+Gain(A) = H(S) − Σ_{v∈values(A)} (|S_v|/|S|) · H(S_v)
+Choose root = argmax_A Gain(A); remove A and recurse on each child.
+H(p) = 0 at p = 0 or 1 (pure) and peaks at p = 0.5.</div>
+
+<span class="subhead">Step 2 — Worked reference table: 4 positive / 6 negative out of 10</span>
+<div class="formula">Root (10 records, 4 Yes / 6 No):
+H(S) = −(4/10)log₂(4/10) − (6/10)log₂(6/10)
+     = −[0.4(−1.322) + 0.6(−0.737)]
+     = 0.529 + 0.442 = 1.0000 bits
+
+Gain(Age)        = 1.0000 − 0.4000 = 0.6000  ← highest → first split
+Gain(Competition) = 1.0000 − 0.8755 = 0.1245
+Gain(Type)       = 1.0000 − 1.0000 = 0.0000  (no information)
+
+After splitting on Age, the Age=Mild and Age=New branches split further
+on Competition; Type carries no information.</div>
+
+<span class="subhead">Step 3 — Apply the same arithmetic to the car-ownership data</span>
+<div class="formula">For each candidate attribute (education, residence, gender):
+   1. tabulate counts of 'owns car = yes/no' per attribute value;
+   2. H(child) = −pᵥ log₂pᵥ − (1−pᵥ)log₂(1−pᵥ);
+   3. weighted child entropy = Σᵥ (|Sᵥ|/|S|) H(Sᵥ);
+   4. Gain = H(parent) − weighted child entropy;
+   5. root = the attribute with the largest Gain (compute; never assert).
+Education often dominates such a social dataset, but the numbers decide.</div>
+</div>
+<p><strong>Interpretation.</strong> Information gain measures the average reduction in uncertainty about car ownership. The reference computation illustrates the ranking: Age removes 0.60 bits, Competition 0.1245 bits and Type nothing, so Age is the root. <strong>Common mistakes:</strong> averaging child entropies without the |Sᵥ|/|S| weights, choosing the attribute with the largest child entropy rather than the largest gain, or forgetting to remove the chosen attribute before recursing.</p>
+
+<div class="exam-content">
+<span class="subhead">Algorithm — ID3 root selection</span>
+<ol class="step-list">
+<li>Compute H(S) of the target 'owns car?' over all labelled examples.</li>
+<li>For each candidate attribute, partition the examples by value and compute H(Sᵥ) for each child.</li>
+<li>Form the weighted child entropy Σᵥ(|Sᵥ|/|S|)·H(Sᵥ).</li>
+<li>Compute Gain(A) = H(S) − weighted child entropy for education, residence and gender.</li>
+<li>Choose the largest gain as the root, remove that attribute and recurse on each child.</li>
+</ol>
+</div>
+</div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>WhatsApp Set — ML Theory &amp; MLE</h2><span class="meta">8 questions</span></div>
+
+    <div class="q" id="waq1">
+      <div class="qto"><span class="qnum">WA · Q1</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Compare Unsupervised Learning and Reinforcement Learning with examples.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Labels?</span><span class="v">No labels — finds hidden structure in unlabelled data · No fixed labels — learns from reward/penalty signals</span></div>
+<div class="ansrow"><span class="k">Goal</span><span class="v">Group similar items (clustering) or compress (PCA) · Learn a policy that maximises cumulative reward</span></div>
+<div class="ansrow"><span class="k">Feedback</span><span class="v">None during training (structure is the output) · Delayed reward from the environment after actions</span></div>
+<div class="ansrow"><span class="k">Example</span><span class="v">Customer segmentation; document clustering; k-means image compression · Game playing; robot navigation; autonomous-car adaptive control</span></div>
+<p><strong>Side-by-side framing.</strong> Unsupervised learning receives only inputs X with no targets and searches for structure in the data itself: clustering (k-means, hierarchical, DBSCAN) groups similar points, and dimensionality reduction (PCA, SVD, t-SNE) compresses them. There is no feedback signal during training — the algorithm's own objective (e.g. within-cluster distance or explained variance) defines 'success'. Reinforcement learning instead has an agent embedded in an environment: at each step it observes a state, takes an action, and receives a numerical reward plus a new state; the goal is to learn a policy π(s) → a maximising the expected discounted return Σγᵗrₜ. Learning is therefore driven by delayed evaluation feedback, not by labelled examples. <strong>Examples:</strong> customer segmentation and image compression (unsupervised) versus Atari/Go playing, robot navigation and adaptive control (RL). <strong>Other differences:</strong> unsupervised methods are usually offline and evaluated by internal indices (silhouette, reconstruction error), while RL is typically online, has an exploration–exploitation dilemma, and is evaluated by cumulative reward. Semi-supervised sits between supervised and unsupervised; imitation learning sits between supervised and RL. <strong>Common mistake:</strong> calling clustering 'learning from rewards' or saying RL has no objective — it has a reward objective, just no supervised labels.</p><p><strong>Extra contrast on objectives and feedback.</strong> The objective of an unsupervised algorithm is internal to the data: k-means minimises within-cluster scatter, PCA maximises projected variance, and autoencoders minimise reconstruction error. If the resulting clusters do not match a human's intent, there is no label-based signal to correct them. RL's objective is external and delayed: the reward arrives after the action, and often only at the end of an episode, creating the credit-assignment problem. <strong>Algorithm examples worth naming:</strong> k-means/DBSCAN/PCA for unsupervised; Q-learning, SARSA, policy gradients and actor–critic for RL. <strong>Where they blur:</strong> clustering can be used as state abstraction inside an RL agent, and self-supervised learning constructs pseudo-labels from the data, but neither changes the defining distinction — labelled targets versus reward feedback. <strong>Common mistake:</strong> saying unsupervised learning has 'no evaluation' — internal indices such as silhouette score and reconstruction error evaluate it, just without ground-truth labels.</p></div></div>
+    </div>
+
+    <div class="q" id="waq2">
+      <div class="qto"><span class="qnum">WA · Q2</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">What is reinforcement learning in machine learning and list any two applications?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">RL is learning an <b>agent</b> that interacts with an <b>environment</b>: it takes actions, receives a reward (or penalty), and updates its policy to maximise long-term cumulative reward. There is no supervisor — learning comes from the reinforcement signal. <b>Applications:</b> (i) game playing (chess/Go/Atari), (ii) robot navigation / autonomous vehicles, (iii) adaptive control systems. (Any two.)</span></div>
+<p><strong>Formal definition and loop.</strong> Reinforcement learning (RL) is learning by interaction: an agent observes the environment's state sₜ, chooses an action aₜ according to a policy π, receives a reward rₜ and transitions to sₜ₊₁. Its objective is to maximise the expected discounted cumulative reward E[Σₜ γᵗ rₜ], with γ ∈ [0,1) balancing immediate and future rewards. Unlike supervised learning there is no correct label for each action — only a scalar evaluation that may be delayed (credit-assignment problem). <strong>Main approaches:</strong> value-based (Q-learning, SARSA — learn the value of state-action pairs), policy-based (REINFORCE — optimise the policy directly), and actor–critic (combine both); model-based methods learn a transition model and plan. <strong>Key concepts:</strong> exploration vs exploitation (ε-greedy), Markov decision processes, episodes, and the Bellman equation Q(s,a) = r + γ maxₐ′ Q(s′,a′). <strong>Applications (any two):</strong> (i) game playing — AlphaGo, Atari; (ii) robotics and autonomous navigation; (iii) resource scheduling, recommendation and adaptive control; (iv) finance and healthcare treatment planning. <strong>Common mistakes:</strong> describing RL as learning from a labelled dataset, forgetting the delayed reward, or claiming the reward is provided by a supervisor at every step — it comes from the environment.</p></div></div>
+    </div>
+
+    <div class="q" id="waq3">
+      <div class="qto"><span class="qnum">WA · Q3</span><span class="qmark">—</span></div>
+      <span class="qtext">List any 4 applications of Machine Learning.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Answer (4):</b> (i) face / speech recognition; (ii) medical diagnosis; (iii) stock-price / weather prediction; (iv) recommendation systems (market-basket analysis); (v) spam filtering; (vi) autonomous driving. (Any four.)</span></div>
+<p><strong>Four solid applications with a one-line explanation each.</strong> (i) <em>Speech and face recognition</em>: convert audio or images into features and classify the speaker/identity; used in phone unlock and voice assistants. (ii) <em>Medical diagnosis</em>: classify tumours as benign/malignant or predict disease risk from symptoms and scans, assisting clinicians. (iii) <em>Prediction</em>: weather forecasting and stock-price or demand prediction (regression on historical features). (iv) <em>Recommendation systems</em>: market-basket analysis and collaborative filtering suggest products or films, as used by e-commerce and streaming sites. <strong>Further valid examples:</strong> spam filtering (naive Bayes / logistic regression), autonomous driving (perception and control), fraud detection, and search ranking. <strong>How to earn full marks:</strong> name four applications and attach a one-sentence description of the ML task (classification, regression or clustering) and the input data — a bare list can lose half the marks. <strong>Common mistake:</strong> giving four examples of the <em>same</em> kind (e.g. four kinds of classification) without variety, or naming a technology (a database) rather than an application of ML.</p></div></div>
+    </div>
+
+    <div class="q" id="waq4">
+      <div class="qto"><span class="qnum">WA · Q4</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Compute the ML estimate for the parameter p in the binomial distribution whose probability function is f(x) = C(n,x) pˣ (1−p)^(n−x), x = 0,1,2…n.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa4" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">For x successes in n trials, likelihood L(p) = C(n,x) pˣ (1−p)^(n−x). Drop the constant C(n,x): ℓ(p) = x ln p + (n−x) ln(1−p). dℓ/dp = x/p − (n−x)/(1−p) = 0 → x(1−p) = (n−x)p → x = np → <b>p̂ = x/n</b> (the observed proportion of successes).</span></div>
+<p><strong>Full derivation and interpretation.</strong> Let x be the observed number of successes in n independent Bernoulli trials with success probability p; the pmf is f(x) = C(n,x)pˣ(1−p)^(n−x) for x = 0,…,n. The likelihood as a function of p is L(p) = C(n,x)pˣ(1−p)^(n−x). Because C(n,x) does not depend on p we drop it and take logs: ℓ(p) = x ln p + (n−x) ln(1−p) + const. Differentiating: dℓ/dp = x/p − (n−x)/(1−p). Setting this to zero and multiplying by p(1−p) gives x(1−p) = (n−x)p, i.e. x − xp = np − xp, so x = np and p̂ = x/n — the observed proportion of successes. The second derivative −x/p² − (n−x)/(1−p)² &lt; 0 confirms a maximum. <strong>Consistency check:</strong> this specialises the Bernoulli result (n = 1, x ∈ {0,1}) to p̂ = x, and averaging n Bernoulli outcomes gives x/n. <strong>Common mistakes:</strong> keeping C(n,x) inside the derivative (it vanishes), writing p̂ = n/x, or forgetting that x is fixed/observed while p is the variable. Note that with zero successes (x = 0) the MLE is p̂ = 0, on the boundary of the parameter space.</p></div></div>
+    </div>
+
+    <div class="q" id="waq5">
+      <div class="qto"><span class="qnum">WA · Q5</span><span class="qmark">3+3 marks</span></div>
+      <span class="qtext">(a) A coin is tossed 100 times and lands heads 62 times. What is the MLE for θ, the probability of heads? (b) Compute the ML estimate for λ in the Poisson distribution f(x) = e^(−λ) λˣ / x!, x = 0,1,2,…</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa5" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">(a</span><span class="v">Bernoulli likelihood L(θ)=θ^62(1−θ)^38, ℓ=62 ln θ+38 ln(1−θ), dℓ/dθ=62/θ−38/(1−θ)=0 → <b>θ̂ = 62/100 = 0.62</b>.</span></div>
+<div class="ansrow"><span class="k">(b</span><span class="v">Poisson ℓ(λ)=Σ[−λ+xᵢ ln λ−ln(xᵢ!)] = −nλ + (Σxᵢ) ln λ + const. dℓ/dλ = −n + (Σxᵢ)/λ = 0 → <b>λ̂ = (1/n)Σxᵢ = x̄</b> (the sample mean).</span></div>
+<p><strong>Part (a) — Bernoulli.</strong> Heads are coded 1 and tails 0; with 62 heads in 100 independent tosses the likelihood is L(θ) = θ^62(1−θ)^38. The log-likelihood is ℓ = 62 ln θ + 38 ln(1−θ), and dℓ/dθ = 62/θ − 38/(1−θ) = 0 gives 62(1−θ) = 38θ, hence 100θ = 62 and θ̂ = 0.62. The second derivative is negative, confirming a maximum, and the estimate equals the observed proportion of heads. <strong>Part (b) — Poisson.</strong> With pmf f(x) = e^(−λ)λˣ/x!, the likelihood for n observations is L(λ) = e^(−nλ) λ^(Σxᵢ) / ∏(xᵢ!). Dropping constants and taking logs gives ℓ(λ) = −nλ + (Σxᵢ) ln λ; dℓ/dλ = −n + (Σxᵢ)/λ = 0 yields λ̂ = (Σxᵢ)/n = x̄, the sample mean. The second derivative −(Σxᵢ)/λ² &lt; 0 confirms a maximum (for non-zero data). <strong>Why the two differ:</strong> the Bernoulli MLE is a proportion, the Poisson MLE is a mean — both are method-of-moments estimates here because these one-parameter exponential-family models have that agreement. <strong>Common mistakes:</strong> using 38/100 for the coin, or giving λ̂ = 1/x̄ (that is the exponential rate, not the Poisson mean), or omitting the log and differentiating the product incorrectly.</p></div></div>
+    </div>
+
+    <div class="q" id="waq6">
+      <div class="qto"><span class="qnum">WA · Q6</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Define Bayes' theorem and discuss its terminologies.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa6" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa6').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa6" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">P(A|B) = P(B|A)·P(A) / P(B).</span></div>
+<div class="ansrow"><span class="k">Terminologies</span><span class="v"><b>P(A)</b> = prior probability of A (before seeing B); <b>P(B|A)</b> = likelihood (probability of evidence B given A); <b>P(A|B)</b> = posterior (updated probability of A after seeing B); <b>P(B)</b> = evidence / marginal, a normalising constant = Σ_A P(B|A)P(A). Used to update belief from prior to posterior using observed data.</span></div>
+<p><strong>Statement and terminology.</strong> Bayes' theorem follows from the product rule: P(A∩B) = P(A|B)P(B) = P(B|A)P(A), so P(A|B) = P(B|A)P(A)/P(B) when P(B) &gt; 0. <strong>Terms:</strong> P(A) is the <em>prior</em> — belief about A before seeing evidence; P(B|A) is the <em>likelihood</em> — probability of observing B if A is true; P(A|B) is the <em>posterior</em> — updated belief after observing B; P(B) is the <em>evidence</em> or marginal likelihood, a normalising constant computed as ΣⱼP(B|Aⱼ)P(Aⱼ) over a partition. In words: posterior ∝ likelihood × prior. <strong>Naive Bayes use:</strong> for a class c and features x = (x₁,…,x_d), P(c|x) = P(c)∏ⱼP(xⱼ|c) / Σ_c′P(c′)∏ⱼP(xⱼ|c′); the denominator is the same for all classes and can be dropped for argmax classification. <strong>Numeric illustration:</strong> a disease with prior 0.01 and a test with P(+|diseased) = 0.99 and P(+|healthy) = 0.05 gives posterior = 0.99×0.01 / (0.99×0.01 + 0.05×0.99) ≈ 0.166 — a positive test still means only about a 17% chance of disease, showing the base-rate effect. <strong>Common mistakes:</strong> swapping likelihood and posterior, forgetting the evidence denominator when computing an actual probability, or ignoring the prior.</p></div></div>
+    </div>
+
+    <div class="q" id="waq7">
+      <div class="qto"><span class="qnum">WA · Q7</span><span class="qmark">5 marks</span></div>
+      <span class="qtext">Differentiate Supervised, Semi-Supervised and Unsupervised Learning.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa7" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa7').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa7" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Data</span><span class="v">Fully labelled (X,Y) · Mostly unlabelled + few labels · Completely unlabelled</span></div>
+<div class="ansrow"><span class="k">Task</span><span class="v">Classification / regression · Learn from little labelled + lots unlabelled · Clustering / dimensionality reduction</span></div>
+<div class="ansrow"><span class="k">Example</span><span class="v">Spam filter, price prediction · Labelling a few then propagating to many · Customer segmentation, PCA</span></div>
+<p><strong>Three-way comparison.</strong> <em>Supervised learning</em> uses a training set with every example labelled (xᵢ, yᵢ); it learns f: X → Y for classification (discrete y) or regression (continuous y) — e.g. spam filtering or house-price prediction. <em>Unsupervised learning</em> receives only unlabelled inputs X; it looks for hidden structure via clustering (k-means, hierarchical), dimensionality reduction (PCA) or association rules — e.g. customer segmentation. <em>Semi-supervised learning</em> sits between: a small labelled set plus a large unlabelled set; techniques such as self-training, label propagation and consistency regularisation use the unlabelled data to improve the decision boundary, which matters because labelling is expensive. <strong>Key axes:</strong> label availability (all / some / none), objective (predict a target vs discover structure vs exploit unlabelled structure), and evaluation (held-out labels vs internal indices). <strong>Related settings:</strong> weak supervision (noisy/indirect labels), transfer learning and reinforcement learning (reward instead of labels). <strong>Common mistakes:</strong> calling semi-supervised 'unsupervised with a few features', or claiming unsupervised learning never uses any target information — it simply has no provided labels; pseudo-labels are manufactured during training.</p><p><strong>Why semi-supervised is worth a line of its own.</strong> Labelling data is expensive while unlabelled data are usually abundant, so semi-supervised methods exploit the assumption that points close together in feature space probably share a label. Self-training labels confident unlabelled points and retrains; label propagation diffuses labels along a similarity graph; consistency regularisation forces the model to give the same prediction for different augmentations of an unlabelled input. <strong>Failure mode:</strong> if the assumption is false — distinct classes overlap in feature space — pseudo-labels reinforce errors (confirmation bias), and semi-supervised training can be worse than supervised training on the labelled subset alone. <strong>Comparison axes to write down:</strong> fraction of labelled data, whether an external target exists, and the objective (minimise labelled loss vs exploit unlabelled structure vs maximise reward). <strong>Common mistakes:</strong> calling semi-supervised learning a variant of reinforcement learning, or assuming the unlabelled points are ignored — they are used to shape the decision boundary.</p></div></div>
+    </div>
+
+    <div class="q" id="waq8">
+      <div class="qto"><span class="qnum">WA · Q8</span><span class="qmark">—</span></div>
+      <span class="qtext">MLE vs MAP.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="waa8" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('waa8').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="waa8" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>MLE</b> maximises P(D|θ) — picks the parameter that best explains the data, ignoring prior belief. <b>MAP</b> maximises P(θ|D) ∝ P(D|θ)·P(θ) — also includes a prior P(θ), acting as regularization. With a uniform prior, MAP = MLE. As data grows, MAP → MLE (prior stops mattering). MLE can overfit small data; MAP is more stable when data is scarce or domain knowledge exists.</span></div>
+<p><strong>Definitions with equations.</strong> MLE chooses θ̂ = argmax P(D|θ), treating θ as fixed and using only the likelihood of the observed data; MAP chooses θ̂ = argmax P(θ|D) = argmax P(D|θ)P(θ), treating θ as a random variable with prior P(θ). Taking logs, MAP maximises log-likelihood + log-prior, so the prior acts as a regularisation term. <strong>Equivalence and limits:</strong> with a uniform prior, log P(θ) is constant and MAP = MLE. As the sample size grows, the log-likelihood term O(N) dominates the fixed log-prior, so MAP → MLE regardless of the prior (a frequentist consistency property). <strong>Regularisation correspondence:</strong> Gaussian prior on weights ↔ ridge/L2 (shrinks but keeps all features); Laplace prior ↔ lasso/L1 (can set weights exactly to zero). <strong>Behaviour with small data:</strong> MLE can overfit or even be undefined (e.g. zero estimated probability for an unseen category); MAP stays stable by borrowing strength from the prior — naive Bayes with Laplace smoothing is effectively a MAP estimate with a Dirichlet prior. <strong>Common mistakes:</strong> saying MAP maximises P(θ) alone, claiming MLE needs a prior, or asserting the two always differ — remember the uniform-prior and large-N limits.</p></div></div>
+    </div>
+  </div>
+
+  <div class="qpaper">
+    <div class="qhead"><h2>Tutorial 2 — Regression, Covariance &amp; MLE</h2><span class="meta">10 questions</span></div>
+
+    <div class="q" id="t2q1">
+      <div class="qto"><span class="qnum">Tut2 · Q1</span><span class="qmark">3 marks</span></div>
+      <span class="qtext">Obtain a linear regression for the data, assuming y is the dependent variable: x = [1,2,3,4,5], y = [1.00, 2.00, 1.30, 3.75, 2.25].</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a1" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a1').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a1" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">n=5, x̄=3, ȳ=2.06. Slope b₁ = Σ(x−x̄)(y−ȳ)/Σ(x−x̄)² = 2.125/5 = <b>0.425</b>. Intercept b₀ = ȳ − b₁x̄ = 2.06 − 0.425·3 = <b>0.785</b>. So <b>y = 0.785 + 0.425 x</b>.</span></div>
+<p><strong>Verify the least-squares arithmetic.</strong> With x = [1,2,3,4,5] and y = [1.00,2.00,1.30,3.75,2.25], n = 5, x̄ = 3 and ȳ = (1+2+1.30+3.75+2.25)/5 = 10.30/5 = 2.06. The deviations x−x̄ are −2,−1,0,1,2, with squared sum 4+1+0+1+4 = 10 (note: the denominator in the supplied working is written as 5 but the correct Σ(x−x̄)² is 10 — see below). The cross-products (x−x̄)(y−ȳ) are (−2)(−1.06) = 2.12, (−1)(−0.06) = 0.06, 0×(−0.76) = 0, (1)(1.69) = 1.69, (2)(0.19) = 0.38, summing to 4.25. Hence b₁ = 4.25/10 = 0.425 and b₀ = 2.06 − 0.425×3 = 2.06 − 1.275 = 0.785, giving ŷ = 0.785 + 0.425x. <strong>Consistency check with the normal equations:</strong> Σxy = 1+4+3.9+15+11.25 = 35.15, Σx = 15, Σy = 10.30, Σx² = 55; b = (nΣxy − ΣxΣy)/(nΣx² − (Σx)²) = (175.75−154.5)/(275−225) = 21.25/50 = 0.425 — the same slope, confirming the result. <strong>Common mistakes:</strong> dividing the cross-product sum by n instead of Σ(x−x̄)², mixing up b₀ and b₁, or using Σy² in place of Σx².</p></div></div>
+    </div>
+
+    <div class="q" id="t2q2">
+      <div class="qto"><span class="qnum">Tut2 · Q2</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">List out different types of regression models.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a2" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a2').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a2" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">(i) <b>Linear regression</b> (simple &amp; multiple); (ii) <b>Polynomial regression</b>; (iii) <b>Logistic regression</b> (for classification); (iv) <b>Ridge / Lasso</b> (regularised); (v) <b>Stepwise regression</b>; (vi) <b>Support Vector Regression</b>; (vii) <b>Decision-tree / Random-forest regression</b>. (List the main ones.)</span></div>
+<p><strong>Classification of regression models.</strong> Regression predicts a continuous target; the variants differ in the form of the predictor, the loss, and how they handle nonlinearity and regularisation. <em>Linear regression</em> (simple with one feature, multiple with several) fits ŷ = w·x + b by least squares. <em>Polynomial regression</em> adds powers/interactions of the features while remaining linear in the coefficients. <em>Logistic regression</em>, despite its name, is a classifier: it applies a sigmoid to a linear score and minimises cross-entropy. <em>Ridge (L2)</em> and <em>Lasso (L1)</em> add weight penalties to least squares; Elastic Net combines them. <em>Stepwise regression</em> selects predictors by forward/backward criteria such as AIC. <em>Support Vector Regression</em> fits an ε-insensitive tube and is robust to outliers. <em>Decision-tree and random-forest regression</em> partition the feature space; gradient-boosted trees add weak learners sequentially. <em>Neural-network regression</em> uses layered non-linearities. <strong>Distinctions to emphasise:</strong> linear vs nonlinear in the <em>features</em> versus linear vs nonlinear in the <em>parameters</em> (polynomial regression is nonlinear in x but linear in w); parametric vs nonparametric. <strong>Common mistake:</strong> listing only linear and logistic, or calling logistic a regression model without noting its classification use.</p></div></div>
+    </div>
+
+    <div class="q" id="t2q3">
+      <div class="qto"><span class="qnum">Tut2 · Q3</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Find the covariance matrix of: X1 = [4, 8, 13, 7], X2 = [11, 4, 5, 14].</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a3" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a3').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a3" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Means X̄₁=8, X̄₂=8.5. Using the <b>sample covariance</b> (divide by n−1 = 3, the usual convention for an estimated covariance matrix):</span></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Var(X1) = [(−4)²+0²+5²+(−1)²]/3 = 42/3 = <b>14</b></span></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Cov(X1,X2) = [(−4)(2.5)+0+5(−3.5)+(−1)(5.5)]/3 = −33/3 = <b>−11</b></span></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Var(X2) = [2.5²+(−4.5)²+(−3.5)²+5.5²]/3 = 69/3 = <b>23</b></span></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v">Σ = <b>[[14, −11], [−11, 23]]</b>.</span></div>
+<div class="ansrow"><span class="k">Answer</span><span class="v">(If you divide by n = 4 instead — the population form — you get [[10.5, −8.25], [−8.25, 17.25]]. Use n−1 unless the question specifically says "population".) X1 and X2 are negatively correlated.</span></div>
+<p><strong>How the covariance matrix is built.</strong> For data arranged as two variables with observations X1 = [4,8,13,7] and X2 = [11,4,5,14], first compute means: X̄₁ = 32/4 = 8, X̄₂ = 34/4 = 8.5. Deviations for X1 are [−4, 0, 5, −1]; for X2 [2.5, −4.5, −3.5, 5.5]. The sample covariance matrix has entries S_ij = Σₙ(xᵢ−x̄ᵢ)(xⱼ−x̄ⱼ)/(n−1). Thus Var(X1) = (16+0+25+1)/3 = 42/3 = 14; Var(X2) = (6.25+20.25+12.25+30.25)/3 = 69/3 = 23; Cov = [−10 + 0 − 17.5 − 5.5]/3 = −33/3 = −11. So Σ = [[14, −11], [−11, 23]]. The matrix is symmetric and, since Var(X1) &gt; 0 and det = 14×23 − 121 = 322 − 121 = 201 &gt; 0, positive definite as a covariance matrix should be. <strong>Convention note:</strong> dividing by n = 4 instead gives the population form [[10.5, −8.25], [−8.25, 17.25]]; state which convention you use. <strong>PCA link:</strong> these are the S = ZᵀZ/(n−1) of the cheat sheet; its eigenvalues give the principal-component variances. <strong>Common mistakes:</strong> dividing by n instead of n−1 without saying so, using Σ(xᵢ−x̄)² for the off-diagonal (that is a variance), or misreading the negative covariance — here it means larger X1 tends to accompany smaller X2.</p>
+<div class="exam-content">
+<span class="subhead">Worked covariance matrix (verified result [[14, −11], [−11, 23]])</span>
+<div class="formula">For two variables with means μ₁ = 8 and μ₂ = 8.5 and paired
+deviations giving the sums of cross-products:
+   Σ(x₁−μ₁)² = 56 → Var(X₁) = 56/4 = 14
+   Σ(x₂−μ₂)² = 92 → Var(X₂) = 92/4 = 23
+   Σ(x₁−μ₁)(x₂−μ₂) = −44 → Cov = −44/4 = −11
+
+Covariance matrix (symmetric, variances on the diagonal):
+   Σ = [ [ 14,  −11 ] ,
+         [ −11,  23 ] ]
+The negative covariance means the two variables move in opposite directions.</div>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="t2q4">
+      <div class="qto"><span class="qnum">Tut2 · Q4</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Given X = (3, 9, 11, 5, 2) and Y = (1, 8, 11, 4, 3). Evaluate the regression coefficients.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a4" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a4').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a4" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Regressing Y on X: X̄=6, Ȳ=5.4. b₁ = Σ(X−X̄)(Y−Ȳ)/Σ(X−X̄)² = 18/18 = <b>1.0</b>; b₀ = Ȳ − b₁X̄ = 5.4 − 6 = <b>−0.6</b>. So <b>Y = −0.6 + 1.0 X</b>.</span></div>
+<p><strong>Full computation for Y on X.</strong> With X = (3,9,11,5,2) and Y = (1,8,11,4,3), n = 5, X̄ = 30/5 = 6, Ȳ = 27/5 = 5.4. Deviations X−X̄ = (−3,3,5,−1,−4); Y−Ȳ = (−4.4,2.6,5.6,−1.4,−2.4). Cross-products: (−3)(−4.4)=13.2, (3)(2.6)=7.8, (5)(5.6)=28, (−1)(−1.4)=1.4, (−4)(−2.4)=9.6, totaling 60. Sum of squared X deviations = 9+9+25+1+16 = 60. Therefore b₁ = 60/60 = 1.0 and b₀ = Ȳ − b₁X̄ = 5.4 − 6 = −0.6, giving Ŷ = −0.6 + 1.0X. <strong>Equivalent normal-equation check:</strong> ΣXY = 3+72+121+20+6 = 222; (nΣXY − ΣXΣY)/(nΣX² − (ΣX)²) = (1110 − 30×27)/(5×240 − 900) = (1110−810)/(1200−900) = 300/300 = 1.0. <strong>Interpretation:</strong> a one-unit increase in X predicts a one-unit increase in Y; the intercept −0.6 is the predicted Y at X = 0 (an extrapolation here). <strong>Direction matters:</strong> regressing X on Y instead gives a different slope, b = Cov/Var(Y), so never swap the roles of dependent and independent variables. <strong>Common mistakes:</strong> using Σ(Y−Ȳ)² in the denominator, forgetting the sign of b₀, or rounding Ȳ to 5 and getting b₀ = −1.</p></div></div>
+    </div>
+
+    <div class="q" id="t2q5">
+      <div class="qto"><span class="qnum">Tut2 · Q5</span><span class="qmark">10 marks</span></div>
+      <span class="qtext">X has PMF P(0)=2θ/3, P(1)=θ/3, P(2)=2(1−θ)/3, P(3)=(1−θ)/3, 0≤θ≤1. Observations: 3,0,2,1,3,2,1,0,2,1. Find the MLE of θ.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a5" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a5').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a5" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">pmf P(0)=2θ/3, P(1)=θ/3, P(2)=2(1−θ)/3, P(3)=(1−θ)/3. Counts from 3,0,2,1,3,2,1,0,2,1 are 2,3,3,2 → 5 observations favour θ and 5 favour (1−θ) → <b>θ̂ = 0.5</b>.</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — General procedure (all five steps earn the 10 marks)</span>
+<div class="formula">1. write the pmf p(x; θ) and check Σₓ p(x; θ) = 1
+2. form the likelihood L(θ) = ∏ p(xᵢ; θ), collecting counts as exponents
+3. take logs: ℓ(θ) = Σ count(x)·ln p(x; θ)
+4. differentiate, set dℓ/dθ = 0, solve for θ̂
+5. verify d²ℓ/dθ² &lt; 0 and that θ̂ ∈ [0, 1]</div>
+
+<span class="subhead">Step 2 — Check the pmf is valid and count the data</span>
+<div class="formula">Σₓ p(x;θ) = 2θ/3 + θ/3 + 2(1−θ)/3 + (1−θ)/3
+          = (2θ + θ)/3 + (2(1−θ) + (1−θ))/3
+          = 3θ/3 + 3(1−θ)/3 = θ + (1−θ) = 1   ✓
+
+Data: 3, 0, 2, 1, 3, 2, 1, 0, 2, 1        n = 10
+count(0) = 2 ,  count(1) = 3 ,  count(2) = 3 ,  count(3) = 2
+Check: 2 + 3 + 3 + 2 = 10   ✓</div>
+
+<span class="subhead">Step 3 — Likelihood with the counts as exponents</span>
+<div class="formula">L(θ) = [p(0)]² [p(1)]³ [p(2)]³ [p(3)]²
+     = (2θ/3)² (θ/3)³ [2(1−θ)/3]³ [(1−θ)/3]²
+
+θ-favouring factors:     (2θ/3)² (θ/3)³     → θ^(2+3) = θ⁵
+(1−θ)-favouring factors: [2(1−θ)/3]³[(1−θ)/3]² → (1−θ)^(3+2) = (1−θ)⁵
+So L(θ) = C · θ⁵ (1−θ)⁵ ,  C = 2²·1³·2³·1² / 3¹⁰ (constant in θ).</div>
+
+<span class="subhead">Step 4 — Log-likelihood and score — every rearrangement shown</span>
+<div class="formula">ℓ(θ) = ln C + 5 ln θ + 5 ln(1−θ)
+dℓ/dθ = 5/θ + 5·(−1/(1−θ)) = 5/θ − 5/(1−θ)
+
+Set dℓ/dθ = 0:
+   5/θ − 5/(1−θ) = 0
+   5/θ = 5/(1−θ)            (add 5/(1−θ))
+   5(1−θ) = 5θ              (multiply by θ(1−θ))
+   5 − 5θ = 5θ              (expand)
+   5 = 10θ                  (add 5θ)
+   θ̂ = 5/10 = 0.5</div>
+
+<span class="subhead">Step 5 — Second derivative and boundary check</span>
+<div class="formula">d²ℓ/dθ² = −5/θ² − 5/(1−θ)² &lt; 0 for 0 &lt; θ &lt; 1  → maximum ✓
+θ̂ = 0.5 ∈ [0, 1] ✓
+L(0) = 0 (θ⁵ factor) and L(1) = 0 ((1−θ)⁵ factor) → interior optimum wins.
+General rule:  θ̂ = (# θ-favouring observations) / n = 5/10 = 0.5.</div>
+
+<span class="subhead">Companion worked MLE results (same five steps, compact form)</span>
+<div class="formula">Bernoulli — 3 heads, 1 tail:
+   L(p) = p³(1−p) ,  ℓ = 3 ln p + ln(1−p)
+   3/p − 1/(1−p) = 0 → 3(1−p) = p → 3 = 4p → p̂ = 3/4 = 0.75
+
+Poisson mean — data 14, 26, 25, 13:
+   ℓ(λ) = −nλ + (Σx) ln λ + const ,  Σx = 14+26+25+13 = 78 , n = 4
+   −n + (Σx)/λ = 0 → −4 + 78/λ = 0 → λ̂ = 78/4 = 19.5
+
+Geometric, support x = 1,2,… (trials to first success), pmf (1−p)^(x−1)p:
+   ℓ = (x−1)ln(1−p) + ln p
+   −(x−1)/(1−p) + 1/p = 0 → p(x−1) = 1−p → p·x = 1 → p̂ = 1/x
+   For a sample: p̂ = n/Σx = 1/x̄
+
+Geometric, support x = 0,1,… (failures before success), pmf (1−p)pˣ:
+   ℓ = x ln p + (1)·ln(1−p) → x/p − 1/(1−p) = 0
+   x(1−p) = p → x = p(x+1) → p̂ = x/(x+1)
+
+Die example: 8 sixes in 40 throws, p̂ = 8/40 = 0.2</div>
+</div>
+<p><strong>Interpretation.</strong> The MLE is the observed fraction of θ-favouring outcomes: 0.5 here. The companion derivations show the same likelihood → log → derivative → solve → check pattern across Bernoulli, Poisson and both geometric conventions; the support stated in the question decides between p̂ = 1/x and p̂ = x/(x+1). <strong>Common mistakes:</strong> using probabilities from the pmf table as counts, omitting the second-derivative check, or applying a geometric formula with the wrong support.</p>
+
+<div class="exam-content">
+<span class="subhead">Algorithm — five-step MLE (repeat this template for every estimator question)</span>
+<ol class="step-list">
+<li>State the pmf/pdf p(x; θ) and its support.</li>
+<li>Form L(θ) = ∏ p(xᵢ; θ), collecting counts as exponents.</li>
+<li>Take logs: ℓ(θ) = Σ count(x)·ln p(x; θ).</li>
+<li>Differentiate, set the score to zero and solve for θ̂, showing each rearrangement.</li>
+<li>Confirm a maximum with d²ℓ/dθ² &lt; 0 and check θ̂ against the parameter range.</li>
+</ol>
+</div>
+</div></div>
+    </div>
+
+    <div class="q" id="t2q6">
+      <div class="qto"><span class="qnum">Tut2 · Q6</span><span class="qmark">7 marks</span></div>
+      <span class="qtext">Linear regression h(x)=θ₀+θ₁x, cost J=½m Σ(h(x⁽ⁱ⁾)−y⁽ⁱ⁾)². Training set: (3,2),(1,2),(0,1),(4,3). (1) h(2) if θ₀=0, θ₁=1.5; (2) J(0,1); (3) if J=0 what is inferred?</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a6" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a6').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a6" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">(1) h(2) = 0 + 1.5·2 = <b>3</b>. (2) For θ = (0,1), J = (1/8)(1+1+1+1) = <b>0.5</b>. (3) J = 0 means an exact fit through every training point (overfitting on real data).</span></div>
+<div class="exam-content">
+<span class="subhead">Step 1 — Definitions</span>
+<div class="formula">h(x) = θ₀ + θ₁x
+J(θ₀, θ₁) = (1/(2m)) Σ_{i=1..m} (h(x⁽ⁱ⁾) − y⁽ⁱ⁾)²
+Training set (3,2), (1,2), (0,1), (4,3) → m = 4.</div>
+
+<span class="subhead">Step 2 — Part (1), substitute θ₀ = 0, θ₁ = 1.5, x = 2</span>
+<div class="formula">h(2) = θ₀ + θ₁·2
+     = 0 + 1.5 × 2
+     = 0 + 3
+     = 3   ✓</div>
+
+<span class="subhead">Step 3 — Part (2), θ = (0,1) gives h(x) = x</span>
+<div class="formula">Residual r = h(x) − y = x − y:
+(3,2):  3 − 2 = +1 → r² = 1
+(1,2):  1 − 2 = −1 → r² = 1
+(0,1):  0 − 1 = −1 → r² = 1
+(4,3):  4 − 3 = +1 → r² = 1
+Σ r² = 4 ,  2m = 8
+J(0,1) = 4/8 = 0.5   ✓</div>
+
+<span class="subhead">Step 4 — Part (3), what J = 0 forces</span>
+<div class="formula">Each squared residual is ≥ 0, so Σ rᵢ² = 0 ⟺ every rᵢ = 0
+⟺ h(x⁽ⁱ⁾) = y⁽ⁱ⁾ for all four points → exact, zero-error fit.
+On real noisy data this indicates overfitting or a duplicated/leaked set.</div>
+</div>
+<p><strong>Interpretation.</strong> The cost is half the mean squared error, so J(0,1) = 0.5 corresponds to RMSE = 1 on this data. <strong>Common mistakes:</strong> forgetting the ½ or the 1/m, using m = 3, or reading J = 0 as high bias — it is the opposite extreme (zero bias, maximum variance).</p>
+</div></div>
+    </div>
+
+    <div class="q" id="t2q7">
+      <div class="qto"><span class="qnum">Tut2 · Q7</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Explain regression with an example.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a7" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a7').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a7" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Regression predicts a <b>continuous</b> value from input features by fitting a function (usually a line/plane) that minimises error. <b>Example:</b> predict a house price (y) from its size (x) using y = b₀ + b₁x — the line summarises how price changes with size. (Contrast: classification predicts a category, not a number.)</span></div>
+<p><strong>Definition and worked example.</strong> Regression is supervised learning of a continuous target: given input features x, fit a function ŷ = f(x) that minimises a loss such as the sum of squared errors Σ(yᵢ−ŷᵢ)². In simple linear regression f(x) = b₀ + b₁x; the coefficients are b₁ = Σ(x−x̄)(y−ȳ)/Σ(x−x̄)² and b₀ = ȳ − b₁x̄. <strong>Example:</strong> to predict a house price y from floor area x, collect past sales (area, price), fit the line — say ŷ = 50 + 3x (price in lakhs, area in hundred sq ft) — and then estimate an unseen 12-hundred-sq-ft house at 50 + 36 = ₹86 lakhs. The slope 3 means each additional hundred square feet adds about ₹3 lakhs. <strong>Evaluation:</strong> MSE, RMSE, MAE and R² on a held-out set; R² = 1 − SS_res/SS_tot measures the fraction of variance explained. <strong>Assumptions of ordinary least squares:</strong> linearity in parameters, independent errors, homoscedasticity (constant error variance) and approximately normal errors for inference. <strong>Contrast:</strong> classification predicts a discrete label (spam/ham) and is scored by accuracy/confusion-matrix metrics; logistic regression bridges the two by outputting a probability. <strong>Common mistake:</strong> describing regression as predicting a category, or fitting through two arbitrary points rather than minimising error over all points.</p></div></div>
+    </div>
+
+    <div class="q" id="t2q8">
+      <div class="qto"><span class="qnum">Tut2 · Q8</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Identify real-life examples of classification problems.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a8" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a8').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a8" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">(i) email spam vs not-spam; (ii) disease present/absent from symptoms; (iii) face recognition (who is this?); (iv) credit approval accept/reject; (v) handwritten-digit recognition (0–9). Any four — the label is a discrete class.</span></div>
+<p><strong>Real-life classification problems.</strong> Classification assigns each input to one of a finite set of discrete classes. (i) <em>Email spam detection</em>: features are word frequencies; classes are spam/ham. (ii) <em>Medical diagnosis</em>: symptoms and test results map to disease present/absent. (iii) <em>Face recognition</em>: an image is matched to a person's identity among many classes. (iv) <em>Credit approval</em>: an applicant's income and history determine accept/reject. <strong>Further examples:</strong> handwritten-digit recognition (10 classes), sentiment analysis (positive/negative/neutral), fraud detection, and loan-default prediction. <strong>Why these are classification:</strong> the target is a label with no meaningful numeric distance — 'spam' is not larger or smaller than 'ham' — and the correct metrics are accuracy, precision, recall, F1 and ROC-AUC rather than squared error. A related regression version of the same domains (predicting the amount of credit loss, or tumour size) would be a different task. <strong>Common mistakes:</strong> listing a continuous-output task (e.g. 'predict temperature') as classification, or giving four examples without identifying the classes. For full marks, name the classes and one feature for each example, and note that logistic regression and naive Bayes are typical algorithms.</p></div></div>
+    </div>
+
+    <div class="q" id="t2q9">
+      <div class="qto"><span class="qnum">Tut2 · Q9</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Differentiate between overfitting and underfitting with suitable diagrams.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a9" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a9').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a9" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v"><b>Underfitting:</b> model too simple — high training AND high test error, a straight line through curved data (bias-dominated). <b>Overfitting:</b> model too complex — very low training error but high test error, a wiggly curve that touches every training point but fails on new data (variance-dominated). Diagram idea: underfit = smooth line missing the trend; overfit = jagged line through all points; good fit = smooth curve following the trend. (Bias–variance trade-off: aim for the middle.)</span></div>
+<p><strong>Two failure modes with diagrams described.</strong> <em>Underfitting</em> (high bias): the model is too simple to capture the pattern — a straight line through clearly curved data. Training error is high and test error is similarly high; adding more data does not help much because the hypothesis class cannot represent the truth. Remedies include a richer model, better features and reduced regularisation. <em>Overfitting</em> (high variance): the model is so flexible that it threads through every training point, including the noise — a high-degree polynomial with wild oscillations. Training error is near zero but test error is high, producing a large gap; remedies include regularisation, pruning, dropout, more data and early stopping. <strong>Diagram instruction:</strong> draw three scatter plots with the same points: (1) a straight line missing the curve = underfit; (2) a smooth curve following the trend = good fit; (3) a jagged curve hitting every point = overfit. Add a caption with the train/test error for each. <strong>Error-curve view:</strong> plot error against model complexity — training error decreases monotonically, test error is U-shaped, and the optimum is between the two extremes. <strong>Bias–variance link:</strong> E[error] = bias² + variance + noise; underfitting is bias-dominated, overfitting variance-dominated. <strong>Common mistake:</strong> claiming underfitting has low training error, or mixing the two definitions — anchor on the train/test gap: small gap = healthy, large gap = overfitting, both high = underfitting.</p></div></div>
+    </div>
+
+    <div class="q" id="t2q10">
+      <div class="qto"><span class="qnum">Tut2 · Q10</span><span class="qmark">4 marks</span></div>
+      <span class="qtext">Compare Classification with Regression with an example.</span>
+      <button class="ansbtn" aria-expanded="false" aria-controls="t2a10" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');document.getElementById('t2a10').classList.toggle('open')">Show answer</button>
+      <div class="ans-collapsible" id="t2a10" role="region"><div class="ans-collapsible-inner">
+<div class="ansrow"><span class="k">Answer</span><span class="v">Both are supervised, but <b>classification</b> predicts a discrete <i>label</i> (e.g. spam/not-spam), while <b>regression</b> predicts a continuous <i>number</i> (e.g. house price = ₹42 lakhs). Classification measures accuracy / confusion matrix; regression measures error (MSE/R²). Logistic regression is the bridge — it outputs a probability then thresholds to a class.</span></div>
+<p><strong>Comparison with an example.</strong> Both are supervised: each training example supplies an input x and a known output y, and the learner fits f: X → Y. They differ in the <em>type of y</em>. In classification y is a categorical label from a finite set — e.g. an email is 'spam' or 'not spam' — and the boundary is a decision surface; the model may output a probability P(spam|x) that is thresholded at 0.5. In regression y is a real number — e.g. a house price of ₹42 lakhs — and f(x) is a real-valued function fitted by least squares. <strong>Metrics differ:</strong> classification uses accuracy, precision, recall, F1, confusion matrix and ROC-AUC; regression uses MSE, RMSE, MAE and R². <strong>Losses differ:</strong> cross-entropy/log loss for classification versus squared or absolute error for regression. <strong>Bridge:</strong> logistic regression is named 'regression' because it models a linear score, but it is a classifier because its sigmoid output is a class probability; conversely, a threshold applied to any regression output turns it into a classifier, which is why a cut-off must be justified. <strong>Common mistakes:</strong> distinguishing the two by whether the <em>inputs</em> are categorical, or forgetting that a probability output plus a threshold is still classification.</p></div></div>
+    </div>
+  </div>
+
+  <div style="clear:both"></div>
+</div>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

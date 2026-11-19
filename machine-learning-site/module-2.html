@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Supervised Learning — Regression, Classification &amp; Trees</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+<style>
+  .hero{background:var(--bg-alt);color:var(--ink);padding:60px 20px 44px;border-bottom:3px solid var(--accent);position:relative}
+  .hero .inner{max-width:980px;margin:0 auto}
+  .hero h1{font-size:31px;font-weight:800;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.14}
+  .hero .lede{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.55}
+  .qbox{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .qbox h4{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent)}
+  .qbox p{margin:0}
+  .qbox .eq{text-align:center;font-size:16px;font-weight:700;margin:8px 0;color:var(--accent-ink);font-family:var(--mono),monospace}
+  .qbox .eq span{color:var(--accent)}
+  .def{margin:10px 0 0;padding:10px 13px;background:var(--bg-t);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:14px;line-height:1.5}
+  .def b{color:var(--accent-ink)}
+  .formula{display:block;background:color-mix(in srgb,var(--ink) 6%,var(--paper));border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 20px;margin:18px 0;overflow-x:auto;color:var(--ink);font-size:15.5px;line-height:1.9;text-align:center;white-space:pre-wrap;-webkit-overflow-scrolling:touch}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Machine Learning (CST413)</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="../index.html">All subjects</a>
+      <a href="module-1.html">M1 · Paradigms</a>
+      <a href="module-2.html" class="active">M2 · Supervised</a>
+      <a href="module-3.html">M3 · NN &amp; SVM</a>
+      <a href="module-4.html">M4 · Unsupervised</a>
+      <a href="module-5.html">M5 · Classification</a>
+      <a href="exam-guide.html">Exam Techniques</a>
+      <a href="question-bank.html">Papers</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <span class="kicker" style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Module 2 · Supervised Learning · 7 hours · Comprehensive edition</span>
+    <h1>Regression, Classification, Naive Bayes &amp; Decision Trees</h1>
+    <p class="lede">The complete Module 2: linear and polynomial regression derived from least squares, gradient descent and the normal equation, Ridge/Lasso, logistic regression, Naive Bayes with Laplace smoothing, and ID3 decision trees — with full worked numerical examples and exam-writing guidance.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Regression</h2><span class="tag">Predict a number</span></div>
+    <div class="card full">
+      <p>Regression is the supervised-learning task of predicting a <b>continuous</b> output value from input features. Given examples where
+      we know both the input <b>x</b> and the correct output <b>y</b>, the model learns a function <b>h(x) ≈ y</b> so that it can predict <b>y</b> for new
+      <b>x</b> it has never seen. The output is a real number — price, temperature, revenue, demand — not a category.</p>
+      <p>The simplest and most important regression model is <b>linear regression</b>: it assumes the output is (approximately) a weighted sum of the
+      inputs. If that assumption is too simple for the data, we can go to <b>polynomial regression</b>, which still fits a linear model but to transformed
+      (squared, cubed, interaction) features — the fit becomes a curve in the original space.</p>
+
+      <div class="stack" style="margin-top:14px">
+        <div class="card">
+          <h3><span class="sym">+</span>Linear Regression — One Variable</h3>
+          <p>The model is a straight line: <b>h(x) = θ₀ + θ₁x</b>. There are two parameters — the intercept <b>θ₀</b> (where the line crosses the y-axis) and
+          the slope <b>θ₁</b> (how steep the line is). We choose the θ's so that the line is as close as possible to all the training points.</p>
+          <p>For one input, the fit is a line. For <b>θ₀ = 0, θ₁ = 1.5</b>, the prediction at <b>x = 2</b> is <b>h(2) = 0 + 1.5·2 = 3.0</b>.</p>
+        </div>
+        <div class="card">
+          <h3><span class="sym">+</span>Linear Regression — Multiple Variables</h3>
+          <p>With <b>D</b> input features the model becomes <b>h(x) = θ₀ + θ₁x₁ + θ₂x₂ + ... + θ<sub>D</sub>x<sub>D</sub></b>. Each feature gets its own weight, and the fit
+          is now a <b>plane</b> (one feature), a <b>hyperplane</b> (many features), not a line. The learning problem is the same in structure — find θ that
+          minimises the prediction error — but the number of parameters grows with <b>D</b>.</p>
+          <p>For <b>D ≈ 100</b> (around a hundred independent attributes), the closed-form matrix solution becomes expensive, and <b>gradient descent</b> is typically
+          preferred.</p>
+        </div>
+      </div>
+
+      <div class="tablewrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th></th><th>One-variable linear regression</th><th>Multiple-variable linear regression</th></tr></thead>
+          <tbody>
+            <tr><td>Model</td><td>h(x) = θ₀ + θ₁x</td><td>h(x) = θ₀ + Σⱼ θⱼxⱼ</td></tr>
+            <tr><td>Parameters</td><td>2 (θ₀, θ₁)</td><td>D+1 (θ₀, θ₁ … θ_D)</td></tr>
+            <tr><td>Fit shape</td><td>Line</td><td>Plane / hyperplane</td></tr>
+            <tr><td>When to use</td><td>Single predictor, simple relationship</td><td>Many predictors, each contributes linearly</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def"><b>What "linear" really means:</b> linear regression is linear in the <i>parameters</i> (the θ's), not necessarily in the inputs. Polynomial
+      regression — h(x) = θ₀ + θ₁x + θ₂x² + θ₃x³ — is still a linear regression because it is a linear combination of parameters; the curve comes from feeding
+      <b>x², x³</b> as extra input features. This is why linear methods are more powerful than they first appear.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>How the Model Is Learned — The Cost Function</h2><span class="tag">Fitting the line</span></div>
+    <div class="card full">
+      <p>To "learn" the model we need a way to score how bad a particular choice of parameters is. The standard score for regression is the <b>mean squared
+      error</b> — the average of the squared differences between the model's prediction and the true value, over all training examples. Smaller error means a
+      better fit.</p>
+      <p class="eq">\[J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr)^{2}\]</p>
+      <div class="card">
+        <h3>Why this form</h3>
+          <p>The <b>1/m</b> averages the error over all <b>m</b> examples, so the score does not grow with dataset size. The <b>1/2</b> is a convenience: when we take
+          the derivative to minimise J, the square's factor of 2 cancels the 1/2, leaving clean expressions. It does not change where the minimum is.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Squared</span>Why square the error</h3>
+          <p>Squaring makes every error positive (a prediction above and below the truth do not cancel), and it penalises large errors more heavily. It also gives a
+          smooth, differentiable function that gradient-based methods can optimise easily.</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Solution Methods — Gradient Descent &amp; Closed Form</h2><span class="tag">Finding the best θ</span></div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="sym">▼</span>Gradient Descent</h3>
+        <p>An iterative method: start with some θ (often zeros), then repeatedly take a small step in the direction that <b>reduces</b> J the fastest — that is, opposite
+        to the gradient. Repeat until J stops improving. The size of each step is the <b>learning rate α</b>.</p>
+        <p class="eq">\[\theta_j := \theta_j - \alpha\,\frac{\partial J}{\partial\theta_j}\]</p>
+        <div class="def" style="margin-top:8px"><b>Intuition:</b> imagine standing on a hill (high J) and wanting to reach the valley (low J). The gradient tells you which way is steepest uphill;
+        step the opposite way, a little at a time. Eventually you reach a low point.</div>
+      </div>
+      <div class="card">
+        <h3><span class="sym">=</span>Closed-Form (Normal Equation)</h3>
+        <p>A direct formula that gives the optimal θ in one step, without iterating. It solves ∂J/∂θ = 0 analytically. The price is computation: it requires inverting a
+        <b>D×D</b> matrix.</p>
+        <p class="eq">\[\theta=(X^{T}X)^{-1}X^{T}y\]</p>
+      <div class="stack" style="margin-top:10px">
+        <div class="card">
+          <h3><span class="idx">Underfitting</span></h3>
+          <p>The model is too simple to capture the pattern — high error on both training and test data. A straight line fit to clearly curved data underfits. The model has <b>high
+          bias</b>: its assumptions are wrong for the data.</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Overfitting</span></h3>
+          <p>The model is too flexible — near-zero error on training data but high error on test data. A high-degree polynomial through every point overfits. The model has <b>high
+          variance</b>: small changes in the training data produce very different fits.</p>
+        </div>
+      </div>
+      <div class="def"><b>How to spot it:</b> compare training error to test error. If training error is low and test error is much higher, the model is overfitting. If both are high, it is
+      underfitting. The goal is the middle ground — enough flexibility to capture the true pattern, but not so much that noise is memorised. This is the bias–variance trade-off (Module 5).</div>
+      <div class="def"><b>How to reduce overfitting in regression:</b> (1) gather more training data, (2) simplify the model — fewer features or lower polynomial degree, (3) use
+      <b>regularization</b> — Ridge (L2) or Lasso (L1), covered below, (4) use cross-validation to choose the model complexity, (5) stop training early in iterative methods.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Regularization — Ridge (L2) &amp; Lasso (L1)</h2><span class="tag">Keeping the fit honest</span></div>
+    <div class="card full">
+      <p>Regularization is the standard way to prevent overfitting. The idea is simple: when we choose the parameters, we not only care about fitting the data (small J), but also
+      about keeping the parameters <b>small</b>. A model with huge weights is usually overfitting — it is bending sharply to hit individual points. By adding a penalty on the size of θ,
+      we force the model to prefer simpler, smoother fits.</p>
+      <p class="eq">J<sub>regularized</sub> =\[J_{\text{reg}}=J(\theta)+\lambda\cdot(\text{penalty on }\theta)\]) + λ · (penalty on θ)</p>
+      <div class="stack" style="margin-top:6px">
+        <div class="card">
+          <h3><span class="idx">Ridge</span>L2 regularization</h3>
+          <p>Adds <b>λ Σ θⱼ²</b> — the sum of squared parameters — to the cost. It gently shrinks all weights toward zero but rarely makes them exactly zero. It is the default
+          regularizer for most regression tasks and works well when many features each contribute a little.</p>
+          <p class="eq">\[J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum\theta_j^{2}\]</p>
+        </div>
+        <div class="card">
+          <h3><span class="idx">Lasso</span>L1 regularization</h3>
+          <p>Adds <b>λ Σ |θⱼ|</b> — the sum of absolute parameter values. Because the penalty is on the absolute value, it tends to drive some weights to <b>exactly zero</b>. This
+          performs <b>feature selection</b>: irrelevant features get zero weight and disappear from the model.</p>
+          <p class="eq">\[J = \frac{1}{2m}\sum(h-y)^{2} + \lambda\sum|\theta_j|\]</p>
+        </div>
+      </div>
+      <div class="tablewrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th></th><th>Ridge (L2)</th><th>Lasso (L1)</th></tr></thead>
+          <tbody>
+            <tr><td>Penalty</td><td>λ Σ θⱼ² (squared)</td><td>λ Σ |θⱼ| (absolute)</td></tr>
+            <tr><td>Effect on weights</td><td>Shrinks all toward zero</td><td>Forces some to exactly zero</td></tr>
+            <tr><td>Feature selection</td><td>No — keeps all features</td><td>Yes — zeroes irrelevant ones</td></tr>
+            <tr><td>Best when</td><td>Many features each contribute a little</td><td>Many features, only some matter</td></tr>
+            <tr><td>Geometry</td><td>Smooth quadratic bowl</td><td>Sharp corners → sparse solutions</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>The role of λ:</b> λ controls the strength of regularization. λ = 0 means no regularization (ordinary regression, prone to overfitting). Very large λ crushes the weights
+      toward zero, which can <b>underfit</b> (the model becomes too simple). The right λ is found by cross-validation. The name <b>λ</b> (lambda) is the regularization parameter — the
+      "knob" that balances fit versus simplicity.</div>
+      <div class="def"><b>Why regularization works:</b> it is a formal version of Occam's razor — given two models that fit equally well, prefer the simpler one. By penalising large weights, Ridge and Lasso
+      make the model's predictions change less when the training data changes a little, i.e. they <b>reduce variance</b>. The cost is a small increase in bias, but the net effect is usually better
+      generalisation. This is the bias–variance trade-off made concrete.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Classification — Predicting a Category</h2><span class="tag">Regression's cousin</span></div>
+    <div class="card full">
+      <p>Classification is the supervised-learning task where the output is a <b>category</b> (class label) rather than a number. The input is still a set of features x, but now the target
+      y is discrete — e.g. spam / not-spam, disease / healthy, professor / student / staff. The model learns to draw a boundary (or boundaries) between classes in the feature space, so
+      that new points fall on the correct side.</p>
+      <p>Regression and classification are the two faces of supervised learning. Regression predicts a continuous value; classification predicts a discrete label. Many algorithms exist on both
+      sides — linear regression for continuous outputs, logistic regression for binary classification, Naive Bayes and decision trees for both — but the loss function and the way we evaluate
+      them differ.</p>
+
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Task</th><th>Output type</th><th>Example</th><th>Typical algorithms</th></tr></thead>
+          <tbody>
+            <tr><td>Regression</td><td>Continuous number</td><td>House price, temperature, demand</td><td>Linear / polynomial regression, Ridge, Lasso</td></tr>
+            <tr><td>Binary classification</td><td>Two classes</td><td>Spam vs not-spam, disease vs healthy</td><td>Logistic regression, Naive Bayes, decision trees, SVM</td></tr>
+            <tr><td>Multi-class classification</td><td>Three or more classes</td><td>Professor / student / staff; digit 0–9</td><td>Logistic regression (one-vs-rest), Naive Bayes, decision trees</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Key distinction to remember:</b> <b>Logistic regression</b> is a classification algorithm despite its name — it predicts a probability (between 0 and 1) and then thresholds it to a class.
+      It is called "regression" only because it is built on the same linear form as linear regression; the output is a probability, and the final decision is categorical.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Logistic Regression — Odds, Logit &amp; Gradient Descent</h2><span class="tag">Classification by regression</span></div>
+    <div class="card full">
+      <p>Despite the name, <b>logistic regression</b> is a classification method. It keeps the same linear form as linear
+      regression, <b>wᵀx</b>, but passes it through a <b>sigmoid</b> so the output is a probability in (0,1). The textbook
+      (Alpaydın, logistic discrimination, §10.7 / §11.3) writes the two-class model as:</p>
+      <div class="eq">\[y_t = \sigma(w^{T}x_t) \qquad \bigl(P(C_1\mid x_t)=y_t;\; r_t=1\text{ if }x_t\in C_1,\;0\text{ if }x_t\in C_2\bigr)\] &nbsp;&nbsp; ( P(C₁|xₜ) = yₜ ; &nbsp; rₜ = 1 if xₜ∈C₁, &nbsp; 0 if xₜ∈C₂ )</div>
+      <p>Inverting the sigmoid shows the model is <b>linear in the log-odds (the logit)</b>:</p>
+      <div class="eq">\[\log\!\left(\frac{y_t}{1-y_t}\right) = w^{T}x_t\]</div>
+      <div class="def"><b>Odds &amp; logit:</b> the <i>odds</i> of class C₁ are yₜ ⁄ (1 − yₜ); the <i>logit</i> is their logarithm. Logistic
+      regression therefore models the log-odds as a linear combination of the inputs. A one-unit increase in feature xⱼ multiplies the
+      odds by e<sup>wⱼ</sup> — this is exactly why the method is called <i>logistic</i>.</div>
+      <p>The parameters are learned by <b>maximum likelihood</b>: maximize the Bernoulli log-likelihood, equivalently minimize its
+      negative — the <b>cross-entropy</b>:</p>
+      <div class="eq">\[L(r\mid X)=\sum_t\bigl[r_t\log y_t+(1-r_t)\log(1-y_t)\bigr]\]</div>
+      <p>This is minimized with <b>gradient descent</b>. For a single training instance the online (stochastic) update is:</p>
+      <div class="eq">\[\Delta w_{tj}=\eta\,(r_t-y_t)\,x_{tj}\qquad(j=0,\dots,d)\]</div>
+      <div class="def"><b>Update rule:</b> η is the learning factor. The batch version sums the correction (rₜ − yₜ)x<sub>tⱼ</sub> over <i>all</i>
+      instances before updating; the online version updates after each pattern. Both share the same shape —
+      <b>Update = learning-factor × (desired − actual) × input</b> — the perceptron learning rule applied to the cross-entropy error.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Naïve Bayes — the intuition (read this first)</h2><span class="tag">Plain-language lesson</span></div>
+    <div class="card full">
+      <p>Naïve Bayes is the classifier you reach for when you want a <b>sensible prediction, fast, from very little data</b>. Underneath the formula it is one idea you already use every day:</p>
+      <div class="def"><b>Start with your best guess. Then let the evidence shift it.</b> That is Bayes' theorem in plain English. Your "guess before evidence" is the <b>prior</b>; "how strongly this evidence points at each answer" is the <b>likelihood</b>; your "updated guess after evidence" is the <b>posterior</b>.</div>
+      <p><b>An example you already do.</b> You wake up and guess "probably not raining" — it's usually dry (that's your prior). You look outside and see <b>dark clouds</b> (evidence). Dark clouds are far more common on rainy days than dry days, so the evidence <b>shifts</b> your belief toward "it will rain" (posterior). Naïve Bayes just does this counting-and-shifting maths formally, for any number of features at once.</p>
+
+      <h3>Why "naïve"?</h3>
+      <p>It assumes each feature is <b>independent</b> of the others <i>once you know the class</i> — e.g. "given that an email is spam, the words 'free' and 'click' don't influence each other." That is usually <b>false</b> in real life (words do correlate). But the naïve shortcut works surprisingly well and needs <b>much less data</b>, because it estimates each feature on its own instead of every possible combination. That trade-off is the entire reason the method exists.</p>
+
+      <h3>Bayes' theorem, slowly</h3>
+      <div class="qbox">
+        <h4>Bayes' theorem</h4>
+        <p class="eq">\[P(\text{class} \mid \text{evidence}) = \dfrac{P(\text{evidence} \mid \text{class}) \cdot P(\text{class})}{P(\text{evidence})}\]</p>
+      </div>
+      <p>Left to right: <b>how likely is the class given this evidence</b> = <b>how likely is this evidence if the class is true</b> × <b>how common the class is</b> ÷ <b>how common the evidence is overall</b>. When we <i>compare</i> two classes, the bottom term P(evidence) is identical for both — so we drop it and just compare the top:</p>
+      <div class="qbox">
+        <h4>What we actually compute</h4>
+        <p class="eq">\[\hat{y} = \arg\max_{v_j} \bigl\{ P(v_j) \cdot \prod_i P(a_i \mid v_j) \bigr\}\]</p>
+      </div>
+      <p><b>P(vⱼ)</b> = how often class vⱼ appears in training (the prior). <b>P(aᵢ | vⱼ)</b> = for that class, how often feature aᵢ shows up (the likelihood). We multiply them all, repeat for every class, and pick the biggest. That is the whole algorithm — no training loop, no gradient, just counting.</p>
+
+      <div class="def"><b>When it shines:</b> small datasets, text/spam classification, medical screening — many weak features, little data. <b>When it struggles:</b> features that are strongly correlated (the naïve assumption breaks badly); or a feature value that never appeared in training for a class — a single zero likelihood multiplies the whole product to 0. That is fixed with <b>Laplace smoothing</b>: add 1 to every count so nothing is ever exactly zero.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Decision Trees (ID3) — Entropy &amp; Information Gain</h2><span class="tag">From the handwritten notes</span></div>
+    <div class="card full">
+      <p>A <b>decision tree</b> is a non-linear model (uses supervised learning) that splits data at each internal node by the attribute that best separates the classes; leaf nodes hold the predicted class. <b>ID3</b> picks the split using <b>entropy</b> (impurity) and <b>information gain</b>.</p>
+      <div class="qbox">
+        <h4>Entropy of a set S (binary)</h4>
+        <p class="eq">\[\text{Entropy}(S) = -P_{+}\log_2 P_{+} - P_{-}\log_2 P_{-}\]</p>
+      </div>
+      <div class="qbox">
+        <h4>Information Gain of attribute A</h4>
+        <p class="eq">\[\text{Gain}(S,A)=E(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot E(S_v)\]</p>
+      </div>
+      <p>For the Play-Tennis root choice the notes compute (student's numbers): Gain(Outlook)=0.24, Gain(Wind)=0.48, Gain(Temp)=0.032, Gain(Humidity)=0.15. The tree built: root <b>Outlook</b> → Sunny splits on <b>Humidity</b> (high→No, normal→Yes), Overcast→<b>Yes</b>, Rain splits on <b>Wind</b> (strong→No, weak→Yes).</p>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">09</span><h2>Naive Bayes — the Idea</h2><span class="tag">Classifier</span></div>
+    <div class="card full">
+      <p>For a class C and feature vector x = (x₁,…,xₙ), Bayes' theorem gives the posterior:</p>
+      <div class="eq">\[P(C\mid x) = \frac{P(x\mid C)\,P(C)}{P(x)}\]</div>
+      <p>The <b>naive</b> assumption: features are conditionally independent given the class, so
+      P(x|C) = Π<sub>i</sub> P(x<sub>i</sub> | C). The classifier picks the class with the largest posterior:</p>
+      <div class="eq">\[\hat{C}=\arg\max_{C}\Bigl[P(C)\cdot\prod_i P(x_i\mid C)\Bigr]\]</div>
+      <div class="def"><b>Why "naive"?</b> Real features are rarely independent, yet the method works surprisingly well —
+      it is fast, needs little data, and is a strong baseline for text/spam classification.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">10</span><h2>Decision Trees &amp; Entropy</h2><span class="tag">ID3</span></div>
+    <div class="card full">
+      <p>A decision tree asks a feature question at each node to split the data. <b>ID3</b> picks the question
+      that most reduces <b>entropy</b> ( disorder / impurity ). Entropy of a set with class proportions p<sub>i</sub>:</p>
+      <div class="eq">\[H(S)=-\sum_i p_i\log_2 p_i\]</div>
+      
+      <p>Information gain of splitting on feature A is the drop in impurity after the split — the parent entropy minus the
+      weighted average entropy of the child branches:</p>
+      <div class="eq">\[\text{IG}(S,A)=H(S)-\sum_{v\in\text{Values}(A)}\frac{|S_v|}{|S|}\cdot H(S_v)\]</div>
+      <div class="def"><b>Formal definition (information gain):</b> if after splitting on A the data partitions into branches v, with |S<sub>v</sub>|
+      instances taking branch v, the total impurity after the split is the weighted sum
+      I′(S,A) = − Σ<sub>v</sub> (|S<sub>v</sub>| ⁄ |S|) Σ<sub>i</sub> p<sub>i,v</sub> log<sub>2</sub> p<sub>i,v</sub> (Alpaydın eq. 9.8). Information gain is then
+      IG(S, A) = I(S) − I′(S, A): the split that gives the <b>largest decrease in impurity</b> is chosen. ID3, C4.5 and CART all select the split
+      that minimizes this post-split impurity (equivalently, maximizes the gain).</div>
+      <p>Entropy is not the only impurity measure. For a two-class problem (p, 1−p), any nonnegative φ(p,1−p) that is maximal at
+      p = ½ and zero at p = 0 or 1 works; the textbook lists three, with little practical difference between them:</p>
+      <div class="eq">Entropy: &nbsp; \[\phi = -p\log_2 p - (1-p)\log_2(1-p)\]</div>
+      <div class="eq">Gini index: &nbsp; \[\phi = 2p(1-p) \qquad\text{Gini index}\] &nbsp;&nbsp; Misclassification error: &nbsp; \[\phi = 1 - \max(p,1-p) \qquad\text{Misclassification error}\]</div>
+      <p>The feature with the highest gain is chosen as the root, and the process repeats on each child. (For the
+      tennis set the gains work out roughly: Outlook ≈ 0.24, Wind ≈ 0.48, Humidity ≈ 0.15, Temp ≈ 0.03 —
+      so Wind then Humidity are the strongest splitters after Outlook.)</p>
+      <div class="def"><b>Overfitting &amp; pruning:</b> a tree grown to full depth memorizes the training data, so it overfits when there is noise.
+      <b>Prepruning</b> stops early — e.g. do not split a node reached by fewer than ~5% of the training set, or once its impurity falls below a
+      threshold θ<sub>I</sub>. <b>Postpruning</b> grows the full tree to zero training error, sets aside a separate <i>pruning set</i>, and replaces each
+      subtree by a leaf if the leaf does no worse on the pruning set; postpruning is faster to state and generally yields more accurate trees than
+      prepruning. C4.5 extends ID3 with continuous features and pruning.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">11</span><h2>Naive Bayes vs Decision Tree</h2><span class="tag">Compare</span></div>
+    <div class="card full">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Naive Bayes</th><th>Decision Tree</th></tr></thead>
+          <tbody>
+            <tr><td>Assumption</td><td>Features independent</td><td>None (finds splits)</td></tr>
+            <tr><td>Output</td><td>Probabilistic</td><td>Rule-based path</td></tr>
+            <tr><td>Speed</td><td>Very fast to train</td><td>Fast, scales with depth</td></tr>
+            <tr><td>Strength</td><td>Small data, text</td><td>Interpretable, mixed features</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<div class="section">
+    <div class="head"><span class="num">12</span><h2>Linear Regression from First Principles — The Normal Equation Derived</h2><span class="tag">Full derivation</span></div>
+    <div class="card full">
+      <p>Write the training data as a design matrix X (m × (D+1)) whose i-th row is (1, xᵢ₁ … xᵢD) — the leading 1 supplies the intercept — and a target vector y. The hypothesis is h(x) = θᵀx and the residual vector is r = Xθ − y. The cost function is</p>
+      <div class="formula">\[J(\theta)=\frac{1}{2m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr)^{2}=\frac{1}{2m}(X\theta-y)^{T}(X\theta-y)\]</div>
+      <p>To minimise, use two matrix-calculus identities: ∇<sub>θ</sub>(θᵀAθ) = (A + Aᵀ)θ and ∇<sub>θ</sub>(bᵀθ) = b. Expanding J = (1/2m)(θᵀXᵀXθ − 2yᵀXθ + yᵀy) and differentiating gives</p>
+      <div class="formula">\[\nabla_\theta J=\frac{1}{m}\bigl(X^{T}X\theta-X^{T}y\bigr)=0\quad\Longrightarrow\quad \boxed{\theta=(X^{T}X)^{-1}X^{T}y}\]</div>
+      <p>These are the <b>normal equations</b>. Two practical caveats: XᵀX is singular if features are linearly dependent (perfect multicollinearity) or if m &lt; D+1 — use the pseudoinverse or regularisation; and forming the inverse costs O(D³), which is why gradient descent wins for D ≈ 10⁴ or more.</p>
+      <h3>Worked numerical example</h3>
+      <p>Three observations: (x, y) = (1, 2), (2, 3), (3, 5). Then</p>
+      <div class="formula">\[X=\begin{bmatrix}1&amp;1\\1&amp;2\\1&amp;3\end{bmatrix},\quad y=\begin{bmatrix}2\\3\\5\end{bmatrix},\quad X^{T}X=\begin{bmatrix}3&amp;6\\6&amp;14\end{bmatrix},\quad X^{T}y=\begin{bmatrix}10\\23\end{bmatrix}\]</div>
+      <p>The determinant is 3·14 − 6·6 = 42 − 36 = 6, so (XᵀX)⁻¹ = (1/6)[[14, −6], [−6, 3]] and</p>
+      <div class="formula">\[\theta=\frac{1}{6}\begin{bmatrix}14&amp;-6\\-6&amp;3\end{bmatrix}\begin{bmatrix}10\\23\end{bmatrix}=\frac{1}{6}\begin{bmatrix}140-138\\-60+69\end{bmatrix}=\begin{bmatrix}1/3\\3/2\end{bmatrix}\]</div>
+      <p>The fitted line is h(x) = 0.3333 + 1.5x, giving predictions 1.833, 3.333, 4.833. Residuals are +0.167, −0.333, +0.167; SSE = 0.0278 + 0.1111 + 0.0278 = 0.1667 and J = SSE/(2m) = 0.1667/6 = <b>0.0278</b>. Note the residuals sum to zero — a consequence of the intercept column; use this as an arithmetic check in an exam.</p>
+      <div class="def"><b>Why the 1/2m matters:</b> the 1/m makes J an average rather than a total, so the same J means the same average quality regardless of dataset size; the 1/2 cancels the factor 2 produced by differentiating a square. Neither changes the location of the optimum, so both are conventions — but the derivative expressions become clean, which examiners reward.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">13</span><h2>Gradient Descent — Derivation, One Iteration by Hand, and Diagnostics</h2><span class="tag">Optimisation</span></div>
+    <div class="card full">
+      <p>For the one-variable model h(x) = θ₀ + θ₁x the partial derivatives are</p>
+      <div class="formula">\[\frac{\partial J}{\partial\theta_0}=\frac{1}{m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr),\qquad \frac{\partial J}{\partial\theta_1}=\frac{1}{m}\sum_{i=1}^{m}\bigl(h(x^{(i)})-y^{(i)}\bigr)x^{(i)}\]</div>
+      <p>and the simultaneous update is θⱼ ← θⱼ − α ∂J/∂θⱼ. Note the update must use the <i>old</i> values of all parameters — compute both derivatives first, then update both weights.</p>
+      <h3>Worked first iteration</h3>
+      <p>Using the same three points, start at θ₀ = θ₁ = 0 with α = 0.1. Predictions are all 0, so residuals are h − y = −2, −3, −5. Then ∂J/∂θ₀ = (−2 − 3 − 5)/3 = −10/3 = −3.333 and ∂J/∂θ₁ = (−2·1 − 3·2 − 5·3)/3 = (−2 − 6 − 15)/3 = −23/3 = −7.667. The update gives θ₀ = 0 − 0.1(−3.333) = <b>+0.333</b>, θ₁ = 0 − 0.1(−7.667) = <b>+0.767</b>. After one step we are already at θ₀ = 1/3 (the optimal intercept!) and θ₁ is about half of its optimum 1.5; further iterations refine the slope. (With larger α the steps overshoot; with smaller α convergence is slower but steadier.)</p>
+      <pre><code># Batch gradient descent
+initialise theta = 0 (or small random values), learning rate alpha
+repeat until ||J(prev) - J(theta)|| &lt; tolerance:
+    grad = 0 vector
+    for i = 1 .. m:
+        error = dot(theta, x_i) - y_i
+        grad += error * x_i
+    theta = theta - (alpha / m) * grad
+return theta</code></pre>
+      <div class="def"><b>Choosing α — practical diagnostics:</b> plot J against iteration. A smoothly decreasing curve that flattens is healthy. A curve that rises or oscillates wildly means α is too large (halve it). A curve that barely moves after many epochs means α is too small or features need scaling. A robust trick is <b>feature scaling</b> — standardise each feature to zero mean and unit variance — so that the contours of J are roughly circular and gradient descent does not zig-zag along a narrow valley.</div>
+      <div class="def"><b>Batch vs stochastic vs mini-batch:</b> batch uses all m examples per update (accurate gradient, expensive); stochastic gradient descent (SGD) uses one example (noisy, fast, can escape shallow local minima); mini-batch uses a small block (the modern default, balancing hardware efficiency and gradient quality). The expected update is the same in all three — only the variance differs.</div>
+      <div class="def"><b>When least squares is not enough:</b> if residuals grow with x (heteroscedasticity), if the residual histogram is skewed, or if the true relationship is curved, linear regression assumptions are violated. Plot residuals against fitted values first — the pattern is more diagnostic than R². Link this to Module 5: a large train/test gap means variance (regularise or simplify), a small but uniformly high gap means bias (add features or complexity).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">14</span><h2>Polynomial Regression, Overfitting and Regularisation — Derivations and Worked Penalties</h2><span class="tag">Generalisation</span></div>
+    <div class="card full">
+      <p>Polynomial regression keeps the linear-in-parameters form but adds transformed features: h(x) = θ₀ + θ₁x + θ₂x² + … + θ<sub>d</sub>x<sup>d</sup>. With d = 1 a straight line; with d = 3 a cubic. Increasing d reduces training error monotonically (a higher-degree model contains the lower-degree one by setting extra coefficients to zero) but test error follows a U-shape: it falls while bias is reduced, then rises as variance takes over. Model selection by cross-validation picks the bottom of that U.</p>
+      <p>Regularisation adds a complexity penalty to J. There are three equivalent viewpoints worth stating in an exam:</p>
+      <div class="formula">\[\text{Ridge (L2): } J=\frac{1}{2m}\sum_i(h_i-y_i)^2+\lambda\sum_{j=1}^{D}\theta_j^{2}\;\Longrightarrow\;\theta=(X^TX+m\lambda I)^{-1}X^Ty\]</div>
+      <div class="formula">\[\text{Lasso (L1): } J=\frac{1}{2m}\sum_i(h_i-y_i)^2+\lambda\sum_{j=1}^{D}|\theta_j|\]</div>
+      <p>For ridge, adding λI to XᵀX makes the matrix invertible even under multicollinearity and shrinks every weight toward zero, with an analytic solution. For Lasso the absolute-value penalty has a corner at zero, so the optimum frequently lands exactly on a coordinate axis — some θⱼ = 0 — giving <b>sparse</b> models and automatic feature selection. Elastic Net combines both penalties and is preferred when many correlated features should be kept or dropped together.</p>
+      <h3>Worked shrinkage calculation</h3>
+      <p>Take a one-feature problem (after standardising) with XᵀX = 100 I and Xᵀy = (80, 60)ᵀ for two weights. Ordinary least squares gives θ = (0.8, 0.6). Ridge with mλI added, taking mλ = 100 so the effective denominator becomes 200, gives θ = (0.4, 0.3): every coefficient is halved. With a stronger penalty mλ = 900 the denominator is 1000 and θ = (0.08, 0.06), nearly zero — an underfit model. Choose λ by k-fold cross-validation: try λ ∈ {10⁻³, 10⁻², …, 10³}, compute mean validation error for each, and take the smallest.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Question</th><th>Ridge (L2)</th><th>Lasso (L1)</th><th>Elastic Net</th></tr></thead>
+          <tbody>
+            <tr><td>Penalty</td><td>λΣθ²</td><td>λΣ|θ|</td><td>λ₁Σ|θ| + λ₂Σθ²</td></tr>
+            <tr><td>Solution</td><td>Closed form available</td><td>No simple closed form</td><td>No simple closed form</td></tr>
+            <tr><td>Weights</td><td>All small, none exactly 0</td><td>Some exactly 0</td><td>Sparse with grouped selection</td></tr>
+            <tr><td>Best for</td><td>Many weak, correlated predictors</td><td>Few strong predictors among many</td><td>Correlated groups of predictors</td></tr>
+            <tr><td>Geometric picture</td><td>Circular contours, smooth</td><td>Diamond contours, corners at axes</td><td>Rounded diamond</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Bias–variance link to remember:</b> regularisation deliberately increases bias (the coefficients are biased toward zero) to obtain a larger reduction in variance, lowering the expected test error. λ is the knob: λ = 0 → high variance, λ → ∞ → high bias. This is the same trade-off as C in SVMs (Module 3) and tree depth in decision trees (Module 2).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">15</span><h2>Logistic Regression — Sigmoid, Odds, Likelihood and a Numerical Prediction</h2><span class="tag">Classification</span></div>
+    <div class="card full">
+      <p>Linear regression would produce numbers outside [0, 1] for a probability, so logistic regression passes the linear score through the sigmoid:</p>
+      <div class="formula">\[z=w^{T}x+b,\qquad y=P(C_1\mid x)=\sigma(z)=\frac{1}{1+e^{-z}},\qquad \sigma(-z)=1-\sigma(z)\]</div>
+      <p>Rearranging y = 1/(1 + e<sup>−z</sup>) gives the <b>logit</b> (log-odds) form z = ln[y/(1 − y)] = wᵀx + b. The odds y/(1 − y) are multiplied by e<sup>wⱼ</sup> for a one-unit increase in feature xⱼ; if wⱼ = 0.69 the odds roughly double (e<sup>0.69</sup> ≈ 2). This is why logistic regression coefficients are interpretable as log-odds ratios, and why it remains a baseline in medicine and social science.</p>
+      <div class="formula">\[L(r\mid X)=\prod_t y_t^{r_t}(1-y_t)^{1-r_t}\;\Longrightarrow\;\ell=\sum_t\bigl[r_t\ln y_t+(1-r_t)\ln(1-y_t)\bigr]\]</div>
+      <p>Maximising ℓ (equivalently minimising cross-entropy −ℓ) with gradient descent yields the remarkably simple update</p>
+      <div class="formula">\[\frac{\partial \ell}{\partial w_j}=\sum_t (r_t-y_t)\,x_{tj}\qquad\Longrightarrow\qquad \Delta w_j=\eta\sum_t(r_t-y_t)x_{tj}\]</div>
+      <p>The gradient is the input multiplied by the <i>error</i> (desired minus actual). Compare the perceptron rule: identical form, but there the "actual" is a hard 0/1 step; here it is a smooth probability, so the update is graded rather than all-or-nothing.</p>
+      <h3>Worked prediction and loss</h3>
+      <p>Let b = −3, w = 2 and x = 2. Then z = −3 + 2·2 = 1, and y = σ(1) = 1/(1 + e<sup>−1</sup>) = 1/(1 + 0.3679) = <b>0.7311</b>. The odds are 0.7311/0.2689 = 2.718 = e¹. With a threshold of 0.5 the case is classified positive. If the true label is r = 1, the per-example cross-entropy is −ln(0.7311) = <b>0.3133</b>; if the true label is 0 it is −ln(1 − 0.7311) = −ln(0.2689) = <b>1.3133</b>. The gradient contribution for a positive example is (1 − 0.7311)·x = 0.2689·2 = 0.5378, nudging w upward.</p>
+      <div class="def"><b>Decision boundary:</b> the boundary is where y = 0.5, i.e. z = 0, i.e. wᵀx + b = 0 — a straight line/plane/hyperplane even though the output is curved. Adding polynomial features makes the boundary non-linear in the original space while remaining linear in parameters. This is the same "linear in parameters" trick as polynomial regression.</div>
+      <div class="def"><b>Multiclass extension:</b> softmax generalises the sigmoid: P(Cₖ | x) = e<sup>zₖ</sup>/Σⱼ e<sup>zⱼ</sup>, with one score zₖ = wₖᵀx + bₖ per class. The scores sum to 1 after exponentiation and normalisation; the loss is the multiclass cross-entropy −Σₖ rₖ ln pₖ. One-vs-rest trains K binary classifiers instead; softmax is preferred when the classes are mutually exclusive because it models competition directly.</div>
+      <div class="def"><b>Common exam traps:</b> (1) "Logistic regression is a regression algorithm" — false; it is a classifier with a regression-shaped linear core. (2) Using squared error instead of cross-entropy — cross-entropy gives a convex objective for logistic regression, squared error does not. (3) Forgetting the bias term b — without it the boundary must pass through the origin.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">16</span><h2>Naive Bayes — Laplace Smoothing, a Full Spam Calculation and Assumptions</h2><span class="tag">Worked classifier</span></div>
+    <div class="card full">
+      <p>Naive Bayes applies Bayes' theorem with the conditional-independence assumption P(x₁ … x<sub>d</sub> | C) = Πᵢ P(xᵢ | C). The classifier is ŷ = argmax<sub>C</sub> P(C) Πᵢ P(xᵢ | C). Because the evidence P(x) is the same for every class it is dropped, and because we compare products of many small numbers it is numerically safer to work with log-probabilities and sums:</p>
+      <div class="formula">\[\hat y=\arg\max_C\Bigl[\ln P(C)+\sum_i \ln P(x_i\mid C)\Bigr]\]</div>
+      <h3>Worked spam example with add-one smoothing</h3>
+      <p>Training set: 20 emails, 8 spam and 12 ham, so P(spam) = 0.4 and P(ham) = 0.6. The word "free" appears in 8 of the 8 spam mails and 2 of the 12 ham mails; the word "click" appears in 6 spam and 1 ham. A new email contains both words. Without smoothing P(free | ham) = 2/12, but a zero count anywhere would destroy an entire product. Add-one (Laplace) smoothing therefore adds one to every count:</p>
+      <div class="formula">\[P(\text{free}\mid\text{spam})=\frac{8+1}{8+2}=0.75,\quad P(\text{click}\mid\text{spam})=\frac{6+1}{8+2}=0.583\]</div>
+      <div class="formula">\[P(\text{free}\mid\text{ham})=\frac{2+1}{12+2}=0.214,\quad P(\text{click}\mid\text{ham})=\frac{1+1}{12+2}=0.143\]</div>
+      <p>Score(spam) = 0.4 × 0.75 × 0.583 = <b>0.175</b>; Score(ham) = 0.6 × 0.214 × 0.143 = <b>0.0184</b>. The normalised posterior for spam is 0.175/(0.175 + 0.0184) = <b>0.905</b>. The email is classified as spam. (In log space: ln 0.4 + ln 0.75 + ln 0.583 = −1.743 versus ln 0.6 + ln 0.214 + ln 0.143 = −3.997; the larger log-score wins.)</p>
+      <div class="def"><b>Three NB models:</b> <i>Gaussian NB</i> for continuous features (estimate μ and σ² per class per feature and plug into the normal density); <i>multinomial NB</i> for word counts (the example above); <i>Bernoulli NB</i> for binary word-presence features. All share the same argmax structure; only P(xᵢ | C) changes.</div>
+      <div class="def"><b>Assumptions and failure modes:</b> conditional independence is almost always false in text ("free" and "click" co-occur), yet NB works well because classification only needs the correct ranking, not calibrated probabilities — estimating the full joint would require exponentially more data. It fails badly when a feature is deterministic for a class (hence smoothing), when features are strongly correlated (the evidence is counted twice), and when the training class proportions differ from deployment (prior shift). Correct the prior if deployment prevalence is known.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">17</span><h2>ID3 Worked End-to-End — Entropy, Gains, the 0.9544 Example and Pruning</h2><span class="tag">Decision trees</span></div>
+    <div class="card full">
+      <p>Entropy measures impurity: H(S) = −Σᶜ pᶜ log₂ pᶜ, with H = 0 for a pure set and H = 1 for a balanced binary set. Information gain is the reduction in entropy achieved by a split: Gain(S, A) = H(S) − Σᵥ (|Sᵥ|/|S|) H(Sᵥ). ID3 chooses the attribute with the largest gain at each node. Gain is equivalent to mutual information between the attribute and the target.</p>
+      <h3>Full calculation — the "attractiveness" dataset</h3>
+      <p>Eight examples, target Attractiveness with 3 Yes and 5 No:</p>
+      <div class="formula">Entropy(S) = −(3/8)log₂(3/8) − (5/8)log₂(5/8) = <b>0.9544</b>
+
+Height: short → (1Y, 2N), tall → (2Y, 3N)
+  Remainder = (3/8)(0.9183) + (5/8)(0.9710) = 0.9512 → Gain = 0.9544 − 0.9512 = <b>0.0032</b>
+Hair: red → (1Y, 0N), dark → (0Y, 3N), blond → (2Y, 2N)
+  Remainder = (1/8)(0) + (3/8)(0) + (4/8)(1) = 0.5000 → Gain = 0.9544 − 0.5000 = <b>0.4544</b> (highest)
+Eyes: blue → (3Y, 2N), brown → (0Y, 3N)
+  Remainder = (5/8)(0.9710) + (3/8)(0) = 0.6068 → Gain = 0.9544 − 0.6068 = <b>0.3476</b></div>
+      <p>The root split is <b>Hair</b> (0.4544 &gt; 0.3476 &gt; 0.0032). Hair = red is pure (Yes), Hair = dark is pure (No), and the blond branch splits on Eyes (blue → Yes, brown → No), giving a tree that classifies all eight rows correctly. Height is nearly useless because its subsets have almost the same class mix as the whole set — its gain is essentially zero.</p>
+      <pre><code>ID3(S, attributes, target):
+    if all examples in S have the same target value:
+        return a leaf labelled with that value
+    if attributes is empty:
+        return a leaf labelled with the majority target value
+    best = argmax over A in attributes of Gain(S, A)
+    create a root node testing 'best'
+    for each value v of best:
+        Sv = examples of S with best = v
+        if Sv is empty: attach a leaf labelled with majority value of S
+        else:           attach subtree ID3(Sv, attributes - {best}, target)
+    return the node</code></pre>
+      <h3>Alternative impurity measures</h3>
+      <div class="formula">\[\text{Entropy: }-p\log_2 p-(1-p)\log_2(1-p)\qquad \text{Gini: }2p(1-p)\qquad \text{Misclassification: }1-\max(p,1-p)\]</div>
+      <p>All three are maximal at p = 0.5 and zero at p = 0 or 1; empirically they rarely change the chosen split much. Gini avoids the logarithm (faster) and is used by CART; entropy is used by ID3/C4.5. <b>Gain ratio</b> = Gain(S, A)/SplitInfo(A) corrects entropy's bias toward attributes with many values; SplitInfo = −Σᵥ (|Sᵥ|/|S|) log₂(|Sᵥ|/|S|).</p>
+      <div class="def"><b>Pruning — controlling variance:</b> a fully grown tree has zero training error and high variance. <b>Prepruning</b> stops growth early (e.g. no split if a node has fewer than 5% of examples or impurity below a threshold). <b>Postpruning</b> grows the full tree, then uses a separate pruning set to replace a subtree by a leaf whenever the leaf does no worse. Postpruning usually wins because it avoids stopping a split that becomes useful after a different split. Tree depth, minimum samples per leaf and maximum leaves are the knobs a practitioner cross-validates.</div>
+      <div class="def"><b>Assumptions and edge cases:</b> ID3 handles nominal attributes; continuous attributes need candidate thresholds (C4.5 sorts values and tests midpoints). Missing values require fractional routing or majority imputation. A zero-gain attribute still gets split unless a threshold stops it. Trees are unstable — a small data change can replace the root split — which is precisely why ensembles of trees (Random Forests, boosting; Module 5) are so effective.</div>
+      <div class="def"><b>Exam writing tip (from the model paper):</b> state both formulas, compute Entropy(S) once, then tabulate each attribute's subsets, weighted remainder and gain, pick the maximum, and sketch the resulting tree. Include the ID3 pseudocode if asked to "describe the algorithm". Marks are awarded for showing the arithmetic, not just the final attribute name.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">18</span><h2>Module 2 Synthesis — Choosing a Model and Linking to Evaluation</h2><span class="tag">Exam synthesis</span></div>
+    <div class="card full">
+      <p>Regression and classification share the same learning loop — choose a hypothesis class, a loss and an optimiser — and differ mainly in the output type and loss. Naive Bayes and logistic regression are both probabilistic linear models but differ in how they obtain probabilities: NB uses counted conditional independences (generative, fast, ignores correlations), logistic regression discriminatively learns decision weights by maximising conditional likelihood. Decision trees are non-linear, need no feature scaling, and are interpretable, but high variance; ensembles fix that (Module 5).</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Situation</th><th>Recommended starting model</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Continuous target, few features</td><td>Linear regression (+ Ridge)</td><td>Fast, interpretable, closed form</td></tr>
+            <tr><td>Binary target, need probabilities</td><td>Logistic regression</td><td>Calibrated-ish probabilities, interpretable odds</td></tr>
+            <tr><td>Text classification, very little data</td><td>Multinomial Naive Bayes</td><td>Few parameters, robust baseline</td></tr>
+            <tr><td>Mixed feature types, need rules</td><td>Decision tree / ensemble</td><td>No scaling, handles non-linearity, explainable</td></tr>
+            <tr><td>Non-linear boundary, large margin desired</td><td>SVM with RBF (Module 3)</td><td>Effective in high dimensions</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="def"><b>Evaluation discipline (Module 5):</b> never report training accuracy as performance. Hold out a test set or use k-fold cross-validation; choose metrics appropriate to the problem (precision for spam, recall for diagnosis, F1 or AUC for imbalance); select hyperparameters by validation, not by the test set; and check residuals or confusion matrices rather than a single scalar. Every "which classifier is better?" answer must mention the metric and the evaluation protocol.</div>
+      <div class="def"><b>Five-mark answer template for "compare regression and logistic regression":</b> (1) output type (continuous vs probability); (2) model form (both wᵀx, logistic adds sigmoid); (3) loss (squared error vs cross-entropy); (4) training (normal equation / GD vs likelihood + GD); (5) decision (threshold the probability). Add one sentence on why the name is misleading. That covers the full marking scheme in a compact paragraph.</div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="head"><span class="num">19</span><h2>Regression Diagnostics — R², Adjusted R² and Residual Analysis</h2><span class="tag">Assessing the fit</span></div>
+    <div class="card full">
+      <p>Fitting a model is not the same as validating it. The coefficient of determination decomposes the total variation of the target into explained and unexplained parts:</p>
+      <div class="formula">\[SS_{\mathrm{tot}}=\sum_i(y_i-\bar y)^2,\quad SS_{\mathrm{res}}=\sum_i(y_i-\hat y_i)^2,\quad R^2=1-\frac{SS_{\mathrm{res}}}{SS_{\mathrm{tot}}}\]</div>
+      <p><b>Worked:</b> for y = (2, 3, 5) the mean is 10/3 and SS<sub>tot</sub> = (2 − 3.333)² + (3 − 3.333)² + (5 − 3.333)² = 1.778 + 0.111 + 2.778 = 4.667. From the fitted line of the earlier section SS<sub>res</sub> = 0.1667. Hence R² = 1 − 0.1667/4.667 = <b>0.964</b>: 96.4% of the variation is explained. But R² can never decrease when a feature is added, so it cannot be used to compare models of different sizes. Adjusted R² penalises complexity:</p>
+      <div class="formula">\[R^2_{\mathrm{adj}}=1-\frac{(1-R^2)(n-1)}{n-D-1}\]</div>
+      <p>With n = 3, D = 1 features plus intercept: R²<sub>adj</sub> = 1 − (0.036)(2)/(3−1−1) = 1 − 0.072 = 0.928. Related criteria used for model selection are AIC = 2D − 2 ln L and BIC = D ln n − 2 ln L; both trade fit against parameter count, BIC more aggressively.</p>
+      <div class="def"><b>Residual diagnostics:</b> plot residuals eᵢ = yᵢ − ŷᵢ against fitted values. A random horizontal band around zero supports the model; a funnel shape indicates heteroscedasticity (use weighted least squares or transform y); a curve indicates missing non-linearity (add polynomial terms); a time trend indicates autocorrelation. A Q–Q plot checks normality of residuals, which matters for confidence intervals. Outliers with large residuals and high leverage (unusual x) can dominate the fit — inspect them, do not silently delete them.</div>
+      <div class="def"><b>Assumptions of ordinary least squares, stated compactly:</b> linearity in parameters, independent errors, homoscedastic errors, zero-mean errors, and (for exact inference) normal errors; no perfect multicollinearity. Under these conditions OLS is unbiased and is the best linear unbiased estimator (Gauss–Markov). Violations bias standard errors more often than they bias coefficients — which is why predictions can still be good while p-values are wrong.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">20</span><h2>Generative vs Discriminative — Where Naive Bayes and Logistic Regression Differ</h2><span class="tag">Conceptual contrast</span></div>
+    <div class="card full">
+      <p>Both Naive Bayes and logistic regression end with a posterior probability and a class decision, but they get there in opposite ways. A <b>generative</b> model learns P(x | C) and P(C) and then applies Bayes' theorem; a <b>discriminative</b> model learns P(C | x) directly. Naive Bayes is generative, logistic regression discriminative.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Property</th><th>Naive Bayes (generative)</th><th>Logistic regression (discriminative)</th></tr></thead>
+          <tbody>
+            <tr><td>What is modelled</td><td>P(C) and P(x | C)</td><td>P(C | x) directly</td></tr>
+            <tr><td>Parameters</td><td>One per feature per class (few)</td><td>One weight per feature (few, but optimised)</td></tr>
+            <tr><td>Training</td><td>Counting — no iteration</td><td>Iterative gradient ascent on likelihood</td></tr>
+            <tr><td>With little data</td><td>Often better; strong prior assumptions</td><td>Can be unstable; needs optimisation</td></tr>
+            <tr><td>With lots of data</td><td>Bias from independence assumption</td><td>Usually better asymptotic accuracy</td></tr>
+            <tr><td>Can generate new samples?</td><td>Yes, by sampling the learned model</td><td>No</td></tr>
+            <tr><td>Calibration</td><td>Often poorly calibrated (overconfident)</td><td>Better calibrated probabilities</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>There is a formal relationship: under a Gaussian naive Bayes model with shared spherical covariance, the resulting posterior has exactly the logistic (sigmoid-of-linear) form. So logistic regression is a less restrictive version of a generative classifier — it learns the same boundary shape without assuming the feature distributions. Practical rule: use Naive Bayes as a fast baseline for text and tiny datasets; move to logistic regression when data is plentiful and calibrated probabilities matter.</p>
+      <div class="def"><b>Exam writing tip for "compare NB and logistic regression":</b> write the two factorisations (P(C)·Π P(xᵢ|C) versus σ(wᵀx)), state generative versus discriminative, add the one-line covariance relationship, and finish with the data-size rule. Four sentences earn full marks.</div>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="head"><span class="num">21</span><h2>Supervised Model Selection — Loss Functions, Convexity and Nested Validation</h2><span class="tag">Exam synthesis</span></div>
+    <div class="card full">
+      <p>Choosing a supervised model is a search over three spaces at once: the hypothesis class (which family of functions), the loss (what counts as a mistake), and the optimiser (how we search). Examination answers often lose marks by discussing only the first. A complete answer names all three and says how the choice was validated.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Model</th><th>Hypothesis class</th><th>Loss optimised</th><th>Optimiser</th><th>Convexity</th></tr></thead>
+          <tbody>
+            <tr><td>Linear regression</td><td>Affine functions θᵀx</td><td>Squared error</td><td>Normal equation / GD</td><td>Convex, unique for full-rank X</td></tr>
+            <tr><td>Logistic regression</td><td>Sigmoid of affine function</td><td>Cross-entropy</td><td>Gradient ascent / Newton</td><td>Convex</td></tr>
+            <tr><td>SVM</td><td>Maximum-margin hyperplane</td><td>Hinge loss + L2</td><td>Quadratic programming</td><td>Convex</td></tr>
+            <tr><td>Decision tree</td><td>Piecewise-constant rules</td><td>Impurity / gain</td><td>Greedy recursive splitting</td><td>Non-convex, greedy</td></tr>
+            <tr><td>Neural network</td><td>Composed non-linear layers</td><td>Cross-entropy / squared</td><td>Backprop + SGD</td><td>Non-convex</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Convexity matters because it guarantees that any local minimum is global. Linear regression, logistic regression and SVM all have convex objectives, so their training is reproducible and examinable in closed form or by a well-understood quadratic program. Trees and networks are non-convex and rely on greedy search or random initialisation; multiple restarts and cross-validation are essential.</p>
+      <div class="formula">\[\text{hinge loss: }\ell(y,f(x))=\max\bigl(0,\,1-y f(x)\bigr),\qquad \text{objective: }\frac{1}{2}\lVert w\rVert^{2}+C\sum_i\max(0,1-y_i(w\cdot x_i+b))\]</div>
+      <p>The hinge loss is zero for any correctly classified point beyond the margin, so SVM training is driven only by points near or inside the margin — the algebraic counterpart of sparsity. Logistic regression's cross-entropy, by contrast, is never exactly zero, so every point contributes a small gradient; this is why logistic regression is slower on very large datasets but yields calibrated probabilities.</p>
+      <h3>Worked model-selection decision</h3>
+      <p>Imagine a dataset with 500 labelled examples and 200 features, of which only 5 are informative. Cross-validated results: ordinary linear regression (with a threshold) scores 0.78 accuracy; Lasso-regularised logistic regression scores 0.89 with 7 non-zero coefficients; a decision tree scores 0.84; an unregularised network scores 0.81. Since Lasso is both the most accurate and selects a sparse model consistent with the known structure, it is the right choice. Note that the comparison is only valid if every model was tuned inside the same folds — otherwise the reported numbers are not comparable.</p>
+      <div class="def"><b>Nested cross-validation in one paragraph:</b> the outer loop splits data into (say) 5 folds and produces an unbiased estimate of generalisation; within each outer training set, an inner loop chooses hyperparameters; the chosen model is retrained on the entire outer training set and evaluated on the outer test fold. Averaging the outer fold scores gives the final estimate. This prevents the optimism that comes from tuning λ on the same data used to report performance, and is the rigorous version of the train/validation/test split.</div>
+      <div class="def"><b>Exam writing template for "how would you build and validate a classifier?":</b> (1) split data, standardise features inside folds; (2) choose a model family appropriate to the output type; (3) write the objective and name the optimiser; (4) tune complexity by inner cross-validation; (5) report precision/recall/F1 or AUC, not accuracy alone if classes are imbalanced; (6) state the bias–variance diagnosis and the remediation. Six lines, six marks.</div>
+    </div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-2.html">← Prev: M2.2 · Naive Bayes &amp; Trees</a>
+    <a class="next" href="module-3.html">Next: M3 · Neural Networks &amp; SVM →</a>
+  </nav>
+
+</div>
+
+<a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div>Study Notes · Machine Learning (CST 413, KTU).</div>
+    <div><a href="index.html">Home</a> · <a href="question-bank.html">Papers</a></div>
+  </div>
+</footer>
+
+
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

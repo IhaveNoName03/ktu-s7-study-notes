@@ -9,6 +9,10 @@
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0E0F12">
 <link rel="stylesheet" href="assets/styles.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
 <style>
   .subj{ --maxw:1400px; --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
   body.subj{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6}
@@ -150,6 +154,8 @@ html.theme-vt .theme-panel{display:none !important}
 @media print{.ai-note{border:1px solid #000 !important;border-left:3px solid #000 !important;
   background:none !important;color:#000 !important}
   .ai-badge{background:#000 !important;color:#fff !important}}
+/* grid-overflow-fix */
+#grid .mcard,#examGrid .mcard{margin-left:0;margin-right:0}
 </style>
 </head>
 <body class="subj">
@@ -160,7 +166,7 @@ html.theme-vt .theme-panel{display:none !important}
     <button class="navtoggle" aria-label="Menu">Menu</button>
     <nav class="topnav">
       <a href="index.html" class="active">Home</a>
-      <a href="papers.html">Papers</a>
+      <a href="question-bank.html">Papers</a>
       <a href="../index.html">All subjects</a>
     </nav>
   </div>
@@ -192,7 +198,7 @@ html.theme-vt .theme-panel{display:none !important}
 </div>
 
 <div class="grid" id="grid">
-  <a class="mcard" href="m1-1.html" data-k="m1 paradigms supervised unsupervised semi supervised reinforcement bayesian bayes mle map estimation">
+  <a class="mcard" href="module-1.html" data-k="m1 paradigms supervised unsupervised semi supervised reinforcement bayesian bayes mle map estimation">
     <div class="idx">M1</div>
     <div class="main"><div class="code">Module 1</div><h3>ML Paradigms &amp; Bayesian Formulation</h3>
       <p class="desc">The four ML paradigms (supervised, unsupervised, semi-supervised, reinforcement), why each is used, and the Bayesian way of thinking — Bayes' theorem, MLE and MAP as the foundation for estimation.</p>
@@ -200,7 +206,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m2-1.html" data-k="m2 supervised learning regression linear logistic gradient descent regularization naive bayes decision tree id3 entropy">
+  <a class="mcard" href="module-2.html" data-k="m2 supervised learning regression linear logistic gradient descent regularization naive bayes decision tree id3 entropy">
     <div class="idx">M2</div>
     <div class="main"><div class="code">Module 2</div><h3>Supervised Learning</h3>
       <p class="desc">Learning from labelled data: linear &amp; logistic regression (including gradient descent and regularization), Naive Bayes, and decision trees.</p>
@@ -208,7 +214,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m3-1.html" data-k="m3 neural network perceptron mlp backpropagation svm kernel margin">
+  <a class="mcard" href="module-3.html" data-k="m3 neural network perceptron mlp backpropagation svm kernel margin">
     <div class="idx">M3</div>
     <div class="main"><div class="code">Module 3</div><h3>Neural Networks &amp; SVM</h3>
       <p class="desc">The perceptron, multilayer networks and backpropagation, and Support Vector Machines — from the maximum-margin idea to kernels for non-linear classification.</p>
@@ -216,7 +222,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m4-1.html" data-k="m4 unsupervised learning clustering k-means em pca dimensionality reduction">
+  <a class="mcard" href="module-4.html" data-k="m4 unsupervised learning clustering k-means em pca dimensionality reduction">
     <div class="idx">M4</div>
     <div class="main"><div class="code">Module 4</div><h3>Unsupervised Learning</h3>
       <p class="desc">Finding structure without labels: clustering (k-means, EM) and dimensionality reduction (PCA) — the methods behind the "unsupervised" paradigm.</p>
@@ -224,7 +230,7 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard" href="m5-1.html" data-k="m5 classification assessment measures roc curve cross validation ensemble bias variance case study">
+  <a class="mcard" href="module-5.html" data-k="m5 classification assessment measures roc curve cross validation ensemble bias variance case study">
     <div class="idx">M5</div>
     <div class="main"><div class="code">Module 5</div><h3>Classification Assessment</h3>
       <p class="desc">How good is a classifier? Performance measures, the ROC curve, cross-validation, ensemble methods, and the bias–variance trade-off — ending with a face-detection case study.</p>
@@ -232,14 +238,86 @@ html.theme-vt .theme-panel{display:none !important}
     <span class="go">Open <span class="arr">→</span></span>
   </a>
 
-  <a class="mcard practice" href="m-t1.html" data-k="practice exam techniques question bank co papers">
-    <div class="idx">·</div>
-    <div class="main"><div class="code">Practice</div><h3>Exam Techniques &amp; Papers</h3>
-      <p class="desc">Exam techniques and the marks-scaled question bank (CO1–CO5 + model paper).</p>
-      <div class="mods"><span>m-t1 Exam techniques</span><span>papers.html Question bank</span></div></div>
-    <span class="go">Open <span class="arr">→</span></span>
-  </a>
-</div><div class="empty" id="empty">No modules match your search — try a broader term.</div>
+  
+
+  
+</div>
+
+<div class="seclabel"><span class="no">§</span><span class="txt">Exam Resources</span><span class="line"></span></div>
+<div class="grid" id="examGrid">
+  <a class="mcard practice" href="exam-guide.html"><div class="idx">✦</div><div class="main"><div class="code">Exam technique</div><h3>Exam Guide</h3><p class="desc">Exam patterns, mark schemes, formula sheet and step-by-step derivations.</p></div><span class="go">Open →</span></a>
+  <a class="mcard practice" href="question-bank.html"><div class="idx">✦</div><div class="main"><div class="code">Question bank</div><h3>Question Bank</h3><p class="desc">53 questions, CO1–CO5 + model paper, answered at exam length with full derivations.</p></div><span class="go">Open →</span></a>
+  <a class="mcard practice" href="solved-papers.html"><div class="idx">✦</div><div class="main"><div class="code">Worked answers</div><h3>Solved Papers</h3><p class="desc">Three KTU papers (Dec 2022, May 2023, Dec 2023) — 60 answers, both OR options, every calculation shown step by step.</p></div><span class="go">Open →</span></a>
+</div>
+
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>How CST 413 is examined</h2><span class="tag">blueprint</span></div>
+  <div class="card full">
+    <div class="tablewrap"><table>
+      <thead><tr><th>Part</th><th>Questions</th><th>Marks</th><th>What earns marks</th></tr></thead>
+      <tbody>
+        <tr><td>Part A</td><td>Q1–Q10, answer all</td><td>10 × 3 = 30</td><td>Definition, formula or method, then one computed result or example.</td></tr>
+        <tr><td>Part B</td><td>One full question from each of Modules I–V</td><td>5 × 14 = 70</td><td>Statement of the model, full derivation or algorithm, worked arithmetic, assumptions, and interpretation of the result.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Mathematical questions are marked on working, not just the final number. Show the likelihood before the log, the normal equations before the coefficients, the entropy before the gain, and the distance matrix before the cluster assignment.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>The five modules at a glance</h2><span class="tag">map</span></div>
+  <div class="card full">
+    <div class="tablewrap"><table>
+      <thead><tr><th>Module</th><th>Page</th><th>Core ideas</th><th>Recurring numericals</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td><a href="module-1.html">module-1.html</a></td><td>Paradigms, Bayes theorem, MLE/MAP, Bernoulli, binomial, Poisson, Gaussian</td><td>p̂ from a sample; Poisson λ̂ = x̄; geometric p̂ = 1/x; Bayesian posterior</td></tr>
+        <tr><td>II</td><td><a href="module-2.html">module-2.html</a></td><td>Least squares, gradient descent, regularisation, logistic regression, Naive Bayes, ID3</td><td>Regression line and prediction; posterior scores; information gain from entropy</td></tr>
+        <tr><td>III</td><td><a href="module-3.html">module-3.html</a></td><td>Perceptron, backpropagation, activation functions, SVM margin, dual form, kernels</td><td>Neuron sigmoid output; margin 2/‖w‖; kernel PSD proof</td></tr>
+        <tr><td>IV</td><td><a href="module-4.html">module-4.html</a></td><td>Similarity measures, k-means, hierarchical clustering, EM, PCA, covariance</td><td>Manhattan/Euclidean/Chebyshev; two k-means rounds; merge heights; principal component</td></tr>
+        <tr><td>V</td><td><a href="module-5.html">module-5.html</a></td><td>Confusion matrix, precision/recall/F1, ROC/AUC, bagging vs boosting, cross-validation, bootstrap</td><td>Precision/recall/accuracy; ROC landmark points; AUC; OOB ≈ 36.8%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>Formula sheet habits</h2><span class="tag">method</span></div>
+  <div class="card full">
+    <p>Keep one page of formulas you can rewrite from memory: sigmoid, log-likelihood, normal equations, entropy/information gain, Naive Bayes posterior, margin and kernel condition, distance metrics, covariance matrix, TPR/FPR and F1. Practise rewriting it without looking — the act of reconstruction is what makes it available in the exam.</p>
+    <p>For every numerical answer, end with a sentence interpreting the number in context (e.g. "y ≈ 7.07 for x = 4" or "the first split is Hair because its gain 0.4544 is largest"). That sentence often carries a mark of its own.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>Seven-step revision loop</h2><span class="tag">plan</span></div>
+  <div class="card full">
+    <ol>
+      <li>Read <a href="module-1.html">Module I</a> for definitions and write every MLE derivation from scratch.</li>
+      <li>Do the same for regression and ID3 in <a href="module-2.html">Module II</a>.</li>
+      <li>Practise the perceptron update and SVM dual in <a href="module-3.html">Module III</a>.</li>
+      <li>Recompute the eight-point k-means example twice, with Manhattan and Euclidean distance.</li>
+      <li>Derive ROC points from a 5-positive / 5-negative example without looking.</li>
+      <li>Attempt <a href="question-bank.html">Question Bank</a> questions, then compare with answers.</li>
+      <li>Re-read <a href="solved-papers.html">Solved Papers</a> for wording patterns across the three KTU papers.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head"><span class="num">§</span><h2>Common mistakes</h2><span class="tag">pitfalls</span></div>
+  <div class="card full">
+    <ul>
+      <li>Quoting a final number without the derivation — examiners award step marks.</li>
+      <li>Confusing precision (of positive predictions) with recall (of actual positives).</li>
+      <li>Using population vs sample covariance inconsistently; state which convention you use.</li>
+      <li>Treating PCA as supervised — it uses no labels.</li>
+      <li>Forgetting that a single-layer perceptron cannot solve XOR, and that kernels fix non-linearity without explicit feature maps.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="empty" id="empty">No modules match your search — try a broader term.</div>
 
 <div class="ai-note"><span class="ai-badge">AI</span>Every page on this site was written by an AI agent from the student's own notes and syllabus. Treat it as a revision aid, not an authority — verify anything exam-critical.</div>
 <div class="foot">
@@ -263,10 +341,10 @@ html.theme-vt .theme-panel{display:none !important}
   } else { cards.forEach(function(c){c.classList.add('in');}); }
 </script>
 <a class="backtop" id="backtop" href="#top" aria-label="Back to top">↑</a>
-<script src="assets/theme-bridge.js"></script>
-<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
-<script src="assets/theme-config.js"></script>
-<script src="assets/theme-handler.js"></script>
+
+
+
+
 <script src="assets/app.js"></script>
 <script src="assets/read-progress.js"></script>
 <script>

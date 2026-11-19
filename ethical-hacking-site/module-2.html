@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 · Reconnaissance, Malware & Social Engineering</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar"><div class="topbar-inner"><div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div><button class="navtoggle" aria-label="Menu">Menu</button><nav class="topnav"><a href="index.html">Home</a><a href="../index.html">All subjects</a><a href="module-1.html">M1 · Foundations</a><a href="module-2.html" class="active">M2 · Recon &amp; Attacks</a><a href="module-3.html">M3 · Vulnerabilities</a><a href="module-4.html">M4 · Net / System</a><a href="module-5.html">M5 · Tracks</a><a href="exam-guide.html">Exam Techniques</a><a href="question-bank.html">Papers</a></nav></div></header>
+
+<section class="hero">
+  <span class="kicker">Module 2 · Complete Module (3 topics merged)</span>
+  <h1>Reconnaissance, Attacks &amp; Social Engineering</h1>
+  <p class="lede">How an engagement starts and how attackers get a foothold: passive and active footprinting, scanning and enumeration with Nmap, malware families, network attacks such as DoS and sniffing, packet filtering and proxies, and the human layer of social engineering with its defences.</p>
+  <div class="meta-row">
+    <span class="chip red">Footprinting</span><span class="chip">Scanning</span><span class="chip">Enumeration</span><span class="chip">Malware</span><span class="chip">DoS / DDoS</span><span class="chip">Sniffing</span><span class="chip">Social engineering</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <section class="section">
+    <div class="head">
+      <span class="num">1</span>
+      <h2>Footprinting — Mapping the Attack Surface</h2>
+      <span class="tag">Recon</span>
+    </div>
+    <div class="def">
+      <b>Footprinting</b> is the process of gathering as much information as possible about a target organisation — its infrastructure, employees, technologies and network ranges — to build a profile of its <b>attack surface</b>. It combines <b>passive</b> and <b>active</b> information gathering and is the first step of the classic kill chain / hacking methodology.
+    </div>
+    <p>Footprinting answers the question <i>"what does this target look like from the outside?"</i> The goal is to discover:</p>
+    <ul>
+      <li>Domain names, IP ranges (netblocks) and autonomous systems</li>
+      <li>Publicly reachable hosts, services and open ports</li>
+      <li>Technologies, frameworks and operating systems in use</li>
+      <li>People — names, roles, email formats and social presence</li>
+      <li>Physical locations and third-party providers</li>
+    </ul>
+    <p>The split between <b>passive</b> and <b>active</b> footprinting is the single most important distinction for the exam: passive methods never touch the target directly, so they leave no log trail and are almost impossible to detect; active methods make contact and therefore generate logs and alerts.</p>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">2</span>
+      <h2>Passive Footprinting</h2>
+      <span class="tag">No contact</span>
+    </div>
+    <p>Passive reconnaissance collects data from <b>third-party sources</b> — the target is never queried directly, so the activity cannot be traced back to the attacker. It is the safest and quietest phase.</p>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">1</span>WHOIS &amp; Registrar Data</h3>
+        <p>Domain and IP <code>whois</code> records reveal registrant details, name servers, creation/expiry dates and the organisation's allocated netblocks. Regional registries (RIRs) expose IP ownership.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>DNS Records</h3>
+        <p>Public DNS (A, AAAA, MX, NS, TXT, CNAME, SOA) shows mail servers, subdomains and sometimes internal host naming conventions. Tools like <code>dig</code> and <code>nslookup</code> query without contacting the target's web server.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">3</span>Search Engines</h3>
+        <p>Google <code>site:</code>, <code>filetype:</code> and <code>intitle:</code> operators surface indexed files, directories and error pages. "Google hacking" / dorking finds exposed admin panels and documents.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">4</span>Web Archives</h3>
+        <p>The Wayback Machine and cached pages reveal retired subdomains, old technologies and content the organisation thought was deleted — useful for finding forgotten, unpatched assets.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">5</span>Social Media &amp; OSINT</h3>
+        <p>LinkedIn, Twitter/X, GitHub and company blogs expose employee names, email patterns, tech stacks and project details that aid phishing and credential attacks later.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">6</span>Job Postings</h3>
+        <p>Vacancies disclose internal software (e.g. "experience with Palo Alto, SAP, Windows Server 2019"), giving a precise picture of the technology footprint to research for exploits.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">3</span>
+      <h2>Active Footprinting</h2>
+      <span class="tag">Direct contact</span>
+    </div>
+    <p>Active reconnaissance involves <b>direct interaction</b> with the target's systems — sending packets, queries or requests. It is far more detectable: every probe can be logged by firewalls, IDS/IPS and SIEMs. It is used once the passive map is drawn and the attacker wants confirmation.</p>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">A</span>Direct Network Probing</h3>
+        <p>Ping sweeps, port scans and banner grabbing are sent straight to the target's IP space. Even "stealth" scans (e.g. SYN half-open scans) are visible to modern monitoring.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">B</span>DNS &amp; Host Interaction</h3>
+        <p>Zone transfers (<code>AXFR</code>) against name servers, direct host resolution and traceroutes reveal internal topology and hostnames that passive lookups could not.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">C</span>Email &amp; Social Contact</h3>
+        <p>Directly emailing or calling staff (pretexting) to elicit information is an active, human form of footprinting that bridges into social engineering.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">D</span>Web Probing</h3>
+        <p>Requesting pages, crawling the site and fuzzing parameters interacts with the live web server and application, generating access logs on the target.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">4</span>
+      <h2>Scanning</h2>
+      <span class="tag">Nmap</span>
+    </div>
+    <div class="def">
+      <b>Scanning</b> follows footprinting: it takes the discovered IP ranges and hosts and actively probes them to identify <b>live systems, open ports, running services, OS families and software versions</b>. The industry-standard tool is <b>Nmap</b> (Network Mapper).
+    </div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">1</span>Ping / Host Sweep</h3>
+        <p>ICMP echo (and TCP/UDP sweeping) identifies which hosts in a range are <b>alive</b> before deeper probing, shrinking the target list.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>Port Scanning</h3>
+        <p>Determines which TCP/UDP <b>ports are open, closed or filtered</b>. Nmap scan types: <code>-sS</code> SYN (stealth), <code>-sT</code> connect, <code>-sU</code> UDP, <code>-sN</code>/<code>-sF</code> null/fin.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">3</span>OS Fingerprinting</h3>
+        <p>Infers the <b>operating system</b> from TCP/IP stack quirks (TTL, window size, flags). Nmap <code>-O</code> uses banner and response-analysis techniques.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">4</span>Version Detection</h3>
+        <p><code>-sV</code> probes open ports to read <b>service banners</b> and exact software versions — the data needed to match a service to a known vulnerability.</p>
+      </div>
+    </div>
+    <p>Scanning output feeds directly into vulnerability analysis: an open port running an outdated service version is a candidate for exploitation.</p>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">5</span>
+      <h2>Enumeration</h2>
+      <span class="tag">Extract</span>
+    </div>
+    <div class="def">
+      <b>Enumeration</b> is the step where the attacker extracts <b>active, identifiable resources</b> from a target — valid usernames, shared resources, network shares, policies and service details — by connecting to services that respond to queries. It is the most "loud" phase and often the most rewarding.
+    </div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">1</span>Usernames &amp; Accounts</h3>
+        <p>Harvesting valid login names via LDAP, SMTP <code>VRFY</code>/<code>RCPT</code>, Kerberos and directory services — the raw material for password attacks.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>SMB / Shares</h3>
+        <p>Server Message Block enumeration lists <b>file shares, sessions and null-session</b> access on Windows networks — a classic path to credentials and data.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">3</span>SNMP</h3>
+        <p>Simple Network Management Protocol with default/poor community strings (e.g. <code>public</code>) leaks device configuration, interfaces and topology.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">4</span>SMTP</h3>
+        <p>Mail servers reveal valid recipients and relay behaviour through commands like <code>VRFY</code>, <code>EXPN</code> and <code>RCPT TO</code>.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">5</span>DNS</h3>
+        <p>Zone transfers expose the full internal host map; even without a transfer, brute-forcing subdomains enumerates hidden assets.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">6</span>NFS</h3>
+        <p>Network File System exports can be mounted without authentication if permissions are misconfigured, granting direct file access.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">6</span>
+      <h2>Reconnaissance Tooling</h2>
+      <span class="tag">Tools</span>
+    </div>
+    <div class="stack">
+      <div class="card">
+        <h3><span class="idx">M</span>Maltego</h3>
+        <p>Graphical OSINT tool that maps relationships between people, domains, organisations and infrastructure through transforms.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">R</span>Recon-ng</h3>
+        <p>Modular web-recon framework (Python) for automated passive harvesting of hosts, contacts and vulnerabilities from APIs.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">T</span>theHarvester</h3>
+        <p>Collects <b>emails, subdomains, hosts, employee names and virtual hosts</b> from search engines and public sources.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">N</span>Nmap</h3>
+        <p>The default for host discovery, port scanning, OS and version detection, plus the Nmap Scripting Engine (NSE) for deeper enumeration.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">S</span>Shodan</h3>
+        <p>A "search engine for the Internet of Things" — indexes banners of internet-connected devices, exposing open services worldwide.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">+</span>Others</h3>
+        <p><code>dig</code>/<code>nslookup</code> (DNS), <code>whois</code> (registration), <code>traceroute</code> (path), and search-engine dorking round out the toolkit.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head">
+      <span class="num">7</span>
+      <h2>Passive vs Active — Comparison</h2>
+      <span class="tag">Exam</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Passive</th><th>Active</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Contact with target</td><td>No direct contact — uses third parties</td><td>Direct packets/queries to target systems</td></tr>
+          <tr><td>Detectability</td><td>Very low — no logs on target</td><td>High — generates firewall/IDS/SIEM logs</td></tr>
+          <tr><td>Risk of discovery</td><td>Minimal</td><td>Significant</td></tr>
+          <tr><td>Typical sources</td><td>WHOIS, DNS, search engines, archives, social media, job posts</td><td>Ping sweeps, port scans, banner grabbing, zone transfers</td></tr>
+          <tr><td>Stage in methodology</td><td>First — quiet mapping</td><td>Later — confirmation &amp; probing</td></tr>
+          <tr><td>Example tools</td><td>theHarvester, Maltego, Recon-ng, Shodan, dig</td><td>Nmap, traceroute, nslookup against live hosts</td></tr>
+          <tr><td>Information gained</td><td>Surface map, ranges, people, tech stack</td><td>Live hosts, open ports, OS, versions, shares</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Footprinting Techniques, Step by Step</h2>
+      <span class="tag">Recon detail</span></div>
+    <div class="card full">
+      <div class="stack">
+        <div class="card"><h4>WHOIS / DNS</h4><p>Registrar, name servers, admin contacts; <code>dig</code>/<code>nslookup</code> reveal mail &amp; subdomains.</p></div>
+        <div class="card"><h4>OSINT</h4><p>Job posts hint at tech ("we use Palo Alto, AWS"); LinkedIn maps the IT team; GitHub leaks configs.</p></div>
+        <div class="card"><h4>Archives</h4><p>Wayback Machine + paste sites expose old pages, endpoints, keys.</p></div>
+      </div>
+      <div class="def">Passive footprinting leaves no packet on the target's network — it's reconnaissance from a safe distance.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Scanning &amp; Enumeration</h2>
+      <span class="tag">Active recon</span></div>
+    <div class="card full">
+      <p><b>Scanning</b> finds what's alive and open; <b>enumeration</b> pulls detail from those services.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Protocol</th><th>Port</th><th>What enumeration reveals</th></tr></thead>
+          <tbody>
+            <tr><td>SNMP</td><td>161</td><td>Device config, interfaces, community strings</td></tr>
+            <tr><td>SMB</td><td>445</td><td>Shares, users, OS version (Windows)</td></tr>
+            <tr><td>SMTP</td><td>25</td><td>Valid usernames via VRFY/RCPT</td></tr>
+            <tr><td>DNS</td><td>53</td><td>Zone transfer (AXFR) of all records</td></tr>
+            <tr><td>NFS</td><td>2049</td><td>Exported filesystems</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Minimal Nmap sweep</h4>
+      <p><code>nmap -sV -sC -oA scan 10.0.0.0/24</code> — service/version detection + default scripts across a subnet.</p>
+      <div class="def">A clean methodology: <b>discover hosts &rarr; port scan &rarr; fingerprint OS/version &rarr; enumerate services &rarr; note the attack surface</b>.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Footprinting Techniques, Step by Step</h2>
+      <span class="tag">Recon detail</span></div>
+    <div class="card full">
+      <div class="stack">
+        <div class="card"><h4>WHOIS / DNS</h4><p>Registrar, name servers, admin contacts; <code>dig</code>/<code>nslookup</code> reveal mail &amp; subdomains.</p></div>
+        <div class="card"><h4>OSINT</h4><p>Job posts hint at tech ("we use Palo Alto, AWS"); LinkedIn maps the IT team; GitHub leaks configs.</p></div>
+        <div class="card"><h4>Archives</h4><p>Wayback Machine + paste sites expose old pages, endpoints, keys.</p></div>
+      </div>
+      <div class="def">Passive footprinting leaves no packet on the target's network — it's reconnaissance from a safe distance.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Defensive Footprinting</h2>
+      <span class="tag">From the other side</span></div>
+    <div class="card full">
+      <p>The same techniques, used by defenders, tell you what an attacker can already see. Before you are
+      targeted, you can footprint your own organisation and close what is exposed:</p>
+      <ul>
+        <li><b>Run your own WHOIS and DNS queries</b> — check what registrar data, name servers and records are
+          publicly visible, and what netblocks you own. Anything you didn't know was exposed is a gap.</li>
+        <li><b>Search your own domain with the Google operators on this page</b> — <code>site:</code>, <code>filetype:</code>,
+          and <code>inurl:</code> find exposed PDFs, admin panels and documents you intended to keep off public view.</li>
+        <li><b>Check Shodan / Censys for your own ranges</b> — see which of your hosts and services are indexed
+          and publicly reachable, then decide which should be behind VPN or firewall.</li>
+        <li><b>Review job posts, press releases and GitHub</b> for accidental tech-stack disclosure, then tighten
+          what recruiters and public repos reveal.</li>
+      </ul>
+      <div class="def">Defender takeaway: <b>attack surface starts with information, not with packets.</b> If your
+      own passive footprint already shows admin panels, version banners or employee names, an attacker has those
+      for free before the first scan. Reduce the public surface first; active monitoring comes after.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Passive vs Active — Why Both Matter</h2>
+      <span class="tag">Exam</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Passive</th><th>Active</th></tr></thead>
+        <tbody>
+          <tr><td>Contact with target</td><td>No direct contact — uses third parties</td><td>Direct packets/queries to target systems</td></tr>
+          <tr><td>Detectability</td><td>Very low — no logs on target</td><td>High — generates firewall/IDS/SIEM logs</td></tr>
+          <tr><td>Risk of discovery</td><td>Minimal</td><td>Significant</td></tr>
+          <tr><td>Typical sources</td><td>WHOIS, DNS, search engines, archives, social media, job posts</td><td>Ping sweeps, port scans, banner grabbing, zone transfers</td></tr>
+          <tr><td>Stage in methodology</td><td>First — quiet mapping</td><td>Later — confirmation &amp; probing</td></tr>
+          <tr><td>Example tools</td><td>theHarvester, Maltego, Recon-ng, Shodan, dig</td><td>Nmap, traceroute, nslookup against live hosts</td></tr>
+          <tr><td>Information gained</td><td>Surface map, ranges, people, tech stack</td><td>Live hosts, open ports, OS, versions, shares</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def">Both are legitimate parts of a structured engagement. Passive comes first because it is safe and
+    wide; active comes next because it confirms what the passive map suggests and reveals what passive can't see.
+    An ethical hacker does both, in order, and documents each step — so the client sees the evidence behind every
+    finding.</div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Malware Types</h2>
+      <span class="tag">Families</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">V</span>Virus</h3><p>Attaches to a host file; needs user action / a host to spread.</p></div>
+      <div class="card"><h3><span class="idx">W</span>Worm</h3><p>Self-propagates across networks with no host program needed.</p></div>
+      <div class="card"><h3><span class="idx">T</span>Trojan</h3><p>Disguised as legitimate software; hidden malicious function.</p></div>
+      <div class="card"><h3><span class="idx">R</span>Ransomware</h3><p>Encrypts / locks data and demands payment to restore it.</p></div>
+      <div class="card"><h3><span class="idx">K</span>Rootkit</h3><p>Hides its own presence and other malware from the OS.</p></div>
+      <div class="card"><h3><span class="idx">B</span>Backdoor</h3><p>Secret entry point bypassing normal auth.</p></div>
+      <div class="card"><h3><span class="idx">L</span>Logic bomb</h3><p>Triggers malicious action on a condition / date.</p></div>
+      <div class="card"><h3><span class="idx">S</span>Spyware / Keylogger</h3><p>Steals keystrokes / monitors activity silently.</p></div>
+      <div class="card"><h3><span class="idx">A</span>Adware / Botnet</h3><p>Unwanted ads; botnet = mass of infected machines under C2.</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>Needs host?</th><th>Self-spreads?</th><th>Primary goal</th></tr></thead>
+        <tbody>
+          <tr><td>Virus</td><td>Yes</td><td>No (needs user)</td><td>Corrupt / replicate</td></tr>
+          <tr><td>Worm</td><td>No</td><td>Yes</td><td>Spread / overload</td></tr>
+          <tr><td>Trojan</td><td>Delivered via host</td><td>No</td><td>Secret access</td></tr>
+          <tr><td>Ransomware</td><td>Via host</td><td>Sometimes</td><td>Extort</td></tr>
+          <tr><td>Rootkit</td><td>Yes</td><td>No</td><td>Hide presence</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">Deep comparison — virus vs worm (the classic question)</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Virus</th><th>Worm</th></tr></thead>
+          <tbody>
+            <tr><td>Needs a host file</td><td>Yes</td><td>No</td></tr>
+            <tr><td>Spreads on its own</td><td>No (needs user action)</td><td>Yes (network/email)</td></tr>
+            <tr><td>Execution</td><td>When host runs</td><td>Self-executes</td></tr>
+            <tr><td>Detection</td><td>Signature on file</td><td>Network anomaly / traffic spike</td></tr>
+            <tr><td>Example</td><td>File-infector, macro virus</td><td>Morris, Storm, WannaCry</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px"><b>Worked example — WannaCry (2017):</b> an encrypting worm that used the EternalBlue SMB exploit to spread across networks with no user click, encrypted files, and demanded Bitcoin. It combined <b>worm</b> (self-spread) + <b>ransomware</b> (extort) + <b>exploit</b> (SMB RCE). Patch (MS17-010) + SMB segmentation stopped it — a textbook case of "unpatched + flat network = disaster."</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">01b</span><h2>Malware Taxonomy — Visual</h2><span class="tag">How they spread</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Malware Families by Propagation</div>
+      <svg viewBox="0 0 560 220" role="img" aria-label="Malware taxonomy tree">
+        <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+        <!-- root -->
+        <rect class="box" x="225" y="12" width="110" height="34" rx="6"/><text x="280" y="34" text-anchor="middle" class="lbl">MALWARE</text>
+        <!-- branches -->
+        <line class="arrow" x1="250" y1="46" x2="120" y2="78"/>
+        <line class="arrow" x1="280" y1="46" x2="280" y2="78"/>
+        <line class="arrow" x1="310" y1="46" x2="440" y2="78"/>
+        <rect class="box" x="55" y="80" width="130" height="34" rx="6"/><text x="120" y="102" text-anchor="middle" class="lbl">Needs a host</text>
+        <rect class="box" x="215" y="80" width="130" height="34" rx="6"/><text x="280" y="102" text-anchor="middle" class="lbl">Self-spreads</text>
+        <rect class="box" x="375" y="80" width="140" height="34" rx="6"/><text x="445" y="102" text-anchor="middle" class="lbl">Deceptive</text>
+        <!-- leaves -->
+        <line class="arrow" x1="120" y1="114" x2="80" y2="146"/><line class="arrow" x1="120" y1="114" x2="150" y2="146"/>
+        <line class="arrow" x1="280" y1="114" x2="230" y2="146"/><line class="arrow" x1="280" y1="114" x2="320" y2="146"/>
+        <line class="arrow" x1="445" y1="114" x2="400" y2="146"/><line class="arrow" x1="445" y1="114" x2="490" y2="146"/>
+        <text x="60" y="168" text-anchor="middle" font-size="11" font-weight="700">Virus</text>
+        <text x="160" y="168" text-anchor="middle" font-size="11" font-weight="700">Trojan</text>
+        <text x="220" y="168" text-anchor="middle" font-size="11" font-weight="700">Worm</text>
+        <text x="330" y="168" text-anchor="middle" font-size="11" font-weight="700">Botnet</text>
+        <text x="400" y="168" text-anchor="middle" font-size="11" font-weight="700">Ransomware</text>
+        <text x="500" y="168" text-anchor="middle" font-size="11" font-weight="700">Spyware</text>
+        <text x="120" y="200" text-anchor="middle" font-size="10.5" fill="var(--muted)">(attaches to a file)</text>
+        <text x="280" y="200" text-anchor="middle" font-size="10.5" fill="var(--muted)">(no host needed)</text>
+        <text x="445" y="200" text-anchor="middle" font-size="10.5" fill="var(--muted)">(masquerades)</text>
+      </svg>
+      <p class="dcap">A simple way to sort malware: does it need a host file (virus, trojan), does it spread on its own (worm, botnet), or does it trick the user (ransomware, spyware)? A single sample can sit in more than one branch.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Network Attacks</h2>
+      <span class="tag">Layer 3–7</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">D</span>DoS / DDoS</h3><p>Overwhelm a target to deny service. Full detail (floods, Smurf, mitigation) on <a href="module-3.html">Module 3</a>.</p></div>
+      <div class="card"><h3><span class="idx">S</span>Session hijacking</h3><p>Steal a valid session token/cookie to impersonate the user. See <a href="module-4.html">M4</a> (defenses: HTTPS, HttpOnly, regen).</p></div>
+      <div class="card"><h3><span class="idx">N</span>Sniffing</h3><p>Packet capture on a shared/flat network. Full detail + types on <a href="module-3.html">Module 3</a>.</p></div>
+    </div>
+    <div class="card full">
+      <h4 style="margin:0 0 6px;font-size:14.5px">DoS vs DDoS (detail)</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>DoS</th><th>DDoS</th></tr></thead>
+          <tbody>
+            <tr><td>Source</td><td>One machine / IP</td><td>Many compromised machines (botnet)</td></tr>
+            <tr><td>Volume</td><td>Limited</td><td>Massive (can be terabits/s)</td></tr>
+            <tr><td>Blocking</td><td>Block the single IP</td><td>Hard — IPs are everywhere</td></tr>
+            <tr><td>Common forms</td><td>SYN flood, HTTP GET flood</td><td>Volumetric, amplification (DNS/NTP), app-layer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px"><b>How it works:</b> the attacker exhausts a resource — bandwidth (flood the pipe),
+      connection table (SYN flood fills the backlog), or CPU (slowloris holds connections open).
+      <b>Mitigation:</b> upstream scrubbing/clean-pipe, rate-limiting, anycast, and blocking amplification by
+      disabling open resolvers. The deeper treatment is on <a href="module-3.html">Module 3</a>.</p>
+      <div class="def">Network attacks build on the reconnaissance from
+      <a href="module-2.html">Page 1</a> and lead into exploitation (<a href="module-3.html">M3</a>, <a href="module-4.html">M4</a>).</div>
+    </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>How Malware Gets In &amp; Acts</h2>
+      <span class="tag">Delivery &amp; payload</span></div>
+    <div class="card full">
+      <p>Most malware follows: <b>delivery</b> (phish, drive-by, USB) &rarr; <b>execution</b> (macro, exploit) &rarr; <b>establish</b> (persistence) &rarr; <b>action</b> (encrypt, steal, spy) &rarr; <b>command &amp; control</b> (call home).</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Ransomware kill chain</h4>
+      <ol>
+        <li>Entry via phishing or RDP</li>
+        <li>Disable defenses / spread via SMB</li>
+        <li>Exfiltrate data (double extortion)</li>
+        <li>Encrypt files, demand payment</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Defending the Endpoint &amp; Network</h2>
+      <span class="tag">Controls</span></div>
+    <div class="stack">
+      <div class="card"><h4>Endpoint</h4><ul>
+        <li>EDR / next-gen antivirus with behavior analysis</li>
+        <li>Patch management, app allow-listing</li>
+        <li>Restrict macros &amp; admin rights</li>
+      </ul></div>
+      <div class="card"><h4>Network</h4><ul>
+        <li>Segmentation + VLANs limit lateral movement</li>
+        <li>DNS filtering blocks C2 call-backs</li>
+        <li>Egress monitoring, offline backups</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Proxy &amp; Packet Filtering</h2>
+      <span class="tag">Network controls</span></div>
+    <div class="stack">
+      <div class="card"><h4>Packet filtering</h4><p>A firewall function that permits or blocks packets by
+      source/destination IP, port, and protocol (stateless = per-packet rules; stateful = tracks connections).
+      This is the basic "allow/deny" wall between networks.</p></div>
+      <div class="card"><h4>Proxy server</h4><p>Intermediary that fetches resources on a client's behalf. It hides the
+      client's real IP, enforces content/URL filtering, and can cache. An <b>application-layer proxy</b> inspects
+      the request content (deeper than packet filters) — the basis of Gen-3 firewalls.</p></div>
+    </div>
+    <div class="def">Together they shape what enters and leaves a network: packet filtering at the boundary, proxies for
+    content-level control and anonymity. Covered again under firewall generations in Module 4.</div>
+  </div>
+
+  
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>What &amp; Why</h2>
+      <span class="tag">Definition</span></div>
+    <div class="card full">
+      <p><b>Social engineering</b> = tricking people into breaking security procedures or giving up
+      sensitive info. It works because humans are trusting, helpful, and rushed. The <b>insider threat</b>
+      — a trusted person abusing access — is the most dangerous variant.</p>
+      <div class="def">The best defense is a <b>"human firewall"</b>: trained, skeptical users who verify
+      requests and report suspicious contact.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">02</span><h2>Techniques</h2>
+      <span class="tag">The toolbox</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>Channel / Method</th><th>How it works</th></tr></thead>
+        <tbody>
+          <tr><td>Phishing</td><td>Email</td><td>Fake message lures creds / malware</td></tr>
+          <tr><td>Spear phishing</td><td>Targeted email</td><td>Personalized to one victim/org</td></tr>
+          <tr><td>Whaling</td><td>Email to execs</td><td>High-value targets (CFO/CEO)</td></tr>
+          <tr><td>Vishing</td><td>Voice / phone</td><td>Impersonate IT/bank to get info</td></tr>
+          <tr><td>Smishing</td><td>SMS</td><td>Malicious link via text</td></tr>
+          <tr><td>Pretexting</td><td>Any</td><td>Fabricated scenario to extract data</td></tr>
+          <tr><td>Baiting</td><td>Physical/USB</td><td>Enticing item (free USB) drops malware</td></tr>
+          <tr><td>Quid pro quo</td><td>Any</td><td>"Service for info" (fake tech support)</td></tr>
+          <tr><td>Tailgating / Piggybacking</td><td>Physical</td><td>Follow an authorized person through a door</td></tr>
+          <tr><td>Impersonation</td><td>Any</td><td>Pretend to be staff/vendor</td></tr>
+          <tr><td>Shoulder surfing</td><td>Physical</td><td>Watch PIN / password being entered</td></tr>
+          <tr><td>Dumpster diving</td><td>Physical</td><td>Recover discarded documents/media</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Defenses</h2>
+      <span class="tag">Human firewall</span></div>
+    <div class="stack">
+      <div class="card"><h4>Training &amp; awareness</h4><p>Teach users to recognize lures and verify requests out-of-band.</p></div>
+      <div class="card"><h4>Verification policies</h4><p>Confirm high-risk requests (wire transfers, password resets) by phone.</p></div>
+      <div class="card"><h4>Clear procedures</h4><p>Document how legit requests look; ban sharing creds.</p></div>
+      <div class="card"><h4>Multi-factor auth</h4><p>MFA blunts stolen-password attacks (avoid SMS-only — SIM swap).</p></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Best control</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Phishing / credential theft</td><td>MFA (app/TOTP)</td><td>Stolen password alone is useless</td></tr>
+          <tr><td>CEO fraud / whaling</td><td>Out-of-band verify for payments</td><td>Breaks the authority+urgency trick</td></tr>
+          <tr><td>Tailgating</td><td>Badge + mantrap, no tailgate</td><td>Stops piggyback entry</td></tr>
+          <tr><td>Shoulder surfing</td><td>Privacy screens, no typing secrets in public</td><td>Blocks visual capture</td></tr>
+          <tr><td>Dumpster diving</td><td>Shredding, clean-desk policy</td><td>No recoverable paper</td></tr>
+          <tr><td>All of the above</td><td>Report channel + drills</td><td>Catches what tech misses</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Why It Works — Psychology</h2>
+      <span class="tag">The lever</span></div>
+    <div class="stack">
+      <div class="card"><h4>Authority</h4><p>"I'm from IT, reset your password now" — people obey perceived superiors.</p></div>
+      <div class="card"><h4>Urgency</h4><p>"Your account closes in 10 minutes" kills careful thinking.</p></div>
+      <div class="card"><h4>Familiarity / trust</h4><p>Known brand or colleague name lowers guard.</p></div>
+      <div class="card"><h4>Scarcity / reward</h4><p>"Free gift / limited offer" triggers impulse.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Anatomy of a Phish &amp; the Human Firewall</h2>
+      <span class="tag">Dissection</span></div>
+    <div class="card full">
+      <p>A phishing email has four parts: <b>sender</b> (spoofed/lookalike domain), <b>lure</b> (urgent ask),
+      <b>payload</b> (malicious link/attachment), and <b>goal</b> (creds/C2). Spotting any weak link breaks the chain.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Worked example — a credential phish</h4>
+      <ol>
+        <li><b>Sender:</b> <code>security@micros0ft-support.com</code> — a lookalike domain (zero vs o) impersonating Microsoft.</li>
+        <li><b>Lure:</b> "Unusual sign-in detected — secure your account in 10 minutes or it is locked." (authority + urgency).</li>
+        <li><b>Payload:</b> a button linking to a cloned login page that sends typed creds to the attacker.</li>
+        <li><b>Goal:</b> harvest the password, then reuse it (or the MFA prompt) to enter the real account.</li>
+      </ol>
+      <p style="margin-top:10px"><b>Why the human firewall stops it:</b> the user checks the real sender domain, pauses at the urgency, and verifies via a known bookmark / phone — never the link. MFA (app/TOTP, not SMS) then blunts even a stolen password.</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Insider-threat case</h4>
+      <p>A trusted contractor with legit DB access exfiltrates customer records to a personal cloud account over weeks.
+      Controls that catch it: least-privilege access, DLP/ egress monitoring, and off-box logging so the activity is visible even though the person was "authorized."</p>
+      <div class="def"><b>Building the human firewall:</b> simulated phishing drills, a "verify out-of-band" rule for money/access requests, and a no-blame reporting channel so users flag tries instead of hiding them.</div>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">E1</span><h2>Passive Reconnaissance in Depth</h2><span class="tag">Deep dive · OSINT</span></div>
+    <div class="card full">
+      <p>Passive reconnaissance is information gathering that never sends a packet to the target. Its power comes from the fact that organisations routinely publish far more than they realise. A domain registration reveals a registrant, a name server, and a date. A certificate reveals every subdomain ever issued a TLS certificate. A job advert reveals the exact firewall and database products in use. A photograph on a social-media profile reveals a badge, a logo, or a building layout. None of this is hacking in the criminal sense; it is open-source intelligence, and it is the safest and often the most productive first step of an engagement.</p>
+      <p>The first practical step is to inventory the <b>DNS surface</b>. The A record maps a name to an IPv4 address, AAAA to IPv6, MX identifies mail servers, NS identifies authoritative name servers, TXT often contains verification tokens and SPF/DKIM policy, CNAME aliases one name to another, and SOA carries zone metadata. Querying these reveals the structure of the organisation's external presence without contacting its web servers. <b>Certificate transparency logs</b> are a particularly rich source: every publicly issued certificate is recorded, so subdomains that were removed from DNS years ago can still be discovered.</p>
+      <p>The second step is <b>search-engine discovery</b>. Operators such as <code>site:</code>, <code>filetype:</code>, <code>intitle:</code>, and <code>inurl:</code> turn a search engine into a document index. Searching your own domain for PDFs, spreadsheets, configuration files, and login pages frequently exposes material that was intended for internal use. The third step is the <b>human layer</b>: staff profiles, conference talks, and project repositories reveal names, email formats, technologies, and relationships. Attackers turn this into a target list for phishing; defenders turn it into a list of things to remove.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · A passive reconnaissance workflow</div>
+      <pre><code>  1. Register / ASN  --whois-->  netblocks, owner, name servers
+            |
+  2. DNS + CT logs   --dig/crt.sh-->  subdomains, MX, TXT, providers
+            |
+  3. Search engines  --dorks-->  exposed docs, admin panels, errors
+            |
+  4. Archives        --Wayback-->  retired hosts and old technologies
+            |
+  5. Social + jobs   --OSINT-->  names, email format, tech stack
+            |
+            +--> ATTACK SURFACE MAP (hosts, ranges, people, tech)
+                 No packet has touched the target at any step.</code></pre>
+      <p class="dcap">The map produced here guides every later active step. Skipping it wastes time and increases the chance of scanning the wrong systems.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Source</th><th>What it reveals</th><th>Example query or tool</th><th>Defensive countermeasure</th></tr></thead>
+        <tbody>
+          <tr><td>WHOIS / RIR</td><td>Owner, netblock, registrar</td><td><code>whois example.com</code></td><td>Privacy protection, accurate contacts</td></tr>
+          <tr><td>DNS</td><td>Subdomains, mail and name servers</td><td><code>dig example.com ANY</code></td><td>Restrict zone transfers, minimise records</td></tr>
+          <tr><td>Certificate transparency</td><td>Historical and current hostnames</td><td>crt.sh search</td><td>Track issued certificates</td></tr>
+          <tr><td>Search engines</td><td>Indexable files and panels</td><td><code>site:example.com filetype:pdf</code></td><td>Robots policy, access control, remove files</td></tr>
+          <tr><td>Archives</td><td>Retired pages and versions</td><td>Wayback Machine</td><td>Archive takedown requests</td></tr>
+          <tr><td>Social and job posts</td><td>People and technology stack</td><td>LinkedIn, GitHub, careers page</td><td>Disclosure guidance for staff</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The defining answer for passive reconnaissance is "no direct contact with the target, therefore no logs on the target and minimal chance of detection." Add two concrete sources and a defensive use of the same technique for full marks.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E2</span><h2>Active Scanning and Nmap in Depth</h2><span class="tag">Deep dive · probing</span></div>
+    <div class="card full">
+      <p>Active scanning turns the passive map into a list of live hosts, open ports, services, versions, and operating systems. <b>Nmap</b> is the standard tool because it combines host discovery, port scanning, version detection, OS fingerprinting, and a scripting engine in one framework. Understanding the scan types matters more than memorising command strings, because each type trades speed, stealth, and accuracy differently.</p>
+      <p>A <b>TCP connect scan</b> completes the full three-way handshake for each port. It works without special privileges and is reliable, but every connection is logged by the target application. A <b>TCP SYN scan</b>, also called a half-open scan, sends only the first SYN and watches for SYN/ACK or RST; because the handshake is never completed, many applications do not record a connection, though firewalls and network sensors still see the packet. A <b>NULL scan</b> sends a packet with no flags, and a <b>FIN scan</b> sends a FIN; RFC-compliant systems respond differently for open and closed ports, so the state can be inferred, though many modern stacks respond identically and make these scans unreliable. A <b>UDP scan</b> probes UDP ports and interprets ICMP port-unreachable replies; it is slow and noisy but essential because many services use UDP.</p>
+      <p><b>Version detection</b> sends probes to open ports and reads banners, producing data such as "Apache 2.4.49" that can be matched to known CVEs. <b>OS detection</b> analyses TTL values, initial window sizes, and TCP option ordering to identify the operating system. The <b>Nmap Scripting Engine</b> runs scripts ranging from banner extraction to safe vulnerability checks. A careful tester uses default scripts and version detection (<code>-sV -sC</code>) and saves all output in three formats with <code>-oA</code> so the evidence can be included in a report.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Nmap flag</th><th>Scan type</th><th>Stealth</th><th>Requirement / caveat</th></tr></thead>
+        <tbody>
+          <tr><td><code>-sT</code></td><td>TCP connect</td><td>Low</td><td>No raw-socket privilege; full handshake logged</td></tr>
+          <tr><td><code>-sS</code></td><td>TCP SYN (half-open)</td><td>Medium</td><td>Needs raw sockets; still visible to IDS</td></tr>
+          <tr><td><code>-sU</code></td><td>UDP</td><td>Low</td><td>Slow; relies on ICMP responses</td></tr>
+          <tr><td><code>-sN / -sF</code></td><td>NULL / FIN</td><td>Medium</td><td>Unreliable against modern stacks</td></tr>
+          <tr><td><code>-O</code></td><td>OS detection</td><td>Low</td><td>Needs at least one open port</td></tr>
+          <tr><td><code>-sV</code></td><td>Version detection</td><td>Low</td><td>Opens connections and reads banners</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Worked command, decoded</h4>
+      <pre><code>nmap -sS -sV -sC -O -p 1-65535 --open -oA scan1 10.0.0.0/24
+
+  -sS        SYN scan (half-open, reasonably quiet)
+  -sV        probe open ports for service versions
+  -sC        run default NSE scripts
+  -O         guess operating systems from TCP/IP fingerprints
+  -p 1-65535 scan every TCP port, not just the common 1000
+  --open     show only hosts/ports that are open
+  -oA scan1  save nmap, gnmap and xml output as scan1.*
+  10.0.0.0/24 target: 256 addresses, of which ~254 are usable hosts</code></pre>
+      <p><b>Attack and defence pair.</b> The attacker uses a fast SYN scan to map the subnet in minutes. The defender sees a single source touching many ports in sequence and alerts on the pattern, enables port-knocking or an allow-list for management ports, and uses a firewall to rate-limit connection attempts. Slow scans can evade simple thresholds, so the defender also correlates with threat intelligence and watches for later stages rather than relying on scan detection alone.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> When distinguishing passive from active, remember that even a "stealth" SYN scan is active: it sends packets to the target and can be logged. Stealth is a reduction in logging, not a guarantee of invisibility.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E3</span><h2>Enumeration in Depth</h2><span class="tag">Deep dive · extraction</span></div>
+    <div class="card full">
+      <p>Scanning answers "what is open?"; enumeration answers "what can I learn from what is open?" It is the loudest reconnaissance activity because it performs real protocol operations against the target, but it is also the most valuable because it yields names, shares, and configuration details that can be turned into access. The key distinction is between a <b>port being open</b> and a <b>service revealing identities</b>.</p>
+      <p><b>SMB enumeration</b> on port 445 can list shares, users, groups, and sessions. A misconfigured <b>null session</b> allows an unauthenticated user to query the same information, which is why null sessions should be disabled. <b>SNMP</b> on UDP 161 is often left with the default community strings <code>public</code> and <code>private</code>; a read-only string is enough to dump interfaces, routing tables, and device inventory. <b>SMTP</b> on port 25 exposes the <code>VRFY</code>, <code>EXPN</code>, and <code>RCPT TO</code> commands, which distinguish valid recipients from invalid ones. <b>LDAP</b> on 389 or 636 can be queried for users, groups, and organisational structure. <b>DNS</b> zone transfers with <code>AXFR</code> reveal the entire internal namespace when a name server is misconfigured, and <b>NFS</b> exports reveal filesystems that can sometimes be mounted without authentication.</p>
+      <p>Enumeration feeds directly into the next phases. A list of usernames becomes the input for a password-spraying attack. A share full of documents becomes the target of data theft. An old service version becomes a candidate exploit. Because of this, the correct defensive response is not merely to hide banners but to remove the information itself: disable unused protocols, require authentication, restrict queries, and monitor for repeated directory lookups.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Service</th><th>Port</th><th>Information obtained</th><th>Example command</th><th>Hardening</th></tr></thead>
+        <tbody>
+          <tr><td>SMB</td><td>445</td><td>Shares, users, OS version</td><td><code>net view \\host</code></td><td>Disable null sessions, restrict shares</td></tr>
+          <tr><td>SNMP</td><td>161/UDP</td><td>Interfaces, config, topology</td><td><code>snmpwalk -c public host</code></td><td>Change community strings, SNMPv3</td></tr>
+          <tr><td>SMTP</td><td>25</td><td>Valid mail recipients</td><td><code>VRFY user@domain</code></td><td>Disable VRFY and EXPN</td></tr>
+          <tr><td>LDAP</td><td>389/636</td><td>Users, groups, structure</td><td>LDAP query tools</td><td>Require bind, limit anonymous reads</td></tr>
+          <tr><td>DNS</td><td>53</td><td>Full zone via AXFR</td><td><code>dig @ns host AXFR</code></td><td>Restrict transfers to secondaries</td></tr>
+          <tr><td>NFS</td><td>2049</td><td>Exported filesystems</td><td><code>showmount -e host</code></td><td>Restrict exports by host</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Worked enumeration chain</h4>
+      <pre><code>Step 1  SMTP VRFY on mail.example.com accepts "a.sharma" -> valid user
+Step 2  LinkedIn shows the same person works in finance
+Step 3  SMB null session lists a share named "Finance_Shared"
+Step 4  SNMP public string reveals the file server's internal IP
+Result  A focused phishing message to a.sharma about "Finance_Shared"
+        is far more convincing than a generic mass email.
+
+Defender breaks: disable VRFY, block null sessions, change SNMP string,
+                 train staff to verify unexpected file-share notifications.</code></pre>
+    </div>
+    <div class="def"><b>Exam tip:</b> Enumeration is repeated in almost every syllabus. Define it as extracting <i>identifiable resources</i>, give at least three protocol/port pairs, and state why it is louder than scanning. That is a complete seven-mark answer.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E4</span><h2>Malware: Propagation, Payload, and Analysis</h2><span class="tag">Deep dive · malicious code</span></div>
+    <div class="card full">
+      <p>Malware is software written with a malicious purpose, and it is classified by how it spreads and what it does. A <b>virus</b> attaches to a legitimate host file and needs that file to be executed; a <b>worm</b> is standalone and propagates across networks by itself; a <b>trojan</b> pretends to be useful software while hiding a malicious function; <b>ransomware</b> encrypts or locks data to extort payment; a <b>rootkit</b> hides the presence of other malware; a <b>backdoor</b> provides secret entry; a <b>logic bomb</b> waits for a date or condition; <b>spyware</b> and <b>keyloggers</b> collect information silently; and a <b>botnet</b> is a collection of infected machines controlled from a command-and-control server. A single sample can belong to several categories, as WannaCry demonstrated by being both a worm and ransomware.</p>
+      <p>The usual infection sequence is <b>delivery</b> through email, a drive-by download, or removable media; <b>execution</b> through a macro, an exploit, or a user double-click; <b>establishment</b> by writing to startup locations or a scheduled task; <b>action</b> such as encryption or theft; and <b>command and control</b> by contacting the attacker's infrastructure. Each stage creates an opportunity for defence. Email filtering and attachment sandboxing attack delivery. Disabling macros and patching the browser attack execution. Allow-listing and endpoint detection attack establishment. Backups reduce the value of encryption, and DNS filtering blocks command-and-control domains.</p>
+      <p>Analysts study malware in two ways. <b>Static analysis</b> examines the file without running it: hashes, strings, imported functions, headers, and packer signatures. <b>Dynamic analysis</b> runs the sample in an isolated sandbox and observes file, registry, process, and network activity. Static analysis is safe but can be defeated by packing and obfuscation; dynamic analysis shows real behaviour but the malware may detect the sandbox and stay dormant. In practice the two are combined, and the output is a set of <b>indicators of compromise</b> — hashes, domains, IP addresses, and behaviour patterns — that can be searched across the estate.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Family</th><th>Needs host file</th><th>Self-spreads</th><th>Primary goal</th><th>Key indicator</th></tr></thead>
+        <tbody>
+          <tr><td>Virus</td><td>Yes</td><td>No</td><td>Replicate and corrupt</td><td>Infected executables, macro warnings</td></tr>
+          <tr><td>Worm</td><td>No</td><td>Yes</td><td>Spread and overload</td><td>Sudden scan and traffic increase</td></tr>
+          <tr><td>Trojan</td><td>Delivered via host</td><td>No</td><td>Secure hidden access</td><td>Unknown process from user download</td></tr>
+          <tr><td>Ransomware</td><td>Usually via host</td><td>Sometimes</td><td>Extort payment</td><td>Mass file renames and ransom note</td></tr>
+          <tr><td>Rootkit</td><td>Yes</td><td>No</td><td>Hide presence</td><td>Discrepancy between tools and reality</td></tr>
+          <tr><td>Botnet agent</td><td>Yes</td><td>Spreads to grow</td><td>Remote control at scale</td><td>Regular outbound beacons</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <p><b>Case study — WannaCry, 2017.</b> The worm exploited a Windows SMB vulnerability known as EternalBlue, for which a patch had been available two months earlier. Because it spread without user interaction, it swept through unpatched networks and encrypted files, demanding Bitcoin. Organisations that had applied the patch, blocked SMB between network segments, or disabled SMBv1 were largely unaffected. The lesson for an exam answer is that a famous malware incident is usually a failure of basic hygiene, not of advanced defence.</p>
+      <p><b>Attack and defence pair.</b> An attacker sends a macro-enabled spreadsheet that downloads a trojan. The defender blocks macros from the internet, detonates attachments in a sandbox, applies application allow-listing, and monitors for the beacon. If the trojan still executes, endpoint detection isolates the host and the analyst hunts for the same hash elsewhere. Each layer is independent of the email filter.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> A virus <i>needs a host and a user action</i>; a worm <i>does not</i>. State that first in any comparison question, then add propagation, detection, and one named example for each.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E5</span><h2>Denial of Service in Depth</h2><span class="tag">Deep dive · availability</span></div>
+    <div class="card full">
+      <p>Denial-of-service attacks try to make a service unavailable to legitimate users by exhausting a finite resource. The resource might be network bandwidth, the connection-tracking table of a firewall, the worker threads of a web server, the memory of a database, or simply the operator's attention. A <b>DoS</b> attack originates from one source; a <b>distributed denial of service</b> (DDoS) uses many compromised machines, which makes blocking by source address ineffective and increases the available volume dramatically.</p>
+      <p>Attacks are commonly grouped into three classes. <b>Volumetric attacks</b> saturate the link with sheer traffic, often using amplification: a small query to an open DNS or NTP resolver produces a much larger reply directed at the victim. <b>Protocol attacks</b> abuse the state machines of network protocols; a SYN flood fills the half-open connection table so legitimate handshakes cannot complete, and a Smurf attack spoofs a broadcast ping so that many hosts reply to the victim. <b>Application-layer attacks</b> send seemingly valid but expensive requests, such as slow headers (Slowloris) or complex searches, exhausting CPU and database capacity with very little bandwidth.</p>
+      <p>Defence requires capacity and filtering at several points. An <b>anycast content-delivery network</b> spreads traffic across many locations, so a flood is absorbed rather than concentrated. <b>Upstream scrubbing</b> filters malicious traffic before it reaches the customer link. <b>Rate limiting</b>, connection thresholds, SYN cookies, and per-client quotas protect state and application resources. Operationally, an incident plan identifies who contacts the provider and who declares an incident; during an attack is the worst time to discover the phone number.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Class</th><th>Example</th><th>Resource targeted</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>Volumetric</td><td>DNS amplification, UDP flood</td><td>Link bandwidth</td><td>Anycast CDN, upstream scrubbing, disable open resolvers</td></tr>
+          <tr><td>Protocol</td><td>SYN flood, Smurf</td><td>Connection state</td><td>SYN cookies, firewall thresholds, disable directed broadcasts</td></tr>
+          <tr><td>Application layer</td><td>Slowloris, expensive queries</td><td>CPU, threads, database</td><td>Reverse proxy, request timeouts, rate limits, caching</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <p><b>Worked example.</b> An attacker sends spoofed DNS queries to open resolvers with the source address set to a game server. Each resolver replies with a large record, so a 60-byte request becomes a 3,000-byte flood at the victim. The site's own firewall cannot help because the link is already full. The fix is upstream: the provider filters the traffic, the resolvers are closed to recursion from the internet, and the game site moves behind a CDN. The exam lesson is that volumetric attacks must be stopped <i>before</i> the bottleneck.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Always distinguish DoS from DDoS by the number of sources, and always pair the attack class with the resource it exhausts. That earns the analysis marks rather than just the definition mark.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E6</span><h2>Sniffing and Session Hijacking in Depth</h2><span class="tag">Deep dive · interception</span></div>
+    <div class="card full">
+      <p>A network interface normally accepts frames addressed to it and drops the rest. In <b>promiscuous mode</b> it passes everything to the operating system, allowing a packet sniffer to capture traffic destined for other hosts. On a hub this is trivial because every host sees every frame; on a switched network the attacker must first use ARP spoofing, a rogue access point, or a span port to see traffic that is not theirs. Tools such as Wireshark and tcpdump decode the captured frames into readable protocols.</p>
+      <p><b>Active sniffing</b> changes the network so that traffic flows through the attacker, as with ARP poisoning where the attacker announces that the gateway's IP maps to its own MAC address. <b>Passive sniffing</b> only listens, for example on a hub or a wireless network in monitor mode, and is much harder to detect. The distinction mirrors passive versus active reconnaissance. Sniffing is not automatically malicious — administrators use it to diagnose problems — but capturing credentials or personal data without authorisation is an attack.</p>
+      <p><b>Session hijacking</b> builds on interception. After a user logs in, the server issues a session token, usually stored in a cookie. An attacker who steals or predicts that token can replay it and impersonate the user without knowing the password. Tokens can be captured on plaintext connections, read by cross-site scripting, predicted if they are sequential, or taken over through a man-in-the-middle proxy. Defences are layered: HTTPS protects the token in transit, the <b>HttpOnly</b> flag stops JavaScript from reading it, the <b>Secure</b> flag stops it being sent over HTTP, long random values stop prediction, and regenerating the identifier at login and privilege change makes a stolen pre-login token worthless.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>How it works</th><th>Detection</th><th>Defence</th></tr></thead>
+        <tbody>
+          <tr><td>Passive capture on hub</td><td>NIC in promiscuous mode</td><td>Hard; look for promiscuous NICs</td><td>Switched network, TLS</td></tr>
+          <tr><td>ARP spoofing</td><td>False IP-to-MAC mapping</td><td><code>arp -a</code>: two IPs, one MAC</td><td>Dynamic ARP inspection, VPN, static ARP</td></tr>
+          <tr><td>Rogue access point</td><td>Stronger signal attracts clients</td><td>Wireless survey, rogue-AP detection</td><td>802.1X, WPA3, WIPS</td></tr>
+          <tr><td>Session token theft</td><td>Cookie captured or read by script</td><td>Impossible travel, concurrent sessions</td><td>HTTPS, HttpOnly, Secure, token rotation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Encryption is the generic answer to sniffing, but a full answer names the state: TLS for data in transit, plus switched networking and ARP inspection to prevent the attacker from being in the path at all.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E7</span><h2>Packet Filtering and Proxying in Depth</h2><span class="tag">Deep dive · traffic control</span></div>
+    <div class="card full">
+      <p>A <b>packet filter</b> makes allow or deny decisions by examining packet headers: source address, destination address, protocol, source port, and destination port. A <b>stateless</b> filter treats each packet in isolation, which is fast but cannot tell whether a packet belongs to an established connection. A <b>stateful</b> filter maintains a state table of active connections and allows return traffic only for connections that were initiated from the trusted side. Stateful inspection is the basis of the traditional firewall and is safer than a simple access-control list.</p>
+      <p>A <b>proxy</b> works at a higher level. Instead of the client talking directly to the destination, the client talks to the proxy, which makes the request on its behalf. Because the proxy terminates the connection, it can inspect the content of the request, enforce URL policies, cache responses, and hide the client's real address. A <b>forward proxy</b> protects clients leaving a network; a <b>reverse proxy</b> protects servers by sitting in front of them and absorbing or filtering requests; a <b>circuit-level proxy</b> operates at the session layer and is useful for validating connections. The cost is performance and the need to configure clients or applications to use the proxy.</p>
+      <p>Firewall rules should follow <b>implicit deny</b>: everything is blocked unless explicitly permitted, and the last rule is a log-and-deny catch-all. Rules are ordered, so the most specific permits go first and broad denies go last. A rule that permits HTTP from anywhere to a web server in the DMZ, denies all traffic from the DMZ to the internal LAN, and permits established return traffic is a common and safe pattern. Reviewing rules regularly removes stale entries that quietly widen the attack surface.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Control</th><th>Layer</th><th>Sees content?</th><th>Strength</th><th>Weakness</th></tr></thead>
+        <tbody>
+          <tr><td>Stateless packet filter</td><td>Network / transport</td><td>No</td><td>Fast and simple</td><td>No connection awareness</td></tr>
+          <tr><td>Stateful firewall</td><td>Network / transport</td><td>No</td><td>Tracks connection state</td><td>Cannot inspect application data</td></tr>
+          <tr><td>Application proxy</td><td>Application</td><td>Yes</td><td>Content and URL filtering</td><td>Slower, needs configuration</td></tr>
+          <tr><td>Reverse proxy / WAF</td><td>Application</td><td>Yes</td><td>Protects servers, caches</td><td>Must be kept in the traffic path</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>A small ruleset, read top to bottom</h4>
+      <pre><code>10 PERMIT  tcp  any         -&gt;  web-dmz   80,443   # public web
+20 PERMIT  tcp  web-dmz     -&gt;  db-lan    1433     # app to DB only
+30 DENY    any  web-dmz     -&gt;  internal-lan  any # no DMZ to LAN
+40 PERMIT  any  internal-lan -&gt; any        80,443   # staff browsing
+50 DENY    log any          -&gt;  any        any      # implicit deny</code></pre>
+      <p>Rule 30 is placed before rule 40 conceptually because it concerns a different source zone; the ordering within a group matters, and a broad rule placed too early silently makes later denies unreachable. This is why firewall reviews start at the top.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> If asked to compare a packet-filtering firewall with a proxy firewall, use three axes: the layer inspected, whether connection state is tracked, and whether content can be filtered. Conclude that a next-generation firewall combines stateful inspection with application awareness.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E8</span><h2>Social Engineering: Techniques and Psychology</h2><span class="tag">Deep dive · human layer</span></div>
+    <div class="card full">
+      <p>Social engineering is the manipulation of people into performing actions or revealing information that compromises security. It succeeds because the attacker does not need to defeat encryption or exploit a memory bug; they only need a tired, helpful, or frightened person to make one mistake. The channel may be email, telephone, SMS, a face-to-face conversation, or a physical action such as following someone through a door.</p>
+      <p>Techniques are distinguished by channel and pretext. <b>Phishing</b> is a broad email lure; <b>spear phishing</b> is personalised to one person; <b>whaling</b> targets senior executives; <b>vishing</b> uses a phone call; <b>smishing</b> uses SMS; <b>pretexting</b> invents a scenario to justify the request; <b>quid pro quo</b> offers a service in exchange for information; <b>baiting</b> leaves an attractive item such as an infected USB drive; <b>tailgating</b> follows an authorised person through a door; <b>shoulder surfing</b> watches a screen or keyboard; and <b>dumpster diving</b> recovers discarded documents or media. The techniques overlap, and a single campaign often combines several.</p>
+      <p>What makes them work is a small set of psychological levers. <b>Authority</b> makes people obey someone who claims to be from IT or management. <b>Urgency</b> destroys careful thinking by imposing a deadline. <b>Fear</b> pushes a user to act before verifying. <b>Familiarity and liking</b> lower suspicion when the sender appears to be a colleague or a known brand. <b>Scarcity and reward</b> trigger impulse. <b>Helpfulness</b> is the lever that attackers most often abuse in pretexting: most employees want to be useful and will answer a plausible question. Recognising the lever is the first step in resisting the attack.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>Channel</th><th>Lever used</th><th>Realistic example</th></tr></thead>
+        <tbody>
+          <tr><td>Spear phishing</td><td>Email</td><td>Familiarity, urgency</td><td>Fake invoice referencing a real project</td></tr>
+          <tr><td>Whaling</td><td>Email</td><td>Authority, secrecy</td><td>"CEO" requests an urgent wire transfer</td></tr>
+          <tr><td>Vishing</td><td>Phone</td><td>Authority, fear</td><td>Caller claims the bank account is compromised</td></tr>
+          <tr><td>Pretexting</td><td>Any</td><td>Helpfulness, trust</td><td>Fake vendor "verifies" network details</td></tr>
+          <tr><td>Baiting</td><td>Physical USB</td><td>Curiosity, reward</td><td>USB labelled "salary review" in the lobby</td></tr>
+          <tr><td>Tailgating</td><td>Physical</td><td>Politeness</td><td>Stranger carries boxes and asks for the door</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Anatomy of a phishing message</h4>
+      <pre><code>SENDER   security@micros0ft-support.com   - lookalike, zero for "o"
+SUBJECT  "Action needed: your mailbox closes in 10 minutes" - urgency
+LURE     Claims unusual sign-in; asks you to "verify" now
+PAYLOAD  Button links to a cloned login page on a different domain
+GOAL     Capture credentials and the MFA code, then replay both
+
+Break any one link and the attack fails:
+  check the real domain -> ignore the deadline -> use a bookmark
+  -> never type a code on a page you reached from a link</code></pre>
+      <p><b>Worked insider case.</b> A contractor with legitimate database access copies customer records to personal cloud storage over several weeks. The activity looks like normal work because the account is authorised. Controls that reveal it are least privilege, data-loss prevention, egress monitoring, and logs stored outside the contractor's reach. The case shows why "trusted insider" is a threat category and why authorisation alone is not the same as trustworthiness.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> For "why does social engineering work?", do not write only "because people are stupid." Write that attackers exploit predictable human tendencies — authority, urgency, trust, helpfulness — and that the corresponding defence is a verification culture plus technical controls that make a stolen secret insufficient.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E9</span><h2>Building the Human Firewall</h2><span class="tag">Deep dive · defence</span></div>
+    <div class="card full">
+      <p>The <b>human firewall</b> is the idea that trained, alert staff are a security control as real as a firewall appliance. It rests on three pillars: <b>awareness</b>, so staff recognise common lures; <b>procedure</b>, so they know exactly how to verify a suspicious request; and <b>reporting</b>, so a mistake becomes an alert rather than a secret. A programme that only delivers an annual slideshow fails all three.</p>
+      <p>Effective awareness is short, frequent, and relevant to the recipient's job. Finance staff need practice with invoice fraud and payment changes; engineers need practice with repository credentials and dependency confusion; everyone needs practice with credential phishing. <b>Simulated phishing campaigns</b> measure click and report rates, but the useful metric is the reporting rate, not the click rate: a culture that punishes clicks teaches staff to hide them, which is worse. The rule should be "verify out of band" — confirm any request involving money, credentials, or access by a separate channel using contact details you already hold, never those supplied in the message.</p>
+      <p>Technical controls reduce the consequence of a human error. Multi-factor authentication using an app or a hardware key means a stolen password is not enough. Email authentication with SPF, DKIM, and DMARC makes forged sender domains harder to deliver. DMARC monitoring also tells the organisation which legitimate services are sending mail on its behalf. Link scanning and attachment sandboxing stop many payloads before a human ever sees them. Privileged-access controls limit what a compromised account can reach. Together these turn a single mistaken click into a contained event.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Technical control</th><th>Procedural control</th><th>Why both are needed</th></tr></thead>
+        <tbody>
+          <tr><td>Credential phishing</td><td>MFA, DNS authentication</td><td>Verify using a saved bookmark</td><td>Users will occasionally click</td></tr>
+          <tr><td>Invoice fraud</td><td>Payment approval workflow</td><td>Callback to a known number</td><td>Authority and urgency bypass care</td></tr>
+          <tr><td>Badge tailgating</td><td>Mantrap, door sensors</td><td>No-held-door policy</td><td>Politeness defeats signage alone</td></tr>
+          <tr><td>USB baiting</td><td>Disable autorun, block storage</td><td>Hand found media to security</td><td>Curiosity is predictable</td></tr>
+          <tr><td>Dumpster diving</td><td>None</td><td>Shredding, clean-desk policy</td><td>Paper never reaches a filter</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> When asked for defences against social engineering, give at least one technical control and one procedural or people control, and explain that they are complementary. An answer containing only "train users" loses marks because training is not guaranteed to succeed.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E10</span><h2>Attack and Defence Pairs</h2><span class="tag">Consolidation</span></div>
+    <div class="card full">
+      <p><b>Pair 1 — Scanning.</b> Attack: an Nmap sweep maps every live host and version. Defence: ingress filtering, port allow-lists, rate limits, and alerts on one source touching many ports. <b>Pair 2 — Enumeration.</b> Attack: SNMP with the default community string dumps the network inventory. Defence: SNMPv3 with authentication and encryption, and monitoring of management-protocol access. <b>Pair 3 — Malware.</b> Attack: a macro downloads a trojan. Defence: block internet macros, sandbox attachments, allow-list executables, and isolate on detection. <b>Pair 4 — Denial of service.</b> Attack: an amplified flood saturates the link. Defence: anycast, scrubbing, and disabling open resolvers. <b>Pair 5 — Social engineering.</b> Attack: a targeted email requests a password reset. Defence: MFA, out-of-band verification, and a no-blame reporting channel.</p>
+      <p>The pattern in every pair is the same: reduce the chance of success, reduce the payoff if it succeeds, and increase the chance of detection. A control that only does one of these is weaker than a set that does all three. When you design a defence, ask which of the three it addresses and what covers the other two.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> A table of paired attacks and defences is an efficient way to answer a broad "discuss threats and countermeasures" question. Include the mechanism in each row; naming the control without saying what it does earns only half marks.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E11</span><h2>What to Write for 3 Marks and for 14 Marks</h2><span class="tag">Exam technique</span></div>
+    <div class="card full">
+      <h4>Three-mark questions</h4>
+      <p>Give three precise statements. For "three differences between passive and active footprinting", write: passive makes no contact and leaves no logs; active sends packets and can be detected; passive comes first to map the surface while active confirms and fills gaps. Each statement is a mark, so avoid combining them into one vague sentence.</p>
+      <h4>Fourteen-mark questions</h4>
+      <p>Structure your answer as a mini report. Define the terms in the first paragraph, use a table for the taxonomy, add a worked tool command or scenario, discuss detection and defences, and conclude with the trade-off between thoroughness and risk of detection. For example, a question on reconnaissance can cover passive sources, active probing, scanning, enumeration, tool categories, the passive-versus-active comparison, defensive use of the same techniques, and an evaluation of which phase is most valuable.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Question type</th><th>Marks</th><th>Best structure</th><th>Common error</th></tr></thead>
+        <tbody>
+          <tr><td>"Define and give examples"</td><td>3–7</td><td>Definition, then labelled examples</td><td>Examples without definitions</td></tr>
+          <tr><td>"Compare"</td><td>7–10</td><td>Table with at least four dimensions</td><td>Listing only similarities</td></tr>
+          <tr><td>"Discuss threats and defences"</td><td>14</td><td>Taxonomy, mechanism, worked case, defences, evaluation</td><td>No worked case</td></tr>
+          <tr><td>"Explain a tool or command"</td><td>7</td><td>Purpose, syntax, each flag, output, detection risk</td><td>Memorised syntax with no explanation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Module glossary</h4>
+      <p><b>Footprinting</b> — building a profile of the target's attack surface. <b>OSINT</b> — intelligence from publicly available sources. <b>Scanning</b> — actively finding live hosts, ports, and services. <b>Enumeration</b> — extracting identities and resources from services. <b>Promiscuous mode</b> — a network interface accepting all frames. <b>Botnet</b> — many infected machines under remote control. <b>Amplification</b> — a small request generating a large response to a victim. <b>Pretext</b> — a fabricated scenario used to justify a request. <b>Human firewall</b> — staff trained and empowered to verify and report.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> The single most repeated distinction in this module is passive versus active. Learn it in three forms — definition, examples, and consequences for detection — so you can answer whichever way the question is phrased.</div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-1.html">&larr; Module 1 · Foundations</a>
+    <a class="next" href="module-3.html">Module 3 · Vulnerabilities &amp; Attacks &rarr;</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div><span class="brand2">Study Notes</span> · Footprinting, scanning, enumeration, malware, network attacks and social engineering.</div>
+    <div><a href="index.html">Home</a> · <a href="module-3.html">Next module</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 · Vulnerability Resources, Sniffing, MITM & Network Attacks</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div>
+    <button class="navtoggle" aria-label="Menu">Menu</button>
+    <nav class="topnav"><a href="index.html">Home</a><a href="../index.html">All subjects</a><a href="module-1.html">M1 · Foundations</a><a href="module-2.html">M2 · Recon &amp; Attacks</a><a href="module-3.html" class="active">M3 · Vulnerabilities</a><a href="module-4.html">M4 · Net / System</a><a href="module-5.html">M5 · Tracks</a><a href="exam-guide.html">Exam Techniques</a><a href="question-bank.html">Papers</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Module 3 · Complete Module (1 topic expanded)</span>
+  <h1>Vulnerabilities, Sniffing, MITM &amp; Network Attacks</h1>
+  <p class="lede">Where vulnerabilities are catalogued and scored, what an exploit is and how a zero-day differs, how attackers listen on the wire and sit in the middle of a conversation, how they flood or crash services, how they guess credentials, and how a vulnerability-management programme reduces the exposure.</p>
+  <div class="meta-row">
+    <span class="chip red">CVE / NVD</span><span class="chip">CVSS</span><span class="chip">Exploits / zero-day</span><span class="chip">Sniffing</span><span class="chip">MITM</span><span class="chip">DoS</span><span class="chip">Brute force</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- VULN RESOURCES -->
+  <div class="section">
+    <div class="head"><span class="num">01</span><h2>Vulnerability Data Resources</h2>
+      <span class="tag">Where flaws are tracked</span></div>
+    <div class="card full">
+      <div class="def">A <b>vulnerability</b> is a weakness that lets an attacker enter and harm a
+      system — a flaw in design or a misconfiguration. To exploit it, the attacker needs a tool or
+      technique that connects to that weakness. The top sources used to trace new vulnerabilities:</div>
+      <div class="stack">
+        <div class="card"><h3><span class="idx">1</span>NVD</h3><p>US-government repository of standards-based vulnerability data using SCAP. Enables automation of vuln management, measurement and compliance; includes checklists, flaws, misconfigurations, product names, impact metrics.</p></div>
+        <div class="card"><h3><span class="idx">2</span>CVE</h3><p>International, free dictionary of publicly-known vulnerabilities &amp; exposures. Common identifiers let security products exchange data. Scanning tools use CVEs for classification; SIEMs understand them.</p></div>
+        <div class="card"><h3><span class="idx">3</span>CERT Notes</h3><p>CERT Knowledgebase — public Vulnerability Notes Database plus restricted components. Notes include summaries, technical details, remediation, affected vendors.</p></div>
+        <div class="card"><h3><span class="idx">4</span>VulnDB</h3><p>Risk-Based Security's commercial feed — 2000+ tracked libraries, RESTful API, email alerting, CVE mapping, VTEM metrics, links to patches/exploits.</p></div>
+        <div class="card"><h3><span class="idx">5</span>DISA IAVA / STIG</h3><p>US Defense mapping of CVE IDs to IAVAs; posted on DISA's public STIG site. A must for .gov/.mil work.</p></div>
+        <div class="card"><h3><span class="idx">6</span>Security Tracker</h3><p>Third-party DB updated daily; focuses on non-OS flaws (infrastructure &amp; IoT front page most).</p></div>
+        <div class="card"><h3><span class="idx">7</span>OVAL</h3><p>Open community standard to assess &amp; report machine state — encode system details, express states, report results; enables interoperable, reproducible metrics.</p></div>
+        <div class="card"><h3><span class="idx">8</span>National Council of ISACs</h3><p>Sector-specific Information Sharing &amp; Analysis Centers (MS-ISAC, FS-ISAC, A-ISAC, AUTO-ISAC, ONG-ISAC, NH-ISAC, IT-ISAC) that rapidly share threat alerts between govt and industry.</p></div>
+        <div class="card"><h3><span class="idx">9</span>Exploit-DB</h3><p>An archive of exploits for public security — useful for finding weaknesses in your network and staying current on attacks elsewhere (see <a href="#exploit">§02</a>).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLOIT DB -->
+  <div class="section" id="exploit">
+    <div class="head"><span class="num">02</span><h2>Exploit Databases &amp; What an Exploit Is</h2>
+      <span class="tag">Definitions</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">DB</span>Exploit Database</h3><p>An archive of exploits for public security — useful for finding weaknesses in your network and staying current on attacks elsewhere. Lets defenders learn attackers' methods.</p></div>
+      <div class="card"><h3><span class="idx">!</span>Exploit vs Vulnerability</h3><p>An <b>exploit</b> is a program or piece of code that finds and takes advantage of a flaw — it is <b>not malware itself</b>, but the method used to deliver malware. Defenses: EDR, threat-defense software, pen-testing programs.</p></div>
+      <div class="card"><h3><span class="idx">K</span>Known exploits</h3><p>Once known, the flaw is usually patched and the info goes to security vendors. Public vulns get an ID, description and references.</p></div>
+      <div class="card"><h3><span class="idx">0</span>Zero-day exploits</h3><p>Unknown to all but their authors — the most dangerous. The vuln is unknown to the vendor until a hacker is caught exploiting it. Either a patch eventually ships or security software detects/blocks it.</p></div>
+    </div>
+  </div>
+
+  <!-- SNIFFING -->
+  <div class="section">
+    <div class="head"><span class="num">03</span><h2>Network Sniffing</h2>
+      <span class="tag">Listening on the wire</span></div>
+    <div class="card full">
+      <p>Sniffing monitors and records all packets crossing a network. Admins use it to troubleshoot;
+      attackers use it to capture passwords and account info. A <b>packet sniffer</b> in
+      <b>promiscuous mode</b> gathers all traffic. Can be <b>active</b> (spikes traffic into a switch
+      LAN to monitor) or <b>passive</b> (no interaction; sits on a hub, needs only a LAN account).</p>
+      <h4 style="margin:14px 0 6px;font-size:14.5px">Types of network sniffers</h4>
+      <div class="stack">
+        <div class="card"><h4>MAC sniffers</h4><p>Sniff data relevant to a MAC-address filter.</p></div>
+        <div class="card"><h4>Protocol sniffers</h4><p>Sniff for specific network protocols.</p></div>
+        <div class="card"><h4>LAN sniffers</h4><p>Inspect an entire range of internal IP addresses.</p></div>
+        <div class="card"><h4>IP sniffers</h4><p>Capture all data for a specific IP filter; logged in human-readable form.</p></div>
+        <div class="card"><h4>ARP sniffers</h4><p>Map IP→MAC, enabling packet spoofing / poisoning attacks.</p></div>
+        <div class="card"><h4>Password sniffers</h4><p>Harvest credentials from traffic; hits sites without SSL/TLS encryption.</p></div>
+      </div>
+      <div class="def">Popular tools: <b>Wireshark, TCPdump, Microsoft Message Analyzer, EtherApe, NetworkMiner</b>. Can capture visited sites, page contents, emails, downloaded files.</div>
+    </div>
+  </div>
+
+  <!-- MITM -->
+  <div class="section">
+    <div class="head"><span class="num">04</span><h2>Man-in-the-Middle (MITM) Attacks</h2>
+      <span class="tag">Intercepting traffic</span></div>
+    <div class="card full">
+      <p>An attacker eavesdrops on (or alters) communication between two legit hosts. <b>Types of MITM:</b></p>
+      <div class="stack">
+        <div class="card"><h3><span class="idx">R</span>Rogue Access Point</h3><p>Attacker sets up an AP with the strongest signal; nearby devices auto-join. All victim traffic is then manipulable — no need to be on a trusted network, just close by.</p></div>
+        <div class="card"><h3><span class="idx">A</span>ARP Spoofing</h3><p>ARP resolves IP→MAC on a LAN. Attacker answers ARP requests with its own MAC, poisoning both router and workstation caches, sitting silently in the middle. Detect with <code>arp -a</code> (two IPs, same MAC). Prevent with VPN, static ARP, packet filtering.</p></div>
+        <div class="card"><h3><span class="idx">m</span>mDNS Spoofing</h3><p>Multicast DNS on a LAN; attacker replies to <code>tv.local</code>-style requests with a fake address it controls; victim caches it as trusted.</p></div>
+        <div class="card"><h3><span class="idx">D</span>DNS Spoofing</h3><p>Corrupt DNS cache so the victim sends sensitive data to a malicious host believing it is trusted (e.g. onlinebanking.com). Prevent with DNSSEC, source auth, rate limiting, DNS filtering, monitoring.</p></div>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Technique</th><th>Purpose</th><th>Prevention</th></tr></thead>
+          <tbody>
+            <tr><td>Sniffing</td><td>Promiscuous-mode capture of packets</td><td>Encryption (TLS/SSH), VPN</td></tr>
+            <tr><td>Packet Injection</td><td>Blend malicious packets into a stream</td><td>Integrity checks, TLS</td></tr>
+            <tr><td>Session Hijacking</td><td>Steal the session token</td><td>HTTPS, HttpOnly/Secure cookies, session regen</td></tr>
+            <tr><td>SSL Stripping</td><td>Downgrade HTTPS→HTTP</td><td>HSTS, force HTTPS everywhere</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOS -->
+  <div class="section">
+    <div class="head"><span class="num">05</span><h2>Denial-of-Service &amp; Remote Attacks</h2>
+      <span class="tag">Availability</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">D</span>DoS vs DDoS</h3><p>DoS uses a <b>single</b> computer to overwhelm a target. <b>DDoS</b> comes from <b>many distributed</b> sources (e.g. a botnet). Goal: oversaturate capacity so legitimate requests are denied.</p></div>
+      <div class="card"><h3><span class="idx">F</span>Attack categories</h3><ul>
+        <li><b>Buffer overflow</b> — memory overrun consumes disk/RAM/CPU → crash.</li>
+        <li><b>Flood attacks</b> — saturate with packets (needs more bandwidth than target).</li>
+        <li><b>Smurf / Ping flood / Ping of Death</b> — historic ICMP-based attacks.</li>
+      </ul></div>
+      <div class="card"><h3><span class="idx">R</span>Remote attacks</h3><p>Target a computer/network the attacker is not using. Classified by method: DNS Poisoning, TCP Desynchronization, DoS, ICMP attacks, Port Scanning. Often start with network service scanning for unpatched software; RDP is a common target (credentials left in memory).</p></div>
+      <div class="card"><h3><span class="idx">M</span>Mitigation</h3><ul>
+        <li>Network segmentation, firewalls, IDS/IPS.</li>
+        <li>Bandwidth limiting, CDN, anti-malware, regular scans &amp; patching.</li>
+        <li>ISP / scrubbing-center DDoS mitigation.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- BRUTE FORCE + SMTP/SQL -->
+  <div class="section">
+    <div class="head"><span class="num">06</span><h2>Brute Force &amp; Protocol Attacks</h2>
+      <span class="tag">Credential &amp; app layer</span></div>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">B</span>Brute Force types</h3><ul>
+        <li><b>Simple</b> — manual guessing of weak/custom passwords (no software).</li>
+        <li><b>Dictionary</b> — run words (+symbols/numbers) against a username.</li>
+        <li><b>Hybrid</b> — dictionary + simple brute force (e.g. SanDiego123).</li>
+        <li><b>Reverse</b> — start with a known password, hunt matching usernames.</li>
+        <li><b>Credential stuffing</b> — stolen creds replayed across sites (password reuse).</li>
+      </ul></div>
+      <div class="card"><h3><span class="idx">S</span>Attacking SMTP</h3><p>Abusing Simple Mail Transfer Protocol lets an attacker send spam/phishing as the victim's domain (reputation damage, blocklisting) and even enable DoS. Enabled by phishing/malware, lost devices, lack of encryption — mitigated with SSL/TLS and user education.</p></div>
+      <div class="card full"><h3><span class="idx">Q</span>SQL Server Attacks / SQL Injection</h3><p>SQLi arises when user input is concatenated into a query without constraint/sanitization. Any user-controlled parameter (GET/POST params, user-agent, cookies, host) may hide a flaw. An attacker crafts SQL to read the DB schema and steal data. (Full SQLi types — In-band Error/Union, Inferential Blind Boolean/Time-based, Out-of-band — are covered on the <a href="module-4.html">Module 4 · Web server/SQLi</a> page.) Entry point + exploit are both required.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">07</span><h2>Vulnerability Management Lifecycle</h2>
+      <span class="tag">Operational</span></div>
+    <div class="card full">
+      <p>Finding a CVE is not the end. The lifecycle: <b>discover</b> assets &rarr; <b>scan</b> for known issues
+      &rarr; <b>prioritize</b> by CVSS score &times; exposure &rarr; <b>remediate</b> (patch/compensate) &rarr;
+      <b>verify</b> the fix &rarr; <b>report</b>. CVSS ranges: 0.1–3.9 low, 4.0–6.9 medium, 7.0–8.9 high, 9.0–10 critical.</p>
+      <div class="def"><b>Exploit-DB</b> is read two ways: defenders check whether a public exploit exists for their stack (patch first); attackers use it as a ready toolkit. Either way, "known + unpatched" is the danger zone.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">08</span><h2>Detecting &amp; Stopping Sniffing / MITM</h2>
+      <span class="tag">Defense</span></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Detection</th><th>Defense</th></tr></thead>
+        <tbody>
+          <tr><td>Sniffing (hub/promisc)</td><td>Unexpected NIC in promisc mode</td><td>Switched nets, encryption, port security</td></tr>
+          <tr><td>ARP spoofing</td><td>Two IPs share one MAC (<code>arp -a</code>)</td><td>Static ARP, ARP inspection, VPN</td></tr>
+          <tr><td>DNS spoofing</td><td>Wrong IP for known host</td><td>DNSSEC, monitoring</td></tr>
+          <tr><td>SSL stripping</td><td>HTTP where HTTPS expected</td><td>HSTS, HTTPS-everywhere</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>DDoS response:</b> traffic scrubbing, rate-limiting, anycast/CDN, and upstream ISP blackholing — plus an incident plan so "it's down" has a known owner.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">09</span><h2>DHCP Spoofing &amp; DNS Manipulation</h2>
+      <span class="tag">Module 3</span></div>
+    <div class="card full">
+      <p>A <b>rogue DHCP server</b> on the network hands clients an attacker-chosen gateway and DNS, so the victim's
+      traffic is routed through the attacker (classic MITM). Combined with <b>DNS spoofing</b>, the attacker can map
+      legitimate names (e.g. <code>bank.com</code>) to a fake IP.</p>
+      <h4 style="margin:12px 0 6px;font-size:14.5px">Defense</h4>
+      <ul>
+        <li><b>DHCP Snooping</b> — switch marks trusted ports; only the real server may answer DHCP.</li>
+        <li><b>Dynamic ARP Inspection</b> — validates ARP against the DHCP binding table.</li>
+        <li><b>DNSSEC</b> — cryptographically signed answers foil spoofed records.</li>
+        <li>802.1X port authentication stops rogue devices joining in the first place.</li>
+      </ul>
+      <div class="def">Attack chain recap: rogue DHCP &rarr; bad default gateway/DNS &rarr; victim traffic intercepted &rarr; DNS hijack to fake sites &rarr; credential theft over "HTTP".</div>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">E1</span><h2>Vulnerability Data Sources in Depth</h2><span class="tag">Deep dive · intelligence</span></div>
+    <div class="card full">
+      <p>A <b>vulnerability</b> is a weakness in design, implementation, or configuration that allows an attacker to harm a system. A <b>CVE</b> is not a database of details but a dictionary of identifiers: a number such as CVE-2023-12345 gives every vendor, scanner, and report a common name for one specific flaw. The <b>NVD</b> enriches those identifiers with descriptions, affected products, reference links, and CVSS scores, using the SCAP family of standards so that tools can exchange data automatically. <b>CWE</b> classifies the <i>type</i> of weakness, such as CWE-89 for SQL injection, while <b>CPE</b> names the exact affected product version. Together they let a scanner say "this host running product X has weakness type Y, which is CVE-Z."</p>
+      <p>Other sources serve different needs. <b>CERT vulnerability notes</b> provide readable summaries and remediation advice from a trusted research team. <b>VulnDB</b> and commercial feeds offer structured data with APIs and alerting, including libraries that public feeds may miss. <b>DISA IAVA and STIG</b> documents map vulnerabilities to US defence systems and provide hardening benchmarks. <b>OVAL</b> defines machine-readable statements that test whether a host is in a vulnerable state, which makes compliance checks reproducible. <b>ISACs</b> share sector-specific warnings between government and industry. <b>Exploit-DB</b> archives working exploit code, which is useful to defenders who need to know whether a flaw is trivially exploitable and to attackers looking for a ready-made tool.</p>
+      <p>The practical skill is to trace a scanner alert back to authoritative data. Given a CVE identifier, look up the affected versions, check whether a patch exists, read the CVSS vector to understand <i>why</i> the score is high, and search for public exploits to gauge urgency. Then compare with your own asset inventory: a critical CVE on a library that your application does not actually call is less urgent than a medium CVE on an internet-facing login page. This is the difference between counting vulnerabilities and managing them.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Identifier / source</th><th>What it provides</th><th>Used by</th><th>Exam-ready point</th></tr></thead>
+        <tbody>
+          <tr><td>CVE</td><td>A unique public identifier per flaw</td><td>Everything</td><td>Common naming, not a full description</td></tr>
+          <tr><td>CWE</td><td>A classification of weakness type</td><td>Developers, researchers</td><td>"SQL injection" is CWE-89</td></tr>
+          <tr><td>CPE</td><td>A standard product/version name</td><td>Scanners, inventories</td><td>Links a CVE to a specific product</td></tr>
+          <tr><td>NVD</td><td>Scores, descriptions, references</td><td>Analysts, GRC tools</td><td>US repository using SCAP</td></tr>
+          <tr><td>CERT / ISAC</td><td>Curated advice, sector alerts</td><td>Defenders, operators</td><td>Human-readable context</td></tr>
+          <tr><td>Exploit-DB</td><td>Public exploit code</td><td>Pentesters, attackers</td><td>Shows whether exploitation is easy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> When asked where vulnerability information comes from, list at least four sources and say what each adds. A list of names without functions is a weak answer; a sentence explaining that CVE names, CWE classifies, NVD scores, and ISACs distribute context is a strong one.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E2</span><h2>CVSS and Risk-Based Prioritisation</h2><span class="tag">Deep dive · scoring</span></div>
+    <div class="card full">
+      <p><b>CVSS</b> (Common Vulnerability Scoring System) produces a 0-to-10 score from a standard vector. The <b>base metrics</b> describe intrinsic properties: attack vector (network, adjacent, local, physical), attack complexity, privileges required, user interaction, scope, and the impact on confidentiality, integrity, and availability. <b>Temporal metrics</b> refine the score with exploit maturity and remediation level. <b>Environmental metrics</b> adjust it to a particular organisation's asset importance and controls. A number without its vector is hard to interpret; a vector tells you exactly why the number is what it is.</p>
+      <p>The bands are low (0.1–3.9), medium (4.0–6.9), high (7.0–8.9), and critical (9.0–10.0). Scores help, but they are not the whole risk. A critical remote-code-execution flaw in a lab tool with no network exposure may be a low organisational priority, while a medium flaw in the public authentication path may be urgent. Mature programmes add <b>exploit prediction</b> data, asset criticality, and exposure: is the system internet-facing, does it hold regulated data, and is a public exploit already in use?</p>
+    </div>
+    <div class="card full">
+      <h4>Worked vector, read piece by piece</h4>
+      <pre><code>CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  = 9.8 CRITICAL
+
+  AV:N  exploitable over the network (no physical access needed)
+  AC:L  low complexity, no special conditions
+  PR:N  no privileges required
+  UI:N  no user interaction required
+  S:U   scope unchanged (impact stays in the vulnerable component)
+  C:H/I:H/A:H  total loss of confidentiality, integrity and availability
+
+Why it is urgent: unauthenticated remote attacker, no victim action,
+full compromise. Patch first, then verify with a rescan.</code></pre>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Factor</th><th>Question to ask</th><th>Effect on priority</th></tr></thead>
+        <tbody>
+          <tr><td>CVSS base</td><td>How severe is the flaw itself?</td><td>Starting score</td></tr>
+          <tr><td>Exposure</td><td>Is it reachable from the internet?</td><td>Raises or lowers urgency</td></tr>
+          <tr><td>Exploit availability</td><td>Is working code public or used in the wild?</td><td>Raises urgency sharply</td></tr>
+          <tr><td>Asset value</td><td>Does it hold critical or regulated data?</td><td>Raises business impact</td></tr>
+          <tr><td>Compensating controls</td><td>Is it behind authentication or a WAF?</td><td>Lowers short-term risk</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> State the four CVSS bands, then add that risk also depends on exposure and asset value. That combination earns both the knowledge mark and the evaluation mark.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E3</span><h2>Exploits, Zero-Days, and Disclosure</h2><span class="tag">Deep dive · lifecycle</span></div>
+    <div class="card full">
+      <p>An <b>exploit</b> is code or a technique that takes advantage of a vulnerability. It is not the same as malware: exploit code may simply demonstrate that a flaw exists, while malware is a payload delivered <i>by</i> an exploit. The lifecycle usually runs: a flaw is introduced, discovered by a researcher or attacker, reported to the vendor, patched, published as a CVE, and finally scanned for and exploited in the wild. The window between publication and patch deployment is the most dangerous period for defenders, because attackers have precise knowledge while many systems are still unpatched.</p>
+      <p>A <b>zero-day</b> is a vulnerability that is unknown to the vendor and for which no patch exists, or a weaponised exploit used before the vendor knows. Because no signature or patch is available, defences must rely on behaviour: sandboxing, least privilege, segmentation, and anomaly detection. Zero-days are expensive and rare, so most real intrusions use known flaws that someone failed to patch. This is an important exam point: advanced malware is less common than ordinary unpatched software.</p>
+      <p><b>Responsible disclosure</b> means reporting a flaw privately to the vendor, allowing a reasonable time for a fix, and then publishing details so defenders can act. <b>Full disclosure</b> publishes immediately, which pressures vendors but also arms attackers. The ethical position expected of a white hat is to follow the agreed disclosure policy in the engagement and to avoid public release that puts users at risk. Staying within scope and documenting everything remain the dividing line between research and unauthorised access.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · The life of a vulnerability</div>
+      <pre><code>introduced --> discovered --> reported --> vendor patch --> CVE published
+                                                                |
+                                                                v
+                        mass scanning &lt;-- exploit code &lt;-- attackers learn
+                              |
+                              v
+                 unpatched systems are compromised; patched systems are safe</code></pre>
+      <p class="dcap">The slope of the curve between publication and patch deployment is where most damage occurs. Reducing that interval is the main goal of vulnerability management.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Term</th><th>Meaning</th><th>Defensive implication</th></tr></thead>
+        <tbody>
+          <tr><td>Vulnerability</td><td>A weakness that can be abused</td><td>Find and remediate it</td></tr>
+          <tr><td>Exploit</td><td>Code or technique that abuses it</td><td>Assume public code will be used</td></tr>
+          <tr><td>Zero-day</td><td>Unknown/unpatched flaw</td><td>Rely on behaviour-based controls</td></tr>
+          <tr><td>Payload</td><td>What the exploit delivers</td><td>EDR and least privilege limit it</td></tr>
+          <tr><td>Responsible disclosure</td><td>Private report, timed release</td><td>Buys time for a patch</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Write "an exploit is not malware" explicitly. It is a high-value sentence because it shows you understand the distinction between the method of entry and the code that runs afterwards.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E4</span><h2>Sniffing Mechanics and Filters</h2><span class="tag">Deep dive · capture</span></div>
+    <div class="card full">
+      <p>A sniffer puts a network interface into <b>promiscuous mode</b> so that the operating system receives every frame on the segment, not only frames addressed to that host. On a hub this reveals all traffic automatically, because a hub repeats every frame out of every port. On a switch, traffic is directed to the intended port, so an attacker must use ARP poisoning, MAC flooding, a rogue access point, or a monitor/span port to observe it. Wireless networks in monitor mode similarly capture frames from the air, but encrypted WPA2/WPA3 traffic is not readable without the key.</p>
+      <p>Capture tools accept a <b>filter expression</b> that limits what is recorded. A capture filter such as <code>tcp port 23</code> or <code>host 10.0.0.5</code> is applied before storage and reduces volume. A display filter such as <code>http.request.method == "POST"</code> hides captured packets from view without discarding them. Knowing the difference matters operationally: capture filters save disk and CPU, display filters support later analysis. Common plaintext protocols that reveal credentials include HTTP, FTP, Telnet, and legacy SNMP; SMTP and POP3 without TLS expose mail content.</p>
+      <p>The defender's answer is not "stop using sniffers" — administrators need them — but "make captured traffic useless." TLS everywhere, SSH instead of Telnet, SFTP instead of FTP, and VPNs on untrusted networks remove readable secrets. Switched networking and port security reduce the ability to observe other hosts' frames. Monitoring for interfaces in promiscuous mode and for unexpected ARP activity catches the attacker who tries to bypass the switch.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Sniffer type</th><th>Selects</th><th>Typical purpose</th><th>Limitation</th></tr></thead>
+        <tbody>
+          <tr><td>MAC sniffer</td><td>Frames for a MAC filter</td><td>Troubleshoot one device</td><td>Sees only that device's traffic</td></tr>
+          <tr><td>Protocol sniffer</td><td>One protocol, e.g. DNS</td><td>Diagnose a service</td><td>Misses other protocols</td></tr>
+          <tr><td>IP sniffer</td><td>One IP address</td><td>Focus on a host</td><td>Needs the right address</td></tr>
+          <tr><td>ARP sniffer</td><td>ARP resolution traffic</td><td>Map IP-to-MAC, enable spoofing</td><td>Local segment only</td></tr>
+          <tr><td>Password sniffer</td><td>Login strings in traffic</td><td>Harvest credentials</td><td>Fails against TLS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Useful filter examples</h4>
+      <pre><code>Capture:  tcp port 23                 # Telnet logins only
+          host 10.0.0.5 and udp       # all UDP to/from one host
+Display:  http.request.method == "POST"
+          dns.qry.name contains "example"
+          tcp.flags.syn == 1 and tcp.flags.ack == 0   # SYN scan traffic</code></pre>
+    </div>
+    <div class="def"><b>Exam tip:</b> State that sniffing on a switched network requires the attacker to first redirect traffic, and that the primary defence is encryption because it makes whatever is captured unreadable.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E5</span><h2>ARP Spoofing and Man-in-the-Middle Mechanics</h2><span class="tag">Deep dive · interception</span></div>
+    <div class="card full">
+      <p><b>ARP</b> resolves an IPv4 address to a hardware (MAC) address on a local network. A host that wants to send a packet to the gateway broadcasts "who has 192.168.1.1?" and trusts the reply. The protocol has no authentication, so an attacker can reply first with their own MAC address. If the attacker also sends a forged reply to the gateway claiming to be the victim, both sides update their ARP caches and the attacker sits in the middle of the conversation, forwarding traffic so that neither party notices.</p>
+      <p>The step-by-step attack is: identify the gateway and victim addresses, send crafted ARP replies to poison both caches, enable IP forwarding on the attacker machine, and start capturing or modifying the traffic. Detection is possible because the gateway's MAC address appears twice in the ARP table, because duplicate IP addresses appear on the network, or because an IDS flags gratuitous ARP announcements. Tools that perform the attack are easy to obtain, which is why the defence must be built into the network rather than left to users.</p>
+      <p>The strongest defences are <b>DHCP snooping</b>, which builds a trusted binding table of MAC-to-IP assignments, and <b>dynamic ARP inspection</b>, which validates ARP replies against that table and drops forged ones. <b>Static ARP entries</b> work on small networks but do not scale. <b>VPNs</b> protect traffic even if an attacker succeeds in intercepting it, and <b>TLS with certificate validation</b> prevents silent modification. Note that these defences are diverse: one prevents the poisoning, another protects the data, and a third detects the attempt.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>MITM method</th><th>Layer abused</th><th>How the attacker gets in the path</th><th>Primary defence</th></tr></thead>
+        <tbody>
+          <tr><td>ARP spoofing</td><td>Link / network</td><td>Forged ARP replies poison caches</td><td>DHCP snooping + ARP inspection</td></tr>
+          <tr><td>Rogue access point</td><td>Wireless</td><td>Stronger signal attracts clients</td><td>802.1X, WIPS, disable auto-join</td></tr>
+          <tr><td>DNS spoofing</td><td>Application</td><td>Poisoned name resolution</td><td>DNSSEC, signed responses</td></tr>
+          <tr><td>DHCP spoofing</td><td>Network</td><td>Rogue server supplies gateway</td><td>DHCP snooping, port ACLs</td></tr>
+          <tr><td>SSL stripping</td><td>Transport / app</td><td>Downgrade HTTPS to HTTP</td><td>HSTS, HTTPS-only, warnings</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Worked detection</h4>
+      <pre><code>C:\&gt; arp -a
+  Internet Address      Physical Address      Type
+  192.168.1.1           00:11:22:33:44:55    dynamic   &lt;-- real router
+  192.168.1.1           aa:bb:cc:dd:ee:ff    dynamic   &lt;-- attacker!
+  192.168.1.50          aa:bb:cc:dd:ee:ff    dynamic   &lt;-- attacker's own IP
+
+Two different IPs map to one MAC address: classic ARP poisoning.
+Respond: verify the legitimate gateway MAC, enable DAI, and investigate
+the port where the rogue MAC is seen.</code></pre>
+    </div>
+    <div class="def"><b>Exam tip:</b> For MITM, name the trust assumption that is abused. In ARP it is "replies are trusted without authentication"; in DNS it is "the first answer wins"; in TLS stripping it is "users will not notice the missing padlock." Identifying the assumption shows depth.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E6</span><h2>DNS, mDNS, and Rogue DHCP Attacks</h2><span class="tag">Deep dive · name and address</span></div>
+    <div class="card full">
+      <p>DNS translates names into addresses, and both the request and the reply are normally sent in a single UDP datagram. Classic <b>DNS cache poisoning</b> injects a false mapping into a resolver's cache so that users who type a legitimate name are silently sent to an attacker-controlled address. Historically, attackers improved their odds by guessing the 16-bit transaction ID and source port; randomised ports and IDs make brute forcing far slower. <b>DNSSEC</b> signs records with a chain of trust, so a resolver can verify that an answer really came from the zone owner and was not altered.</p>
+      <p><b>mDNS</b> performs similar resolution on a local network using multicast, with names such as <code>printer.local</code>. Because it is designed for convenience, devices tend to trust the first answer they receive; an attacker on the same LAN can answer with their own address. <b>Rogue DHCP</b> is broader: an unauthorised DHCP server hands clients an attacker-chosen default gateway and DNS server, so every connection passes through the attacker without needing to poison ARP at all. The result is a local network where the attacker controls both the path and the names.</p>
+      <p>A complete attack chain reads: rogue DHCP supplies a malicious gateway and DNS; the victim resolves <code>bank.example</code> to the attacker's address; the attacker presents a cloned site with a valid-looking name; credentials are collected over a connection the attacker can read. Defences are structural: DHCP snooping limits which switch ports may answer DHCP requests, dynamic ARP inspection prevents forged mappings, DNSSEC validates answers, 802.1X stops unauthorised devices from joining, and certificate validation stops a cloned site from being accepted without a warning.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>What the victim believes</th><th>Reality</th><th>Defence</th></tr></thead>
+        <tbody>
+          <tr><td>DNS cache poisoning</td><td>The name maps to the real host</td><td>It maps to the attacker</td><td>DNSSEC, source port randomisation</td></tr>
+          <tr><td>mDNS spoofing</td><td>A local device has a trusted name</td><td>Attacker answers first</td><td>Disable mDNS, network segmentation</td></tr>
+          <tr><td>Rogue DHCP</td><td>The attacker's host is the gateway</td><td>All traffic is intercepted</td><td>DHCP snooping, 802.1X</td></tr>
+          <tr><td>SSL stripping</td><td>The session is encrypted</td><td>It is plain HTTP to the attacker</td><td>HSTS, preload list, HTTPS-only</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Defence in sequence:</b> each step of the chain can be broken independently — DHCP snooping stops the rogue server, ARP inspection stops forged mappings, DNSSEC stops the false name, and certificate validation stops the fake site. Breaking any one step prevents credential theft.</div>
+    <div class="def"><b>Exam tip:</b> The most complete answer to "how do you prevent DNS spoofing?" combines cryptographic validation (DNSSEC), local controls (DHCP snooping and ARP inspection when DHCP-based), and user-side validation (HTTPS certificates). No single control covers all variants.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E7</span><h2>SSL Stripping and the Rogue Access Point</h2><span class="tag">Deep dive · wireless/transport</span></div>
+    <div class="card full">
+      <p>A <b>rogue access point</b> is an unauthorised wireless access point, often configured with the same network name as a legitimate one and a stronger signal. Clients that auto-join open or weakly configured networks connect to the attacker, who then controls their path to the internet. An <b>evil twin</b> is the targeted version of the same idea. Defences include wireless intrusion prevention, 802.1X authentication with a RADIUS server so clients verify the network, disabling auto-join, and keeping devices' Wi-Fi radios off when unused.</p>
+      <p><b>SSL stripping</b> is a downgrade attack. The attacker establishes an HTTPS connection to the real server but serves plain HTTP to the victim, so the victim's browser shows an unencrypted session while the attacker relays everything in the clear. The classic tool rewrites <code>https://</code> links to <code>http://</code> and strips the secure flag from cookies. Modern defences are strong: <b>HSTS</b> instructs the browser to use HTTPS only for a period, the HSTS preload list hard-codes major sites, browsers warn on insecure forms, and certificate validation fails if the attacker presents a false certificate. An attacker who tries to substitute a self-signed certificate triggers a prominent warning.</p>
+      <p>Both attacks exploit convenience. Users want networks that connect automatically and pages that load without warnings; the attacker trades on that. The exam answer should therefore combine a technical control with a behaviour change: HSTS and 802.1X on the technical side, and "do not ignore certificate warnings or join unknown networks" on the human side.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · SSL stripping flow</div>
+      <pre><code>  Victim  -- http://bank -->  Attacker  -- https://bank -->  Bank
+          &lt;-- plain page ----           &lt;-- encrypted -------
+
+  The bank believes it is talking securely to the attacker.
+  The victim believes they are talking directly to the bank.
+  The attacker can read and modify everything in the middle.
+
+  Defences: HSTS forces HTTPS before any plain request is sent;
+            certificate validation stops a forged HTTPS server;
+            user education stops "click through the warning".</code></pre>
+      <p class="dcap">Notice that encryption alone did not protect the victim here, because the attacker prevented it from being used. That is why HSTS, which removes the downgrade option, matters.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Distinguish sniffing from stripping: sniffing reads traffic that is already plaintext; stripping <i>causes</i> traffic to be plaintext. The defences overlap but the mechanism is different.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E8</span><h2>Denial of Service and Remote Attacks in Depth</h2><span class="tag">Deep dive · availability</span></div>
+    <div class="card full">
+      <p>Denial-of-service attacks come in two broad flavours with different mechanisms. A <b>resource-exhaustion</b> attack floods bandwidth, connection tables, CPU, or memory. A <b>crash</b> attack sends malformed input that triggers a bug — a buffer overflow, a null dereference, or a protocol parser error — and stops the service entirely. The classic examples are the SYN flood, which fills the half-open connection backlog; the Smurf attack, which spoofs a broadcast ICMP request so many hosts reply to one victim; the ping of death, which sends oversized packets to a buggy stack; and Slowloris, which opens many connections and sends headers so slowly that server threads stay occupied.</p>
+      <p><b>Remote attacks</b> target a system the attacker is not physically using. They often begin by scanning for an exposed service with a known flaw, then sending a crafted request to exploit it. Remote Desktop Protocol is a frequent target because it is exposed for convenience and may be protected only by a password; credentials left in memory or weak lockout policy make it vulnerable. A successful remote attack can install a backdoor, create an account, or pivot to other machines on the internal network.</p>
+      <p>Defence combines <b>prevention</b> (patching, disabling unused services, strong authentication), <b>absorption</b> (CDN, anycast, extra capacity), and <b>filtering</b> (firewall thresholds, SYN cookies, upstream scrubbing). An incident plan matters because DDoS is noisy and time-critical; the team needs to know who contacts the provider and what traffic can be sacrificed. After the attack, logs and flow data help distinguish the flood from ordinary spikes.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Mechanism</th><th>Symptom</th><th>Control</th></tr></thead>
+        <tbody>
+          <tr><td>SYN flood</td><td>Fills half-open connection table</td><td>New connections refused</td><td>SYN cookies, backlog limits</td></tr>
+          <tr><td>Amplification</td><td>Spoofed queries to open resolvers</td><td>Link saturated</td><td>Disable open resolvers, scrubbing</td></tr>
+          <tr><td>Buffer overflow DoS</td><td>Malformed input crashes a service</td><td>Process dies repeatedly</td><td>Patching, input validation, memory protections</td></tr>
+          <tr><td>Slowloris</td><td>Many slow, incomplete requests</td><td>Worker threads exhausted</td><td>Request timeouts, reverse proxy</td></tr>
+          <tr><td>RDP compromise</td><td>Weak or stolen credentials</td><td>New accounts, unusual logons</td><td>MFA, lockout, network level authentication</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Classify a DoS attack by the resource it exhausts before describing the tool. That earns the analysis mark even if you cannot recall a specific historical attack name.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E9</span><h2>Brute Force and Credential Attacks in Depth</h2><span class="tag">Deep dive · passwords</span></div>
+    <div class="card full">
+      <p>A <b>brute-force</b> attack tries many candidate passwords until one works. A <b>dictionary attack</b> tries a wordlist, often with rules that add digits and symbols. A <b>hybrid attack</b> combines dictionary words with common patterns such as a trailing year. A <b>reverse brute-force</b> starts with a known password and tries many usernames. <b>Credential stuffing</b> replays username-password pairs leaked from another site, relying on password reuse. <b>Password spraying</b> tries one common password against many accounts, which avoids lockout thresholds that are set per account.</p>
+      <p>Whether an attack can be run quickly depends on how passwords are stored. Systems should never store plaintext passwords; they store a salted hash. A <b>salt</b> is a random value added before hashing, so identical passwords produce different hashes and precomputed rainbow tables become useless. A deliberately slow password-hashing function such as bcrypt, scrypt, or Argon2 makes each guess expensive, which raises the cost of offline cracking. Attackers counter with GPUs and specialised hardware, so the defender must also choose a high work factor and protect the hash store.</p>
+      <p>Defence is layered. Strong password policy favours length over arbitrary complexity and screens against known-breached passwords. Multi-factor authentication makes a correct password insufficient. Rate limiting, progressive delays, and account lockout slow online guessing, but lockout must be balanced against denial of service — an attacker can deliberately lock out users. Monitoring for many failures from one source, for logins from unusual locations, and for many accounts sharing one password catches credential stuffing. Users should be taught to use a password manager and unique passwords.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Input</th><th>Why it works</th><th>Best defence</th></tr></thead>
+        <tbody>
+          <tr><td>Dictionary</td><td>Common wordlist</td><td>People choose guessable words</td><td>Breached-password screening, MFA</td></tr>
+          <tr><td>Hybrid</td><td>Words plus digits/symbols</td><td>Predictable "decoration" habits</td><td>Long passphrases, MFA</td></tr>
+          <tr><td>Reverse brute force</td><td>One password, many users</td><td>Shared weak password</td><td>Policy, monitoring of failures</td></tr>
+          <tr><td>Credential stuffing</td><td>Leaked pairs from other sites</td><td>Password reuse</td><td>Unique passwords, MFA, bot detection</td></tr>
+          <tr><td>Password spraying</td><td>One password on many accounts</td><td>Per-account lockout thresholds</td><td>Per-source rate limits, alerting</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Worked estimate</h4>
+      <pre><code>Assume a 4-character numeric PIN: 10,000 possibilities.
+At 100 guesses/second with no lockout: 10,000 / 100 = 100 seconds.
+At 1 guess/second with a 5-attempt lockout: hours per account.
+
+Assume a 12-character passphrase from a 2,000-word list:
+2,000^12 possibilities -- astronomically beyond brute force.
+
+Conclusion: length plus rate limiting defeats online guessing;
+MFA is still required because offline cracking and reuse remain.</code></pre>
+    </div>
+    <div class="def"><b>Exam tip:</b> Name the storage control when discussing offline cracking: "salted, slow hashes" is the phrase markers look for. For online guessing, the answer is rate limiting, lockout, and MFA.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E10</span><h2>Protocol Attacks: SMTP Abuse and SQL Injection</h2><span class="tag">Deep dive · application</span></div>
+    <div class="card full">
+      <p><b>SMTP abuse</b> occurs when an attacker uses a mail server to send messages as the organisation. An <b>open relay</b> accepts mail from anyone and forwards it to anyone, which is quickly abused for spam and phishing; the result is reputation damage and blocklisting. <b>Spoofing</b> forges the From address, so a message appears to come from a trusted colleague or brand. Three email-authentication mechanisms reduce this: <b>SPF</b> publishes which servers may send for a domain, <b>DKIM</b> adds a cryptographic signature to messages, and <b>DMARC</b> tells receivers how to handle messages that fail those checks and sends reports to the domain owner.</p>
+      <p><b>SQL injection</b> happens when user input is concatenated into a SQL query without validation or parameterisation. If an application builds <code>SELECT * FROM users WHERE name = '" + input + "'</code>, an attacker can supply input that closes the string and adds another condition, causing the database to return unintended rows or execute additional statements. The root cause is treating data as code. The fix is a <b>parameterised query</b> (prepared statement), in which the SQL structure is fixed and user values are bound separately so they can never be interpreted as SQL.</p>
+      <p>The impact includes dumping credentials, bypassing authentication, reading other users' data, modifying records, and in some configurations executing operating-system commands. Defences include parameterised queries, least-privilege database accounts, input validation as a secondary control, stored procedures where appropriate, hiding detailed database errors, and a web application firewall as a temporary compensating measure. Note that escaping input alone is fragile; parameterisation removes the possibility rather than trying to filter it.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Injection versus parameterisation</div>
+      <pre><code>  VULNERABLE construction:
+    query = "SELECT * FROM users WHERE id = '" + input + "'"
+    input = "1' OR '1'='1"  -&gt;  SELECT ... WHERE id = '1' OR '1'='1'
+    result: every row returned
+
+  SAFE construction:
+    query = "SELECT * FROM users WHERE id = ?"
+    bind(1, input)          -&gt;  the database treats input strictly as a value
+    result: one row, or none; the quote characters have no special power</code></pre>
+      <p class="dcap">The difference is not that the safe version "filters bad characters" — it is that user input is never allowed to become part of the query structure.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> The single best defence for SQL injection is a parameterised query. Write that first, then add least privilege and generic errors. Avoid "escape all input" as the primary answer; it is incomplete.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E11</span><h2>Vulnerability Management as a Programme</h2><span class="tag">Deep dive · operations</span></div>
+    <div class="card full">
+      <p>Finding vulnerabilities is trivial compared with fixing them in a large estate. A management programme begins with a complete <b>asset inventory</b>; you cannot patch what you do not know you own. Next comes <b>discovery</b> through authenticated scans, which see far more than unauthenticated ones, and <b>triage</b> using CVSS plus exposure and asset value. Remediation follows: patch, change configuration, or apply a compensating control. <b>Verification</b> rescans to prove the fix worked, and <b>reporting</b> tracks trends so management can see whether the programme is improving.</p>
+      <p>Timeframes are usually set by severity: critical issues within days, high within a couple of weeks, medium within a month or two, and low in the normal patch cycle. Exceptions must be documented with a reason, an owner, a compensating control, and an expiry date; an exception without an expiry becomes permanent. Metrics should measure outcomes such as mean time to remediate and the percentage of critical issues overdue, not just the number of scans run. A scanner that runs daily but whose findings are never fixed adds no security.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Stage</th><th>Activity</th><th>Output</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>Inventory</td><td>List assets and versions</td><td>Authoritative asset register</td><td>IT asset management</td></tr>
+          <tr><td>Discovery</td><td>Authenticated scanning</td><td>Findings with CVE IDs</td><td>Security operations</td></tr>
+          <tr><td>Prioritisation</td><td>Score times exposure</td><td>Ranked remediation queue</td><td>Vulnerability analyst</td></tr>
+          <tr><td>Remediation</td><td>Patch or compensate</td><td>Change records</td><td>System owners</td></tr>
+          <tr><td>Verification</td><td>Rescan and test</td><td>Closure evidence</td><td>Security operations</td></tr>
+          <tr><td>Reporting</td><td>Trends and exceptions</td><td>Management dashboard</td><td>Security manager</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> A fourteen-mark question on vulnerability management should mention the asset inventory first. Without it the rest of the cycle has nothing to act on, and examiners often award a point for recognising that dependency.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E12</span><h2>Detection Matrix and Exam Guidance</h2><span class="tag">Consolidation</span></div>
+    <div class="card full">
+      <p>Bring the attacks of this module together with the evidence they leave. <b>Sniffing</b> leaves a promiscuous interface or unexpected capture traffic. <b>ARP poisoning</b> leaves duplicate MAC mappings. <b>DNS spoofing</b> leaves a name resolving to an unexpected address. <b>SSL stripping</b> leaves HTTP where HTTPS is expected. <b>DoS</b> leaves anomalous traffic volume, connection counts, or CPU load. <b>Brute force</b> leaves repeated authentication failures. <b>SQL injection</b> leaves unusual query strings in web logs and database errors. Each of these can feed a SIEM rule, and each illustrates the same principle: attacks are processes, and processes create traces.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Detection source</th><th>Indicator</th><th>Response</th></tr></thead>
+        <tbody>
+          <tr><td>ARP spoofing</td><td>Host ARP cache / IDS</td><td>One MAC for two IPs</td><td>Enable DAI, isolate host</td></tr>
+          <tr><td>DNS spoofing</td><td>Resolver logs, DNSSEC</td><td>Wrong address for a name</td><td>Flush cache, validate signatures</td></tr>
+          <tr><td>SSL stripping</td><td>Web and proxy logs</td><td>Plain HTTP to secure site</td><td>Enforce HSTS, investigate</td></tr>
+          <tr><td>DoS</td><td>Flow data, server metrics</td><td>Traffic or connection spike</td><td>Scrub, rate-limit, scale</td></tr>
+          <tr><td>Brute force</td><td>Authentication logs</td><td>Many failures, one source</td><td>Rate-limit, lock, alert</td></tr>
+          <tr><td>SQL injection</td><td>WAF and web logs</td><td>SQL keywords in parameters</td><td>Block, patch query, review code</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>What to write for 3 marks and for 14 marks</h4>
+      <p><b>Three marks:</b> state three precise points. For "what is a zero-day?", write: it is a vulnerability unknown to the vendor; no patch exists; defenders must rely on behaviour-based detection and layered controls. <b>Fourteen marks:</b> define the terms, build a taxonomy in a table, give a worked example with a command or vector, show the attack mechanism, give detection indicators, give defences at more than one layer, and conclude with an evaluation. For instance, a question on man-in-the-middle attacks can cover ARP, DNS, DHCP, rogue access points, and SSL stripping, then compare detection and prevention for each.</p>
+    </div>
+    <div class="card full">
+      <h4>Module glossary</h4>
+      <p><b>Vulnerability</b> — a weakness. <b>Exploit</b> — a method that abuses it. <b>Zero-day</b> — an unpatched, unknown flaw. <b>Promiscuous mode</b> — accepting all frames. <b>MITM</b> — secretly relaying or altering a conversation. <b>Amplification</b> — multiplying traffic with spoofed requests. <b>Salting</b> — adding random data before hashing passwords. <b>Parameterised query</b> — SQL with values bound separately. <b>Residual risk</b> — exposure remaining after controls.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> Finish every attack answer with the defender's perspective. "Every attack leaves an indicator" is a reliable closing sentence, but name at least one indicator to prove it.</div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-2.html">&larr; Module 2 · Recon &amp; Attacks</a>
+    <a class="next" href="module-4.html">Module 4 · Network &amp; System Defense &rarr;</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div><span class="brand2">Study Notes</span> · Vulnerability resources, exploits, sniffing, MITM, DoS, brute force and defence.</div>
+    <div><a href="index.html">Home</a> · <a href="module-4.html">Next module</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

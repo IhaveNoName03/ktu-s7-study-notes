@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 · Network &amp; System Defense</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0E0F12">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/layout.css">
+<script>(function(){try{var B={"swiss":{"light":"#f4f5f7","dark":"#0E0F12","amoled":"#000000"},"catppuccin":{"light":"#eff1f5","dark":"#1e1e2e","amoled":"#000000"},"gruvbox":{"light":"#fbf1c7","dark":"#282828","amoled":"#000000"},"nord":{"light":"#ECEFF4","dark":"#2E3440","amoled":"#000000"},"solarized":{"light":"#fdf6e3","dark":"#002b36","amoled":"#000000"},"tokyo":{"light":"#d5d6db","dark":"#1a1b26","amoled":"#000000"},"slate":{"light":"#f8fafc","dark":"#0f172a","amoled":"#000000"},"teal":{"light":"#f5f7f6","dark":"#101716","amoled":"#000000"}};var h=location.hash||"";var T=(h.match(/[#&]t=([a-z]+)/)||[])[1];var M=(h.match(/[#&]m=([a-z]+)/)||[])[1];function S(k){try{return sessionStorage.getItem(k)}catch(e){return null}}function L(k){try{return localStorage.getItem(k)}catch(e){return null}}T=T||S("theme-name")||L("theme-name")||(document.cookie.match(/(?:^|; )theme-name=([^;]*)/)||[])[1];M=M||S("theme-mode")||L("theme-mode")||(document.cookie.match(/(?:^|; )theme-mode=([^;]*)/)||[])[1];if((!T||!M)&&window.name&&window.name.indexOf("s7theme:")===0){var o=JSON.parse(window.name.slice(8));T=T||o.t;M=M||o.m;}if(!B[T])T="swiss";if(["light","dark","amoled"].indexOf(M)<0)M=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";try{sessionStorage.setItem("theme-name",T);sessionStorage.setItem("theme-mode",M);localStorage.setItem("theme-name",T);localStorage.setItem("theme-mode",M);}catch(e){}var BGC=B[T][M];var r=document.documentElement;r.style.setProperty("--bg",BGC);r.setAttribute("data-mode",M);r.setAttribute("data-theme",T);r.style.background=BGC;}catch(e){}})();</script>
+<script src="assets/theme-bridge.js"></script>
+<script src="assets/theme-config.js"></script>
+<script src="assets/theme-handler.js"></script>
+</head>
+<body>
+
+<header class="topbar"><div class="topbar-inner"><div class="brand">Study Notes <span>/</span> Ethical Hacking Notes</div><button class="navtoggle" aria-label="Menu">Menu</button><nav class="topnav"><a href="index.html">Home</a><a href="../index.html">All subjects</a><a href="module-1.html">M1 · Foundations</a><a href="module-2.html">M2 · Recon &amp; Attacks</a><a href="module-3.html">M3 · Vulnerabilities</a><a href="module-4.html" class="active">M4 · Net / System</a><a href="module-5.html">M5 · Tracks</a><a href="exam-guide.html">Exam Techniques</a><a href="question-bank.html">Papers</a></nav></div></header>
+
+<section class="hero">
+  <span class="kicker">Module 4 · Complete Module (1 topic expanded)</span>
+  <h1>Network &amp; System Defense</h1>
+  <p class="lede">The infrastructure and application layer of the course: routers, firewalls, honeypots, IDS and IPS, web filtering and web servers, SQL injection and XSS, exploit writing and buffer overflows, reverse engineering, email security, incident response, wireless and mobile defence, with layered controls at every point.</p>
+  <div class="meta-row">
+    <span class="chip red">Routers</span><span class="chip">Firewalls</span><span class="chip">Honeypots</span><span class="chip">IDS / IPS</span><span class="chip">Web / SQLi / XSS</span><span class="chip">Buffer overflow</span><span class="chip">RE</span><span class="chip">Email / IR</span><span class="chip">Mobile</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- 1. ROUTERS -->
+  <section class="section">
+    <div class="head"><span class="num">1</span><h2>Routers</h2><span class="tag">Infrastructure</span></div>
+    <div class="def">A <b>router</b> is a networking device that <b>connects two or more packet-switched networks</b> and forwards data packets between them, choosing the best path toward the destination.</div>
+
+    <div class="stack">
+      <div class="card"><h3><span class="idx">F</span> Core Functions</h3>
+        <ul>
+          <li><b>Packet forwarding</b> — switch packets from ingress to the correct egress interface.</li>
+          <li><b>NAT</b> (Network Address Translation) — rewrite source/destination addresses, sharing one public IP across a private range.</li>
+          <li><b>Packet filtering / ACLs</b> — permit or deny traffic by rule (address, port, protocol).</li>
+          <li><b>Interconnecting technologies</b> — link Ethernet, serial, fiber, wireless segments.</li>
+          <li><b>Path selection</b> — pick the "best" route to a destination.</li>
+          <li><b>Dynamic routing</b> — learn routes via <code>OSPF</code> (interior) and <code>BGP</code> (inter-AS).</li>
+          <li><b>QoS</b> — prioritize latency-sensitive traffic (voice/video).</li>
+          <li><b>VLAN</b> segmentation and acting as a <b>DHCP server</b>.</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="idx">A</span> Architecture</h3>
+        <ul>
+          <li><b>Input interface</b> — receives packets, performs MAC/CRC check, looks up the forwarding table.</li>
+          <li><b>Routing processor</b> (control plane) — runs routing protocols, maintains the routing/forwarding table, enforces ACLs.</li>
+          <li><b>Output interface</b> — queues and transmits packets toward the next hop, applying QoS/shaping.</li>
+        </ul>
+        <p>In high-end routers the data plane (forwarding) is often hardware-accelerated while the routing processor handles the control plane.</p>
+      </div>
+      <div class="card"><h3><span class="idx">S</span> Security Challenges</h3>
+        <ul>
+          <li><b>Firmware vulnerabilities</b> — embedded code flaws; <i>patch regularly</i> via vendor updates.</li>
+          <li><b>DDoS on infrastructure</b> — volumetric / protocol attacks saturate the router, blackholing legitimate traffic.</li>
+          <li><b>Default admin credentials</b> — shipped <code>admin/admin</code> logins left unchanged give full takeover; <i>change them</i> and disable remote management.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. FIREWALL -->
+  <section class="section">
+    <div class="head"><span class="num">2</span><h2>Firewall</h2><span class="tag">Perimeter</span></div>
+    <div class="def">A <b>firewall</b> is a network security system that <b>monitors and filters incoming/outgoing traffic according to a security policy</b> — acting as a <b>barrier between an internal (trusted) network and an untrusted network</b> such as the internet.</div>
+
+    <h4 style="margin:6px 0 10px;font-weight:800">Firewall Generations</h4>
+    <div class="stack">
+      <div class="card"><h3><span class="idx">1</span> Gen 1 — Virus</h3><p>1980s. Threat was the <b>computer virus</b>; the response was <b>antivirus</b> software scanning files/signatures.</p></div>
+      <div class="card"><h3><span class="idx">2</span> Gen 2 — Network</h3><p>Mid-1990s. Threat moved to the <b>network</b>; the <b>firewall</b> was born to filter traffic at the perimeter.</p></div>
+      <div class="card"><h3><span class="idx">3</span> Gen 3 — Application</h3><p>2000s. Application-layer attacks drove <b>IPS</b> (Intrusion Prevention Systems) to inspect/block at L7.</p></div>
+      <div class="card"><h3><span class="idx">4</span> Gen 4 — Payload</h3><p>~2010. Targeted payloads &amp; bots; defense added <b>anti-bot</b> and <b>sandboxing</b> to detonate unknown files.</p></div>
+      <div class="card"><h3><span class="idx">5</span> Gen 5 — Mega</h3><p>~2017. Large-scale, multi-vector "mega" attacks; <b>advanced threat prevention</b> (AI/threat-intel) is required.</p></div>
+      <div class="card"><h3><span class="idx">+</span> NGFW</h3><p>Next-Gen Firewall = the culmination: <b>deep packet inspection + application-level control</b>, and it <b>integrates IPS</b> inline.</p></div>
+    </div>
+
+    <h4 style="margin:18px 0 10px;font-weight:800">Firewall Types</h4>
+    <div class="stack">
+      <div class="card"><h3>Packet Filtering</h3><p>Stateless inspection of packets against ACLs (source/dest IP, port, protocol). Fast, cheap, but blind to connection state.</p></div>
+      <div class="card"><h3>Proxy Service (Application-Layer)</h3><p>Acts as an intermediary; the client talks to the proxy, the proxy fetches on its behalf. Full L7 visibility, can filter content, but slower.</p></div>
+      <div class="card"><h3>Stateful Inspection</h3><p>Tracks the state of active connections (state table) and makes decisions based on context — not just individual packets.</p></div>
+      <div class="card"><h3>NGFW (Next-Gen Firewall)</h3><p>Adds <b>deep packet inspection</b> and <b>application-level</b> awareness (user/app identity, threat feeds). A true NGFW <b>integrates IPS</b>.</p></div>
+    </div>
+  </section>
+
+  <!-- 2b. PERIMETER DIAGRAM -->
+  <section class="section">
+    <div class="head"><span class="num">2b</span><h2>Perimeter Architecture — Visual</h2><span class="tag">Where things sit</span></div>
+    <div class="diagram">
+      <div class="dtitle">Fig · Internet → Firewall → Internal Network</div>
+      <svg viewBox="0 0 720 230" role="img" aria-label="Network perimeter with firewall and DMZ">
+        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 z" fill="currentColor"/></marker></defs>
+        <!-- internet -->
+        <rect class="box" x="20" y="85" width="110" height="56" rx="6"/><text x="75" y="118" text-anchor="middle" class="lbl">Internet</text>
+        <line class="arrow" x1="130" y1="113" x2="178" y2="113"/>
+        <!-- firewall -->
+        <rect x="180" y="60" width="120" height="106" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
+        <text x="240" y="108" text-anchor="middle" class="lbl" fill="var(--accent)" font-weight="800">FIREWALL</text>
+        <text x="240" y="128" text-anchor="middle" font-size="10.5" fill="var(--muted)">filters / ACLs</text>
+        <!-- DMZ -->
+        <rect class="box" x="330" y="20" width="120" height="50" rx="6"/><text x="390" y="50" text-anchor="middle" class="lbl">Web / Mail</text>
+        <text x="390" y="66" text-anchor="middle" font-size="10.5" fill="var(--muted)">DMZ</text>
+        <!-- internal -->
+        <rect class="box" x="330" y="120" width="120" height="50" rx="6"/><text x="390" y="150" text-anchor="middle" class="lbl">Internal LAN</text>
+        <!-- router -->
+        <rect class="box" x="500" y="120" width="120" height="50" rx="6"/><text x="560" y="150" text-anchor="middle" class="lbl">Router / NAT</text>
+        <!-- links -->
+        <line class="arrow" x1="300" y1="85" x2="328" y2="55"/>
+        <line class="arrow" x1="300" y1="141" x2="328" y2="145"/>
+        <line class="arrow" x1="450" y1="145" x2="498" y2="145"/>
+        <text x="240" y="200" text-anchor="middle" font-size="11" fill="var(--muted)">Untrusted zone → trusted zone; public servers sit in the DMZ, shielded from the internal LAN.</text>
+      </svg>
+      <p class="dcap">The firewall is the choke point between untrusted and trusted networks. Public-facing servers live in a <b>DMZ</b> (demilitarized zone) so a breach there does not directly expose the internal LAN; the router/NAT handles addressing and segmentation behind it.</p>
+    </div>
+  </section>
+
+  <!-- 3. HONEYPOTS -->
+  <section class="section">
+    <div class="head"><span class="num">3</span><h2>Honeypots</h2><span class="tag">Deception</span></div>
+    <div class="def">A <b>honeypot</b> is a security resource whose value lies in being <b>probed, attacked, or compromised</b> — a decoy system that <b>lures, deflects, and studies attackers</b> while appearing to be a high-value asset (database, server, router).</div>
+
+    <div class="stack">
+      <div class="card"><h3>Placement</h3>
+        <ul>
+          <li><b>DMZ</b> — exposed segment between firewall and internet; common, realistic exposure.</li>
+          <li><b>Outside the firewall</b> — to study raw internet attack traffic with no filtering.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Scale-out terms</h3>
+        <ul>
+          <li><b>Honeynet</b> — a network of <b>two or more</b> honeypots working together.</li>
+          <li><b>Honey farm</b> — a <b>centralized</b> collection of honeypots managed from one place.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin:18px 0 10px;font-weight:800">Types</h4>
+    <div class="stack">
+      <div class="card"><h3>Production vs Research</h3><p><b>Production</b> honeypots protect an organization (added risk detection). <b>Research</b> honeypots gather threat intelligence (used by vendors/analysts).</p></div>
+      <div class="card"><h3>Pure / High-Interaction</h3><p>A <b>full real system</b> with real services and often <b>root access</b> to the attacker. More realistic data but <b>riskier</b> — a compromise can be used to pivot.</p></div>
+      <div class="card"><h3>Low-Interaction</h3><p><b>Simulates</b> common attack vectors only (e.g. <code>Honeyd</code>). <b>Safe</b>, cheap, easy to deploy; great for <b>detecting bots/automated malware</b> but gives less depth.</p></div>
+    </div>
+
+    <h4 style="margin:18px 0 10px;font-weight:800">Specialized Honeypots</h4>
+    <div class="stack">
+      <div class="card"><h4>Malware honeypot</h4><p>Collects and analyzes malware binaries.</p></div>
+      <div class="card"><h4>Spam honeypot</h4><p>Traps spam/abuse (open relays, spam sinks).</p></div>
+      <div class="card"><h4>Database honeypot</h4><p>Decoy DB to catch SQL injection/data theft.</p></div>
+      <div class="card"><h4>Client honeypot</h4><p>Proactively seeks out malicious servers (drives a client to detect drive-by attacks).</p></div>
+      <div class="card full"><h4>Benefits &amp; Disadvantages</h4>
+        <div class="stack" style="margin-top:6px">
+          <div><p style="font-weight:700;margin:0 0 6px">Benefits</p><ul>
+            <li><b>Real data</b> — captures actual attacker behavior.</li>
+            <li><b>Fewer false positives</b> — any interaction is by definition suspicious.</li>
+            <li><b>Cost-effective</b> — cheap relative to full IDS tuning.</li>
+            <li><b>Encryption circumvention</b> — attackers decrypt/operate in clear once inside the decoy.</li>
+          </ul></div>
+          <div><p style="font-weight:700;margin:0 0 6px">Disadvantages</p><ul>
+            <li><b>Limited data</b> — only sees what hits the honeypot.</li>
+            <li><b>Isolated</b> — no view of the full enterprise.</li>
+            <li><b>Distinguishable</b> — skilled attackers may detect the decoy.</li>
+            <li><b>Can risk production</b> — a high-interaction compromise can be used to pivot into real systems.</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. IDS vs IPS -->
+  <section class="section">
+    <div class="head"><span class="num">4</span><h2>IDS vs IPS</h2><span class="tag">Detection / Prevention</span></div>
+    <div class="def"><b>IDS (Intrusion Detection System)</b> is <b>passive</b>: it watches traffic, detects suspicious activity and <b>raises an alert</b> — it does not block. <b>IPS (Intrusion Prevention System)</b> sits <b>inline</b> in the traffic path and can <b>block or stop</b> malicious traffic in real time.</div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>IDS (Detection)</th><th>IPS (Prevention)</th></tr></thead>
+        <tbody>
+          <tr><td>Position</td><td>Out-of-band (span/monitor port)</td><td>Inline (must see &amp; forward traffic)</td></tr>
+          <tr><td>Action</td><td>Alert / log only</td><td>Block / drop / reset connection</td></tr>
+          <tr><td>Latency impact</td><td>None (passive)</td><td>Adds processing latency (inline)</td></tr>
+          <tr><td>Risk if it fails</td><td>Misses detection</td><td>Can become a bottleneck / single point of failure</td></tr>
+          <tr><td>Best for</td><td>Visibility, forensics, compliance</td><td>Active blocking of known/likely attacks</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="margin:18px 0 10px;font-weight:800">IDS Classifications</h4>
+    <div class="stack">
+      <div class="card"><h3>By placement / scope</h3>
+        <ul>
+          <li><b>NIDS</b> — Network-based; watches network segments.</li>
+          <li><b>HIDS</b> — Host-based; watches a single host (files, logs, syscalls).</li>
+          <li><b>PIDS</b> — Protocol-based; monitors a protocol/interface.</li>
+          <li><b>APIDS</b> — Application-specific; watches app-layer (e.g. DB queries).</li>
+          <li><b>Hybrid</b> — combines multiple sensors / correlation.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>By detection method</h3>
+        <ul>
+          <li><b>Signature-based</b> — matches known attack patterns (like AV signatures); fast but blind to new attacks.</li>
+          <li><b>Anomaly-based</b> — flags deviations from a learned "normal" baseline; can catch novel attacks but more false positives.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin:18px 0 10px;font-weight:800">IPS Classifications</h4>
+    <div class="stack">
+      <div class="card"><h3>By placement</h3>
+        <ul>
+          <li><b>NIPS</b> — Network IPS (inline at a network point).</li>
+          <li><b>WIPS</b> — Wireless IPS (monitors/blocks rogue APs &amp; wireless attacks).</li>
+          <li><b>HIPS</b> — Host IPS (blocks on the endpoint).</li>
+        </ul>
+      </div>
+      <div class="card"><h3>By technique</h3>
+        <ul>
+          <li><b>NBA</b> (Network Behavior Analysis) — watches traffic for anomalous behavior across the network.</li>
+          <li><b>Signature</b>, <b>statistical-anomaly</b>, and <b>stateful protocol analysis</b> (validates protocol-state conformance) are the three common analysis methods, shared with IDS concepts.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WEB FILTERING -->
+  <section class="section">
+    <div class="head"><span class="num">5</span><h2>Web Filtering</h2><span class="tag">Content Control</span></div>
+    <div class="def">Web filtering is the practice of <b>controlling which web resources users may reach</b> — it can allow or block content by category, domain, or policy.</div>
+
+    <div class="stack">
+      <div class="card"><h3>Allow-list vs Block-list</h3>
+        <ul>
+          <li><b>Allow-list (whitelist)</b> — only explicitly approved sites are reachable; maximum security, low usability.</li>
+          <li><b>Block-list (blacklist)</b> — everything allowed except known-bad sites; higher usability, gaps remain.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Filtering techniques</h3>
+        <ul>
+          <li><b>DNS filtering</b> — resolve or sinkhole domains at the DNS layer.</li>
+          <li><b>URL filtering</b> — match the requested URL/path against categories or patterns.</li>
+          <li><b>Content filtering</b> — inspect page content (keywords, MIME, policies).</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Server-side vs Client-side</h3>
+        <ul>
+          <li><b>Server-side</b> — enforced at a proxy/gateway (central, harder to bypass).</li>
+          <li><b>Client-side</b> — enforced on the endpoint (browser/agent); easier for users to tamper with.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Why filter the web?</h3>
+        <ul>
+          <li><b>Malware protection</b> — block drive-by / exploit sites.</li>
+          <li><b>Data security</b> — stop exfiltration to webmail/cloud.</li>
+          <li><b>Compliance</b> — meet regulatory / acceptable-use rules.</li>
+          <li><b>Policy</b> — enforce acceptable-use and productivity rules.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. WEB SERVER -->
+  <section class="section">
+    <div class="head"><span class="num">6</span><h2>Web Server</h2><span class="tag">Application</span></div>
+    <div class="def">A <b>web server</b> is the <b>hardware + software</b> that stores, processes and delivers web content using the <b>HTTP/HTTPS</b> protocol.</div>
+
+    <div class="card"><h3>Request flow (how a page loads)</h3>
+      <ol style="margin:0;padding-left:20px">
+        <li>User enters a <b>URL</b> in the browser.</li>
+        <li>Browser performs a <b>DNS lookup</b> to resolve the domain to an IP.</li>
+        <li>Browser sends an <b>HTTP request</b> to the server (e.g. <code>GET /index.html</code>).</li>
+        <li>Server processes it and returns an <b>HTTP response</b> (status + headers + body).</li>
+        <li>Browser renders the content.</li>
+      </ol>
+    </div>
+
+    <div class="stack">
+      <div class="card"><h3>Static vs Dynamic content</h3>
+        <ul>
+          <li><b>Static</b> — pre-built files served as-is (HTML, CSS, images).</li>
+          <li><b>Dynamic</b> — generated on the fly by server-side code (e.g. <code>ASP</code> / <code>PHP</code>) pulling from a database.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Common servers &amp; capabilities</h3>
+        <ul>
+          <li><b>Apache, IIS, Nginx, Lighttpd, Sun Java System</b> (Web Server).</li>
+          <li>Can also handle <b>SMTP / FTP</b> and other protocols.</li>
+          <li>Run <b>server-side scripting</b> via <code>ASP</code>, <code>PHP</code>, etc. to build dynamic pages.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SQL INJECTION -->
+  <section class="section">
+    <div class="head"><span class="num">7</span><h2>SQL Injection (SQLi)</h2><span class="tag">Web Attack</span></div>
+    <div class="def"><b>SQL injection</b> is a code-injection technique where an attacker inserts <b>malicious SQL</b> into an input field so the application executes it against the <b>backend database</b>, manipulating queries it was never meant to run.</div>
+
+    <div class="stack">
+      <div class="card"><h3>In-band</h3>
+        <p>Attacker uses the <b>same channel</b> for the attack and to read results.</p>
+        <ul>
+          <li><b>Error-based</b> — provoke DB errors that leak schema/info.</li>
+          <li><b>Union-based</b> — <code>UNION</code> a malicious SELECT to append data to the page output.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Inferential / Blind</h3>
+        <p>No data returned directly; the attacker <b>infers</b> answers from behavior.</p>
+        <ul>
+          <li><b>Boolean-based</b> — true/false responses reveal bits of data.</li>
+          <li><b>Time-based</b> — inject <code>WAITFOR</code>/<code>SLEEP()</code> delays to extract data through timing.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Out-of-band</h3>
+        <p>Results are exfiltrated over a <b>different channel</b> than the injection:</p>
+        <ul>
+          <li><b>DNS</b> — trigger the DB to resolve an attacker-controlled domain carrying data.</li>
+          <li><b>HTTP</b> — make the DB issue an outbound HTTP request to the attacker.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="def" style="margin-top:16px"><b>Impact:</b> attackers can <b>view secret lists</b> (dump users/credentials), <b>delete or alter tables</b>, and <b>gain admin</b> privileges — full compromise of the data tier.</div>
+  </section>
+
+  <!-- 8. XSS -->
+  <section class="section">
+    <div class="head"><span class="num">8</span><h2>Cross-Site Scripting (XSS)</h2><span class="tag">Web Attack</span></div>
+    <div class="def"><b>XSS</b> is a web vulnerability that lets a <b>third party execute a script in the victim's browser</b> — usually by injecting client-side code (JavaScript) that the site then serves to other users.</div>
+
+    <div class="stack">
+      <div class="card"><h3>Reflected XSS</h3>
+        <p>The malicious payload is <b>embedded in the request and reflected back in the response</b>. The script runs immediately when the victim opens a crafted link (e.g. a search box that echoes input). Not stored — it needs the victim to trigger it.</p>
+      </div>
+      <div class="card"><h3>Stored XSS</h3>
+        <p>The payload is <b>saved on the server</b> (database/comment field) and served to every user who views it — e.g. a <b>comment thread</b> that stores <code>&lt;script&gt;</code> which executes for everyone reading the comments. More dangerous because it hits many victims passively.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px"><h3>Note on DOM-based XSS</h3><p>Although the PDF's primary two types are <b>Reflected</b> and <b>Stored</b>, a <b>DOM-based</b> variant is widely recognized in practice: the payload is executed by manipulating the <b>Document Object Model</b> in the victim's browser (client-side logic) rather than server output. Keep it in mind for real-world testing, but treat Reflected/Stored as the core exam pair.</p></div>
+  </section>
+
+  <!-- 9. EXPLOIT WRITING -->
+  <section class="section">
+    <div class="head"><span class="num">9</span><h2>Exploit Writing</h2><span class="tag">Offensive</span></div>
+    <div class="def">Writing an exploit is the process of turning a known vulnerability into reliable, repeatable code that subverts a program's intended behavior (typically to gain control of execution).</div>
+
+    <div class="stack">
+      <div class="card"><h3>Workflow</h3>
+        <ul>
+          <li><b>1. Identify the vulnerability</b> — find the bug (overflow, format string, etc.).</li>
+          <li><b>2. Attach a debugger</b> — run the target under a debugger to observe registers/memory at the crash.</li>
+          <li><b>3. Overwrite the return value</b> — craft input so the saved return address is overwritten with a controlled value (the seed of control hijack).</li>
+          <li><b>4. Automate</b> — script the PoC with <code>Perl</code> / <code>Python</code> for repeatable delivery.</li>
+          <li><b>5. Find a DLL address</b> — locate a loaded module's (DLL) address containing useful instructions (e.g. <code>JMP ESP</code>) to <b>redirect execution into the injected shellcode</b>.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Outcome</h3>
+        <p>Once the return address points at attacker-controlled memory and a reliable jump is found, the injected <b>shellcode</b> runs with the process's privileges — giving a shell, privilege escalation, or payload execution.</p>
+        <p>Reliability concerns: bad characters, address randomization (ASLR), and stack protections must be handled.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. BUFFER OVERFLOW -->
+  <section class="section">
+    <div class="head"><span class="num">10</span><h2>Buffer Overflow</h2><span class="tag">Memory Corruption</span></div>
+    <div class="def">A <b>buffer overflow</b> occurs when a program writes <b>data that exceeds the allocated buffer's capacity</b>, causing it to <b>overflow into adjacent memory</b> and overwrite other data or control structures.</div>
+
+    <div class="stack">
+      <div class="card"><h4>System crash</h4><p>Overwritten data corrupts execution → the process (or OS) crashes / becomes unstable.</p></div>
+      <div class="card"><h4>Access-control loss</h4><p>Overwriting permission/control data can defeat the program's intended security checks.</p></div>
+      <div class="card"><h4>Further exploits</h4><p>The overflow becomes the foothold for injecting and running attacker <b>shellcode</b>.</p></div>
+    </div>
+    <div class="def" style="margin-top:16px"><b>Arbitrary code execution:</b> by overwriting a return address or function pointer, an attacker can redirect execution to their own code — the root cause behind most classic remote exploits (and the mechanism exploited in §9).</div>
+  </section>
+
+  <!-- 11. REVERSE ENGINEERING -->
+  <section class="section">
+    <div class="head"><span class="num">11</span><h2>Reverse Engineering</h2><span class="tag">Analysis</span></div>
+    <div class="def"><b>Reverse engineering (RE)</b> is the process of analyzing a product — <b>software or hardware</b> — to understand its <b>functions and information flow</b>. In security it is heavily used for <b>malware RE</b> (understanding what malicious code does without source).</div>
+
+    <div class="stack">
+      <div class="card"><h3>The PDF's three "stages"</h3>
+        <p>The source lists these stages (notably framed around <b>physical scanning</b> of an object):</p>
+        <ul>
+          <li><b>Scanning</b> — capture the geometry / data of the target.</li>
+          <li><b>Point Processing</b> — clean and process the captured point data.</li>
+          <li><b>Geometric Model</b> — reconstruct a usable model from the processed points.</li>
+        </ul>
+        <p style="color:var(--muted);font-size:13px">⚠ These are the PDF's literal stages and are kept here for fidelity, though they describe a 3D-scanning view of RE rather than code RE.</p>
+      </div>
+      <div class="card"><h3>The standard security RE view</h3>
+        <p>For malware/software RE, the practical stages are:</p>
+        <ul>
+          <li><b>Information gathering</b> — collect binaries, strings, metadata, packer info.</li>
+          <li><b>Disassembly / decompilation</b> — turn machine code back into assembly / higher-level code.</li>
+          <li><b>Static + dynamic analysis</b> — read code statically and run it in a sandbox to observe runtime behavior.</li>
+          <li><b>Documentation</b> — record findings, IoCs, and the program's logic.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px"><h3>Tools</h3>
+      <div class="stack" style="margin-top:6px">
+        <div><p style="font-weight:700;margin:0 0 6px">Debuggers (user-mode / kernel-mode)</p>
+          <ul>
+            <li><b>IDA Pro</b> — disassembler + debugger (industry standard).</li>
+            <li><b>OllyDbg</b> — popular user-mode Windows debugger.</li>
+            <li><b>GDB</b> — GNU debugger (Linux / native).</li>
+            <li><b>Immunity Debugger</b> — exploit-dev oriented.</li>
+            <li><b>WinDbg</b> — Microsoft kernel/user debugger.</li>
+          </ul>
+        </div>
+        <div><p style="font-weight:700;margin:0 0 6px">Other RE tooling</p>
+          <ul>
+            <li><b>Fault Injection tools</b> — deliberately induce errors to expose behavior.</li>
+            <li><b>Disassembler</b> — convert binary to assembly (often IDA/Radare2/Ghidra).</li>
+            <li><b>Decompiler</b> — reconstruct higher-level (C-like) source from binaries.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. EMAIL HACKING -->
+  <section class="section">
+    <div class="head"><span class="num">12</span><h2>Email Hacking</h2><span class="tag">Account / Comms</span></div>
+    <div class="def"><b>Email hacking</b> is the <b>unauthorized access to, or manipulation of, someone's email account or messages</b> — to read, send, or alter mail without permission.</div>
+
+    <div class="stack">
+      <div class="card"><h4>Phishing</h4><p>Fake messages trick users into revealing credentials or clicking malicious links.</p></div>
+      <div class="card"><h4>Password guessing</h4><p>Tries likely passwords (common/known) against the account.</p></div>
+      <div class="card"><h4>Brute force</h4><p>Systematically tries many password combinations until one works.</p></div>
+      <div class="card"><h4>Malware</h4><p>Keyloggers / trojans capture credentials or sessions on the victim's device.</p></div>
+      <div class="card"><h4>Session hijacking</h4><p>Steals an active session token/cookie to ride an authenticated session.</p></div>
+      <div class="card"><h4>MITM</h4><p>Man-in-the-Middle intercepts mail traffic on an insecure network.</p></div>
+      <div class="card full"><h4>Email spoofing</h4><p>Forging the <b>sender address</b> so mail appears to come from someone else — used in phishing/BEC. Defenses: <code>SPF</code>, <code>DKIM</code>, <code>DMARC</code> to authenticate legitimate senders.</p></div>
+    </div>
+  </section>
+
+  <!-- 13. INCIDENT RESPONSE -->
+  <section class="section">
+    <div class="head"><span class="num">13</span><h2>Incident Response</h2><span class="tag">Process</span></div>
+    <div class="def"><b>Incident response</b> is the organized approach to <b>handling a security breach</b> — detecting, containing, and recovering — to <b>minimize damage</b>, cost, and recovery time. Owned by the <b>CSIRT</b> (Computer Security Incident Response Team).</div>
+
+    <div class="stack">
+      <div class="card"><h3>Step 1 — Early Detection</h3><p>Spot the incident early, e.g. a <b>SIEM alert</b> flagging anomalous activity or an IDS/IPS alarm.</p></div>
+      <div class="card"><h3>Step 2 — Analysis</h3><p>Investigate: collect <b>IoC</b> (Indicators of Compromise), triage scope and severity.</p></div>
+      <div class="card"><h3>Step 3 — Prioritization</h3><p>Rank by business impact and urgency to decide response order.</p></div>
+      <div class="card"><h3>Step 4 — Notification</h3><p>Notify <b>internal</b> stakeholders and, where required, <b>external</b> parties (customers, regulators, partners).</p></div>
+      <div class="card"><h3>Step 5 — Containment &amp; Forensics</h3><p>Stop the spread (isolate systems) while preserving evidence for forensic analysis.</p></div>
+      <div class="card"><h3>Step 6 — Recovery</h3><p><b>Eradicate</b> the threat, <b>rebuild</b> clean systems, <b>restore</b> from trusted backups, and <b>patch</b> the root cause.</p></div>
+      <div class="card full"><h3>Step 7 — Incident Review</h3><p>Post-mortem: document what happened, what worked, and improve detections/processes so the same incident doesn't recur.</p></div>
+    </div>
+  </section>
+
+  <!-- 14. BLUETOOTH HACKING -->
+  <section class="section">
+    <div class="head"><span class="num">14</span><h2>Bluetooth Hacking</h2><span class="tag">Wireless</span></div>
+    <div class="def">Bluetooth hacking means <b>locating Bluetooth-enabled devices</b> and <b>exploiting</b> weaknesses in the protocol or its configuration to attack them.</div>
+
+    <div class="stack">
+      <div class="card"><h3>Bluesmacking</h3><p>A <b>DoS</b> attack abusing <b>L2CAP</b> — flooding the device with oversized/ping packets to crash or hang it.</p></div>
+      <div class="card"><h3>Bluejacking</h3><p>Sending <b>unsolicited messages</b> (usually just text/contact cards) to a victim's device — mostly annoying, low harm.</p></div>
+      <div class="card"><h3>Bluebugging</h3><p>Taking <b>control</b> of a device left in <b>discovery mode</b> — making calls, reading SMS, using features without permission.</p></div>
+      <div class="card"><h3>Bluesnarfing</h3><p><b>Stealing data</b> (e.g. <b>SMS, contacts, calendar</b>) from a vulnerable device over the Bluetooth link.</p></div>
+    </div>
+
+    <div class="card" style="margin-top:14px"><h3>Prevention</h3>
+      <ul>
+        <li><b>Turn Bluetooth off</b> when not in use.</li>
+        <li><b>Reject unknown pairing</b> requests.</li>
+        <li><b>Update</b> firmware/OS to fix BT flaws.</li>
+        <li>Keep devices <b>non-discoverable</b> (hidden).</li>
+        <li><b>Unpair</b> devices after use.</li>
+        <li>Use <b>2FA</b> and a <b>VPN</b> on linked accounts/connections.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 15. MOBILE PHONE HACKING -->
+  <section class="section">
+    <div class="head"><span class="num">15</span><h2>Mobile Phone Hacking</h2><span class="tag">Endpoint</span></div>
+    <div class="def"><b>Mobile phone hacking</b> is unauthorized access to a phone that puts the owner's <b>identity and privacy at risk</b> — from stolen credentials to surveillance and financial fraud.</div>
+
+    <div class="stack">
+      <div class="card"><h3>Warning signs</h3>
+        <ul>
+          <li><b>Fast battery drain</b> — hidden processes running.</li>
+          <li><b>Slowness / overheating</b> — resource abuse.</li>
+          <li><b>Strange account activity</b> — logins you didn't make.</li>
+          <li><b>Unfamiliar calls / texts</b> — sent or received without you.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Protection</h3>
+        <ul>
+          <li>No <b>sketchy apps</b> from unknown sources.</li>
+          <li>Don't <b>jailbreak / root</b> (removes built-in protections).</li>
+          <li><b>Keep the phone with you</b> physically.</li>
+          <li>Use a <b>passcode + complex passwords</b>.</li>
+          <li>No stored passwords — use a <b>password manager</b>.</li>
+          <li><b>Clear history/cache</b> regularly; enable <b>lost-device tracking</b>.</li>
+          <li>Keep <b>apps/OS updated</b>; enable <b>2FA</b>.</li>
+          <li>Avoid <b>SMS/email 2FA</b> (SIM-swap risk); use app/ hardware 2FA.</li>
+          <li>No <b>public Wi-Fi</b> without a <b>VPN</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="head"><span class="num">18</span><h2>Session Hijacking</h2>
+      <span class="tag">Module 4 · Web/App</span></div>
+    <div class="card full">
+      <p>Once a user logs in, the server tracks them with a <b>session token</b> (cookie). Session hijacking is
+      stealing or forging that token to impersonate the victim — no password needed.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Method</th><th>How</th><th>Defense</th></tr></thead>
+          <tbody>
+            <tr><td>Session sniffing</td><td>Capture token on plaintext traffic</td><td>HTTPS everywhere</td></tr>
+            <tr><td>Predictable session ID</td><td>Guess/brute the sequential ID</td><td>Long random IDs</td></tr>
+            <tr><td>MITM</td><td>Proxy the session (see Module 3)</td><td>HSTS, cert pinning</td></tr>
+            <tr><td>XSS cookie theft</td><td>Script reads <code>document.cookie</code></td><td>HttpOnly + Secure flags, CSP</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px"><b>Hardening:</b> bind the session to IP/user-agent, set short idle timeouts,
+      and <b>regenerate the session ID</b> on login and on privilege change so a stolen pre-auth token is useless.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">19</span><h2>Secure Web-Server Hardening</h2>
+      <span class="tag">Checklist</span></div>
+    <div class="stack">
+      <div class="card"><h4>Config</h4><ul>
+        <li>Disable directory listing &amp; default pages</li>
+        <li>Remove unused modules; least privilege</li>
+        <li>Custom error pages (no version leaks)</li>
+        <li>TLS 1.2+; HSTS; strong ciphers</li>
+      </ul></div>
+      <div class="card"><h4>App &amp; ops</h4><ul>
+        <li>Parameterized queries (no SQLi)</li>
+        <li>Output encoding + CSP (no XSS)</li>
+        <li>Patch framework &amp; deps (OWASP A06)</li>
+        <li>WAF in front; log &amp; monitor</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">20</span><h2>The CSIRT &amp; Perimeter Defense-in-Depth</h2>
+      <span class="tag">Org view</span></div>
+    <div class="card full">
+      <p>A <b>CSIRT</b> (Computer Security Incident Response Team) owns detection &rarr; response. Roles: incident lead,
+      technical responders, comms, legal. The perimeter is layered: <b>edge firewall &rarr; IDS/IPS &rarr;
+      internal segmentation &rarr; host controls &rarr; logging/SIEM</b>, so no single control is the only thing standing.</p>
+      <div class="def">Honeypots earn their place here: they sit outside production, distract attackers, and feed the SIEM real attacker TTPs with almost no false positives.</div>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <div class="head"><span class="num">E1</span><h2>Router Architecture and Hardening</h2><span class="tag">Deep dive · infrastructure</span></div>
+    <div class="card full">
+      <p>A router connects networks at layer 3 and forwards packets toward their destination. It is useful to separate its two planes. The <b>control plane</b> runs routing protocols such as OSPF and BGP, builds the routing table, and manages interfaces and ACLs; it is essentially a small computer running an operating system. The <b>data plane</b> takes an arriving packet, looks up the best next hop, rewrites the layer-2 header, and sends it out; on high-end devices this is done in specialised hardware. Attacks against the control plane, such as a flood of routing updates or a compromised management interface, can break the whole network even when the data plane is healthy.</p>
+      <p>Routing decision is by longest-prefix match: of all the routes whose network prefix contains the destination address, the one with the most specific mask wins. <b>Static routes</b> are explicit and predictable; <b>dynamic routing</b> adapts to change but introduces trust in neighbours. BGP, which glues autonomous systems together, historically trusted route advertisements and is vulnerable to route hijacking; protections include prefix filtering, RPKI validation, and MD5/TCP-AO authentication of sessions. <b>NAT</b> conserves public addresses and hides internal addressing, but it complicates logging because many internal hosts share one external IP.</p>
+      <p>Security hardening of a router follows a short checklist: change default credentials, disable unused services and interfaces, restrict management to a dedicated network with strong authentication, apply ACLs in both directions, log to an external collector, keep the firmware patched, and backups of configuration stored securely. <b>ACLs</b> are evaluated top-down with an implicit deny at the end, so rule order is critical. A rule that denies all traffic before the specific permit is silently useless.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Component</th><th>Function</th><th>Risk</th><th>Hardening</th></tr></thead>
+        <tbody>
+          <tr><td>Control plane</td><td>Routing protocols, table, management</td><td>Route hijack, CPU exhaustion</td><td>Authentication, filtering, rate limits</td></tr>
+          <tr><td>Data plane</td><td>Packet forwarding</td><td>ACL mistakes, bandwidth saturation</td><td>Reviewed ACLs, QoS, capacity</td></tr>
+          <tr><td>Management interface</td><td>Configuration access</td><td>Default credentials, exposed service</td><td>MFA, jump host, out-of-band network</td></tr>
+          <tr><td>Firmware</td><td>Embedded operating system</td><td>Unpatched vulnerabilities</td><td>Patch cycle, integrity checking</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The control-plane versus data-plane distinction is a high-value sentence in a router question. Add that a router is itself a host and must be patched, credential-hardened, and monitored like any other device.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E2</span><h2>Firewall Generations and Deployment</h2><span class="tag">Deep dive · perimeter</span></div>
+    <div class="card full">
+      <p>The "generations" of firewall describe a moving threat landscape. The first response to viruses was antivirus. When attacks moved to the network, packet-filtering firewalls appeared. Application-layer attacks produced intrusion-prevention systems and proxies. Targeted payloads and bots produced sandboxing and anti-bot features. Large multi-vector campaigns produced advanced threat prevention with threat intelligence. The <b>next-generation firewall</b> combines stateful inspection, deep packet inspection, application identity, user identity, and inline IPS in one device.</p>
+      <p>A packet-filtering firewall checks each packet against an ACL; a <b>stateful</b> firewall keeps a table of connections and allows return traffic only for established sessions; a <b>proxy</b> terminates connections and inspects content; an <b>NGFW</b> adds application awareness. Deployment topology matters as much as the device. A single firewall between internet and LAN leaves no protection if it fails; a <b>DMZ</b> places public servers on a separate segment so a compromised web server cannot reach the internal LAN directly; an <b>internal segmentation firewall</b> limits lateral movement between departments.</p>
+      <p>Rules should be written with <b>implicit deny</b>, ordered from specific to general, and reviewed regularly. Logging should capture both permitted and denied traffic, because allowed flows are often where an incident is visible. A firewall that only blocks is half a control: it also needs to tell you what it saw.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>Layer</th><th>Tracks state?</th><th>Inspects content?</th><th>Best use</th></tr></thead>
+        <tbody>
+          <tr><td>Packet filter</td><td>3–4</td><td>No</td><td>No</td><td>Fast, simple boundary control</td></tr>
+          <tr><td>Stateful firewall</td><td>3–4</td><td>Yes</td><td>No</td><td>Standard perimeter defence</td></tr>
+          <tr><td>Proxy firewall</td><td>7</td><td>Yes</td><td>Yes</td><td>Content policy, anonymity</td></tr>
+          <tr><td>NGFW</td><td>3–7</td><td>Yes</td><td>Yes</td><td>Application control plus inline IPS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> For a firewall question, name the type, the layer it works at, whether it tracks state, and where it sits in the topology. Add the DMZ to show that placement is part of the design.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E3</span><h2>Honeypots in Depth</h2><span class="tag">Deep dive · deception</span></div>
+    <div class="card full">
+      <p>A honeypot is a decoy whose value lies in being attacked. Because no legitimate user should touch it, any interaction is suspicious, which gives honeypots an unusually low false-positive rate. They are placed in the <b>DMZ</b> to look like a real public server, or outside the firewall to capture the raw traffic hitting an unfiltered host. Several honeypots form a <b>honeynet</b>; a centrally managed collection is a <b>honey farm</b>.</p>
+      <p>The central trade-off is interaction. A <b>low-interaction</b> honeypot emulates a few services, is cheap and safe, and is excellent at catching automated bots, but a skilled attacker notices the simulation. A <b>high-interaction</b> honeypot is a real system with real services and sometimes root access; it yields rich intelligence about attacker tools and behaviour but carries the risk that the attacker uses it to pivot. <b>Production</b> honeypots protect a specific organisation by adding detection, while <b>research</b> honeypots collect threat intelligence for vendors and analysts.</p>
+      <p>Specialised variants include <b>malware honeypots</b> that collect samples, <b>spam honeypots</b> that trap open relays, <b>database honeypots</b> that look like valuable data stores, and <b>client honeypots</b> that actively visit malicious servers to detect drive-by attacks. Benefits are real attacker data, few false positives, low cost relative to tuning a full IDS, and the ability to watch attackers work in the clear once they are inside. Disadvantages are limited visibility, the risk of pivot from a high-interaction decoy, and the need to isolate the honeypot so it cannot harm production.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Low interaction</th><th>High interaction</th></tr></thead>
+        <tbody>
+          <tr><td>Implementation</td><td>Simulated services</td><td>Real operating system</td></tr>
+          <tr><td>Risk</td><td>Low</td><td>Higher — can be used to pivot</td></tr>
+          <tr><td>Data richness</td><td>Basic: scans, payloads</td><td>Deep: tools, behaviour, keystrokes</td></tr>
+          <tr><td>Best for</td><td>Bot and worm detection</td><td>Research and TTP collection</td></tr>
+          <tr><td>Maintenance</td><td>Cheap, simple</td><td>Resource-intensive, needs isolation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The phrase "any traffic to a honeypot is suspicious by definition" explains the low false-positive rate. Pair it with the main disadvantage — limited view and possible pivot risk — for a balanced answer.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E4</span><h2>IDS and IPS in Depth</h2><span class="tag">Deep dive · detection</span></div>
+    <div class="card full">
+      <p>An <b>IDS</b> is a passive observer: it receives a copy of traffic through a span port or network tap, analyses it, and raises alerts. It cannot stop an attack directly. An <b>IPS</b> sits inline, so traffic must pass through it, and it can drop packets or reset connections in real time. The inline position gives power but also creates latency and a potential single point of failure; many organisations therefore use IDS for visibility and IPS only for high-confidence signatures.</p>
+      <p>Detection methods divide into <b>signature-based</b>, which matches known patterns and is precise but blind to novel attacks, and <b>anomaly-based</b>, which learns a baseline and flags deviations, catching new behaviour but producing more false positives. <b>Stateful protocol analysis</b> checks whether a conversation follows the expected protocol state machine. Placement gives another axis: <b>NIDS</b> watches network segments, <b>HIDS</b> watches a host's files, logs, and system calls, <b>WIPS</b> watches wireless, and <b>application-specific</b> sensors watch a single application such as a database.</p>
+      <p>Tuning is the unglamorous core of the job. Too many false positives and analysts ignore the alerts; too many false negatives and incidents go unseen. A tuning cycle reviews each rule, suppresses noise from known-safe systems, adjusts thresholds using real traffic, and measures coverage against ATT&amp;CK techniques. Alerts should include enough context — source, destination, rule, and payload — for an analyst to decide quickly.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>IDS</th><th>IPS</th></tr></thead>
+        <tbody>
+          <tr><td>Position</td><td>Out of band (copy of traffic)</td><td>Inline (in the path)</td></tr>
+          <tr><td>Response</td><td>Alert and log</td><td>Block, drop, reset</td></tr>
+          <tr><td>Latency</td><td>None on production traffic</td><td>Adds processing delay</td></tr>
+          <tr><td>Failure mode</td><td>Missed detection</td><td>Can break traffic flow</td></tr>
+          <tr><td>Analysis methods</td><td>Signature, anomaly, stateful</td><td>Same, with automated response</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> A false positive is a harmless event flagged as malicious; a false negative is a real attack that was missed. Being able to define both and say which each detection method tends to produce is a common examiner favourite.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E5</span><h2>Web Filtering and Content Control</h2><span class="tag">Deep dive · policy</span></div>
+    <div class="card full">
+      <p>Web filtering controls which resources users can reach. An <b>allow-list</b> permits only explicitly approved destinations and gives maximum security with low usability, while a <b>block-list</b> permits everything except known-bad destinations and is easier to use but always has gaps. Filtering can happen at the <b>DNS layer</b> by refusing to resolve or sinkholing a domain, at the <b>URL layer</b> by matching the full path against categories, or at the <b>content layer</b> by inspecting the returned page. Enforcement can be central at a proxy or gateway, which is harder to bypass, or local on the endpoint, which is easier to deploy but easier to tamper with.</p>
+      <p><b>TLS inspection</b> extends filtering to encrypted traffic by terminating and re-signing HTTPS at the proxy. It gives visibility into hidden threats but introduces privacy concerns, certificate-management overhead, and a new high-value target. Many organisations therefore inspect selected categories only. Filtering supports malware protection, data-loss prevention, compliance with acceptable-use policy, and productivity, but it must be governed: an over-broad block list drives users to bypass it, which is worse than a narrower, well-explained policy.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Technique</th><th>Acts at</th><th>Strength</th><th>Weakness</th></tr></thead>
+        <tbody>
+          <tr><td>DNS filtering</td><td>Name resolution</td><td>Fast, covers all devices using the resolver</td><td>No path visibility; bypassed by direct IP</td></tr>
+          <tr><td>URL filtering</td><td>Request path</td><td>Category and path control</td><td>Needs plaintext or TLS inspection</td></tr>
+          <tr><td>Content filtering</td><td>Response body</td><td>Inspects actual content</td><td>Resource-intensive, privacy concerns</td></tr>
+          <tr><td>Endpoint agent</td><td>Device</td><td>Follows roaming users</td><td>Can be disabled by a local admin</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Compare allow-list and block-list with the security-versus-usability trade-off. Add that DNS filtering blocks an entire category early, before a connection is even made.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E6</span><h2>Web Servers and the Request Lifecycle</h2><span class="tag">Deep dive · application</span></div>
+    <div class="card full">
+      <p>A web server is hardware plus software that serves content over HTTP or HTTPS. When a user enters a URL, the browser resolves the name through DNS, opens a TCP connection, negotiates TLS if HTTPS is used, and sends an HTTP request such as <code>GET /index.html HTTP/1.1</code> with headers describing the client and what it accepts. The server maps the path to a file or passes it to application code, which may query a database, and returns a response with a status code, headers, and a body. The browser renders the body and repeats the process for each referenced resource.</p>
+      <p>Status codes tell the story: 2xx means success, 3xx redirection, 4xx a client error such as a missing page or failed authentication, and 5xx a server-side failure. Verbose error pages that reveal framework versions are an information-disclosure risk, so custom generic errors should be configured. <b>Static</b> content is served from files; <b>dynamic</b> content is generated by PHP, ASP.NET, or another runtime. Common servers include Apache, Nginx, IIS, and Lighttpd; a single host may also provide FTP and SMTP.</p>
+      <p>Hardening covers removal of default pages and sample applications, disabling directory listing, running the service under a low-privilege account, restricting available modules, setting security headers, enforcing TLS 1.2 or newer, and patching the framework and dependencies. A reverse proxy can hide server details, terminate TLS, cache content, and absorb requests before they reach the application.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Status</th><th>Meaning</th><th>Security relevance</th></tr></thead>
+        <tbody>
+          <tr><td>200</td><td>OK</td><td>Baseline success; compare lengths when testing</td></tr>
+          <tr><td>301 / 302</td><td>Redirect</td><td>Open-redirect risk if the target is user-controlled</td></tr>
+          <tr><td>401 / 403</td><td>Unauthorised / Forbidden</td><td>Authentication and authorisation behaviour</td></tr>
+          <tr><td>404</td><td>Not found</td><td>Reveals existence of resources by timing or message</td></tr>
+          <tr><td>500</td><td>Server error</td><td>May leak stack traces or SQL errors</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> The request lifecycle question rewards ordering: DNS, TCP, TLS, request, processing, response, rendering. Add that each step is a possible control point — DNS filtering, WAF, authentication, output encoding.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E7</span><h2>SQL Injection in Depth</h2><span class="tag">Deep dive · data tier</span></div>
+    <div class="card full">
+      <p>SQL injection is a code-injection flaw in which untrusted input is treated as part of a database query. Its root cause is building SQL by string concatenation. In <b>in-band</b> attacks the same channel carries both the input and the result: <b>error-based</b> injection provokes messages that reveal the schema, while <b>union-based</b> injection appends a second SELECT so its results appear in the page. In <b>inferential</b> or blind injection no data is returned; the attacker asks true-or-false questions and observes behaviour (<b>boolean-based</b>) or injects a delay with <code>SLEEP()</code> or <code>WAITFOR</code> and measures the response (<b>time-based</b>). In <b>out-of-band</b> injection the database is made to resolve a crafted DNS name or issue an HTTP request carrying the data to the attacker.</p>
+      <p>Any request parameter can be an entry point: query strings, form fields, cookies, headers, and even JSON bodies. Automated tools discover candidates by sending marker characters and watching for errors or changes in response length, then confirm with a controlled payload. The business impact ranges from reading hidden data to bypassing login, modifying records, and, with excessive database privileges, reading files or executing commands.</p>
+      <p>The definitive fix is a <b>parameterised query</b>, also called a prepared statement: the SQL structure is compiled first and values are bound afterwards, so a quote in the input is just a character in a value. Secondary controls are least-privilege database accounts, input validation with allow-lists, hiding detailed errors, a WAF as a temporary measure, and code review. Stored procedures and object-relational mappers help when used with parameterisation, but neither is automatically safe if raw SQL is concatenated inside them.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>How results are obtained</th><th>Speed</th><th>Typical sign</th></tr></thead>
+        <tbody>
+          <tr><td>Error-based</td><td>Database errors leak data</td><td>Fast</td><td>Verbose SQL error in response</td></tr>
+          <tr><td>Union-based</td><td>Appended SELECT appears in output</td><td>Fast</td><td>Extra columns on the page</td></tr>
+          <tr><td>Boolean blind</td><td>True/false changes the response</td><td>Slow</td><td>Different page lengths or content</td></tr>
+          <tr><td>Time blind</td><td>Delay encodes the answer</td><td>Very slow</td><td>Consistent response delays</td></tr>
+          <tr><td>Out-of-band</td><td>DNS or HTTP callback from the DB</td><td>Varies</td><td>Unexpected outbound requests</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> If asked for the fix, write "parameterised queries / prepared statements" first and explain that data is never concatenated into SQL structure. Mention WAF only as a compensating control, not the solution.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E8</span><h2>Cross-Site Scripting in Depth</h2><span class="tag">Deep dive · browser</span></div>
+    <div class="card full">
+      <p>XSS lets an attacker run JavaScript in another user's browser within the context of a trusted site. It is not the server that is compromised; the browser is, and it trusts the site's origin, so the script can read cookies, make requests as the user, or rewrite the page. In <b>reflected XSS</b> the payload is part of the request and echoed in the response, so the victim must open a crafted link. In <b>stored XSS</b> the payload is saved on the server, for example in a comment, and executed for everyone who views it, which makes it far more dangerous. A third form, <b>DOM-based XSS</b>, arises when client-side JavaScript writes data from the URL into the page without safe handling; the server never sees the payload.</p>
+      <p>Defence depends on context. <b>Output encoding</b> converts characters into safe representations for the place they are inserted — HTML body, attribute, script, or URL — and is the core control for reflected and stored XSS. A <b>Content Security Policy</b> restricts which scripts may execute and where they may load from, limiting the damage if a payload gets through. <b>HttpOnly</b> cookies cannot be read by JavaScript, which blunts session theft. Frameworks that auto-escape templates help, but developers must still avoid dangerous sinks such as <code>innerHTML</code> with untrusted data.</p>
+      <p>Testing should use a harmless proof such as a marker string that appears as text rather than executing, then confirm which context reflects it. Stored XSS is tested by saving the marker and revisiting the page as another user. The report should state the context, the impact, and the specific encoding needed, because the generic phrase "sanitise input" does not tell a developer what to change.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Type</th><th>Where payload lives</th><th>Victim required to click?</th><th>Typical location</th></tr></thead>
+        <tbody>
+          <tr><td>Reflected</td><td>In the request</td><td>Yes</td><td>Search box, error page</td></tr>
+          <tr><td>Stored</td><td>On the server</td><td>No, passive viewers hit</td><td>Comments, profiles, reviews</td></tr>
+          <tr><td>DOM-based</td><td>In client-side handling</td><td>Yes, via crafted URL</td><td>JavaScript using location or hash</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Say that XSS attacks the <i>user's browser</i>, not the server directly. That distinction, plus the reflected-versus-stored comparison, is usually enough to secure the core marks.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E9</span><h2>Exploit Writing and Buffer Overflows</h2><span class="tag">Deep dive · memory</span></div>
+    <div class="card full">
+      <p>A <b>buffer overflow</b> occurs when a program writes more data into a fixed-size buffer than it can hold, so the excess overwrites neighbouring memory. On the stack, a function's local variables and saved return address sit close together; a long input can overwrite the return address so that when the function finishes, execution continues wherever the attacker chooses. That is the classic path to <b>arbitrary code execution</b>: place shellcode in memory, point the return address at it, and the program runs the attacker's instructions with its own privileges.</p>
+      <p>The exploit-development workflow is methodical. First identify the vulnerable input and confirm the crash under a debugger. Then determine the exact <b>offset</b> — the number of bytes needed to reach the saved return address — often using a cyclic pattern and reading the offending value from the crash. Next find a reliable jump instruction in a loaded module, such as <code>JMP ESP</code>, so execution is redirected into the injected buffer. Finally place shellcode, accounting for <b>bad characters</b> that would break the payload, and test reliability across restarts.</p>
+      <p>Modern systems include several defences. <b>ASLR</b> randomises memory addresses so hardcoded jump addresses fail. <b>DEP / NX</b> marks stack and heap memory as non-executable so injected code will not run. <b>Stack canaries</b> place a known value before the return address and abort if it changes. <b>Fortified compiler functions</b> and safe languages eliminate many overwrite conditions. Attackers respond with information leaks to defeat ASLR and return-oriented programming to bypass DEP, but these raise the difficulty considerably.</p>
+    </div>
+    <div class="diagram">
+      <div class="dtitle">Fig · A stack frame before and after overflow</div>
+      <pre><code>  BEFORE                             AFTER long input
+  +----------------+                 +----------------+
+  | local buffer   | 64 bytes        | AAAAAAAAAAAAAA | attacker data
+  +----------------+                 +----------------+
+  | saved EBP      |                 | AAAAAAAAAAAAAA | overwritten
+  +----------------+                 +----------------+
+  | return address |  -&gt; normal code | JMP ESP address| redirected
+  +----------------+                 +----------------+
+  | caller's stack |                 | shellcode      | attacker code
+  +----------------+                 +----------------+</code></pre>
+      <p class="dcap">The overflow is powerful because it turns a data-writing bug into control of the instruction pointer. Defences break the chain at different points: canaries detect the overwrite, ASLR hides the target, and DEP prevents the payload from running.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Defence</th><th>What it blocks</th><th>How it is bypassed</th></tr></thead>
+        <tbody>
+          <tr><td>ASLR</td><td>Hardcoded addresses</td><td>Information leak to learn layout</td></tr>
+          <tr><td>DEP / NX</td><td>Execution of injected code</td><td>Return-oriented programming</td></tr>
+          <tr><td>Stack canary</td><td>Return-address overwrite</td><td>Leak or brute force the canary</td></tr>
+          <tr><td>Safe languages</td><td>Memory errors entirely</td><td>Unsafe libraries or wrappers</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> In an exploit-writing answer, show the sequence identify → debug → offset → return address → shellcode → automate. For defence, name ASLR, DEP, and canaries with the exact step each breaks.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E10</span><h2>Reverse Engineering in Depth</h2><span class="tag">Deep dive · analysis</span></div>
+    <div class="card full">
+      <p>Reverse engineering is the analysis of a system to recover its design and behaviour without relying on source code or documentation. In security it is used to understand malware, verify suspicious binaries, find vulnerabilities in compiled software, and develop compatible or patched versions. The process begins with <b>information gathering</b>: file type, hashes, strings, imports, headers, and whether the file is packed. <b>Static analysis</b> then reads the disassembly or decompiled code without running it. <b>Dynamic analysis</b> executes the sample in an isolated sandbox and observes files, registry, processes, and network traffic. Findings are documented with indicators of compromise and a description of behaviour.</p>
+      <p>Tools divide by purpose. A <b>disassembler</b> converts machine code to assembly; a <b>decompiler</b> reconstructs higher-level pseudocode; a <b>debugger</b> lets the analyst step through execution and inspect registers and memory. IDA Pro, Ghidra, and Radare2 are common disassemblers; OllyDbg, Immunity, WinDbg, and GDB are common debuggers. Fault-injection techniques deliberately alter execution to expose hidden behaviour. The syllabus's literal three stages — scanning, point processing, geometric model — describe reverse engineering of physical objects by 3D scanning and are retained for fidelity, but the security workflow above is the one used for software and malware.</p>
+      <p>Analysis must be done safely: a sandboxed, non-networked environment with snapshots, because malware may detect virtual machines or destroy data. Legally, reverse engineering must be authorised; examining a competitor's binary or a customer's software without permission can breach contract or law even when the motive is research.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Tool / technique</th><th>Category</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td>IDA Pro / Ghidra</td><td>Disassembler</td><td>Static code analysis, function mapping</td></tr>
+          <tr><td>OllyDbg / Immunity</td><td>User-mode debugger</td><td>Stepping through Windows binaries</td></tr>
+          <tr><td>GDB / WinDbg</td><td>Native / kernel debugger</td><td>Linux and Windows internals</td></tr>
+          <tr><td>Strings and hashes</td><td>Triage</td><td>Quick indicators and family matching</td></tr>
+          <tr><td>Sandbox execution</td><td>Dynamic analysis</td><td>Observing real behaviour and C2 traffic</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Contrast static and dynamic analysis explicitly: static is safe but can be obfuscated; dynamic shows real behaviour but the sample may detect the sandbox. A good answer says both are used together.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E11</span><h2>Email Security and Spoofing Defences</h2><span class="tag">Deep dive · communications</span></div>
+    <div class="card full">
+      <p>Email was designed for a more trusting internet, so its basic protocols provide little proof of identity. <b>Email hacking</b> covers unauthorised access to an account or manipulation of messages: phishing for credentials, password guessing and brute force, keylogging malware, session theft, interception on insecure networks, and spoofing of the sender address. Business email compromise often uses no malware at all — just a convincing impersonation of an executive requesting a payment.</p>
+      <p>Three standards make forgery detectable. <b>SPF</b> publishes, in DNS, which servers are allowed to send for a domain; a receiver checks the connecting server's address against that list. <b>DKIM</b> adds a signature over selected headers and the body, verified with a public key in DNS, proving the message was not altered in transit and came from an authorised sender. <b>DMARC</b> ties the two together: it requires alignment between the visible From domain and the authenticated domain, and tells receivers whether to monitor, quarantine, or reject failures while sending reports back to the owner. Deployment is gradual — start in monitoring mode, fix legitimate senders, then move to rejection.</p>
+      <p>User-side controls remain essential because a compromised legitimate account passes all three checks. MFA protects the mailbox, unusual-login alerts flag takeover, and payment procedures requiring out-of-band confirmation stop the classic CEO-fraud flow. Users should inspect the real sender address rather than the display name and treat urgent secrecy as a warning sign.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Control</th><th>Question answered</th><th>Stored in</th><th>Limitation</th></tr></thead>
+        <tbody>
+          <tr><td>SPF</td><td>Is this server allowed to send?</td><td>DNS TXT record</td><td>Can be spoofed in the Return-Path</td></tr>
+          <tr><td>DKIM</td><td>Was the message altered or forged?</td><td>Signature plus DNS key</td><td>Does not validate the visible From alone</td></tr>
+          <tr><td>DMARC</td><td>Do the identities align, and what do I do?</td><td>DNS policy record</td><td>Needs careful rollout and reporting</td></tr>
+          <tr><td>MFA</td><td>Is the person really the account owner?</td><td>Identity provider</td><td>Can be phished with real-time relays</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Describe SPF, DKIM, and DMARC as complementary, not alternatives. Then add that none of them helps if the attacker controls a legitimate mailbox, which is why payment verification procedures matter.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E12</span><h2>Incident Response in Depth</h2><span class="tag">Deep dive · process</span></div>
+    <div class="card full">
+      <p>Incident response is the organised handling of a breach to limit damage and restore normal operation. A widely used six-phase model begins with <b>preparation</b>: building the CSIRT, playbooks, contacts, and logging before anything happens. <b>Detection and analysis</b> turns alerts into an incident, collects indicators of compromise, and determines scope. <b>Containment</b> stops the spread, ideally in two steps — short-term isolation followed by a more durable fix. <b>Eradication</b> removes the attacker's access, persistence, and artefacts. <b>Recovery</b> restores systems from trusted media, patches the root cause, and monitors for recurrence. <b>Post-incident review</b> records lessons and improves controls.</p>
+      <p>Evidence must be collected in <b>order of volatility</b>: memory and network connections first, then disk, then backups, because the most fragile data disappears first. Images and hashes preserve integrity, and a chain of custody records who handled each item. Containment decisions are a balance: pulling the network cable preserves evidence but may destroy volatile data and interrupt the business, so the playbook should say which takes precedence for each system type.</p>
+      <p>Communication is part of the technical response. Legal, public relations, regulators, and customers may all need notification within fixed deadlines. A single incident lead coordinates messages so that technical staff are not improvising public statements. After recovery, the review should produce tracked actions with owners — otherwise the same incident recurs and the effort was wasted.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Key activity</th><th>Success measure</th></tr></thead>
+        <tbody>
+          <tr><td>Preparation</td><td>Team, playbooks, logging, drills</td><td>Time to assemble the team</td></tr>
+          <tr><td>Detection and analysis</td><td>Triage alerts, gather IoCs</td><td>Mean time to detect</td></tr>
+          <tr><td>Containment</td><td>Isolate hosts, block accounts</td><td>Spread stopped</td></tr>
+          <tr><td>Eradication</td><td>Remove persistence and malware</td><td>No remaining footholds</td></tr>
+          <tr><td>Recovery</td><td>Rebuild, patch, monitor</td><td>Service restored safely</td></tr>
+          <tr><td>Review</td><td>Lessons and tracked actions</td><td>Actions closed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>Worked timeline</h4>
+      <pre><code>09:12  SIEM alerts on impossible travel for a finance account
+09:20  Analyst confirms a second successful login from an unknown IP
+09:25  Incident declared; lead assigned; legal informed
+09:30  Account disabled and host isolated (short-term containment)
+09:45  Memory image captured before powering the host down
+11:00  Persistence found: a scheduled task calling a remote script
+13:00  Credentials reset, task removed, host rebuilt from a trusted image
+15:00  Service restored with MFA enforced; monitoring heightened
+Next day  Review records three actions: better alerting, faster isolation
+          playbook, and a phishing drill for the finance team</code></pre>
+    </div>
+    <div class="def"><b>Exam tip:</b> Use the six phases in order and add "order of volatility" for the forensics mark. Finish with the post-incident review, which is often the phase students forget.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E13</span><h2>Bluetooth and Mobile Security in Depth</h2><span class="tag">Deep dive · wireless endpoints</span></div>
+    <div class="card full">
+      <p>Bluetooth attacks exploit the short-range radio link and the tendency of devices to pair automatically. <b>Bluejacking</b> sends unsolicited messages and is mostly a nuisance. <b>Bluesnarfing</b> copies data such as contacts and messages from a vulnerable device. <b>Bluebugging</b> takes control of a device in discovery mode, making calls or reading messages. <b>Bluesmacking</b> is a denial of service that floods L2CAP packets. The common enabling conditions are discoverability, weak or absent pairing authentication, and unpatched firmware.</p>
+      <p>Mobile phone hacking targets the device as an endpoint. Warning signs include rapid battery drain, overheating, unfamiliar calls or messages, and account activity the owner does not recognise. Protection is a familiar set applied to a smaller device: install only trusted applications, avoid jailbreaking or rooting because it removes built-in sandboxing, keep the operating system updated, use a strong passcode, enable full-device encryption, use a password manager, avoid public Wi-Fi without a VPN, and choose app-based or hardware second factors rather than SMS because SIM-swap attacks can intercept codes.</p>
+      <p>At organisational level, <b>mobile device management</b> enforces passcode policy, remote wipe, application allow-lists, and encryption, and can separate corporate data from personal data. Loss or theft is then a manageable event rather than a breach. The same principle applies to Bluetooth: turn it off when not needed, reject unexpected pairing requests, and keep devices non-discoverable.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Attack</th><th>Effect</th><th>Enabling condition</th><th>Defence</th></tr></thead>
+        <tbody>
+          <tr><td>Bluejacking</td><td>Unsolicited messages</td><td>Discoverable device</td><td>Non-discoverable mode</td></tr>
+          <tr><td>Bluesnarfing</td><td>Theft of contacts and messages</td><td>Vulnerable stack</td><td>Patch firmware, authenticated pairing</td></tr>
+          <tr><td>Bluebugging</td><td>Remote control of the device</td><td>Discovery mode, weak pairing</td><td>Reject unknown pairing, 2FA</td></tr>
+          <tr><td>Bluesmacking</td><td>Device crash or hang</td><td>L2CAP flood accepted</td><td>Patching, limit unsolicited traffic</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def"><b>Exam tip:</b> Distinguish the four "blue" attacks by effect — annoy, steal, control, crash. That one-line summary is easy to recall and earns the classification marks.</div>
+  </div>
+
+  <div class="section">
+    <div class="head"><span class="num">E14</span><h2>Session Security, Hardening, and Exam Guidance</h2><span class="tag">Consolidation</span></div>
+    <div class="card full">
+      <p>Session hijacking ties the web and network parts of this module together. A stolen token defeats a strong password because the server trusts the token, not the person. Defences are specific: HTTPS everywhere, <b>HttpOnly</b> and <b>Secure</b> cookie flags, long random identifiers, binding the session to a user-agent or device fingerprint, short idle timeouts, and regeneration of the identifier at login and privilege change. Anomaly detection can spot two sessions from distant locations, and a logout should invalidate the token server-side rather than merely deleting the browser cookie.</p>
+      <p><b>Secure web-server hardening</b> collects the recurring controls: disable directory listing and default content, remove unused modules, run with least privilege, return generic errors, enforce TLS 1.2 or newer with HSTS, use parameterised queries and output encoding, patch the framework and dependencies, place a WAF in front, and centralise logs. The <b>CSIRT</b> owns detection and response, while the perimeter is layered from edge firewall through IDS/IPS and internal segmentation to host controls and logging. Honeypots contribute by feeding the SIEM real attacker behaviour with almost no false positives.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Layer</th><th>Representative control</th><th>Failure it prevents</th></tr></thead>
+        <tbody>
+          <tr><td>Perimeter</td><td>Firewall, DDoS scrubbing</td><td>Unwanted inbound traffic</td></tr>
+          <tr><td>Network</td><td>Segmentation, IDS/IPS</td><td>Lateral movement</td></tr>
+          <tr><td>Host</td><td>Patching, EDR, allow-listing</td><td>Malware execution</td></tr>
+          <tr><td>Application</td><td>Authentication, validation, encoding</td><td>Injection and XSS</td></tr>
+          <tr><td>Data</td><td>Encryption, backups, DLP</td><td>Theft and loss</td></tr>
+          <tr><td>People</td><td>Training, IR plan</td><td>Social engineering, panic</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full">
+      <h4>What to write for 3 marks and for 14 marks</h4>
+      <p><b>Three marks:</b> give three labelled points. For "three differences between IDS and IPS", write placement, action, and failure mode. <b>Fourteen marks:</b> define, tabulate, explain a mechanism, give a worked example, give defences at several layers, and evaluate. A question on web attacks can cover SQLi and XSS with a type table, a payload or query example, the root cause, the definitive fix, and the supporting controls. A question on incident response can use the six phases with a timeline and an order-of-volatility point.</p>
+    </div>
+    <div class="card full">
+      <h4>Module glossary</h4>
+      <p><b>Control plane</b> — routing and management functions. <b>DMZ</b> — a segment for public servers. <b>Honeypot</b> — a decoy that invites attack. <b>IDS</b> — passive detection; <b>IPS</b> — inline prevention. <b>Parameterised query</b> — SQL with bound values. <b>XSS</b> — script execution in a victim's browser. <b>ASLR</b> — address randomisation. <b>IoC</b> — an indicator of compromise. <b>Order of volatility</b> — collecting fragile evidence first.</p>
+    </div>
+    <div class="def"><b>Exam tip:</b> This module is large, so answers benefit from structure more than prose. A table plus one worked example plus a layered defence list will outperform an unstructured essay every time.</div>
+  </div>
+
+<nav class="pagenav">
+    <a class="prev" href="module-3.html">&larr; Module 3 · Vulnerabilities &amp; Attacks</a>
+    <a class="next" href="module-5.html">Module 5 · Anti-forensics &rarr;</a>
+  </nav>
+
+</div>
+
+<footer class="site">
+  <div class="inner">
+    <div class="ai-note"><span class="ai-badge">AI</span>Written by an AI agent from the student's notes — verify anything exam-critical against the syllabus or your lecturer.</div>
+    <div><span class="brand2">Study Notes</span> · Routers, firewalls, honeypots, IDS/IPS, web, SQLi, XSS, RE, email, incident response, Bluetooth and mobile.</div>
+    <div><a href="index.html">Home</a> · <a href="module-5.html">Next module</a></div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/read-progress.js"></script>
+<script>
+/* Offline support: register the root service worker. No-op on file:// where
+   service workers are unsupported, and on browsers without the API. */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  if(location.protocol==="file:") return;
+  var root = location.pathname.replace(/\/[^\/]*$/, "/");
+  /* subject pages sit one level down — walk up to the repo root */
+  if(/\/(ethical-hacking-site|renewable-energy-site|industrial-safety-site|machine-learning-site)\/$/.test(root))
+    root = root.replace(/[^\/]+\/$/, "");
+  addEventListener("load", function(){
+    navigator.serviceWorker.register(root+"sw.js", {scope:root}).catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>
