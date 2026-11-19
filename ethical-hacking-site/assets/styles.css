@@ -609,3 +609,7 @@ pre{max-height:420px;overflow:auto}
 .toc ol{columns:2;column-gap:28px;margin:10px 0 0;padding-left:20px;font-size:13px}
 .toc li{break-inside:avoid;margin:3px 0}
 @media (max-width:600px){.toc ol{columns:1}.section{margin-bottom:38px}}
+
+/* ---------- table wrappers: keep wide tables inside their own scroller ---------- */
+.table-wrap,.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.table-wrap>table,.tablewrap>table{margin:0}
