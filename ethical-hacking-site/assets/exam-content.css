@@ -117,3 +117,5 @@
 @media (max-width:600px){.exam-content .formula{font-size:14.5px}.exam-content pre{font-size:14px}}
 /* Links on zebra-striped table rows use ink for guaranteed contrast */
 .exam-content table a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+/* Long formula lines wrap only when they cannot fit horizontally */
+.formula.wraplong,pre.wraplong{white-space:pre-wrap!important;overflow-wrap:anywhere!important}

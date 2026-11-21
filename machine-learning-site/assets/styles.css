@@ -636,3 +636,7 @@ pre{max-height:420px;overflow:auto}
 /* ---------- table wrappers: keep wide tables inside their own scroller ---------- */
 .table-wrap,.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .table-wrap>table,.tablewrap>table{margin:0}
+
+/* Only overlong preformatted blocks wrap; aligned derivations stay intact */
+.formula.wraplong,pre.wraplong{white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+.katex-display{max-width:100%}

@@ -345,4 +345,34 @@
     card.addEventListener('pointermove', onMove);
   });
 
+
+  /* ---------- Fit overlong equations and code to the content width ---------- */
+  (function () {
+    function fitMath() {
+      [].slice.call(document.querySelectorAll(".katex-display")).forEach(function (d) {
+        d.style.fontSize = "";
+        var avail = d.clientWidth - 6;
+        var visible = d.querySelector(".katex-html") || d.querySelector(".katex");
+        var need = visible ? visible.scrollWidth : d.scrollWidth;
+        if (need > avail + 6 && avail > 0) {
+          var scale = Math.max(0.50, avail / need);
+          d.style.fontSize = (scale * 100).toFixed(1) + "%";
+        }
+      });
+      [].slice.call(document.querySelectorAll(".formula, pre")).forEach(function (el) {
+        if (el.scrollWidth > el.clientWidth + 2) el.classList.add("wraplong");
+      });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", fitMath);
+    } else {
+      fitMath();
+    }
+    var t = 0;
+    window.addEventListener("resize", function () {
+      clearTimeout(t);
+      t = setTimeout(fitMath, 150);
+    });
+    window.addEventListener("load", function () { fitMath(); setTimeout(fitMath, 450); });
+  })();
 })();
