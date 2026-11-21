@@ -1,0 +1,296 @@
+/* ==========================================================================
+   Editorial paper skin for the study notes.
+   Loaded last on notes / exam-resource pages only. Everything is driven by
+   the active theme variables so all eight palettes and light/dark/AMOLED keep
+   working; this file only changes how the material is laid out.
+   ========================================================================== */
+
+html[data-mode="light"]  { --ed-paper: color-mix(in srgb, #faf7f0 90%, var(--bg)); }
+html[data-mode="dark"]   { --ed-paper: color-mix(in srgb, #201d1a 16%, var(--bg)); }
+html[data-mode="amoled"] { --ed-paper: #000000; }
+
+/* ---------- page surface ---------- */
+body,
+.wrap,
+.main,
+main {
+  background: var(--ed-paper) !important;
+  box-shadow: none !important;
+  text-align: left;
+}
+
+/* ---------- typography ---------- */
+body {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.72;
+  color: var(--ink);
+  -webkit-font-smoothing: auto;
+  text-rendering: auto;
+}
+
+h1, h2, h3, h4, .hero h1, .q-title, .section h2 {
+  font-family: var(--serif) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--ink);
+  text-align: left;
+}
+
+p, li, .lede, .q-text, .ans-body, .ans-body p, .desc,
+.def, .note, .tip, .tablewrap, .table-wrap, .card {
+  text-align: left !important;
+}
+
+/* ---------- masthead ---------- */
+.hero {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  padding: 54px 20px 30px !important;
+  overflow: visible !important;
+}
+.hero .inner { max-width: 900px; }
+.hero h1 {
+  font-size: clamp(34px, 5.4vw, 58px) !important;
+  line-height: 1.05 !important;
+  margin: 10px 0 18px !important;
+}
+.hero .lede {
+  font-size: 19px !important;
+  line-height: 1.65 !important;
+  max-width: 68ch;
+  color: var(--ink-2) !important;
+}
+.hero .meta-row {
+  margin-top: 26px !important;
+  gap: 0 18px !important;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.hero .chip {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--muted) !important;
+  font-family: var(--sans);
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 !important;
+}
+.hero .chip.red { color: var(--accent-ink, var(--accent)) !important; }
+
+.hero .kicker {
+  color: var(--ink-2) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  padding: 0 0 4px !important;
+  font-size: 11px !important;
+}
+.moddd-label { color: var(--ink-2) !important; }
+
+/* ---------- sections: big numerals + hairline rules ---------- */
+.section {
+  margin: 0 0 56px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.section .head,
+.q-head {
+  display: grid !important;
+  grid-template-columns: 72px 1fr auto;
+  gap: 14px;
+  align-items: baseline;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 0 12px !important;
+  margin: 0 0 22px !important;
+}
+.section .head .num,
+.q-head .q-no {
+  font-family: var(--serif) !important;
+  font-size: 46px !important;
+  font-weight: 700 !important;
+  line-height: 0.9 !important;
+  color: var(--accent-ink, var(--accent)) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+.section .head h2,
+.q-head .q-title {
+  font-size: clamp(24px, 3.2vw, 34px) !important;
+  margin: 0 !important;
+}
+.section .head .tag,
+.q-head .marks {
+  background: transparent !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  color: var(--muted) !important;
+  font-family: var(--sans);
+  font-size: 10.5px !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 9px !important;
+}
+
+/* ---------- content blocks lose their card chrome ---------- */
+.card,
+.card.full,
+.q,
+.qpaper,
+.exam-content .q {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 30px !important;
+}
+.q + .q,
+.qpaper + .qpaper,
+.exam-content .q + .exam-content .q {
+  border-top: 1px solid var(--line) !important;
+  padding-top: 30px !important;
+}
+.card + .card,
+.section .card + .card {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+}
+.def, .note, .tip, .pitfall {
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 1px solid var(--accent) !important;
+  border-radius: 0 !important;
+  padding: 4px 0 4px 18px !important;
+  margin: 18px 0 !important;
+  color: var(--ink-2) !important;
+  font-size: 16px !important;
+}
+.def b, .note b, .tip b { color: var(--accent-ink, var(--accent)); }
+
+/* ---------- equations and code ---------- */
+.formula, pre, .exam-content .formula, .exam-content pre {
+  background: color-mix(in srgb, var(--ink) 4%, var(--ed-paper)) !important;
+  border: 0 !important;
+  border-top: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+  padding: 16px 18px !important;
+  margin: 20px 0 !important;
+  font-size: 15.5px !important;
+  line-height: 1.85 !important;
+  text-align: left !important;
+}
+.katex-display { margin: 0.7em 0 !important; }
+
+/* ---------- tables: hairline grid, no fills ---------- */
+table, .exam-content table { border-collapse: collapse !important; width: 100%; }
+thead th,
+.exam-content thead th {
+  background: transparent !important;
+  color: var(--muted) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ink) !important;
+  font-family: var(--sans);
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 10px !important;
+}
+tbody td, .exam-content tbody td {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  padding: 10px !important;
+  vertical-align: top;
+}
+tbody tr:nth-child(even),
+.exam-content tbody tr:nth-child(even) { background: transparent !important; }
+
+/* ---------- collapsibles and navigation ---------- */
+.toc, .ans, details {
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.toc summary, .ans summary, details summary {
+  font-family: var(--sans);
+  font-size: 12px !important;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2) !important;
+  padding: 12px 0 !important;
+}
+.ans-toggle, .ansbtn, .show-answer {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--accent-ink, var(--accent)) !important;
+  font-family: var(--sans);
+  font-size: 12px !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 0 !important;
+}
+.toc a, .exam-content a, a { text-decoration: underline; text-underline-offset: 3px; }
+.exam-content .eyebrow,
+.exam-content .badge.acc {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  padding: 0 0 2px !important;
+}
+
+/* ---------- topbar stays quiet ---------- */
+.topbar {
+  background: var(--ed-paper) !important;
+  border-bottom: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+.topnav a.active, .moddd-btn.active, .theme-mode-btn.active,
+.ans-toggle[aria-expanded="true"], .ansbtn[aria-expanded="true"] {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 2px solid var(--accent) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--accent-ink, var(--accent)) !important;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 640px) {
+  .hero { padding: 34px 16px 22px !important; }
+  .hero .lede { font-size: 17px !important; }
+  .section .head, .q-head { grid-template-columns: 46px 1fr; gap: 8px; }
+  .section .head .num, .q-head .q-no { font-size: 34px !important; }
+  .section .head .tag, .q-head .marks { grid-column: 2; justify-self: start; }
+  body { font-size: 16px; }
+}

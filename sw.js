@@ -14,7 +14,7 @@
    Bump VERSION on every deploy or clients keep the old bundle forever.
    =========================================================================== */
 
-const VERSION = "s7-v38";
+const VERSION = "s7-v40";
 const CORE = VERSION + "-core";
 
 /* Everything needed to read any page with no network.
@@ -47,7 +47,7 @@ function buildList() {
   const out = ["./", "./index.html", "./manifest.json", "./favicon.svg",
                "./icon-192.png", "./icon-512.png", "./search-index.json",
                "./assets/theme-config.js",
-               "./assets/theme-handler.js", "./assets/theme-bridge.js"];
+               "./assets/theme-handler.js", "./assets/theme-bridge.js", "./assets/editorial.css"];
   for (const s of SUBJECTS) {
     for (const p of PAGES[s]) out.push(`./${s}/${p}.html`);
     out.push(`./${s}/assets/styles.css`);
