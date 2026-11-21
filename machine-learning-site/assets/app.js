@@ -129,10 +129,15 @@
   /* ---------- Desktop Modules dropdown ---------- */
   var moddd=document.querySelector(".moddd");
   var modBtn=document.querySelector(".moddd-btn");
-  function openModdd(){ if(moddd){moddd.classList.add("open"); if(modBtn)modBtn.setAttribute("aria-expanded","true");} }
+  function openModdd(){ if(moddd){moddd.classList.add("open"); if(modBtn)modBtn.setAttribute("aria-expanded","true");}
+    var tp=document.querySelector(".theme-panel"); if(tp)tp.classList.remove("show");
+    var tb=document.querySelector(".theme-toggle"); if(tb)tb.setAttribute("aria-expanded","false"); }
   function closeModdd(){ if(moddd){moddd.classList.remove("open"); if(modBtn)modBtn.setAttribute("aria-expanded","false");} }
   if(moddd && modBtn){
-    modBtn.addEventListener("click",function(e){ e.stopPropagation(); var o=moddd.classList.toggle("open"); modBtn.setAttribute("aria-expanded",o?"true":"false"); });
+    modBtn.addEventListener("click",function(e){ e.stopPropagation(); var o=moddd.classList.toggle("open");
+      modBtn.setAttribute("aria-expanded",o?"true":"false");
+      if(o){ var tp=document.querySelector(".theme-panel"); if(tp)tp.classList.remove("show");
+             var tb=document.querySelector(".theme-toggle"); if(tb)tb.setAttribute("aria-expanded","false"); } });
     moddd.addEventListener("mouseenter",openModdd);
     moddd.addEventListener("mouseleave",closeModdd);
     document.addEventListener("click",function(e){ if(moddd.classList.contains("open") && !moddd.contains(e.target)) closeModdd(); });
@@ -149,6 +154,10 @@
       e.stopPropagation();
       var open = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        var tp = document.querySelector(".theme-panel"); if (tp) tp.classList.remove("show");
+        var tb = document.querySelector(".theme-toggle"); if (tb) tb.setAttribute("aria-expanded","false");
+      }
     });
     nav.addEventListener("click", function (e) {
       if (e.target.tagName === "A") closeNav();

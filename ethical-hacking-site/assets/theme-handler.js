@@ -350,6 +350,12 @@
       e.stopPropagation();
       var open = panel.classList.toggle("show");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        var m = document.querySelector(".moddd"); if (m) m.classList.remove("open");
+        var mb = document.querySelector(".moddd-btn"); if (mb) mb.setAttribute("aria-expanded", "false");
+        var nav = document.querySelector(".topnav"); if (nav) nav.classList.remove("open");
+        var nt = document.querySelector(".navtoggle"); if (nt) nt.setAttribute("aria-expanded", "false");
+      }
     });
     document.addEventListener("click", function (e) {
       if (!wrap.contains(e.target)) {
