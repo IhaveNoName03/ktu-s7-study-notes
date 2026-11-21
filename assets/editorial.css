@@ -319,3 +319,44 @@ html { --ed-line: color-mix(in srgb, var(--ink) 24%, transparent); }
   border-color: var(--ed-line) !important;
 }
 .card p, .ans-body p, .q-text, .def, .note, .tip, .lede { max-width: 72ch; }
+
+/* ---------- fixes found in screenshots ---------- */
+/* Static masthead: no sticky header covering text while scrolling. */
+.topbar { position: static !important; }
+html { scroll-padding-top: 12px; }
+h2, h3, section, .q, .hero { scroll-margin-top: 12px; }
+
+/* The floating back-to-top button covered section tags; navigation is
+   available through the TOC and the top bar, so drop it on notes pages. */
+.backtop { display: none !important; }
+
+/* One accent hue only: mix the palette accent toward the theme ink rather
+   than using --accent-ink, which is a different hue in some palettes. */
+html { --ed-accent: color-mix(in srgb, var(--accent) 78%, var(--ink)); }
+.section .head .num, .q-head .q-no,
+.def b, .note b, .tip b, .kicker b { color: var(--ed-accent) !important; }
+.section .head, .q-head { align-items: center !important; }
+.section .head .tag, .q-head .marks {
+  font-size: 12px !important;
+  color: var(--ink-2) !important;
+  border-color: var(--ed-line) !important;
+  letter-spacing: 0.08em;
+}
+
+/* Controls stay legible in every mode. */
+.navtoggle, .theme-toggle, .moddd-btn {
+  border: 1px solid var(--ed-line) !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+  font-weight: 700 !important;
+}
+.brand { color: var(--ink) !important; }
+.brand span { color: var(--muted) !important; }
+
+/* Visible scrollbar in dark modes. */
+* { scrollbar-color: var(--ink-2) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: var(--ink-2); border-radius: 0; }
+*::-webkit-scrollbar-track { background: transparent; }
