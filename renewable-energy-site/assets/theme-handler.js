@@ -124,7 +124,21 @@
        Pale accents (Catppuccin pink, Nord frost) need dark text; strong
        accents (Swiss red) need white. Computed from accent luminance. */
     var acc = (c.brand && c.brand[1]) || "#E0241B";
-    S("--on-accent", luminance(acc) > 0.6 ? (c.bg || "#111418") : "#ffffff");
+    /* Pick whichever of white / the theme ink actually has more contrast on
+       the accent fill, then blend until 4.5:1 is reached. A luminance
+       threshold alone fails on mid-bright accents (gruvbox orange, nord
+       frost, catppuccin pink, solarized blue). */
+    var onLight = "#ffffff", onDark = "#000000";
+    var cLight = contrastHex(onLight, acc), cDark = contrastHex(onDark, acc);
+    var pick = cLight >= cDark ? onLight : onDark;
+    if (Math.max(cLight, cDark) < 4.5) {
+      var toward = cLight >= cDark ? "#ffffff" : "#000000";
+      for (var t = 0.05; t <= 1.0001; t += 0.05) {
+        var cand = mixHex(pick, toward, t);
+        if (contrastHex(cand, acc) >= 4.5) { pick = cand; break; }
+      }
+    }
+    S("--on-accent", pick);
 
 
     /* Contrast guards: keep secondary/accent text readable in every palette.

@@ -115,3 +115,5 @@
 @media (max-width:600px){.exam-content .q{padding:16px}.exam-content .ans-body{max-width:none}}
 
 @media (max-width:600px){.exam-content .formula{font-size:14.5px}.exam-content pre{font-size:14px}}
+/* Links on zebra-striped table rows use ink for guaranteed contrast */
+.exam-content table a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
