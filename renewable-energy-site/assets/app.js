@@ -34,7 +34,10 @@
     });
     d.appendChild(ol);
     var first = hs[0];
-    first.parentNode.insertBefore(d, first);
+    /* Never insert the TOC inside a sticky .head — at desktop widths that
+       makes it collide with the section body. Place it before the section. */
+    var host = first.closest(".section, .q") || first;
+    host.parentNode.insertBefore(d, host);
   })();
 
   /* ---------- Reading progress bar ---------- */

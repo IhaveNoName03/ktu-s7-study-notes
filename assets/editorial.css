@@ -360,3 +360,23 @@ html { --ed-accent: color-mix(in srgb, var(--accent) 78%, var(--ink)); }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-thumb { background: var(--ink-2); border-radius: 0; }
 *::-webkit-scrollbar-track { background: transparent; }
+
+/* Section headers must not stick over their own body text on desktop. */
+.section .head, .q-head { position: static !important; }
+
+/* ---------- undo the desktop two-column rail layout ---------- */
+/* layout.css puts .head in a 150px grid column beside the body at >=900px.
+   The editorial layout is a single reading column: heading above content. */
+.section, .section.rv {
+  display: block !important;
+  grid-template-columns: none !important;
+  column-gap: 0 !important;
+  align-items: normal !important;
+}
+.section .head, .q-head, .section > .section {
+  grid-column: auto !important;
+  width: 100% !important;
+  position: static !important;
+  border-left: 0 !important;
+  padding-left: 0 !important;
+}
