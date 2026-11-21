@@ -380,3 +380,18 @@ html { --ed-accent: color-mix(in srgb, var(--accent) 78%, var(--ink)); }
   border-left: 0 !important;
   padding-left: 0 !important;
 }
+
+/* ---------- dropdown surfaces must never be transparent ---------- */
+.moddd-panel, .theme-panel, .theme-dd, .topnav {
+  background: var(--ed-paper) !important;
+  color: var(--ink) !important;
+}
+@media (max-width: 860px) {
+  .moddd-panel {
+    background: var(--ed-paper) !important;
+    border: 1px solid var(--ed-line) !important;
+    box-shadow: 0 10px 26px color-mix(in srgb, var(--ink) 14%, transparent) !important;
+    border-radius: 2px !important;
+    padding: 10px 14px !important;
+  }
+}
