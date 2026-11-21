@@ -5,7 +5,7 @@
    working; this file only changes how the material is laid out.
    ========================================================================== */
 
-html[data-mode="light"]  { --ed-paper: color-mix(in srgb, #faf7f0 90%, var(--bg)); }
+html[data-mode="light"]  { --ed-paper: #ffffff; }
 html[data-mode="dark"]   { --ed-paper: color-mix(in srgb, #201d1a 16%, var(--bg)); }
 html[data-mode="amoled"] { --ed-paper: #000000; }
 
