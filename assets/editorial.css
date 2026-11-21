@@ -294,3 +294,28 @@ tbody tr:nth-child(even),
   .section .head .tag, .q-head .marks { grid-column: 2; justify-self: start; }
   body { font-size: 16px; }
 }
+
+/* ---------- small labels and mobile navigation ---------- */
+.qnum, .exam-content .qnum {
+  color: var(--accent-ink, var(--accent)) !important;
+  font-family: var(--sans) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dcap, .card .dcap { color: var(--ink-2) !important; }
+
+@media (max-width: 860px) {
+  .topnav {
+    background: var(--ed-paper) !important;
+    box-shadow: 0 12px 30px color-mix(in srgb, var(--ink) 14%, transparent) !important;
+    border-bottom: 1px solid var(--line) !important;
+  }
+}
+
+/* ---------- final editorial refinements ---------- */
+html { --ed-line: color-mix(in srgb, var(--ink) 24%, transparent); }
+.section .head, .q-head, .card + .card, .ans, .toc, details {
+  border-color: var(--ed-line) !important;
+}
+.card p, .ans-body p, .q-text, .def, .note, .tip, .lede { max-width: 72ch; }
